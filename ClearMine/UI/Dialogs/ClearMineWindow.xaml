@@ -1,0 +1,23 @@
+﻿<Window x:Class="ClearMine.UI.Dialogs.ClearMineWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:ClearMine.UI.Controls"
+        Loaded="OnLoaded"
+        Title="ClearMineWindow" Height="300" Width="300">
+    <Grid>
+        <ItemsControl ItemsSource="{Binding Cells}" 
+                      MouseDown="OnMineGroudMouseDown"
+                      MouseUp="OnMineGroudMouseUp">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <UniformGrid />
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <local:MineCellControl />
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+    </Grid>
+</Window>
