@@ -9,11 +9,11 @@
 
         void StartNew();
 
-        void TryMarkAt(int column, int row, CellState newState);
+        void TryMarkAt(MineCell cell, CellState newState);
 
-        bool TryDigAt(int column, int row);
+        bool TryDigAt(MineCell cell);
 
-        bool TryExpandAt(int column, int row);
+        bool TryExpandAt(MineCell cell);
 
         MineCell GetCell(int column, int row);
 

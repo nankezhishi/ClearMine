@@ -21,7 +21,7 @@
         {
             if (width <= 0 || height <= 0)
             {
-                throw new ArgumentOutOfRangeException("The playground cannot be zero in size");
+                throw new ArgumentOutOfRangeException("width", "The playground cannot be zero in size");
             }
             if (mines >= width * height)
             {
@@ -45,21 +45,15 @@
             this.GameState = GameState.Initialized;
         }
 
-        public bool TryExpandAt(int column, int row)
+        public bool TryExpandAt(MineCell cell)
         {
             VerifyStateIs(GameState.Initialized, GameState.Started);
 
-            return cells.TryExpandFrom(GetCell(column, row));
-        }
-
-        public void TryMarkAt(int column, int row, CellState newState)
-        {
-            TryMarkAt(GetCell(column, row), newState);
+            return cells.TryExpandFrom(cell);
         }
 
         public void TryMarkAt(MineCell cell, CellState newState)
         {
-            Contract.Requires<ArgumentNullException>(cell != null);
             VerifyStateIs(GameState.Initialized, GameState.Started);
 
             cell.State = newState;
@@ -70,14 +64,8 @@
             }
         }
 
-        public bool TryDigAt(int column, int row)
-        {
-            return TryDigAt(GetCell(column, row));
-        }
-
         public bool TryDigAt(MineCell cell)
         {
-            Contract.Requires<ArgumentNullException>(cell != null);
             VerifyStateIs(GameState.Initialized, GameState.Started);
             if (watch == null)
             {

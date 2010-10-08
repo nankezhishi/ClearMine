@@ -8,7 +8,7 @@
     /// <summary>
     /// Interaction logic for ClearMineWindow.xaml
     /// </summary>
-    public partial class ClearMineWindow : Window
+    internal partial class ClearMineWindow : Window
     {
         private ClearMineViewModel vm = new ClearMineViewModel();
 

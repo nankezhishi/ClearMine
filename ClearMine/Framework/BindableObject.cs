@@ -27,7 +27,7 @@
             {
                 MethodBase caller = new StackTrace().GetFrame(1).GetMethod();
                 if (!caller.IsPropertySetter())
-                    throw new InvalidProgramException("SetProperty method without propertyName parameter can only be called from property setter.");
+                    throw new InvalidProgramException("This method can only be called from property setter.");
 
                 string propertyName = caller.Name.Substring(4);
                 SetProperty(ref property, newValue, propertyName);

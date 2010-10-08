@@ -1,5 +1,6 @@
 ﻿namespace ClearMine.Logic
 {
+    using System;
     using ClearMine.Framework;
 
     internal class MineCell : BindableObject
@@ -25,6 +26,11 @@
         {
             get { return state; }
             set { SetProperty(ref state, value); }
+        }
+
+        public override string ToString()
+        {
+            return String.Format("({0}, {1}) : {2}", Column, Row, MinesNearby);
         }
     }
 }

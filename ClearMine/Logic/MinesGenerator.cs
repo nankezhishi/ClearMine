@@ -12,17 +12,18 @@
         {
             Contract.Requires<ArgumentNullException>(grid != null);
 
-            int total = grid.Width * grid.Height;
             grid.Clear();
 
-            for (int i = 0; i < grid.Width; ++i)
+            // Generate cells row by row. So first Height then Width;
+            for (int row = 0; row < grid.Height; ++row)
             {
-                for (int j = 0; j < grid.Height; ++j)
+                for (int column = 0; column < grid.Width; ++column)
                 {
-                    grid.Add(new MineCell(i, j));
+                    grid.Add(new MineCell(column, row));
                 }
             }
 
+            int total = grid.Width * grid.Height;
             while (mines > 0)
             {
                 int index = random.Next(total);
@@ -33,12 +34,9 @@
                 }
             }
 
-            for (int i = 0; i < grid.Width; ++i)
+            foreach(var cell in grid)
             {
-                for (int j = 0; j < grid.Height; ++j)
-                {
-                    grid.GetCell(i, j).MinesNearby = grid.GetCellsAround(i, j, cell => cell.HasMine).Count();
-                }
+                cell.MinesNearby = grid.GetCellsAround(cell, c => c.HasMine).Count();
             }
 
             return grid;

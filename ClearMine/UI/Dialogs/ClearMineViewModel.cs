@@ -7,7 +7,7 @@
 
     internal class ClearMineViewModel : ViewModelBase
     {
-        private ClearMineGame game = new ClearMineGame();
+        private IClearMine game = new ClearMineGame();
 
         public ClearMineViewModel()
         {

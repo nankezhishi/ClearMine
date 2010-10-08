@@ -5,6 +5,7 @@
     using System.Collections.ObjectModel;
     using System.ComponentModel;
     using System.Diagnostics.Contracts;
+    using System.Text;
 
     internal class MinesGrid : ObservableCollection<MineCell>
     {
@@ -90,10 +91,10 @@
 
             if (currentCell.MinesNearby == 0)
             {
-                foreach (var nearCell in GetCellsAround(currentCell.Column, currentCell.Row, cell => cell.State == CellState.Normal || cell.State == CellState.Question))
+                foreach (var nearCell in GetCellsAround(currentCell, cell => cell.State == CellState.Normal || cell.State == CellState.Question))
                 {
                     nearCell.State = CellState.Shown;
-                    ExpandFrom(currentCell);
+                    ExpandFrom(nearCell);
                 }
             }
         }
@@ -104,7 +105,7 @@
 
             if (currentCell.State == CellState.Shown)
             {
-                var cellsNearBy = GetCellsAround(currentCell.Column, currentCell.Row, cell => cell.State == CellState.Normal || cell.State == CellState.Question);
+                var cellsNearBy = GetCellsAround(currentCell, cell => cell.State == CellState.Normal || cell.State == CellState.Question);
 
                 if (CheckIfAllMarked(cellsNearBy))
                 {
@@ -124,20 +125,21 @@
             return true;
         }
 
-        public IEnumerable<MineCell> GetCellsAround(int column, int row, Predicate<MineCell> condition)
+        public IEnumerable<MineCell> GetCellsAround(MineCell current, Predicate<MineCell> condition)
         {
-            Verify(column, row);
+            int column = current.Column;
+            int row = current.Row;
 
             for (int i = column - 1; i <= column + 1; ++i)
             {
-                if (i < 0 || i >= column)
+                if (i < 0 || i >= Width)
                 {
                     continue;
                 }
 
                 for (int j = row - 1; j <= row + 1; ++j)
                 {
-                    if (j < 0 || j >= height || (i == column && j == row) /*Exclude it self*/)
+                    if (j < 0 || j >= Height || (i == column && j == row) /*Exclude it self*/)
                     {
                         continue;
                     }
@@ -156,6 +158,29 @@
             Verify(column, row);
 
             return row * width + column;
+        }
+
+        public override string ToString()
+        {
+            StringBuilder strBuilder = new StringBuilder((Width + 1) * Height);
+            for (int i = 0; i < Width; i++)
+            {
+                for (int j = 0; j < Height; j++)
+                {
+                    var cell = GetCell(i, j);
+                    if (cell.HasMine)
+                    {
+                        strBuilder.Append("*");
+                    }
+                    else
+                    {
+                        strBuilder.Append(cell.MinesNearby);
+                    }
+                }
+                strBuilder.Append(Environment.NewLine);
+            }
+
+            return strBuilder.ToString();
         }
 
         private void Verify(int column, int row)

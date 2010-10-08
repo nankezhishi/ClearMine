@@ -3,7 +3,7 @@
     using System.Windows;
     using System.Windows.Controls;
 
-    public class MineCellControl : Control
+    internal class MineCellControl : Control
     {
         static MineCellControl()
         {
