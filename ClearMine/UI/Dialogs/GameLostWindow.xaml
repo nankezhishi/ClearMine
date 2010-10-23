@@ -1,0 +1,18 @@
+﻿<OptionDialog x:Class="ClearMine.UI.Dialogs.GameLostWindow"
+              x:ClassModifier="internal"
+              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+              WindowStartupLocation="CenterOwner"
+              Message="You lost this game!"
+              Title="Clear Mine">
+    <OptionDialog.Options>
+        <x:Array Type="{x:Type Button}">
+            <Button Margin="0,0,7,0"
+                    Content="_Try it again"
+                    Click="OnTryAgainClick" />
+            <Button IsDefault="True"
+                    Content="Start _new game"
+                    Click="OnNewGameButtonClick" />
+        </x:Array>
+    </OptionDialog.Options>
+</OptionDialog>

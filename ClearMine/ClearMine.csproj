@@ -49,7 +49,7 @@
     <CodeContractsCacheAnalysisResults>False</CodeContractsCacheAnalysisResults>
     <CodeContractsRuntimeCheckingLevel>Full</CodeContractsRuntimeCheckingLevel>
     <CodeContractsReferenceAssembly>%28none%29</CodeContractsReferenceAssembly>
-    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
     <PlatformTarget>x86</PlatformTarget>
@@ -102,7 +102,17 @@
     <Compile Include="UI\Dialogs\ClearMineWindow.xaml.cs">
       <DependentUpon>ClearMineWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\Dialogs\GameLostWindow.xaml.cs">
+      <DependentUpon>GameLostWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Dialogs\GameWonWindow.xaml.cs">
+      <DependentUpon>GameWonWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Utilities\GenericExtension.cs" />
+    <Page Include="Themes\Common.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Themes\DefaultSkin.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -112,6 +122,14 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="UI\Dialogs\ClearMineWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Dialogs\GameLostWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Dialogs\GameWonWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -164,7 +182,15 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Framework\Interaction\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ClearMine.Framework\ClearMine.Framework.csproj">
+      <Project>{730AFF67-B857-42CD-9DAF-E94FC79BA721}</Project>
+      <Name>ClearMine.Framework</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

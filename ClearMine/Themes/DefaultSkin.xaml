@@ -1,7 +1,23 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    <BitmapImage x:Key="FlagImage"
-                 UriSource="..\Images\Flag.png" />
-    <BitmapImage x:Key="QuestionMark"
-                 UriSource="..\Images\QuestionMark.png" />
+    <VisualBrush x:Key="FlagImage"
+                 Stretch="Uniform">
+        <VisualBrush.Visual>
+            <Image Source="..\Images\Flag.png" />
+        </VisualBrush.Visual>
+    </VisualBrush>
+
+    <VisualBrush x:Key="QuestionMark"
+                 Stretch="Uniform">
+        <VisualBrush.Visual>
+            <Image Source="..\Images\QuestionMark.png" />
+        </VisualBrush.Visual>
+    </VisualBrush>
+
+    <Style TargetType="{x:Type Button}">
+        <Setter Property="Padding"
+                Value="10,2" />
+        <Setter Property="MinWidth"
+                Value="75" />
+    </Style>
 </ResourceDictionary>

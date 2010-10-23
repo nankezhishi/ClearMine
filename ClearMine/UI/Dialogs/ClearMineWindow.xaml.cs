@@ -20,7 +20,7 @@
 
         private void OnLoaded(object sender, RoutedEventArgs e)
         {
-            vm.Start(9, 9, 10);
+            vm.Start(new Size(9, 9), 10);
         }
 
         private void OnMineGroudMouseDown(object sender, MouseButtonEventArgs e)

@@ -24,22 +24,18 @@
         {
             if (element == null)
             {
-                return null;
+                return default(T);
             }
 
             T result = element as T;
-
-            if (result != null && (condition ?? (e => true))(result))
+            if (result != null && (condition == null || condition(result)))
             {
                 return result;
             }
 
-            var parent = VisualTreeHelper.GetParent(element);
-
-            if (parent == null && (element is FrameworkElement || element is FrameworkContentElement))
-            {
-                parent = ((dynamic)element).Parent ?? ((dynamic)element).TemplatedParent ?? parent;
-            }
+            // Just keep the code clean. 
+            // While, .NET Reflector 6.5 still cannot handle the following code correctly.
+            var parent = VisualTreeHelper.GetParent(element) ?? ((dynamic)element).Parent ?? ((dynamic)element).TemplatedParent;
 
             return parent.FindAncestor(condition);
         }
@@ -49,6 +45,8 @@
             var source = args.OriginalSource as DependencyObject;
             if (source != null)
             {
+                // Converting the element to dynamic type use more memory (About 5M/100 cells) but keep the code clean.
+                // Otherwise we have to take care of Both FrameworkElement and FrameworkContentElement.
                 dynamic element = source.FindAncestor((DependencyObject e) => ((dynamic)e).DataContext is T);
 
                 if (element != null)

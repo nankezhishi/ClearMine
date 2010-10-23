@@ -25,6 +25,7 @@
         {
             if (!property.Equals(newValue))
             {
+                // This takes more CPU and Memory.
                 MethodBase caller = new StackTrace().GetFrame(1).GetMethod();
                 if (!caller.IsPropertySetter())
                     throw new InvalidProgramException("This method can only be called from property setter.");

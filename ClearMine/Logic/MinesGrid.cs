@@ -4,49 +4,89 @@
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.ComponentModel;
+    using System.Diagnostics;
     using System.Diagnostics.Contracts;
+    using System.Linq;
     using System.Text;
+    using System.Windows;
 
     internal class MinesGrid : ObservableCollection<MineCell>
     {
-        private int width = -1;
-        private int height = -1;
+        private Size size = Size.Empty;
 
         public MinesGrid()
-            : this(0, 0)
         {
         }
 
-        public MinesGrid(int width, int height)
-            //: base (width * height)
+        public MinesGrid(Size size)
+            //: base (size.Width * size.Height)
         {
-            SetSize(width, height);
+            SetSize(size);
         }
 
-        public int Width { get { return width; } }
+        public Size Size { get { return size; } }
 
-        public int Height { get { return height; } }
-
-        public void SetSize(int width, int height)
+        public void SetSize(Size newSize)
         {
-            Contract.Requires<ArgumentOutOfRangeException>(width >= 0);
-            Contract.Requires<ArgumentOutOfRangeException>(height >= 0);
-
-            if (this.width != width)
+            if (this.size != newSize)
             {
-                this.width = width;
-                OnPropertyChanged(new PropertyChangedEventArgs("Width"));
+                this.size = newSize;
+
+                base.Clear();
+                // Generate cells row by row. So first Height then Width;
+                for (int row = 0; row < Size.Height; ++row)
+                {
+                    for (int column = 0; column < Size.Width; ++column)
+                    {
+                        base.Add(new MineCell(column, row));
+                    }
+                }
+
+                OnPropertyChanged(new PropertyChangedEventArgs("Size"));
             }
-            if (this.height != height)
+        }
+
+        public void MarkAllAsNoraml()
+        {
+            foreach (var cell in this)
             {
-                this.height = height;
-                OnPropertyChanged(new PropertyChangedEventArgs("Height"));
+                cell.State = CellState.Normal;
+            }
+        }
+
+        public void ClearMines()
+        {
+            foreach (var cell in this)
+            {
+                cell.HasMine = false;
+            }
+        }
+
+        public void MoveMine(MineCell cell)
+        {
+            Contract.Requires<ArgumentNullException>(cell != null);
+            Debug.Assert(cell.HasMine);
+
+            var emptyCells = from c in this
+                             where !c.HasMine select c;
+            var moveTo = emptyCells.ElementAt(new Random().Next(emptyCells.Count()));
+
+            Debug.Assert(moveTo != cell);
+
+            cell.HasMine = false;
+            moveTo.HasMine = true;
+
+            cell.MinesNearby = GetMinesCountNearBy(cell);
+
+            foreach (var nearByCell in GetCellsAround(cell).Union(GetCellsAround(moveTo)))
+            {
+                nearByCell.MinesNearby = GetMinesCountNearBy(nearByCell);
             }
         }
 
         protected override void InsertItem(int index, MineCell item)
         {
-            if (index >= width * height)
+            if (index >= Size.Width * Size.Height)
             {
                 throw new InvalidOperationException("No slot available for more mine cells.");
             }
@@ -61,37 +101,29 @@
 
         public bool CheckIfAllMarked(IEnumerable<MineCell> cells)
         {
-            foreach (var cell in cells ?? this)
-            {
-                if (cell.HasMine && cell.State != CellState.MarkAsMine)
-                {
-                    return false;
-                }
-            }
-
-            return true;
+            return !(cells ?? this).Any(c => c.HasMine && c.State != CellState.MarkAsMine);
         }
 
         public bool ContainsWrongMark(IEnumerable<MineCell> cells)
         {
-            foreach (var cell in cells ?? this)
-            {
-                if (!cell.HasMine && cell.State == CellState.MarkAsMine)
-                {
-                    return true;
-                }
-            }
-
-            return false;
+            return (cells ?? this).Any(c => !c.HasMine && c.State == CellState.MarkAsMine);
         }
 
-        public void ExpandFrom(MineCell currentCell)
+        public void ShowAll()
         {
-            Contract.Requires<ArgumentNullException>(currentCell != null);
-
-            if (currentCell.MinesNearby == 0)
+            foreach (var nearCell in GetCellsAround(null, cell => cell.State == CellState.Normal || cell.State == CellState.Question))
             {
-                foreach (var nearCell in GetCellsAround(currentCell, cell => cell.State == CellState.Normal || cell.State == CellState.Question))
+                nearCell.State = CellState.Shown;
+            }
+        }
+
+        public void ExpandFrom(MineCell current)
+        {
+            Contract.Requires<ArgumentNullException>(current != null);
+
+            if (current.MinesNearby == 0)
+            {
+                foreach (var nearCell in GetCellsAround(current, cell => cell.State == CellState.Normal || cell.State == CellState.Question))
                 {
                     nearCell.State = CellState.Shown;
                     ExpandFrom(nearCell);
@@ -99,13 +131,13 @@
             }
         }
 
-        public bool TryExpandFrom(MineCell currentCell)
+        public bool TryExpandFrom(MineCell current)
         {
-            Contract.Requires<ArgumentNullException>(currentCell != null);
+            Contract.Requires<ArgumentNullException>(current != null);
 
-            if (currentCell.State == CellState.Shown)
+            if (current.State == CellState.Shown)
             {
-                var cellsNearBy = GetCellsAround(currentCell, cell => cell.State == CellState.Normal || cell.State == CellState.Question);
+                var cellsNearBy = GetCellsAround(current, cell => cell.State == CellState.Normal || cell.State == CellState.Question);
 
                 if (CheckIfAllMarked(cellsNearBy))
                 {
@@ -125,21 +157,36 @@
             return true;
         }
 
-        public IEnumerable<MineCell> GetCellsAround(MineCell current, Predicate<MineCell> condition)
+        public IEnumerable<MineCell> GetCellsAround(MineCell current, Predicate<MineCell> condition = null)
         {
-            int column = current.Column;
-            int row = current.Row;
+            int startColumn = 0;
+            int endColumn = (int)Size.Width - 1;
+            int startRow = 0;
+            int endRow = (int)Size.Height - 1;
 
-            for (int i = column - 1; i <= column + 1; ++i)
+            if (current != null)
             {
-                if (i < 0 || i >= Width)
+                startColumn = current.Column - 1;
+                endColumn = current.Column + 1;
+                startRow = current.Row - 1;
+                endRow = current.Row + 1;
+            }
+
+            for (int i = startColumn; i <= endColumn; ++i)
+            {
+                if (i < 0 || i >= Size.Width)
                 {
                     continue;
                 }
 
-                for (int j = row - 1; j <= row + 1; ++j)
+                for (int j = startRow; j <= endRow; ++j)
                 {
-                    if (j < 0 || j >= Height || (i == column && j == row) /*Exclude it self*/)
+                    if (j < 0 || j >= Size.Height)
+                    {
+                        continue;
+                    }
+
+                    if (current != null && (i == current.Column && j == current.Row) /*Exclude it self*/)
                     {
                         continue;
                     }
@@ -157,25 +204,18 @@
         {
             Verify(column, row);
 
-            return row * width + column;
+            return row * (int)size.Width + column;
         }
 
         public override string ToString()
         {
-            StringBuilder strBuilder = new StringBuilder((Width + 1) * Height);
-            for (int i = 0; i < Width; i++)
+            StringBuilder strBuilder = new StringBuilder((int)(Size.Width + Environment.NewLine.Length) * (int)Size.Height);
+            for (int row = 0; row < Size.Height; ++row)
             {
-                for (int j = 0; j < Height; j++)
+                for (int column = 0; column < Size.Width; ++column)
                 {
-                    var cell = GetCell(i, j);
-                    if (cell.HasMine)
-                    {
-                        strBuilder.Append("*");
-                    }
-                    else
-                    {
-                        strBuilder.Append(cell.MinesNearby);
-                    }
+                    var cell = GetCell(column, row);
+                    strBuilder.Append(cell.HasMine ? '*' : cell.MinesNearby);
                 }
                 strBuilder.Append(Environment.NewLine);
             }
@@ -183,19 +223,21 @@
             return strBuilder.ToString();
         }
 
+        internal int GetMinesCountNearBy(MineCell cell)
+        {
+            Contract.Requires<ArgumentNullException>(cell != null);
+
+            return GetCellsAround(cell, c => c.HasMine).Count();
+        }
+
         private void Verify(int column, int row)
         {
-            if (width < 0 || height < 0)
-            {
-                throw new InvalidOperationException("A mine grid must be set to a valid size before using it.");
-            }
-
-            if (column >= width || column < 0)
+            if (column >= Size.Width || column < 0)
             {
                 throw new ArgumentOutOfRangeException("column");
             }
 
-            if (row >= height || row < 0)
+            if (row >= Size.Height || row < 0)
             {
                 throw new ArgumentOutOfRangeException("row");
             }

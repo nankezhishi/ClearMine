@@ -8,26 +8,15 @@
     {
         private Random random = new Random();
 
-        public MinesGrid Fill(ref MinesGrid grid, int mines)
+        public void Fill(ref MinesGrid grid, int mines, MineCell noMineCell = null)
         {
             Contract.Requires<ArgumentNullException>(grid != null);
 
-            grid.Clear();
-
-            // Generate cells row by row. So first Height then Width;
-            for (int row = 0; row < grid.Height; ++row)
-            {
-                for (int column = 0; column < grid.Width; ++column)
-                {
-                    grid.Add(new MineCell(column, row));
-                }
-            }
-
-            int total = grid.Width * grid.Height;
+            int total = (int)(grid.Size.Width * grid.Size.Height);
             while (mines > 0)
             {
                 int index = random.Next(total);
-                if (!grid[index].HasMine)
+                if (!grid[index].HasMine && grid[index] != noMineCell)
                 {
                     grid[index].HasMine = true;
                     --mines;
@@ -36,10 +25,8 @@
 
             foreach(var cell in grid)
             {
-                cell.MinesNearby = grid.GetCellsAround(cell, c => c.HasMine).Count();
+                cell.MinesNearby = grid.GetMinesCountNearBy(cell);
             }
-
-            return grid;
         }
     }
 }

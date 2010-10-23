@@ -2,16 +2,19 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Windows;
 
     interface IClearMine
     {
-        void Initialize(int width, int height, int mines);
+        void Initialize(Size size, int mines);
+
+        void Restart();
 
         void StartNew();
 
         void TryMarkAt(MineCell cell, CellState newState);
 
-        bool TryDigAt(MineCell cell);
+        GameState TryDigAt(MineCell cell);
 
         bool TryExpandAt(MineCell cell);
 
@@ -22,6 +25,8 @@
         int TotalMines { get; }
 
         int RemainedMines { get; }
+
+        Size Size { get; }
 
         IEnumerable<MineCell> Cells { get; }
 
