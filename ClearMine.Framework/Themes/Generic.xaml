@@ -22,11 +22,13 @@
                             <Image Source="{TemplateBinding ImageSource}"
                                    Margin="12" />
                             <TextBlock Text="{TemplateBinding Message}"
+                                       FontSize="14pt"
                                        Margin="0,12,12,12"
-                                       FontSize="14pt" />
+                                       Foreground="#FF003399" />
                         </DockPanel>
                         <DockPanel LastChildFill="False"
-                                   DockPanel.Dock="Bottom">
+                                   DockPanel.Dock="Bottom"
+                                   Background="#FFF0F0F0">
                             <Expander Header="Show more details"
                                       Margin="12" />
                             <ItemsControl DockPanel.Dock="Right"
@@ -39,6 +41,9 @@
                                 </ItemsControl.ItemsPanel>
                             </ItemsControl>
                         </DockPanel>
+                        <Separator Margin="0"
+                                   DockPanel.Dock="Bottom"
+                                   Foreground="#FFDFDFDF" />
                         <AdornerDecorator>
                             <ContentPresenter />
                         </AdornerDecorator>

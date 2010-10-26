@@ -1,0 +1,11 @@
+﻿<Window x:Class="ClearMine.UI.Dialogs.StatisticsWindow" x:ClassModifier="internal"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        TextOptions.TextFormattingMode="Display"
+        ShowInTaskbar="False"
+        SizeToContent="WidthAndHeight"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterOwner"
+        Background="{StaticResource DialogBackground}"
+        Title="Clear Mine - Statistics">
+</Window>

@@ -2,14 +2,17 @@
 {
     using System.Windows;
     using System.Windows.Input;
-    using ClearMine.Utilities;
+
+    using ClearMine.Framework.Utilities;
     using ClearMine.Logic;
+    using ClearMine.Properties;
 
     /// <summary>
     /// Interaction logic for ClearMineWindow.xaml
     /// </summary>
     internal partial class ClearMineWindow : Window
     {
+        private bool expanding = false;
         private ClearMineViewModel vm = new ClearMineViewModel();
 
         public ClearMineWindow()
@@ -20,30 +23,49 @@
 
         private void OnLoaded(object sender, RoutedEventArgs e)
         {
-            vm.Start(new Size(9, 9), 10);
+            vm.Start(new Size(Settings.Default.Columns, Settings.Default.Rows), Settings.Default.Mines);
         }
 
         private void OnMineGroudMouseDown(object sender, MouseButtonEventArgs e)
         {
             var cell = e.ExtractDataContext<MineCell>();
-            if (cell != null)
+            if (cell == null)
             {
-                
+                return;
+            }
+
+            if (Mouse.LeftButton == MouseButtonState.Pressed &&
+                Mouse.RightButton == MouseButtonState.Pressed)
+            {
+                vm.TryExpand(cell);
+                expanding = true;
             }
         }
 
         private void OnMineGroudMouseUp(object sender, MouseButtonEventArgs e)
         {
             var cell = e.ExtractDataContext<MineCell>();
-            if (cell != null)
+            if (cell == null)
             {
-                if (e.ChangedButton == MouseButton.Left)
+                return;
+            }
+
+            if (e.ChangedButton == MouseButton.Left &&
+                Mouse.RightButton == MouseButtonState.Released)
+            {
+                expanding = false;
+                vm.DigAt(cell);
+            }
+            else if (e.ChangedButton == MouseButton.Right &&
+                Mouse.LeftButton == MouseButtonState.Released)
+            {
+                if (expanding)
                 {
-                    vm.DigAt(cell);
+                    expanding = false;
                 }
-                else if (e.ChangedButton == MouseButton.Right)
+                else
                 {
-                    vm.MarkAsMine(cell);
+                    vm.MarkAt(cell);
                 }
             }
         }

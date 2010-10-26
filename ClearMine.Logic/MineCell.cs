@@ -2,7 +2,7 @@
 {
     using System;
     using System.Globalization;
-    using ClearMine.Framework;
+    using ClearMine.Framework.ComponentModel;
 
     internal class MineCell : BindableObject
     {

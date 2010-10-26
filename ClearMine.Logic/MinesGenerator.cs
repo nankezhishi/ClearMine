@@ -2,7 +2,6 @@
 {
     using System;
     using System.Diagnostics.Contracts;
-    using System.Linq;
 
     internal class MinesGenerator
     {
@@ -11,8 +10,13 @@
         public void Fill(ref MinesGrid grid, int mines, MineCell noMineCell = null)
         {
             Contract.Requires<ArgumentNullException>(grid != null);
+            if (mines > grid.Size.Height * grid.Size.Width * 0.4)
+            {
+                throw new InvalidOperationException("Too many mines to generate.");
+            }
 
             int total = (int)(grid.Size.Width * grid.Size.Height);
+
             while (mines > 0)
             {
                 int index = random.Next(total);

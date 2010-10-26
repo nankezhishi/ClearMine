@@ -3,8 +3,10 @@
     using System;
     using System.Collections.Generic;
     using System.Windows;
+    using System.Diagnostics.Contracts;
 
-    interface IClearMine
+    [ContractClass(typeof(IClearMineContracts))]
+    internal interface IClearMine
     {
         void Initialize(Size size, int mines);
 
@@ -33,5 +35,7 @@
         GameState GameState { get; set; }
 
         event EventHandler StateChanged;
+
+        event EventHandler TimeChanged;
     }
 }

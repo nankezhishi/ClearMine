@@ -1,4 +1,4 @@
-﻿namespace ClearMine.Utilities
+﻿namespace ClearMine.Framework.Utilities
 {
     using System;
     using System.Reflection;
@@ -40,7 +40,7 @@
             return parent.FindAncestor(condition);
         }
 
-        public static T ExtractDataContext<T>(this RoutedEventArgs args)
+        public static T ExtractDataContext<T>(this RoutedEventArgs args, Action<T> action = null)
         {
             var source = args.OriginalSource as DependencyObject;
             if (source != null)
@@ -51,7 +51,12 @@
 
                 if (element != null)
                 {
-                    return (T)element.DataContext;
+                    T result = (T)element.DataContext;
+                    if (action != null)
+                    {
+                        action(result);
+                    }
+                    return result;
                 }
             }
 

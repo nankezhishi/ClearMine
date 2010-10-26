@@ -6,24 +6,28 @@
     using System.Diagnostics.Contracts;
     using System.Linq;
     using System.Windows;
-    using ClearMine.Framework;
+    using System.Windows.Threading;
+    using ClearMine.Framework.ComponentModel;
 
     internal class ClearMineGame : BindableObject, IClearMine
     {
-        private MinesGrid cells = new MinesGrid();
-        private GameState gameState;
         private int totalMines;
-        private int remainedMines;
         private Stopwatch watch;
+        private GameState gameState;
+        private DispatcherTimer timer;
+        private MinesGrid cells = new MinesGrid();
 
         public event EventHandler StateChanged;
+        public event EventHandler TimeChanged;
+
+        public ClearMineGame()
+        {
+            timer = new DispatcherTimer() { Interval = new TimeSpan(0, 0, 1) };
+            timer.Tick += new EventHandler(OnTick);
+        }
 
         public void Initialize(Size size, int mines)
         {
-            //TODO: Check size and mines.
-
-            this.watch = null;
-            this.remainedMines = 0;
             this.totalMines = mines;
             this.cells.SetSize(size);
             StartNew();
@@ -31,8 +35,11 @@
 
         public void Restart()
         {
+            this.timer.Stop();
+            this.watch = null;
             this.GameState = GameState.Initialized;
             this.cells.MarkAllAsNoraml();
+            OnTick(this, EventArgs.Empty);
         }
 
         public void StartNew()
@@ -56,8 +63,9 @@
             cell.State = newState;
             if (watch != null && cells.CheckIfAllMarked(cells))
             {
-                cells.ShowAll();
-                watch.Stop();
+                this.watch.Stop();
+                this.timer.Stop();
+                this.cells.ShowAll();
                 GameState = GameState.Success;
             }
         }
@@ -73,24 +81,26 @@
                 {
                     this.cells.MoveMine(cell);
                     cell.State = CellState.Shown;
-                    cells.ExpandFrom(cell);
+                    this.cells.ExpandFrom(cell);
                 }
                 else
                 {
-                    watch.Stop();
+                    this.watch.Stop();
+                    this.timer.Stop();
                     GameState = GameState.Failed;
                 }
             }
             else
             {
                 cell.State = CellState.Shown;
-                cells.ExpandFrom(cell);
+                this.cells.ExpandFrom(cell);
             }
 
             if (watch == null)
             {
-                watch = Stopwatch.StartNew();
-                GameState = GameState.Started;
+                this.timer.Start();
+                this.watch = Stopwatch.StartNew();
+                this.GameState = GameState.Started;
             }
 
             return GameState;
@@ -98,12 +108,12 @@
 
         public MineCell GetCell(int column, int row)
         {
-            return cells.GetCell(column, row);
+            return this.cells.GetCell(column, row);
         }
 
         public int UsedTime
         {
-            get { return watch == null ? 0 : (int)watch.ElapsedMilliseconds / 1000; }
+            get { return this.watch == null ? 0 : (int)watch.ElapsedMilliseconds; }
         }
 
         public int TotalMines
@@ -113,7 +123,12 @@
 
         public int RemainedMines
         {
-            get { return remainedMines; }
+            get
+            {
+                return totalMines - (from cell in cells
+                                     where cell.State == CellState.MarkAsMine
+                                     select cell).Count();
+            }
         }
 
         public GameState GameState
@@ -136,6 +151,16 @@
         public Size Size
         {
             get { return cells.Size; }
+        }
+
+        private void OnTick(object sender, EventArgs e)
+        {
+            OnPropertyChanged("UsedTime");
+            var temp = TimeChanged;
+            if (temp != null)
+            {
+                temp(this, e);
+            }
         }
 
         private void VerifyStateIs(params GameState[] args)

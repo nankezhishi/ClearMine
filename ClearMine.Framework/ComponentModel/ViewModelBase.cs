@@ -1,4 +1,4 @@
-﻿namespace ClearMine.Framework
+﻿namespace ClearMine.Framework.ComponentModel
 {
     internal class ViewModelBase : BindableObject
     {

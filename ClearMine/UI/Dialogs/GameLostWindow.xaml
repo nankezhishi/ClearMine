@@ -4,7 +4,7 @@
               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
               WindowStartupLocation="CenterOwner"
               Message="You lost this game!"
-              Title="Clear Mine">
+              Title="Clear Mine - Lost">
     <OptionDialog.Options>
         <x:Array Type="{x:Type Button}">
             <Button Margin="0,0,7,0"

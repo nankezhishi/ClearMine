@@ -4,7 +4,7 @@
               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
               WindowStartupLocation="CenterOwner"
               Message="Congratulations!"
-              Title="GameWonWindow">
+              Title="Clear Mine - Won">
     <OptionDialog.Options>
         <x:Array Type="{x:Type Button}">
             <Button Margin="0,0,7,0"

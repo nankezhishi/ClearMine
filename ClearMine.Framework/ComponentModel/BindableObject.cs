@@ -1,11 +1,11 @@
-﻿namespace ClearMine.Framework
+﻿namespace ClearMine.Framework.ComponentModel
 {
     using System;
     using System.ComponentModel;
     using System.Diagnostics;
     using System.Reflection;
     using System.Runtime.CompilerServices;
-    using ClearMine.Utilities;
+    using ClearMine.Framework.Utilities;
 
     internal class BindableObject : INotifyPropertyChanged
     {
@@ -41,7 +41,7 @@
 
         public bool SetProperty<T>(ref T property, T newValue, string propertyName)
         {
-            if (!property.Equals(newValue))
+            if (!Object.Equals(property, newValue))
             {
                 property = newValue;
                 OnPropertyChanged(propertyName);

@@ -209,7 +209,7 @@
 
         public override string ToString()
         {
-            StringBuilder strBuilder = new StringBuilder((int)(Size.Width + Environment.NewLine.Length) * (int)Size.Height);
+            var strBuilder = new StringBuilder((int)(Size.Width + Environment.NewLine.Length) * (int)Size.Height);
             for (int row = 0; row < Size.Height; ++row)
             {
                 for (int column = 0; column < Size.Width; ++column)
