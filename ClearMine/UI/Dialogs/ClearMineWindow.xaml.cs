@@ -23,7 +23,7 @@
 
         private void OnLoaded(object sender, RoutedEventArgs e)
         {
-            vm.Start(new Size(Settings.Default.Columns, Settings.Default.Rows), Settings.Default.Mines);
+            vm.Start();
         }
 
         private void OnMineGroudMouseDown(object sender, MouseButtonEventArgs e)

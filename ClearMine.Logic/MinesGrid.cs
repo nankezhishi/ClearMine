@@ -32,15 +32,29 @@
             {
                 this.size = newSize;
 
-                base.Clear();
+                // No need to clear the items.
+                // Clear items is a heavy operaion. It could be a cache.
+
                 // Generate cells row by row. So first Height then Width;
-                for (int row = 0; row < Size.Height; ++row)
+                for (int row = 0; row < newSize.Height; ++row)
                 {
-                    for (int column = 0; column < Size.Width; ++column)
+                    for (int column = 0; column < newSize.Width; ++column)
                     {
-                        base.Add(new MineCell(column, row));
+                        int index = row * (int)newSize.Width + column;
+                        if (index < Count)
+                        {
+                            this[index].UpdatePosition(column, row);
+                        }
+                        else
+                        {
+                            base.Add(new MineCell(column, row));
+                        }
                     }
                 }
+
+                // Don't worry about the redundent items.
+                // UI Layer take the resposiblity of not showing them.
+                // But we still need to clear mines on any initialize.
 
                 OnPropertyChanged(new PropertyChangedEventArgs("Size"));
             }
@@ -48,6 +62,7 @@
 
         public void MarkAllAsNoraml()
         {
+            // All the cell, including the hidden ones must be updated.
             foreach (var cell in this)
             {
                 cell.State = CellState.Normal;
@@ -56,6 +71,7 @@
 
         public void ClearMines()
         {
+            // All the cell, including the hidden ones must be updated.
             foreach (var cell in this)
             {
                 cell.HasMine = false;
@@ -67,8 +83,7 @@
             Contract.Requires<ArgumentNullException>(cell != null);
             Debug.Assert(cell.HasMine);
 
-            var emptyCells = from c in this
-                             where !c.HasMine select c;
+            var emptyCells = GetCellsAround(null, c => !c.HasMine);
             var moveTo = emptyCells.ElementAt(new Random().Next(emptyCells.Count()));
 
             Debug.Assert(moveTo != cell);
@@ -101,12 +116,12 @@
 
         public bool CheckIfAllMarked(IEnumerable<MineCell> cells)
         {
-            return !(cells ?? this).Any(c => c.HasMine && c.State != CellState.MarkAsMine);
+            return !(cells ?? GetCellsAround(null)).Any(c => c.HasMine && c.State != CellState.MarkAsMine);
         }
 
         public bool ContainsWrongMark(IEnumerable<MineCell> cells)
         {
-            return (cells ?? this).Any(c => !c.HasMine && c.State == CellState.MarkAsMine);
+            return (cells ?? GetCellsAround(null)).Any(c => !c.HasMine && c.State == CellState.MarkAsMine);
         }
 
         public void ShowAll()
@@ -144,6 +159,10 @@
                     foreach (var cell in cellsNearBy)
                     {
                         cell.State = CellState.Shown;
+                        if (cell.MinesNearby == 0)
+                        {
+                            ExpandFrom(cell);
+                        }
                     }
 
                     return true;

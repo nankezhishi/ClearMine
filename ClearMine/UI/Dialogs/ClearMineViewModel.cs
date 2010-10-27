@@ -2,6 +2,8 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel;
+    using System.Linq;
     using System.Windows;
     using System.Windows.Input;
 
@@ -98,7 +100,11 @@
         {
             var optionsWindow = new OptionsDialog();
             optionsWindow.Owner = Application.Current.MainWindow;
-            optionsWindow.ShowDialog();
+            // Start a new game if user click OK button.
+            if (optionsWindow.ShowDialog().Value)
+            {
+                e.ExtractDataContext<ClearMineViewModel>( vm => vm.game.StartNew() );
+            }
         }
 
         private static void OnOptionCanExecute(object sender, CanExecuteRoutedEventArgs e)
@@ -137,6 +143,7 @@
         {
             game.StateChanged += new EventHandler(OnGameStateChanged);
             game.TimeChanged += new EventHandler(OnGameTimeChanged);
+            Settings.Default.PropertyChanged += new PropertyChangedEventHandler(OnSettingsChanged);
         }
 
         public int Columns
@@ -164,24 +171,27 @@
             get { return game.Cells; }
         }
 
-        public void Start(Size size, uint mines)
+        public void Start()
         {
             try
             {
-                game.Initialize(size, (int)mines);
+                InitialPlayground();
             }
             catch (InvalidOperationException)
             {
+                // While, there probably something wrong with your configurations.
                 Settings.Default.Rows = 9;
                 Settings.Default.Columns = 9;
                 Settings.Default.Mines = 10;
                 Settings.Default.Difficulty = Enum.GetName(typeof(Difficulty), Difficulty.Beginner);
                 Settings.Default.Save();
-                game.Initialize(size, (int)mines);
+                // Try again.
+                InitialPlayground();
             }
             OnPropertyChanged("Columns");
             OnPropertyChanged("Rows");
             OnPropertyChanged("RemainedMines");
+            game.StartNew();
         }
 
         public void MarkAt(MineCell cell)
@@ -216,9 +226,27 @@
             }
         }
 
+        private void InitialPlayground()
+        {
+            game.Initialize(new Size(Settings.Default.Columns, Settings.Default.Rows), (int)Settings.Default.Mines);
+        }
+
         private void OnGameTimeChanged(object sender, EventArgs e)
         {
             OnPropertyChanged("Time");
+        }
+
+        private void OnSettingsChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (new[] { "Rows", "Columns", "Mines" }.Contains(e.PropertyName))
+            {
+                InitialPlayground();
+                OnPropertyChanged(e.PropertyName);
+            }
+            else
+            {
+                // Ignore it.
+            }
         }
 
         private void OnGameStateChanged(object sender, EventArgs e)

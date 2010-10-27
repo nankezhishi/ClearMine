@@ -11,8 +11,7 @@
 
         public MineCell(int column, int row)
         {
-            Row = row;
-            Column = column;
+            UpdatePosition(column, row);
             State = CellState.Normal;
         }
 
@@ -25,13 +24,26 @@
         public int MinesNearby
         {
             get { return minesNearBy; }
-            set { SetProperty(ref minesNearBy, value); }
+            set
+            {
+                // Must provide propertyName here, 
+                // Otherwise it cause series performance issue. 
+                // Because during the initalization of the Game.
+                // This property will be set many many times.
+                SetProperty(ref minesNearBy, value, "MinesNearby");
+            }
         }
 
         public CellState State
         {
             get { return state; }
-            set { SetProperty(ref state, value); }
+            set { SetProperty(ref state, value, "State"); }
+        }
+
+        public void UpdatePosition(int column, int row)
+        {
+            Row = row;
+            Column = column;
         }
 
         public override string ToString()

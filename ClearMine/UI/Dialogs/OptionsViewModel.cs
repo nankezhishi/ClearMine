@@ -23,12 +23,16 @@
 
         private static void OnCloseExecuted(object sender, ExecutedRoutedEventArgs e)
         {
-            e.ExtractDataContext<OptionsViewModel>(vm => vm.Cancel());
-            var window = (sender as DependencyObject).FindAncestor<Window>();
-            if (window != null)
+            e.ExtractDataContext<OptionsViewModel>(vm =>
             {
-                window.Close();
-            }
+                vm.Cancel();
+                var window = (sender as DependencyObject).FindAncestor<Window>();
+                if (window != null)
+                {
+                    window.DialogResult = false;
+                    window.Close();
+                }
+            });
         }
 
         private static void OnCloseCanExecute(object sender, CanExecuteRoutedEventArgs e)
@@ -48,12 +52,16 @@
 
         private static void OnSaveExecuted(object sender, ExecutedRoutedEventArgs e)
         {
-            e.ExtractDataContext<OptionsViewModel>(vm => vm.Save());
-            var window = (sender as DependencyObject).FindAncestor<Window>();
-            if (window != null)
+            e.ExtractDataContext<OptionsViewModel>(vm =>
             {
-                window.Close();
-            }
+                vm.Save();
+                var window = (sender as DependencyObject).FindAncestor<Window>();
+                if (window != null)
+                {
+                    window.DialogResult = true;
+                    window.Close();
+                }
+            });
         }
 
         private static void OnSaveCanExecuted(object sender, CanExecuteRoutedEventArgs e)
@@ -75,6 +83,29 @@
                 if (value != null)
                 {
                     Settings.Default.Difficulty = Enum.GetName(typeof(Difficulty), value);
+
+                    if (value.Value == UI.Difficulty.Beginner)
+                    {
+                        Rows = 9;
+                        Columns = 9;
+                        Mines = 10;
+                    }
+                    else if (value.Value == UI.Difficulty.Intermediate)
+                    {
+                        Rows = 16;
+                        Columns = 16;
+                        Mines = 40;
+                    }
+                    else if (value.Value == UI.Difficulty.Advanced)
+                    {
+                        Rows = 16;
+                        Columns = 30;
+                        Mines = 99;
+                    }
+                    else
+                    {
+                        // Do nothing.
+                    }
                 }
             }
         }

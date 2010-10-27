@@ -30,7 +30,6 @@
         {
             this.totalMines = mines;
             this.cells.SetSize(size);
-            StartNew();
         }
 
         public void Restart()

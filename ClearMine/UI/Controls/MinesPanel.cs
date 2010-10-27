@@ -16,6 +16,7 @@
                 return new Size(0, 0);
             }
 
+            // make sure the child is a Square in its Shape.
             double itemWidth = arrangeSize.Width / ((double)this.Columns);
             double itemHeight = arrangeSize.Height / ((double)this.Rows);
             double itemSize = Math.Min(itemWidth, itemHeight);
@@ -31,17 +32,27 @@
             }
 
             Rect finalRect = new Rect(beginX, beginY, itemSize, itemSize);
+            int row = 1;
             double width = finalRect.Width;
             double num2 = itemSize * this.Columns - 1.0 + beginX;
             finalRect.X += finalRect.Width * this.FirstColumn;
             foreach (UIElement element in base.InternalChildren)
             {
-                element.Arrange(finalRect);
-                finalRect.X += width;
-                if (finalRect.X >= num2)
+                if (row <= Rows)
                 {
-                    finalRect.Y += finalRect.Height;
-                    finalRect.X = beginX;
+                    element.Arrange(finalRect);
+                    finalRect.X += width;
+                    if (finalRect.X >= num2)
+                    {
+                        ++row;
+                        finalRect.Y += finalRect.Height;
+                        finalRect.X = beginX;
+                    }
+                }
+                else
+                {
+                    // Hide the redundent items.
+                    element.Arrange(new Rect());
                 }
             }
 

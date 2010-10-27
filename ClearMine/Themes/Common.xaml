@@ -7,7 +7,7 @@
     </DataTemplate>
 
     <ControlTemplate x:Key="ValidationErrorTemplate">
-        <Border BorderBrush="#AAFF0000"
+        <Border BorderBrush="#99FF0000"
                 BorderThickness="1">
             <Border.Effect>
                 <DropShadowEffect BlurRadius="4"
