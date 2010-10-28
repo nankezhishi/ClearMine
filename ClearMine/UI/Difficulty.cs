@@ -1,13 +1,18 @@
 ﻿namespace ClearMine.UI
 {
     using System;
+    using System.Xml.Serialization;
 
     [Serializable]
-    internal enum Difficulty
+    public enum Difficulty
     {
+        [XmlEnum("beginner")]
         Beginner,
+        [XmlEnum("interMediate")]
         Intermediate,
+        [XmlEnum("advanced")]
         Advanced,
+        [XmlEnum("custom")]
         Custom
     }
 }

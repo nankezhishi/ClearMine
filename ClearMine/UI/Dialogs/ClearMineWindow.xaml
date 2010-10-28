@@ -2,7 +2,6 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:vm="clr-namespace:ClearMine.UI.Dialogs"
-        xmlns:c="clr-namespace:ClearMine.UI.Controls"
         TextOptions.TextFormattingMode="Display"
         WindowStartupLocation="CenterScreen"
         SnapsToDevicePixels="True"
@@ -64,8 +63,8 @@
                       Margin="24,12">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <c:MinesPanel Rows="{Binding Rows}"
-                                  Columns="{Binding Columns}" />
+                    <MinesPanel Rows="{Binding Rows}"
+                                Columns="{Binding Columns}" />
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
         </ItemsControl>

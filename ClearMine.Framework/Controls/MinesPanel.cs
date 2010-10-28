@@ -1,4 +1,4 @@
-﻿namespace ClearMine.UI.Controls
+﻿namespace ClearMine.Framework.Controls
 {
     using System;
     using System.Windows;

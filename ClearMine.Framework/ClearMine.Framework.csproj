@@ -51,6 +51,7 @@
   <ItemGroup>
     <Compile Include="ComponentModel\BindableObject.cs" />
     <Compile Include="ComponentModel\ViewModelBase.cs" />
+    <Compile Include="Controls\MinesPanel.cs" />
     <Compile Include="Dialogs\OptionDialog.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>

@@ -14,5 +14,20 @@
     <Setting Name="Mines" Type="System.UInt32" Scope="User">
       <Value Profile="(Default)">10</Value>
     </Setting>
+    <Setting Name="HeroList" Type="ClearMine.UI.HeroHistoryList" Scope="User">
+      <Value Profile="(Default)">
+                    &lt;heroList xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+                        &lt;heroOnLevel level="beginner" played="0" won="0" longestWinning="0" longestLosing="0" current="0" everage="0"&gt;
+                            &lt;records /&gt;
+                        &lt;/heroOnLevel&gt;
+                        &lt;heroOnLevel level="interMediate" played="0" won="0" longestWinning="0" longestLosing="0" current="0" everage="0"&gt;
+                            &lt;records /&gt;
+                        &lt;/heroOnLevel&gt;
+                        &lt;heroOnLevel level="advanced" played="0" won="0" longestWinning="0" longestLosing="0" current="0" everage="0"&gt;
+                            &lt;records /&gt;
+                        &lt;/heroOnLevel&gt;
+                    &lt;/heroList&gt;
+                </Value>
+    </Setting>
   </Settings>
 </SettingsFile>

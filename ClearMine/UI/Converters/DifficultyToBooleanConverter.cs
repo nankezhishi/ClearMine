@@ -5,7 +5,7 @@
     using System.Windows.Data;
 
     [ValueConversion(typeof(Difficulty?), typeof(bool))]
-    public class DifficultyToBooleanConverter : IValueConverter
+    internal class DifficultyToBooleanConverter : IValueConverter
     {
         /// <summary>
         /// 
