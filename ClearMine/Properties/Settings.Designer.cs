@@ -26,9 +26,9 @@ namespace ClearMine.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("Beginner")]
-        public string Difficulty {
+        public global::ClearMine.UI.Difficulty Difficulty {
             get {
-                return ((string)(this["Difficulty"]));
+                return ((global::ClearMine.UI.Difficulty)(this["Difficulty"]));
             }
             set {
                 this["Difficulty"] = value;

@@ -77,12 +77,12 @@
 
         public Difficulty? Difficulty
         {
-            get { return (Difficulty)Enum.Parse(typeof(Difficulty), Settings.Default.Difficulty); }
+            get { return Settings.Default.Difficulty; }
             set
             {
-                if (value != null)
+                if (value.HasValue)
                 {
-                    Settings.Default.Difficulty = Enum.GetName(typeof(Difficulty), value);
+                    Settings.Default.Difficulty = value.Value;
 
                     if (value.Value == UI.Difficulty.Beginner)
                     {

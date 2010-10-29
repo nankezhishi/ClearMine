@@ -7,7 +7,7 @@ using System.Windows.Markup;
 [assembly: AssemblyTitle("ClearMine")]
 [assembly: AssemblyDescription("Clean up the mines in the playground.")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Hugo Gu")]
+[assembly: AssemblyCompany("Poleaf")]
 [assembly: AssemblyProduct("ClearMine")]
 [assembly: AssemblyCopyright("Copyright © Hugo Gu 2010")]
 [assembly: AssemblyTrademark("Hugo Gu")]

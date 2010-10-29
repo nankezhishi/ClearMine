@@ -2,7 +2,7 @@
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="ClearMine.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
-    <Setting Name="Difficulty" Type="System.String" Scope="User">
+    <Setting Name="Difficulty" Type="ClearMine.UI.Difficulty" Scope="User">
       <Value Profile="(Default)">Beginner</Value>
     </Setting>
     <Setting Name="Rows" Type="System.UInt32" Scope="User">

@@ -183,7 +183,7 @@
                 Settings.Default.Rows = 9;
                 Settings.Default.Columns = 9;
                 Settings.Default.Mines = 10;
-                Settings.Default.Difficulty = Enum.GetName(typeof(Difficulty), Difficulty.Beginner);
+                Settings.Default.Difficulty = Difficulty.Beginner;
                 Settings.Default.Save();
                 // Try again.
                 InitialPlayground();
@@ -254,6 +254,7 @@
             OnPropertyChanged("RemainedMines");
             if (game.GameState == GameState.Failed)
             {
+                UpdateStatistics();
                 var lostWindow = new GameLostWindow();
                 lostWindow.Owner = Application.Current.MainWindow;
                 if ((bool)lostWindow.ShowDialog())
@@ -267,6 +268,7 @@
             }
             else if (game.GameState == GameState.Success)
             {
+                UpdateStatistics();
                 var wonWindow = new GameWonWindow();
                 wonWindow.Owner = Application.Current.MainWindow;
                 if ((bool)wonWindow.ShowDialog())
@@ -278,6 +280,23 @@
                     game.StartNew();
                 }
             }
+        }
+
+        private void UpdateStatistics()
+        {
+            HeroHistory history = Settings.Default.HeroList.GetByLevel(Settings.Default.Difficulty);
+            if (history != null)
+            {
+                if (game.GameState == GameState.Success)
+                {
+                    history.IncreaseWon(game.UsedTime / 1000, DateTime.Now);
+                }
+                else
+                {
+                    history.IncreaseLost();
+                }
+            }
+            Settings.Default.Save();
         }
     }
 }
