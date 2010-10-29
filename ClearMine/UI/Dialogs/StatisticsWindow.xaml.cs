@@ -1,7 +1,7 @@
 ﻿namespace ClearMine.UI.Dialogs
 {
     using System.Windows;
-    using ClearMine.Framework.ComponentModel;
+    using ClearMine.Common.ComponentModel;
 
     /// <summary>
     /// Interaction logic for StatisticsWindow.xaml

@@ -7,8 +7,8 @@
     using System.Windows;
     using System.Windows.Input;
 
-    using ClearMine.Framework.ComponentModel;
-    using ClearMine.Framework.Utilities;
+    using ClearMine.Common.ComponentModel;
+    using ClearMine.Common.Utilities;
     using ClearMine.Logic;
     using ClearMine.Properties;
 

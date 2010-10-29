@@ -5,8 +5,8 @@
     using System.Windows;
     using System.Windows.Input;
 
-    using ClearMine.Framework.ComponentModel;
-    using ClearMine.Framework.Utilities;
+    using ClearMine.Common.ComponentModel;
+    using ClearMine.Common.Utilities;
     using ClearMine.Properties;
 
     internal sealed class OptionsViewModel : ViewModelBase, IDataErrorInfo

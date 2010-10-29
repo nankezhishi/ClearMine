@@ -5,7 +5,7 @@
     using System.Windows;
     using System.Windows.Input;
 
-    using ClearMine.Framework.ComponentModel;
+    using ClearMine.Common.ComponentModel;
     using ClearMine.Properties;
 
     internal class StatisticsViewModel : ViewModelBase
@@ -33,6 +33,7 @@
                 {
                     history.Reset();
                 }
+                Settings.Default.Save();
             }
         }
 

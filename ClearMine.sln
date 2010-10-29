@@ -18,6 +18,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClearMine.Framework", "Clea
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClearMine.Logic", "ClearMine.Logic\ClearMine.Logic.csproj", "{EEB5C47E-76B0-472B-9991-0F2D9A861A62}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClearMine.Common", "ClearMine.Common\ClearMine.Common.csproj", "{A2631FA1-E4A4-41AC-8E8E-5C8AEB63C83E}"
+EndProject
 Global
 	GlobalSection(TestCaseManagementSettings) = postSolution
 		CategoryFile = ClearMine.vsmdi
@@ -71,6 +73,16 @@ Global
 		{EEB5C47E-76B0-472B-9991-0F2D9A861A62}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{EEB5C47E-76B0-472B-9991-0F2D9A861A62}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{EEB5C47E-76B0-472B-9991-0F2D9A861A62}.Release|x86.ActiveCfg = Release|Any CPU
+		{A2631FA1-E4A4-41AC-8E8E-5C8AEB63C83E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A2631FA1-E4A4-41AC-8E8E-5C8AEB63C83E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A2631FA1-E4A4-41AC-8E8E-5C8AEB63C83E}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{A2631FA1-E4A4-41AC-8E8E-5C8AEB63C83E}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{A2631FA1-E4A4-41AC-8E8E-5C8AEB63C83E}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{A2631FA1-E4A4-41AC-8E8E-5C8AEB63C83E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A2631FA1-E4A4-41AC-8E8E-5C8AEB63C83E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A2631FA1-E4A4-41AC-8E8E-5C8AEB63C83E}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{A2631FA1-E4A4-41AC-8E8E-5C8AEB63C83E}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{A2631FA1-E4A4-41AC-8E8E-5C8AEB63C83E}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

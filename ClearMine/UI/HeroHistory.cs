@@ -7,6 +7,8 @@
     using System.Xml;
     using System.Xml.Serialization;
 
+    using ClearMine.Common.ComponentModel;
+
     [Serializable]
     [XmlRoot("record")]
     public class HistoryRecord 
@@ -19,7 +21,7 @@
 
     [Serializable]
     [XmlRoot("heroHistory")]
-    public class HeroHistory
+    public class HeroHistory : BindableObject
     {
         [XmlArray("records")]
         [XmlArrayItem("record")]
@@ -131,6 +133,18 @@
             LongestWinning = 0;
             CurrentStatus = 0;
             EverageScore = 0;
+
+            // Update UI after reset.
+            OnPropertyChanged("Items");
+            OnPropertyChanged("GamePlayed");
+            OnPropertyChanged("GameWon");
+            OnPropertyChanged("GameLost");
+            OnPropertyChanged("LogestLosing");
+            OnPropertyChanged("LongestWinning");
+            OnPropertyChanged("CurrentStatus");
+            OnPropertyChanged("EverageScore");
+            OnPropertyChanged("GameWonPercentage");
+            OnPropertyChanged("GameLostPercentage");
         }
     }
 

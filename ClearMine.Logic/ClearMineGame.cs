@@ -7,7 +7,7 @@
     using System.Linq;
     using System.Windows;
     using System.Windows.Threading;
-    using ClearMine.Framework.ComponentModel;
+    using ClearMine.Common.ComponentModel;
 
     internal class ClearMineGame : BindableObject, IClearMine
     {

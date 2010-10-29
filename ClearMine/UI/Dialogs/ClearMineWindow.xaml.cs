@@ -3,7 +3,7 @@
     using System.Windows;
     using System.Windows.Input;
 
-    using ClearMine.Framework.Utilities;
+    using ClearMine.Common.Utilities;
     using ClearMine.Logic;
     using ClearMine.Properties;
 
