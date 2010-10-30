@@ -45,7 +45,7 @@
 
         public IEnumerable<HeroHistory> HistoryList
         {
-            get { return Settings.Default.HeroList.Heros; }
+            get { return Settings.Default.HeroList.Heroes; }
         }
     }
 }

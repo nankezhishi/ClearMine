@@ -114,14 +114,10 @@
             return this[GetIndex(column, row)];
         }
 
-        public bool CheckIfAllMarked(IEnumerable<MineCell> cells)
+        public bool CheckWinning()
         {
-            return !(cells ?? GetCellsAround(null)).Any(c => c.HasMine && c.State != CellState.MarkAsMine);
-        }
-
-        public bool ContainsWrongMark(IEnumerable<MineCell> cells)
-        {
-            return (cells ?? GetCellsAround(null)).Any(c => !c.HasMine && c.State == CellState.MarkAsMine);
+            // All the un-shown items has mine. Means Win.
+            return GetCellsAround(null, c => c.State != CellState.Shown).All(c => c.HasMine);
         }
 
         public void ShowAll()
@@ -132,21 +128,50 @@
             }
         }
 
-        public void ExpandFrom(MineCell current)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="current"></param>
+        /// <returns>All the cells that Expanded.</returns>
+        public IEnumerable<MineCell> ExpandFrom(MineCell current)
         {
             Contract.Requires<ArgumentNullException>(current != null);
 
-            if (current.MinesNearby == 0)
+            if (current.State != CellState.Shown)
             {
-                foreach (var nearCell in GetCellsAround(current, cell => cell.State == CellState.Normal || cell.State == CellState.Question))
+                current.State = CellState.Shown;
+                yield return current;
+                if (current.MinesNearby == 0)
                 {
-                    nearCell.State = CellState.Shown;
-                    ExpandFrom(nearCell);
+                    foreach (var nearCell in GetCellsAround(current, cell => cell.State == CellState.Normal || cell.State == CellState.Question))
+                    {
+                        if (nearCell.State == CellState.Shown)
+                        {
+                            continue;
+                        }
+
+                        foreach (var cell in ExpandFrom(nearCell))
+                        {
+                            if (cell != current)
+                            {
+                                yield return cell;
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    // Do nothing.
                 }
             }
         }
 
-        public bool TryExpandFrom(MineCell current)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="current"></param>
+        /// <returns>The number of cells that has no mines around from the current mine cell.</returns>
+        public IEnumerable<MineCell> TryExpandFrom(MineCell current)
         {
             Contract.Requires<ArgumentNullException>(current != null);
 
@@ -158,22 +183,17 @@
                 {
                     foreach (var cell in cellsNearBy)
                     {
-                        cell.State = CellState.Shown;
-                        if (cell.MinesNearby == 0)
+                        foreach (var expanded in ExpandFrom(cell))
                         {
-                            ExpandFrom(cell);
+                            yield return expanded;
                         }
                     }
-
-                    return true;
                 }
                 else if (ContainsWrongMark(cellsNearBy))
                 {
-                    return false;
+                    throw new ExpandFailedException();
                 }
             }
-
-            return true;
         }
 
         public IEnumerable<MineCell> GetCellsAround(MineCell current, Predicate<MineCell> condition = null)
@@ -247,6 +267,16 @@
             Contract.Requires<ArgumentNullException>(cell != null);
 
             return GetCellsAround(cell, c => c.HasMine).Count();
+        }
+
+        private bool ContainsWrongMark(IEnumerable<MineCell> cells)
+        {
+            return (cells ?? GetCellsAround(null)).Any(c => !c.HasMine && c.State == CellState.MarkAsMine);
+        }
+
+        private bool CheckIfAllMarked(IEnumerable<MineCell> cells)
+        {
+            return !(cells ?? GetCellsAround(null)).Any(c => c.HasMine && c.State != CellState.MarkAsMine);
         }
 
         private void Verify(int column, int row)

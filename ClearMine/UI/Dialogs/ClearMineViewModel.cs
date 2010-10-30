@@ -9,6 +9,7 @@
 
     using ClearMine.Common.ComponentModel;
     using ClearMine.Common.Utilities;
+    using ClearMine.Framework.Media;
     using ClearMine.Logic;
     using ClearMine.Properties;
 
@@ -31,6 +32,25 @@
         }
 
         private static void OnNewGameCanExecuted(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = true;
+        }
+        #endregion
+        #region Refresh Binding
+        private static CommandBinding refreshBinding = new CommandBinding(NavigationCommands.Refresh,
+            new ExecutedRoutedEventHandler(OnRefreshExecuted), new CanExecuteRoutedEventHandler(OnRefreshCanExecute));
+
+        public static CommandBinding RefreshBinding
+        {
+            get { return refreshBinding; }
+        }
+
+        private static void OnRefreshExecuted(object sender, ExecutedRoutedEventArgs e)
+        {
+            e.ExtractDataContext<ClearMineViewModel>(vm => vm.game.Restart());
+        }
+
+        private static void OnRefreshCanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
             e.CanExecute = true;
         }
@@ -199,13 +219,21 @@
             if (cell != null)
             {
                 if (cell.State == CellState.Normal)
+                {
                     game.TryMarkAt(cell, CellState.MarkAsMine);
+                }
                 else if (cell.State == CellState.MarkAsMine)
+                {
                     game.TryMarkAt(cell, CellState.Question);
+                }
                 else if (cell.State == CellState.Question)
+                {
                     game.TryMarkAt(cell, CellState.Normal);
+                }
                 else
-                    // Ignore rest.
+                {
+                    // Do nothing.
+                }
                 OnPropertyChanged("RemainedMines");
             }
         }
@@ -214,7 +242,7 @@
         {
             if (cell != null)
             {
-                game.TryDigAt(cell);
+                HandleExpandedCells(game.TryDigAt(cell));
             }
         }
 
@@ -222,7 +250,7 @@
         {
             if (cell != null)
             {
-                game.TryExpandAt(cell);
+                HandleExpandedCells(game.TryExpandAt(cell));
             }
         }
 
@@ -254,6 +282,7 @@
             OnPropertyChanged("RemainedMines");
             if (game.GameState == GameState.Failed)
             {
+                Player.Play(@".\Sound\Lose.wma");
                 UpdateStatistics();
                 var lostWindow = new GameLostWindow();
                 lostWindow.Owner = Application.Current.MainWindow;
@@ -268,6 +297,7 @@
             }
             else if (game.GameState == GameState.Success)
             {
+                Player.Play(@".\Sound\Win.wma");
                 UpdateStatistics();
                 var wonWindow = new GameWonWindow();
                 wonWindow.Owner = Application.Current.MainWindow;
@@ -279,6 +309,10 @@
                 {
                     game.StartNew();
                 }
+            }
+            else if (game.GameState == GameState.Initialized)
+            {
+                Player.Play(@".\Sound\GameStart.wma");
             }
         }
 
@@ -297,6 +331,23 @@
                 }
             }
             Settings.Default.Save();
+        }
+
+        private static void HandleExpandedCells(IEnumerable<MineCell> cells)
+        {
+            int emptyCellExpanded = cells.Count(c => c.MinesNearby == 0);
+            if (emptyCellExpanded == 0)
+            {
+                // Do nothing.
+            }
+            else if (emptyCellExpanded > 1)
+            {
+                Player.Play(@".\Sound\TileMultiple.wma");
+            }
+            else
+            {
+                Player.Play(@".\Sound\TileSingle.wma");
+            }
         }
     }
 }

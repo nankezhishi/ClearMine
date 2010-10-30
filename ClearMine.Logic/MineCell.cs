@@ -15,6 +15,8 @@
             State = CellState.Normal;
         }
 
+        public event EventHandler StateChanged;
+
         public bool HasMine { get; set; }
 
         public int Row { get; private set; }
@@ -37,7 +39,18 @@
         public CellState State
         {
             get { return state; }
-            set { SetProperty(ref state, value, "State"); }
+            set
+            {
+                if (state != value)
+                {
+                    SetProperty(ref state, value, "State");
+                    var temp = StateChanged;
+                    if (temp != null)
+                    {
+                        temp(this, EventArgs.Empty);
+                    }
+                }
+            }
         }
 
         public void UpdatePosition(int column, int row)
@@ -48,7 +61,7 @@
 
         public override string ToString()
         {
-            return String.Format(CultureInfo.CurrentCulture, "({0}, {1}) : {2}", Column, Row, MinesNearby);
+            return String.Format(CultureInfo.CurrentCulture, "({0}, {1}) {3} : {2}", Column, Row, MinesNearby, HasMine);
         }
     }
 }

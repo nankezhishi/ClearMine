@@ -75,13 +75,13 @@ namespace ClearMine.Properties {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute(@"
                     <heroList xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xmlns:xsd=""http://www.w3.org/2001/XMLSchema"">
-                        <heroOnLevel level=""beginner"" played=""0"" won=""0"" longestWinning=""0"" longestLosing=""0"" current=""0"" everage=""0"">
+                        <heroOnLevel level=""beginner"" played=""0"" won=""0"" longestWinning=""0"" longestLosing=""0"" current=""0"" average=""0"">
                             <records />
                         </heroOnLevel>
-                        <heroOnLevel level=""interMediate"" played=""0"" won=""0"" longestWinning=""0"" longestLosing=""0"" current=""0"" everage=""0"">
+                        <heroOnLevel level=""interMediate"" played=""0"" won=""0"" longestWinning=""0"" longestLosing=""0"" current=""0"" average=""0"">
                             <records />
                         </heroOnLevel>
-                        <heroOnLevel level=""advanced"" played=""0"" won=""0"" longestWinning=""0"" longestLosing=""0"" current=""0"" everage=""0"">
+                        <heroOnLevel level=""advanced"" played=""0"" won=""0"" longestWinning=""0"" longestLosing=""0"" current=""0"" average=""0"">
                             <records />
                         </heroOnLevel>
                     </heroList>

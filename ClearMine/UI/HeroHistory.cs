@@ -40,13 +40,13 @@
         public int LongestWinning { get; set; }
 
         [XmlAttribute("longestLosing")]
-        public int LogestLosing { get; set; }
+        public int LongestLosing { get; set; }
 
         [XmlAttribute("current")]
         public int CurrentStatus { get; set; }
 
-        [XmlAttribute("everage")]
-        public int EverageScore { get; set; }
+        [XmlAttribute("average")]
+        public int AverageScore { get; set; }
 
         [XmlIgnore]
         public int GameLost
@@ -89,7 +89,7 @@
 
         public void IncreaseWon(int score, DateTime time)
         {
-            EverageScore = (GameWon * EverageScore + score) / ++GameWon;
+            AverageScore = (GameWon * AverageScore + score) / ++GameWon;
             ++GamePlayed;
             if (CurrentStatus >= 0)
             {
@@ -118,9 +118,9 @@
             {
                 CurrentStatus = -1;
             }
-            if (-CurrentStatus > LogestLosing)
+            if (-CurrentStatus > LongestLosing)
             {
-                LogestLosing = -CurrentStatus;
+                LongestLosing = -CurrentStatus;
             }
         }
 
@@ -129,10 +129,10 @@
             Items.Clear();
             GamePlayed = 0;
             GameWon = 0;
-            LogestLosing = 0;
+            LongestLosing = 0;
             LongestWinning = 0;
             CurrentStatus = 0;
-            EverageScore = 0;
+            AverageScore = 0;
 
             // Update UI after reset.
             OnPropertyChanged("Items");
@@ -152,7 +152,7 @@
     public class HeroHistoryList
     {
         [XmlElement("heroOnLevel")]
-        public ObservableCollection<HeroHistory> Heros { get; set; }
+        public ObservableCollection<HeroHistory> Heroes { get; set; }
 
         /// <summary>
         /// 
@@ -161,7 +161,7 @@
         /// <returns></returns>
         public HeroHistory GetByLevel(Difficulty level)
         {
-            return Heros.FirstOrDefault(history => history.Level == level);
+            return Heroes.FirstOrDefault(history => history.Level == level);
         }
     }
 }

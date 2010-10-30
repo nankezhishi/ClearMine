@@ -44,7 +44,8 @@
     <CodeContractsBaseLineFile />
     <CodeContractsCacheAnalysisResults>False</CodeContractsCacheAnalysisResults>
     <CodeContractsRuntimeCheckingLevel>Full</CodeContractsRuntimeCheckingLevel>
-    <CodeContractsReferenceAssembly>%28none%29</CodeContractsReferenceAssembly>
+    <CodeContractsReferenceAssembly>DoNotBuild</CodeContractsReferenceAssembly>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -69,6 +70,7 @@
   <ItemGroup>
     <Compile Include="CellState.cs" />
     <Compile Include="ClearMineGame.cs" />
+    <Compile Include="ExpandFailedException.cs" />
     <Compile Include="GameState.cs" />
     <Compile Include="IClearMine.cs" />
     <Compile Include="IClearMineContracts.cs" />

@@ -11,6 +11,7 @@
         Width="300">
     <Window.CommandBindings>
         <x:Static Member="vm:ClearMineViewModel.CloseBinding" />
+        <x:Static Member="vm:ClearMineViewModel.RefreshBinding" />
         <x:Static Member="vm:ClearMineViewModel.NewGameBinding" />
         <x:Static Member="vm:ClearMineViewModel.StatisticsBinding" />
         <x:Static Member="vm:ClearMineViewModel.OptionBinding" />
@@ -21,6 +22,8 @@
             <MenuItem Header="Game">
                 <MenuItem Header="New Game"
                           Command="New" />
+                <MenuItem Header="Restart Game"
+                          Command="Refresh" />
                 <Separator />
                 <MenuItem Header="Statistics"
                           Command="{x:Static vm:ClearMineViewModel.ShowStatistics}" />

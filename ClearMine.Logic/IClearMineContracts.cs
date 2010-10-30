@@ -25,18 +25,18 @@
             Contract.Requires<ArgumentNullException>(cell != null);
         }
 
-        public GameState TryDigAt(MineCell cell)
+        public IEnumerable<MineCell> TryDigAt(MineCell cell)
         {
             Contract.Requires<ArgumentNullException>(cell != null);
 
-            return default(GameState);
+            return default(IEnumerable<MineCell>);
         }
 
-        public bool TryExpandAt(MineCell cell)
+        public IEnumerable<MineCell> TryExpandAt(MineCell cell)
         {
             Contract.Requires<ArgumentNullException>(cell != null);
 
-            return default(bool);
+            return default(IEnumerable<MineCell>);
         }
 
         public MineCell GetCell(int column, int row)

@@ -22,7 +22,7 @@
 
         public ClearMineGame()
         {
-            timer = new DispatcherTimer() { Interval = new TimeSpan(0, 0, 1) };
+            timer = new DispatcherTimer() { Interval = new TimeSpan(0, 0, 0, 0, 100) };
             timer.Tick += new EventHandler(OnTick);
         }
 
@@ -34,8 +34,6 @@
 
         public void Restart()
         {
-            this.timer.Stop();
-            this.watch = null;
             this.GameState = GameState.Initialized;
             this.cells.MarkAllAsNoraml();
             OnTick(this, EventArgs.Empty);
@@ -48,11 +46,25 @@
             new MinesGenerator().Fill(ref this.cells, totalMines);
         }
 
-        public bool TryExpandAt(MineCell cell)
+        public IEnumerable<MineCell> TryExpandAt(MineCell cell)
         {
             VerifyStateIs(GameState.Initialized, GameState.Started);
 
-            return cells.TryExpandFrom(cell);
+            try
+            {
+                var result = cells.TryExpandFrom(cell).ToList();
+                if (cells.CheckWinning())
+                {
+                    GameState = GameState.Success;
+                }
+
+                return result;
+            }
+            catch (ExpandFailedException)
+            {
+                GameState = GameState.Failed;
+                return new List<MineCell>();
+            }
         }
 
         public void TryMarkAt(MineCell cell, CellState newState)
@@ -60,49 +72,46 @@
             VerifyStateIs(GameState.Initialized, GameState.Started);
 
             cell.State = newState;
-            if (watch != null && cells.CheckIfAllMarked(cells))
+            if (watch != null && cells.CheckWinning())
             {
-                this.watch.Stop();
-                this.timer.Stop();
-                this.cells.ShowAll();
                 GameState = GameState.Success;
             }
         }
 
-        public GameState TryDigAt(MineCell cell)
+        public IEnumerable<MineCell> TryDigAt(MineCell cell)
         {
             VerifyStateIs(GameState.Initialized, GameState.Started);
+            var result = new List<MineCell>();
 
+            // Change Game State Once! Don't change it more than one time.
             if (cell.HasMine)
             {
                 // Hit the mine on first hit.
-                if (watch == null)
+                if (GameState == GameState.Initialized)
                 {
                     this.cells.MoveMine(cell);
-                    cell.State = CellState.Shown;
-                    this.cells.ExpandFrom(cell);
+                    GameState = GameState.Started;
+                    result = this.cells.ExpandFrom(cell).ToList();
                 }
                 else
                 {
-                    this.watch.Stop();
-                    this.timer.Stop();
                     GameState = GameState.Failed;
                 }
             }
-            else
+            else if (cell.State == CellState.Normal || cell.State == CellState.Question)
             {
-                cell.State = CellState.Shown;
-                this.cells.ExpandFrom(cell);
+                result = this.cells.ExpandFrom(cell).ToList();
+                if (cells.CheckWinning())
+                {
+                    GameState = GameState.Success;
+                }
+                else if (GameState == GameState.Initialized)
+                {
+                    GameState = GameState.Started;
+                }
             }
 
-            if (watch == null)
-            {
-                this.timer.Start();
-                this.watch = Stopwatch.StartNew();
-                this.GameState = GameState.Started;
-            }
-
-            return GameState;
+            return result;
         }
 
         public MineCell GetCell(int column, int row)
@@ -122,21 +131,39 @@
 
         public int RemainedMines
         {
-            get
-            {
-                return totalMines - (from cell in cells
-                                     where cell.State == CellState.MarkAsMine
-                                     select cell).Count();
-            }
+            get { return totalMines - cells.Count(cell => cell.State == CellState.MarkAsMine); }
         }
 
         public GameState GameState
         {
             get { return gameState; }
-            set
+            private set
             {
                 if (SetProperty(ref gameState, value) && StateChanged != null)
                 {
+                    if (value == GameState.Success || value == GameState.Failed)
+                    {
+                        this.timer.Stop();
+                        this.watch.Stop();
+                        if (value == GameState.Success)
+                        {
+                            this.cells.ShowAll();
+                        }
+                    }
+                    else if (value == GameState.Started)
+                    {
+                        this.timer.Start();
+                        this.watch = Stopwatch.StartNew();
+                    }
+                    else if (value == GameState.Initialized)
+                    {
+                        this.timer.Stop();
+                        this.watch = null;
+                    }
+                    else
+                    {
+                        throw new NotImplementedException();
+                    }
                     StateChanged.Invoke(this, EventArgs.Empty);
                 }
             }

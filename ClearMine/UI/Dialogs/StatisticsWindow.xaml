@@ -40,20 +40,20 @@
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-                <Label Margin="0,0,12,0" Grid.Row="0" Content="Game Played:" />
-                <Label Margin="0,0,12,0" Grid.Row="2" Content="Game Won:" />
-                <Label Margin="0,0,12,0" Grid.Row="4" Content="Game Won Percentage:" />
-                <Label Margin="0,0,12,0" Grid.Row="6" Content="Longest Winning Streak:" />
-                <Label Margin="0,0,12,0" Grid.Row="8" Content="Longest Losing Streak:" />
-                <Label Margin="0,0,12,0" Grid.Row="10" Content="Current Streak:" />
-                <Label Margin="0,0,12,0" Grid.Row="12" Content="Everage Score:" />
+                <Label Margin="0,0,12,0" Grid.Row="0" Content="Game played:" />
+                <Label Margin="0,0,12,0" Grid.Row="2" Content="Game won:" />
+                <Label Margin="0,0,12,0" Grid.Row="4" Content="Game won percentage:" />
+                <Label Margin="0,0,12,0" Grid.Row="6" Content="Longest winning streak:" />
+                <Label Margin="0,0,12,0" Grid.Row="8" Content="Longest losing streak:" />
+                <Label Margin="0,0,12,0" Grid.Row="10" Content="Current streak:" />
+                <Label Margin="0,0,12,0" Grid.Row="12" Content="Average score:" />
                 <TextBlock Grid.Column="1" Grid.Row="0" Text="{Binding GamePlayed}" />
                 <TextBlock Grid.Column="1" Grid.Row="2" Text="{Binding GameWon}" />
                 <TextBlock Grid.Column="1" Grid.Row="4" Text="{Binding GameWonPercentage}" />
                 <TextBlock Grid.Column="1" Grid.Row="6" Text="{Binding LongestWinning}" />
-                <TextBlock Grid.Column="1" Grid.Row="8" Text="{Binding LogestLosing}" />
+                <TextBlock Grid.Column="1" Grid.Row="8" Text="{Binding LongestLosing}" />
                 <TextBlock Grid.Column="1" Grid.Row="10" Text="{Binding CurrentStatus}" />
-                <TextBlock Grid.Column="1" Grid.Row="12" Text="{Binding EverageScore}" />
+                <TextBlock Grid.Column="1" Grid.Row="12" Text="{Binding AverageScore}" />
             </Grid>
         </DockPanel>
         <DockPanel DockPanel.Dock="Bottom" LastChildFill="False">

@@ -16,9 +16,14 @@
 
         void TryMarkAt(MineCell cell, CellState newState);
 
-        GameState TryDigAt(MineCell cell);
+        IEnumerable<MineCell> TryDigAt(MineCell cell);
 
-        bool TryExpandAt(MineCell cell);
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="cell"></param>
+        /// <returns>All the mines that has been shown </returns>
+        IEnumerable<MineCell> TryExpandAt(MineCell cell);
 
         MineCell GetCell(int column, int row);
 
@@ -32,7 +37,7 @@
 
         IEnumerable<MineCell> Cells { get; }
 
-        GameState GameState { get; set; }
+        GameState GameState { get; }
 
         event EventHandler StateChanged;
 
