@@ -3,12 +3,12 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:vm="clr-namespace:ClearMine.UI.Dialogs"
         xmlns:b="clr-namespace:ClearMine.Framework.Behaviors;assembly=ClearMine.Framework"
-        TextOptions.TextFormattingMode="Display"
-        ShowInTaskbar="False"
-        SizeToContent="WidthAndHeight"
-        ResizeMode="NoResize"
-        WindowStartupLocation="CenterOwner"
         Background="{StaticResource DialogBackground}"
+        TextOptions.TextFormattingMode="Display"
+        WindowStartupLocation="CenterOwner"
+        SizeToContent="WidthAndHeight"
+        ShowInTaskbar="False"
+        ResizeMode="NoResize"
         Title="Clear Mine - Statistics">
     <Window.CommandBindings>
         <x:Static Member="vm:StatisticsViewModel.ResetBinding" />
@@ -47,13 +47,13 @@
                 <Label Margin="0,0,12,0" Grid.Row="8" Content="Longest losing streak:" />
                 <Label Margin="0,0,12,0" Grid.Row="10" Content="Current streak:" />
                 <Label Margin="0,0,12,0" Grid.Row="12" Content="Average score:" />
-                <TextBlock Grid.Column="1" Grid.Row="0" Text="{Binding GamePlayed}" />
-                <TextBlock Grid.Column="1" Grid.Row="2" Text="{Binding GameWon}" />
-                <TextBlock Grid.Column="1" Grid.Row="4" Text="{Binding GameWonPercentage}" />
-                <TextBlock Grid.Column="1" Grid.Row="6" Text="{Binding LongestWinning}" />
-                <TextBlock Grid.Column="1" Grid.Row="8" Text="{Binding LongestLosing}" />
-                <TextBlock Grid.Column="1" Grid.Row="10" Text="{Binding CurrentStatus}" />
-                <TextBlock Grid.Column="1" Grid.Row="12" Text="{Binding AverageScore}" />
+                <TextBlock Grid.Column="1" Grid.Row="0" TextAlignment="Right" Text="{Binding GamePlayed}" />
+                <TextBlock Grid.Column="1" Grid.Row="2" TextAlignment="Right" Text="{Binding GameWon}" />
+                <TextBlock Grid.Column="1" Grid.Row="4" TextAlignment="Right" Text="{Binding GameWonPercentage, StringFormat={}{0:P}}" />
+                <TextBlock Grid.Column="1" Grid.Row="6" TextAlignment="Right" Text="{Binding LongestWinning}" />
+                <TextBlock Grid.Column="1" Grid.Row="8" TextAlignment="Right" Text="{Binding LongestLosing}" />
+                <TextBlock Grid.Column="1" Grid.Row="10" TextAlignment="Right" Text="{Binding CurrentStatus}" />
+                <TextBlock Grid.Column="1" Grid.Row="12" TextAlignment="Right" Text="{Binding AverageScore}" />
             </Grid>
         </DockPanel>
         <DockPanel DockPanel.Dock="Bottom" LastChildFill="False">
@@ -65,7 +65,8 @@
         <DockPanel DataContext="{Binding /}" Margin="0,0,0,16">
             <Label DockPanel.Dock="Top" Margin="0,0,0,5"
                    Content="_Play history of selected level:" />
-            <ListView ItemsSource="{Binding Items}" MinHeight="150">
+            <ListView ItemsSource="{Binding Items}"
+                      MinHeight="150" MaxHeight="250">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn Header="Score" Width="50"

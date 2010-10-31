@@ -4,10 +4,10 @@
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.ComponentModel;
-    using System.Diagnostics;
     using System.Diagnostics.Contracts;
     using System.Linq;
     using System.Text;
+    using System.Threading.Tasks;
     using System.Windows;
 
     internal class MinesGrid : ObservableCollection<MineCell>
@@ -78,25 +78,35 @@
             }
         }
 
-        public void MoveMine(MineCell cell)
+        /// <summary>
+        /// Make a cell clear by moving mines nearby to other places.
+        /// </summary>
+        /// <param name="cell"></param>
+        public void ClearMineAround(MineCell cell)
         {
             Contract.Requires<ArgumentNullException>(cell != null);
-            Debug.Assert(cell.HasMine);
 
-            var emptyCells = GetCellsAround(null, c => !c.HasMine);
-            var moveTo = emptyCells.ElementAt(new Random().Next(emptyCells.Count()));
+            var updateList = new List<MineCell>();
 
-            Debug.Assert(moveTo != cell);
-
-            cell.HasMine = false;
-            moveTo.HasMine = true;
-
-            cell.MinesNearby = GetMinesCountNearBy(cell);
-
-            foreach (var nearByCell in GetCellsAround(cell).Union(GetCellsAround(moveTo)))
+            foreach (MineCell cellHasMine in GetCellsAround(cell, c => c.HasMine).Union(new[] { cell }))
             {
-                nearByCell.MinesNearby = GetMinesCountNearBy(nearByCell);
+                var emptyCells = GetCellsAround(null, c => !(c.HasMine || c.Near(cell)));
+                var moveTo = emptyCells.ElementAt(new Random().Next(emptyCells.Count()));
+
+                cellHasMine.HasMine = false;
+                moveTo.HasMine = true;
+
+                updateList.Add(cellHasMine);
+                updateList.Add(moveTo);
             }
+
+            var calculateList = new List<MineCell>();
+            foreach (var updatedCell in updateList)
+            {
+                calculateList.AddRange(GetCellsAround(updatedCell));
+            }
+
+            Parallel.ForEach(calculateList.Union(updateList).Distinct(), c => c.MinesNearby = GetMinesCountNearBy(c));
         }
 
         protected override void InsertItem(int index, MineCell item)

@@ -59,6 +59,11 @@
             Column = column;
         }
 
+        public bool Near(MineCell other)
+        {
+            return Math.Abs(Column - other.Column) <= 1 && Math.Abs(Row - other.Row) <= 1;
+        }
+
         public override string ToString()
         {
             return String.Format(CultureInfo.CurrentCulture, "({0}, {1}) {3} : {2}", Column, Row, MinesNearby, HasMine);

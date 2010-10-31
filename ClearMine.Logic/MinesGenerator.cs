@@ -2,12 +2,14 @@
 {
     using System;
     using System.Diagnostics.Contracts;
+    using System.Linq;
+    using System.Threading.Tasks;
 
     internal class MinesGenerator
     {
         private Random random = new Random();
 
-        public void Fill(ref MinesGrid grid, int mines, MineCell noMineCell = null)
+        public void Fill(MinesGrid grid, int mines, MineCell noMineCell = null)
         {
             Contract.Requires<ArgumentNullException>(grid != null);
             if (mines > grid.Size.Height * grid.Size.Width)
@@ -74,10 +76,7 @@
                 #endregion
             }
 
-            foreach(var cell in grid)
-            {
-                cell.MinesNearby = grid.GetMinesCountNearBy(cell);
-            }
+            Parallel.ForEach(grid.GetCellsAround(null, c => !c.HasMine), c => c.MinesNearby = grid.GetMinesCountNearBy(c));
         }
     }
 }

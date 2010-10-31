@@ -43,7 +43,7 @@
         {
             Restart();
             this.cells.ClearMines();
-            new MinesGenerator().Fill(ref this.cells, totalMines);
+            new MinesGenerator().Fill(this.cells, totalMines);
         }
 
         public IEnumerable<MineCell> TryExpandAt(MineCell cell)
@@ -83,20 +83,18 @@
             VerifyStateIs(GameState.Initialized, GameState.Started);
             var result = new List<MineCell>();
 
+            // Hit the mine on first hit.
+            if (GameState == GameState.Initialized)
+            {
+                this.cells.ClearMineAround(cell);
+                GameState = GameState.Started;
+                result = this.cells.ExpandFrom(cell).ToList();
+            }
+
             // Change Game State Once! Don't change it more than one time.
             if (cell.HasMine)
             {
-                // Hit the mine on first hit.
-                if (GameState == GameState.Initialized)
-                {
-                    this.cells.MoveMine(cell);
-                    GameState = GameState.Started;
-                    result = this.cells.ExpandFrom(cell).ToList();
-                }
-                else
-                {
-                    GameState = GameState.Failed;
-                }
+                GameState = GameState.Failed;
             }
             else if (cell.State == CellState.Normal || cell.State == CellState.Question)
             {
