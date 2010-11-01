@@ -2,7 +2,6 @@
 {
     using System;
     using System.Diagnostics.Contracts;
-    using System.Linq;
     using System.Threading.Tasks;
 
     internal class MinesGenerator
@@ -61,7 +60,8 @@
                 // This method works much better than the Reservoir Sampling Algorithm
                 // When mines is much smaller than the grid size.
                 /////////////////////////////////////////////////////////////////////////
-                while (mines > 0)
+                int minesToGenerate = mines;
+                while (minesToGenerate > 0)
                 {
                     int index = random.Next(total);
                     // Found an empty cell
@@ -70,7 +70,7 @@
                     if (!grid[index].HasMine && grid[index] != noMineCell)
                     {
                         grid[index].HasMine = true;
-                        --mines;
+                        --minesToGenerate;
                     }
                 }
                 #endregion

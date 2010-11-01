@@ -10,6 +10,8 @@
 
     internal class StatisticsViewModel : ViewModelBase
     {
+        private Difficulty selectedLevel;
+
         #region Reset Command
         private static ICommand reset = new RoutedUICommand("Reset", "Reset", typeof(StatisticsViewModel));
         private static CommandBinding resetBinding = new CommandBinding(Reset,
@@ -46,6 +48,12 @@
         public IEnumerable<HeroHistory> HistoryList
         {
             get { return Settings.Default.HeroList.Heroes; }
+        }
+
+        public Difficulty SelectedLevel
+        {
+            get { return selectedLevel; }
+            set { SetProperty(ref selectedLevel, value); }
         }
     }
 }

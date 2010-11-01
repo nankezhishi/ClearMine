@@ -46,7 +46,7 @@
         public int CurrentStatus { get; set; }
 
         [XmlAttribute("average")]
-        public int AverageScore { get; set; }
+        public double AverageScore { get; set; }
 
         [XmlIgnore]
         public int GameLost

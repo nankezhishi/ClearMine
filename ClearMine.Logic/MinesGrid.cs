@@ -14,19 +14,45 @@
     {
         private Size size = Size.Empty;
 
-        public MinesGrid()
+        internal MinesGrid()
         {
         }
 
-        public MinesGrid(Size size)
+        internal MinesGrid(Size size)
             //: base (size.Width * size.Height)
         {
             SetSize(size);
         }
 
-        public Size Size { get { return size; } }
+        public override string ToString()
+        {
+            var strBuilder = new StringBuilder((int)(Size.Width + Environment.NewLine.Length) * (int)Size.Height);
+            for (int row = 0; row < Size.Height; ++row)
+            {
+                for (int column = 0; column < Size.Width; ++column)
+                {
+                    var cell = GetCell(column, row);
+                    strBuilder.Append(cell.HasMine ? '*' : cell.MinesNearby);
+                }
+                strBuilder.Append(Environment.NewLine);
+            }
 
-        public void SetSize(Size newSize)
+            return strBuilder.ToString();
+        }
+
+        protected override void InsertItem(int index, MineCell item)
+        {
+            if (index >= Size.Width * Size.Height)
+            {
+                throw new InvalidOperationException("No slot available for more mine cells.");
+            }
+
+            base.InsertItem(index, item);
+        }
+
+        internal Size Size { get { return size; } }
+
+        internal void SetSize(Size newSize)
         {
             if (this.size != newSize)
             {
@@ -60,16 +86,18 @@
             }
         }
 
-        public void MarkAllAsNoraml()
+        internal void MarkAllAsNoraml()
         {
             // All the cell, including the hidden ones must be updated.
             foreach (var cell in this)
             {
+                cell.ShowResult = false;
+                cell.IsTerminator = false;
                 cell.State = CellState.Normal;
             }
         }
 
-        public void ClearMines()
+        internal void ClearMines()
         {
             // All the cell, including the hidden ones must be updated.
             foreach (var cell in this)
@@ -82,13 +110,13 @@
         /// Make a cell clear by moving mines nearby to other places.
         /// </summary>
         /// <param name="cell"></param>
-        public void ClearMineAround(MineCell cell)
+        internal void ClearMineAround(MineCell cell)
         {
             Contract.Requires<ArgumentNullException>(cell != null);
 
             var updateList = new List<MineCell>();
 
-            foreach (MineCell cellHasMine in GetCellsAround(cell, c => c.HasMine).Union(new[] { cell }))
+            foreach (MineCell cellHasMine in GetCellsAround(cell, null).Union(new[] { cell }).Where(c => c.HasMine))
             {
                 var emptyCells = GetCellsAround(null, c => !(c.HasMine || c.Near(cell)));
                 var moveTo = emptyCells.ElementAt(new Random().Next(emptyCells.Count()));
@@ -109,33 +137,15 @@
             Parallel.ForEach(calculateList.Union(updateList).Distinct(), c => c.MinesNearby = GetMinesCountNearBy(c));
         }
 
-        protected override void InsertItem(int index, MineCell item)
-        {
-            if (index >= Size.Width * Size.Height)
-            {
-                throw new InvalidOperationException("No slot available for more mine cells.");
-            }
-
-            base.InsertItem(index, item);
-        }
-
-        public MineCell GetCell(int column, int row)
+        internal MineCell GetCell(int column, int row)
         {
             return this[GetIndex(column, row)];
         }
 
-        public bool CheckWinning()
+        internal bool CheckWinning()
         {
             // All the un-shown items has mine. Means Win.
             return GetCellsAround(null, c => c.State != CellState.Shown).All(c => c.HasMine);
-        }
-
-        public void ShowAll()
-        {
-            foreach (var nearCell in GetCellsAround(null, cell => cell.State == CellState.Normal || cell.State == CellState.Question))
-            {
-                nearCell.State = CellState.Shown;
-            }
         }
 
         /// <summary>
@@ -143,7 +153,7 @@
         /// </summary>
         /// <param name="current"></param>
         /// <returns>All the cells that Expanded.</returns>
-        public IEnumerable<MineCell> ExpandFrom(MineCell current)
+        internal IEnumerable<MineCell> ExpandFrom(MineCell current)
         {
             Contract.Requires<ArgumentNullException>(current != null);
 
@@ -155,6 +165,8 @@
                 {
                     foreach (var nearCell in GetCellsAround(current, cell => cell.State == CellState.Normal || cell.State == CellState.Question))
                     {
+                        // Though we get cells that only Normal or Question.
+                        // We still need to check it. 
                         if (nearCell.State == CellState.Shown)
                         {
                             continue;
@@ -181,7 +193,7 @@
         /// </summary>
         /// <param name="current"></param>
         /// <returns>The number of cells that has no mines around from the current mine cell.</returns>
-        public IEnumerable<MineCell> TryExpandFrom(MineCell current)
+        internal IEnumerable<MineCell> TryExpandFrom(MineCell current)
         {
             Contract.Requires<ArgumentNullException>(current != null);
 
@@ -206,7 +218,7 @@
             }
         }
 
-        public IEnumerable<MineCell> GetCellsAround(MineCell current, Predicate<MineCell> condition = null)
+        internal IEnumerable<MineCell> GetCellsAround(MineCell current, Predicate<MineCell> condition = null)
         {
             int startColumn = 0;
             int endColumn = (int)Size.Width - 1;
@@ -249,27 +261,19 @@
             }
         }
 
-        public int GetIndex(int column, int row)
+        internal int GetIndex(int column, int row)
         {
             Verify(column, row);
 
             return row * (int)size.Width + column;
         }
 
-        public override string ToString()
+        internal void DoForThat(Predicate<MineCell> condition, Action<MineCell> action)
         {
-            var strBuilder = new StringBuilder((int)(Size.Width + Environment.NewLine.Length) * (int)Size.Height);
-            for (int row = 0; row < Size.Height; ++row)
+            foreach (var nearCell in GetCellsAround(null, condition))
             {
-                for (int column = 0; column < Size.Width; ++column)
-                {
-                    var cell = GetCell(column, row);
-                    strBuilder.Append(cell.HasMine ? '*' : cell.MinesNearby);
-                }
-                strBuilder.Append(Environment.NewLine);
+                action(nearCell);
             }
-
-            return strBuilder.ToString();
         }
 
         internal int GetMinesCountNearBy(MineCell cell)

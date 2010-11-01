@@ -14,6 +14,12 @@
             <Image Source="..\Images\QuestionMark.png" />
         </VisualBrush.Visual>
     </VisualBrush>
+    
+    <VisualBrush x:Key="MineImage">
+        <VisualBrush.Visual>
+            <Image Source="..\Images\Mine.png" />
+        </VisualBrush.Visual>
+    </VisualBrush>
 
     <SolidColorBrush x:Key="DialogBackground" Color="#F0F0F0" />
 

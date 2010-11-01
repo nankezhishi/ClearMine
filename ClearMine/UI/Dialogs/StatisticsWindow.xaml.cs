@@ -1,18 +1,19 @@
 ﻿namespace ClearMine.UI.Dialogs
 {
     using System.Windows;
-    using ClearMine.Common.ComponentModel;
 
     /// <summary>
     /// Interaction logic for StatisticsWindow.xaml
     /// </summary>
     internal partial class StatisticsWindow : Window
     {
-        private ViewModelBase vm = new StatisticsViewModel();
-
-        public StatisticsWindow()
+        public StatisticsWindow(Difficulty selectedLevel)
         {
-            DataContext = vm;
+            if (selectedLevel == Difficulty.Custom)
+            {
+                selectedLevel = Difficulty.Beginner;
+            }
+            DataContext = new StatisticsViewModel() { SelectedLevel = selectedLevel };
             InitializeComponent();
         }
     }

@@ -76,6 +76,108 @@
                     </Setter.Value>
                 </Setter>
             </DataTrigger>
+            <!-- Shows a un-marked mine. -->
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding ShowResult}"
+                               Value="True" />
+                    <Condition Binding="{Binding State}"
+                               Value="{x:Static logic:CellState.Normal}" />
+                    <Condition Binding="{Binding HasMine}"
+                               Value="True" />
+                </MultiDataTrigger.Conditions>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type local:MineCellControl}">
+                            <Border Background="{DynamicResource MineImage}" />
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </MultiDataTrigger>
+            <!-- Shows a un-sure mine. -->
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding ShowResult}"
+                               Value="True" />
+                    <Condition Binding="{Binding State}"
+                               Value="{x:Static logic:CellState.Question}" />
+                    <Condition Binding="{Binding HasMine}"
+                               Value="True" />
+                </MultiDataTrigger.Conditions>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type local:MineCellControl}">
+                            <Border Background="{DynamicResource MineImage}">
+                                <Border Background="{DynamicResource QuestionMark}"
+                                        RenderTransformOrigin="0.5,0.5">
+                                    <Border.RenderTransform>
+                                        <ScaleTransform ScaleX="0.8"
+                                                        ScaleY="0.8" />
+                                    </Border.RenderTransform>
+                                </Border>
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </MultiDataTrigger>
+            <!-- Shows a correct marked mine. -->
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding ShowResult}" Value="True" />
+                    <Condition Binding="{Binding State}"
+                               Value="{x:Static logic:CellState.MarkAsMine}" />
+                    <Condition Binding="{Binding HasMine}" Value="True" />
+                </MultiDataTrigger.Conditions>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type local:MineCellControl}">
+                            <Border Background="{DynamicResource MineImage}">
+                                <Border Background="{DynamicResource FlagImage}"
+                                        RenderTransformOrigin="0.5,0.5">
+                                    <Border.RenderTransform>
+                                        <ScaleTransform ScaleX="0.8"
+                                                        ScaleY="0.8" />
+                                    </Border.RenderTransform>
+                                </Border>
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </MultiDataTrigger>
+            <!-- Shows a wrong marked mine. -->
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding ShowResult}"
+                               Value="True" />
+                    <Condition Binding="{Binding State}"
+                               Value="{x:Static logic:CellState.MarkAsMine}" />
+                    <Condition Binding="{Binding HasMine}"
+                               Value="False" />
+                </MultiDataTrigger.Conditions>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type local:MineCellControl}">
+                            <Border Background="{DynamicResource MineImage}">
+                                <Path StrokeThickness="2" Stroke="Red"
+                                      SnapsToDevicePixels="False"
+                                      Data="M0,0 L1,1 M1,0 L 0,1" Stretch="UniformToFill" />
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </MultiDataTrigger>
+            <DataTrigger Binding="{Binding IsTerminator}"
+                         Value="True">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type local:MineCellControl}">
+                            <Border Background="#FFAA3333">
+                                <Border Background="{DynamicResource MineImage}"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </DataTrigger>
             <DataTrigger Binding="{Binding MinesNearby}"
                          Value="1">
                 <Setter Property="Foreground"

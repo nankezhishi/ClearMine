@@ -35,7 +35,6 @@
         public void Restart()
         {
             this.GameState = GameState.Initialized;
-            this.cells.MarkAllAsNoraml();
             OnTick(this, EventArgs.Empty);
         }
 
@@ -81,6 +80,7 @@
         public IEnumerable<MineCell> TryDigAt(MineCell cell)
         {
             VerifyStateIs(GameState.Initialized, GameState.Started);
+
             var result = new List<MineCell>();
 
             // Hit the mine on first hit.
@@ -94,6 +94,7 @@
             // Change Game State Once! Don't change it more than one time.
             if (cell.HasMine)
             {
+                cell.IsTerminator = true;
                 GameState = GameState.Failed;
             }
             else if (cell.State == CellState.Normal || cell.State == CellState.Question)
@@ -137,16 +138,13 @@
             get { return gameState; }
             private set
             {
-                if (SetProperty(ref gameState, value) && StateChanged != null)
+                if (SetProperty(ref gameState, value))
                 {
                     if (value == GameState.Success || value == GameState.Failed)
                     {
                         this.timer.Stop();
                         this.watch.Stop();
-                        if (value == GameState.Success)
-                        {
-                            this.cells.ShowAll();
-                        }
+                        this.cells.DoForThat(c => c.HasMine || c.State == CellState.MarkAsMine, c => c.ShowResult = true);
                     }
                     else if (value == GameState.Started)
                     {
@@ -157,12 +155,17 @@
                     {
                         this.timer.Stop();
                         this.watch = null;
+                        this.cells.MarkAllAsNoraml();
                     }
                     else
                     {
                         throw new NotImplementedException();
                     }
-                    StateChanged.Invoke(this, EventArgs.Empty);
+
+                    if (StateChanged != null)
+                    {
+                        StateChanged.Invoke(this, EventArgs.Empty);
+                    }
                 }
             }
         }

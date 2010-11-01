@@ -91,7 +91,7 @@
 
         private static void OnStatisticsExecuted(object sender, ExecutedRoutedEventArgs e)
         {
-            var statisticsWindow = new StatisticsWindow();
+            var statisticsWindow = new StatisticsWindow(Settings.Default.Difficulty);
             statisticsWindow.Owner = Application.Current.MainWindow;
             statisticsWindow.ShowDialog();
         }

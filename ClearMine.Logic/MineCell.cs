@@ -1,6 +1,7 @@
 ﻿namespace ClearMine.Logic
 {
     using System;
+    using System.ComponentModel;
     using System.Globalization;
     using ClearMine.Common.ComponentModel;
 
@@ -8,8 +9,11 @@
     {
         private CellState state;
         private int minesNearBy;
+        private bool showResult;
+        private bool hasMine;
+        private bool isTerminator;
 
-        public MineCell(int column, int row)
+        internal MineCell(int column, int row)
         {
             UpdatePosition(column, row);
             State = CellState.Normal;
@@ -17,12 +21,25 @@
 
         public event EventHandler StateChanged;
 
-        public bool HasMine { get; set; }
+        [Bindable(true)]
+        public bool HasMine
+        {
+            get { return hasMine; }
+            set { SetProperty(ref hasMine, value); }
+        }
 
         public int Row { get; private set; }
 
         public int Column { get; private set; }
 
+        [Bindable(true)]
+        public bool ShowResult
+        {
+            get { return showResult; }
+            set { SetProperty(ref showResult, value, "ShowResult"); }
+        }
+
+        [Bindable(true)]
         public int MinesNearby
         {
             get { return minesNearBy; }
@@ -36,6 +53,7 @@
             }
         }
 
+        [Bindable(true)]
         public CellState State
         {
             get { return state; }
@@ -53,20 +71,27 @@
             }
         }
 
-        public void UpdatePosition(int column, int row)
+        [Bindable(true)]
+        public bool IsTerminator
         {
-            Row = row;
-            Column = column;
-        }
-
-        public bool Near(MineCell other)
-        {
-            return Math.Abs(Column - other.Column) <= 1 && Math.Abs(Row - other.Row) <= 1;
+            get { return isTerminator; }
+            set { SetProperty(ref isTerminator, value); }
         }
 
         public override string ToString()
         {
             return String.Format(CultureInfo.CurrentCulture, "({0}, {1}) {3} : {2}", Column, Row, MinesNearby, HasMine);
+        }
+
+        internal void UpdatePosition(int column, int row)
+        {
+            Row = row;
+            Column = column;
+        }
+
+        internal bool Near(MineCell other)
+        {
+            return Math.Abs(Column - other.Column) <= 1 && Math.Abs(Row - other.Row) <= 1;
         }
     }
 }
