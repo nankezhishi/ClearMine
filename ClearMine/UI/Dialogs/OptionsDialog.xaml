@@ -30,68 +30,101 @@
                     DockPanel.Dock="Right"
                     Margin="0,0,7,0" />
         </DockPanel>
-        <StackPanel Orientation="Horizontal"
-                    Margin="0,0,0,12"
-                    DockPanel.Dock="Top">
-            <RadioButton Content="_Beginner"
-                         Margin="0,0,7,0"
-                         IsChecked="{Binding Difficulty, Converter={StaticResource DifficultyToBooleanConverter}, ConverterParameter=Beginner}"
-                         GroupName="difficulty" />
-            <RadioButton Content="_Intermediate"
-                         Margin="0,0,7,0"
-                         IsChecked="{Binding Difficulty, Converter={StaticResource DifficultyToBooleanConverter}, ConverterParameter=Intermediate}"
-                         GroupName="difficulty" />
-            <RadioButton Content="_Advanced"
-                         IsChecked="{Binding Difficulty, Converter={StaticResource DifficultyToBooleanConverter}, ConverterParameter=Advanced}"
-                         GroupName="difficulty" />
-        </StackPanel>
-        <GroupBox Margin="0,0,0,18"
-                  Padding="2,6,6,6">
-            <GroupBox.Header>
-                <RadioButton x:Name="customChecker"
-                             Content="_Custom"
-                             IsChecked="{Binding Difficulty, Converter={StaticResource DifficultyToBooleanConverter}, ConverterParameter=Custom}"
-                             GroupName="difficulty" />
-            </GroupBox.Header>
-            <Grid IsEnabled="{Binding IsChecked, ElementName=customChecker, Mode=OneWay}">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="5" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="5" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="*" />
-                </Grid.RowDefinitions>
-                <Label Content="_Height (9-24):"
-                       Grid.Row="0" />
-                <Label Content="_Width (9-30):"
-                       Grid.Row="2" />
-                <Label Content="_Mines (10-668):"
-                       Margin="0,0,5,0"
-                       Grid.Row="4" />
-                <TextBox Grid.Column="1"
-                         Grid.Row="0"
-                         MaxLength="2"
-                         ToolTip="{Binding Path=(Validation.Errors)[0].ErrorContent, RelativeSource={RelativeSource Self}}"
-                         Validation.ErrorTemplate="{StaticResource ValidationErrorTemplate}"
-                         Text="{Binding Rows, ValidatesOnDataErrors=True, ValidatesOnExceptions=True, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged}" />
-                <TextBox Grid.Column="1"
-                         Grid.Row="2"
-                         MaxLength="2"
-                         Validation.ErrorTemplate="{StaticResource ValidationErrorTemplate}"
-                         ToolTip="{Binding Path=(Validation.Errors)[0].ErrorContent, RelativeSource={RelativeSource Self}}"
-                         Text="{Binding Columns, ValidatesOnDataErrors=True, ValidatesOnExceptions=True, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged}" />
-                <TextBox Grid.Column="1"
-                         Grid.Row="4"
-                         MaxLength="3"
-                         Validation.ErrorTemplate="{StaticResource ValidationErrorTemplate}"
-                         ToolTip="{Binding Path=(Validation.Errors)[0].ErrorContent, RelativeSource={RelativeSource Self}}"
-                         Text="{Binding Mines, ValidatesOnDataErrors=True, ValidatesOnExceptions=True, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged}" />
-            </Grid>
+        <GroupBox Header="Diffculty settings"
+                  Style="{StaticResource SeparatorGroupBoxStyle}"
+                  DockPanel.Dock="Top">
+            <DockPanel>
+                <StackPanel Orientation="Horizontal"
+                            Margin="0,0,0,7"
+                            DockPanel.Dock="Top">
+                    <RadioButton Content="_Beginner"
+                                 Margin="0,0,7,0"
+                                 IsChecked="{Binding Difficulty, Converter={StaticResource DifficultyToBooleanConverter}, ConverterParameter=Beginner}"
+                                 GroupName="difficulty" />
+                    <RadioButton Content="_Intermediate"
+                                 Margin="0,0,7,0"
+                                 IsChecked="{Binding Difficulty, Converter={StaticResource DifficultyToBooleanConverter}, ConverterParameter=Intermediate}"
+                                 GroupName="difficulty" />
+                    <RadioButton Content="_Advanced"
+                                 IsChecked="{Binding Difficulty, Converter={StaticResource DifficultyToBooleanConverter}, ConverterParameter=Advanced}"
+                                 GroupName="difficulty" />
+                </StackPanel>
+                <DockPanel>
+                    <RadioButton x:Name="customChecker"
+                                 Content="_Custom:"
+                                 Margin="0,0,0,5"
+                                 DockPanel.Dock="Top"
+                                 IsChecked="{Binding Difficulty, Converter={StaticResource DifficultyToBooleanConverter}, ConverterParameter=Custom}"
+                                 GroupName="difficulty" />
+                    <Grid IsEnabled="{Binding IsChecked, ElementName=customChecker, Mode=OneWay}"
+                          Margin="18,0,12,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="5" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="5" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <Label Content="_Height (9-24):"
+                               Grid.Row="0" />
+                        <Label Content="_Width (9-30):"
+                               Grid.Row="2" />
+                        <Label Content="_Mines (10-668):"
+                               Margin="0,0,5,0"
+                               Grid.Row="4" />
+                        <TextBox Grid.Column="1"
+                                 Grid.Row="0"
+                                 MaxLength="2"
+                                 ToolTip="{Binding Path=(Validation.Errors)[0].ErrorContent, RelativeSource={RelativeSource Self}}"
+                                 Validation.ErrorTemplate="{StaticResource ValidationErrorTemplate}"
+                                 Text="{Binding Rows, ValidatesOnDataErrors=True, ValidatesOnExceptions=True, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged}" />
+                        <TextBox Grid.Column="1"
+                                 Grid.Row="2"
+                                 MaxLength="2"
+                                 Validation.ErrorTemplate="{StaticResource ValidationErrorTemplate}"
+                                 ToolTip="{Binding Path=(Validation.Errors)[0].ErrorContent, RelativeSource={RelativeSource Self}}"
+                                 Text="{Binding Columns, ValidatesOnDataErrors=True, ValidatesOnExceptions=True, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged}" />
+                        <TextBox Grid.Column="1"
+                                 Grid.Row="4"
+                                 MaxLength="3"
+                                 Validation.ErrorTemplate="{StaticResource ValidationErrorTemplate}"
+                                 ToolTip="{Binding Path=(Validation.Errors)[0].ErrorContent, RelativeSource={RelativeSource Self}}"
+                                 Text="{Binding Mines, ValidatesOnDataErrors=True, ValidatesOnExceptions=True, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged}" />
+                    </Grid>
+                </DockPanel>
+            </DockPanel>
+        </GroupBox>
+        <GroupBox Header="Effect settings"
+                  DockPanel.Dock="Top"
+                  Style="{StaticResource SeparatorGroupBoxStyle}">
+            <StackPanel>
+                <CheckBox Content="Play Sound"
+                          Margin="0,0,0,5"
+                          IsChecked="{Binding PlaySound}"
+                          DockPanel.Dock="Top" />
+                <CheckBox Content="Play Animation"
+                          IsEnabled="False"
+                          DockPanel.Dock="Top" />
+            </StackPanel>
+        </GroupBox>
+        <GroupBox Header="Control settings"
+                  Margin="0,0,0,12"
+                  Style="{StaticResource SeparatorGroupBoxStyle}">
+            <StackPanel>
+                <CheckBox Content="Show question(?) mark"
+                          IsChecked="{Binding ShowQuestionMark}"
+                          Margin="0,0,0,5" />
+                <CheckBox Content="Always save game on exit"
+                          IsChecked="{Binding SaveOnExit}"
+                          Margin="0,0,0,5" />
+                <CheckBox Content="Always continue saved game"
+                          IsChecked="{Binding AutoContinueSaved}" />
+            </StackPanel>
         </GroupBox>
     </DockPanel>
 </Window>

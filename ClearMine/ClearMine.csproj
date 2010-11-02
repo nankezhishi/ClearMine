@@ -106,6 +106,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Properties\Settings.cs" />
+    <Compile Include="Media\Player.cs" />
     <Compile Include="UI\Controls\MineCellControl.cs" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>

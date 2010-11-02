@@ -1,8 +1,8 @@
 ﻿<Window x:Class="ClearMine.UI.Dialogs.StatisticsWindow" x:ClassModifier="internal" x:Name="root"
+        xmlns:b="clr-namespace:ClearMine.Framework.Behaviors;assembly=ClearMine.Framework"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:vm="clr-namespace:ClearMine.UI.Dialogs"
-        xmlns:b="clr-namespace:ClearMine.Framework.Behaviors;assembly=ClearMine.Framework"
         Background="{StaticResource DialogBackground}"
         TextOptions.TextFormattingMode="Display"
         WindowStartupLocation="CenterOwner"
@@ -62,21 +62,28 @@
             <Button Content="_Reset"
                     CommandParameter="{Binding}"
                     Command="vm:StatisticsViewModel.Reset" />
-            <Button Content="OK" IsDefault="True" IsCancel="True" DockPanel.Dock="Right" />
+            <Button Content="OK" IsDefault="True"
+                    IsCancel="True" DockPanel.Dock="Right" />
         </DockPanel>
         <DockPanel DataContext="{Binding HistoryList}" Margin="0,0,0,16">
             <Label DockPanel.Dock="Top" Margin="0,0,0,5"
                    Content="_Play history of selected level:" />
             <ListView DataContext="{Binding /}"
                       ItemsSource="{Binding Items}"
-                      MinHeight="150" MaxHeight="250"
+                      Height="150" Loaded="OnHistoryListLoaded"
                       IsSynchronizedWithCurrentItem="True">
+                <ListView.Resources>
+                    <Style TargetType="{x:Type TextBlock}">
+                        <Setter Property="TextAlignment" Value="Right" />
+                        <Setter Property="TextTrimming" Value="CharacterEllipsis" />
+                    </Style>
+                </ListView.Resources>
                 <ListView.View>
                     <GridView>
                         <GridViewColumn Header="Score" Width="50"
                                         b:SortableListViewBehavior.SortField="Score"
                                         DisplayMemberBinding="{Binding Score}" />
-                        <GridViewColumn Header="Date" Width="140"
+                        <GridViewColumn Header="Date" Width="160"
                                         b:SortableListViewBehavior.SortField="Date"
                                         DisplayMemberBinding="{Binding Date}" />
                     </GridView>

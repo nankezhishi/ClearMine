@@ -128,6 +128,30 @@
             set { Settings.Default.Mines = value; }
         }
 
+        public bool PlaySound
+        {
+            get { return Settings.Default.PlaySound; }
+            set { Settings.Default.PlaySound = value; }
+        }
+
+        public bool ShowQuestionMark
+        {
+            get { return Settings.Default.ShowQuestionMark; }
+            set { Settings.Default.ShowQuestionMark = value; }
+        }
+
+        public bool SaveOnExit
+        {
+            get { return Settings.Default.SaveOnExit; }
+            set { Settings.Default.SaveOnExit = value; }
+        }
+
+        public bool AutoContinueSaved
+        {
+            get { return Settings.Default.AutoContinueSaved; }
+            set { Settings.Default.AutoContinueSaved = value; }
+        }
+
         public void Save()
         {
             Settings.Default.Save();

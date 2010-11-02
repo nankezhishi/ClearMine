@@ -79,7 +79,6 @@
     <Compile Include="Controls\MinesPanel.cs" />
     <Compile Include="Controls\VisualAdorner.cs" />
     <Compile Include="Dialogs\OptionDialog.cs" />
-    <Compile Include="Media\Player.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

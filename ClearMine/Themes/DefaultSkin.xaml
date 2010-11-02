@@ -20,6 +20,21 @@
             <Image Source="..\Images\Mine.png" />
         </VisualBrush.Visual>
     </VisualBrush>
+    
+    <DrawingBrush x:Key="SeperatorBrush"
+                  TileMode="Tile"
+                  Viewport="0,0 1,2"
+                  ViewportUnits="Absolute"
+                  Stretch="None">
+        <DrawingBrush.Drawing>
+            <DrawingGroup>
+                <GeometryDrawing Geometry="M0,0 L1,0 1,1 0,1Z"
+                                 Brush="{DynamicResource {x:Static SystemColors.ControlDarkBrushKey}}"/>
+                <GeometryDrawing Geometry="M0,1 L1,1 1,2 0,2Z"
+                                 Brush="White" />
+            </DrawingGroup>
+        </DrawingBrush.Drawing>
+    </DrawingBrush>
 
     <SolidColorBrush x:Key="DialogBackground" Color="#F0F0F0" />
 
@@ -149,6 +164,55 @@
         <Setter Property="VerticalAlignment"
                 Value="Center" />
     </Style>
+
+    <Style TargetType="{x:Type Separator}">
+        <Setter Property="Background"
+                Value="{StaticResource SeperatorBrush}" />
+        <Setter Property="Margin"
+                Value="0,2,0,2" />
+        <Setter Property="Focusable"
+                Value="false" />
+        <Setter Property="Height"
+                Value="2" />
+        <Setter Property="UseLayoutRounding"
+                Value="True" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Separator}">
+                    <Border Background="{TemplateBinding Background}" />
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="{x:Static MenuItem.SeparatorStyleKey}"
+           TargetType="{x:Type Separator}"
+           BasedOn="{StaticResource {x:Type Separator}}">
+        <Setter Property="Margin"
+                Value="30,3,1,3" />
+    </Style>
+
+    <Style x:Key="SeparatorGroupBoxStyle"
+           TargetType="{x:Type GroupBox}">
+        <Setter Property="Padding" Value="18,5,7,12" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type GroupBox}">
+                    <DockPanel>
+                        <DockPanel DockPanel.Dock="Top">
+                            <ContentPresenter ContentSource="Header"
+                                              Margin="0,0,5,0"
+                                              RecognizesAccessKey="True" />
+                            <Separator Margin="0,2,0,0"
+                                       HorizontalAlignment="Stretch"
+                                       VerticalAlignment="Center" />
+                        </DockPanel>
+                        <ContentPresenter Margin="{TemplateBinding Padding}" />
+                    </DockPanel>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
     
     <Style TargetType="{x:Type ListBoxItem}">
         <Setter Property="BorderBrush" Value="Transparent" />
@@ -249,6 +313,8 @@
                 Value="5,2,5,2" />
         <Setter Property="VerticalContentAlignment"
                 Value="Center" />
+        <Setter Property="HorizontalContentAlignment"
+                Value="Stretch" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type ListViewItem}">
@@ -332,24 +398,5 @@
                 Value="True" />
         <Setter Property="ItemContainerStyle"
                 Value="{StaticResource {x:Static GridView.GridViewItemContainerStyleKey}}" />
-    </Style>
-
-    <Style x:Key="{x:Static MenuItem.SeparatorStyleKey}"
-           TargetType="{x:Type Separator}">
-        <Setter Property="Margin" Value="30,3,0,3" />
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="{x:Type Separator}">
-                    <Grid>
-                        <Rectangle Height="1"
-                                   Margin="0,0,1,1"
-                                   Fill="#E0E0E0" />
-                        <Rectangle Height="1"
-                                   Margin="0,1,1,0"
-                                   Fill="#FFFFFF" />
-                    </Grid>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
     </Style>
 </ResourceDictionary>

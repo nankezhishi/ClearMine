@@ -9,8 +9,8 @@
 
     using ClearMine.Common.ComponentModel;
     using ClearMine.Common.Utilities;
-    using ClearMine.Framework.Media;
     using ClearMine.Logic;
+    using ClearMine.Media;
     using ClearMine.Properties;
 
     internal sealed class ClearMineViewModel : ViewModelBase
@@ -224,7 +224,14 @@
                 }
                 else if (cell.State == CellState.MarkAsMine)
                 {
-                    game.TryMarkAt(cell, CellState.Question);
+                    if (Settings.Default.ShowQuestionMark)
+                    {
+                        game.TryMarkAt(cell, CellState.Question);
+                    }
+                    else
+                    {
+                        game.TryMarkAt(cell, CellState.Normal);
+                    }
                 }
                 else if (cell.State == CellState.Question)
                 {

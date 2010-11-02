@@ -7,8 +7,8 @@
         SnapsToDevicePixels="True"
         Title="Clear Mine"
         Loaded="OnLoaded"
-        Height="300"
-        Width="300">
+        Height="640"
+        Width="600">
     <Window.CommandBindings>
         <x:Static Member="vm:ClearMineViewModel.CloseBinding" />
         <x:Static Member="vm:ClearMineViewModel.RefreshBinding" />
