@@ -5,7 +5,7 @@
     using System.Globalization;
     using ClearMine.Common.ComponentModel;
 
-    internal class MineCell : BindableObject
+    internal class MineCell : BindableObject, IUpdatable<MineCell>
     {
         private CellState state;
         private int minesNearBy;
@@ -87,6 +87,12 @@
         {
             Row = row;
             Column = column;
+        }
+
+        public void Update(MineCell newValue)
+        {
+            Row = newValue.Row;
+            Column = newValue.Column;
         }
 
         internal bool Near(MineCell other)

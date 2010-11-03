@@ -2,17 +2,18 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Diagnostics;
     using System.Diagnostics.Contracts;
+    using System.Globalization;
     using System.Linq;
     using System.Windows;
     using System.Windows.Threading;
+
     using ClearMine.Common.ComponentModel;
 
     internal class ClearMineGame : BindableObject, IClearMine
     {
         private int totalMines;
-        private Stopwatch watch;
+        private DateTime startTime;
         private GameState gameState;
         private DispatcherTimer timer;
         private MinesGrid cells = new MinesGrid();
@@ -69,9 +70,13 @@
         public void TryMarkAt(MineCell cell, CellState newState)
         {
             VerifyStateIs(GameState.Initialized, GameState.Started);
+            if (!new[] { CellState.MarkAsMine, CellState.Normal, CellState.Question }.Contains(newState))
+            {
+                throw new InvalidOperationException(String.Format(CultureInfo.InvariantCulture, "Cannot set cell state to {0}.", newState));
+            }
 
             cell.State = newState;
-            if (watch != null && cells.CheckWinning())
+            if (cells.CheckWinning())
             {
                 GameState = GameState.Success;
             }
@@ -120,7 +125,15 @@
 
         public int UsedTime
         {
-            get { return this.watch == null ? 0 : (int)watch.ElapsedMilliseconds; }
+            get
+            {
+                if (timer.IsEnabled)
+                {
+                    return (int)(DateTime.Now - startTime).TotalMilliseconds;
+                }
+
+                return 0;
+            }
         }
 
         public int TotalMines
@@ -143,18 +156,16 @@
                     if (value == GameState.Success || value == GameState.Failed)
                     {
                         this.timer.Stop();
-                        this.watch.Stop();
                         this.cells.DoForThat(c => c.HasMine || c.State == CellState.MarkAsMine, c => c.ShowResult = true);
                     }
                     else if (value == GameState.Started)
                     {
                         this.timer.Start();
-                        this.watch = Stopwatch.StartNew();
+                        this.startTime = DateTime.Now;
                     }
                     else if (value == GameState.Initialized)
                     {
                         this.timer.Stop();
-                        this.watch = null;
                         this.cells.MarkAllAsNoraml();
                     }
                     else

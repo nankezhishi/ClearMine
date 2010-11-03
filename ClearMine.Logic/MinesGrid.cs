@@ -2,15 +2,15 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Collections.ObjectModel;
     using System.ComponentModel;
     using System.Diagnostics.Contracts;
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
     using System.Windows;
+    using ClearMine.Common.ComponentModel;
 
-    internal class MinesGrid : ObservableCollection<MineCell>
+    internal class MinesGrid : CachedObservableCollection<MineCell>
     {
         private Size size = Size.Empty;
 
@@ -58,29 +58,17 @@
             {
                 this.size = newSize;
 
-                // No need to clear the items.
-                // Clear items is a heavy operaion. It could be a cache.
+                this.Clear();
 
                 // Generate cells row by row. So first Height then Width;
+                int index = 0;
                 for (int row = 0; row < newSize.Height; ++row)
                 {
                     for (int column = 0; column < newSize.Width; ++column)
                     {
-                        int index = row * (int)newSize.Width + column;
-                        if (index < Count)
-                        {
-                            this[index].UpdatePosition(column, row);
-                        }
-                        else
-                        {
-                            base.Add(new MineCell(column, row));
-                        }
+                        base.InsertItem(index++, new MineCell(column, row));
                     }
                 }
-
-                // Don't worry about the redundent items.
-                // UI Layer take the resposiblity of not showing them.
-                // But we still need to clear mines on any initialize.
 
                 OnPropertyChanged(new PropertyChangedEventArgs("Size"));
             }
