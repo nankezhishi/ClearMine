@@ -20,6 +20,16 @@
         {
         }
 
+        public void Pause()
+        {
+
+        }
+
+        public void Resume()
+        {
+
+        }
+
         public void TryMarkAt(MineCell cell, CellState newState)
         {
             Contract.Requires<ArgumentNullException>(cell != null);
@@ -59,7 +69,7 @@
             get { throw new NotImplementedException(); }
         }
 
-        public System.Windows.Size Size
+        public Size Size
         {
             get { throw new NotImplementedException(); }
         }
@@ -84,5 +94,7 @@
         public event EventHandler StateChanged;
 
         public event EventHandler TimeChanged;
+
+        public event EventHandler<CellStateChangedEventArgs> CellStateChanged;
     }
 }

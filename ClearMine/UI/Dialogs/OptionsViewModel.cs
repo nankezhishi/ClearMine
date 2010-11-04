@@ -134,6 +134,12 @@
             set { Settings.Default.PlaySound = value; }
         }
 
+        public bool PlayAnimation
+        {
+            get { return Settings.Default.PlayAnimation; }
+            set { Settings.Default.PlayAnimation = value; }
+        }
+
         public bool ShowQuestionMark
         {
             get { return Settings.Default.ShowQuestionMark; }

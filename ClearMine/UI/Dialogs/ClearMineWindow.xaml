@@ -16,6 +16,7 @@
         <x:Static Member="vm:ClearMineViewModel.StatisticsBinding" />
         <x:Static Member="vm:ClearMineViewModel.OptionBinding" />
         <x:Static Member="vm:ClearMineViewModel.AboutBinding" />
+        <x:Static Member="vm:ClearMineViewModel.FeedbackBinding" />
     </Window.CommandBindings>
     <DockPanel>
         <Menu DockPanel.Dock="Top">
@@ -49,6 +50,9 @@
                           Command="{x:Static vm:ClearMineViewModel.Option}" />
             </MenuItem>
             <MenuItem Header="Help">
+                <MenuItem Header="Send Feedback"
+                          Command="{x:Static vm:ClearMineViewModel.Feedback}"/>
+                <Separator />
                 <MenuItem Header="About"
                           Command="{x:Static vm:ClearMineViewModel.About}"/>
             </MenuItem>

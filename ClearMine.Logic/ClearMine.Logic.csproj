@@ -69,6 +69,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CellState.cs" />
+    <Compile Include="CellStateChangedEventArgs.cs" />
     <Compile Include="ClearMineGame.cs" />
     <Compile Include="ExpandFailedException.cs" />
     <Compile Include="GameState.cs" />

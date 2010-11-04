@@ -14,6 +14,10 @@
 
         void StartNew();
 
+        void Pause();
+
+        void Resume();
+
         void TryMarkAt(MineCell cell, CellState newState);
 
         IEnumerable<MineCell> TryDigAt(MineCell cell);
@@ -42,5 +46,7 @@
         event EventHandler StateChanged;
 
         event EventHandler TimeChanged;
+
+        event EventHandler<CellStateChangedEventArgs> CellStateChanged;
     }
 }

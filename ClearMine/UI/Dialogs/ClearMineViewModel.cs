@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.ComponentModel;
     using System.Linq;
+    using System.Threading;
     using System.Windows;
     using System.Windows.Input;
 
@@ -118,12 +119,30 @@
 
         private static void OnOptionExecuted(object sender, ExecutedRoutedEventArgs e)
         {
+            e.ExtractDataContext<ClearMineViewModel>(vm =>
+            {
+                if (vm.game.GameState == GameState.Started)
+                {
+                    vm.game.Pause();
+                }
+            });
             var optionsWindow = new OptionsDialog();
             optionsWindow.Owner = Application.Current.MainWindow;
-            // Start a new game if user click OK button.
             if (optionsWindow.ShowDialog().Value)
             {
-                e.ExtractDataContext<ClearMineViewModel>( vm => vm.game.StartNew() );
+                e.ExtractDataContext<ClearMineViewModel>(vm =>
+                {
+                    if (Settings.Default.Rows != vm.game.Size.Height ||
+                        Settings.Default.Columns != vm.game.Size.Width ||
+                        Settings.Default.Mines != vm.game.TotalMines)
+                    {
+                        vm.Start();
+                    }
+                    else if (vm.game.GameState == GameState.Started)
+                    {
+                        vm.game.Resume();
+                    }
+                });
             }
         }
 
@@ -158,11 +177,36 @@
             e.CanExecute = true;
         }  
         #endregion
+        #region Feeback Command
+        private static ICommand feedback = new RoutedUICommand("Feedback", "Feedback", typeof(ClearMineViewModel));
+        private static CommandBinding feedbackBinding = new CommandBinding(Feedback,
+            new ExecutedRoutedEventHandler(OnFeedbackExecuted), new CanExecuteRoutedEventHandler(OnFeedbackCanExecute));
+        public static ICommand Feedback
+        {
+            get { return feedback; }
+        }
+
+        public static CommandBinding FeedbackBinding
+        {
+            get { return feedbackBinding; }
+        }
+
+        private static void OnFeedbackExecuted(object sender, ExecutedRoutedEventArgs e)
+        {
+
+        }
+
+        private static void OnFeedbackCanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = true;
+        }
+        #endregion
 
         public ClearMineViewModel()
         {
             game.StateChanged += new EventHandler(OnGameStateChanged);
             game.TimeChanged += new EventHandler(OnGameTimeChanged);
+            game.CellStateChanged += new EventHandler<CellStateChangedEventArgs>(OnCellStateChanged);
             Settings.Default.PropertyChanged += new PropertyChangedEventHandler(OnSettingsChanged);
         }
 
@@ -249,7 +293,7 @@
         {
             if (cell != null)
             {
-                HandleExpandedCells(game.TryDigAt(cell));
+                ThreadPool.QueueUserWorkItem(o => HandleExpandedCells(game.TryDigAt(cell)));
             }
         }
 
@@ -257,7 +301,7 @@
         {
             if (cell != null)
             {
-                HandleExpandedCells(game.TryExpandAt(cell));
+                ThreadPool.QueueUserWorkItem(o => HandleExpandedCells(game.TryExpandAt(cell)));
             }
         }
 
@@ -275,12 +319,30 @@
         {
             if (new[] { "Rows", "Columns", "Mines" }.Contains(e.PropertyName))
             {
-                InitialPlayground();
-                OnPropertyChanged(e.PropertyName);
+                if (game.GameState == GameState.Initialized)
+                {
+                    InitialPlayground();
+                    OnPropertyChanged(e.PropertyName);
+                }
+                else
+                {
+                    // Ignore it.
+                }
             }
             else
             {
                 // Ignore it.
+            }
+        }
+
+        private void OnCellStateChanged(object sender, CellStateChangedEventArgs e)
+        {
+            if (Settings.Default.PlayAnimation)
+            {
+                if (e.Cell.State == CellState.Shown)
+                {
+                    Thread.Sleep(1);
+                }
             }
         }
 
@@ -291,35 +353,45 @@
             {
                 Player.Play(@".\Sound\Lose.wma");
                 UpdateStatistics();
-                var lostWindow = new GameLostWindow();
-                lostWindow.Owner = Application.Current.MainWindow;
-                if ((bool)lostWindow.ShowDialog())
-                {
-                    game.StartNew();
-                }
-                else
-                {
-                    game.Restart();
-                }
+                Application.Current.Dispatcher.BeginInvoke(new Action(ShowLostWindow));
             }
             else if (game.GameState == GameState.Success)
             {
                 Player.Play(@".\Sound\Win.wma");
                 UpdateStatistics();
-                var wonWindow = new GameWonWindow();
-                wonWindow.Owner = Application.Current.MainWindow;
-                if ((bool)wonWindow.ShowDialog())
-                {
-                    Application.Current.Shutdown();
-                }
-                else
-                {
-                    game.StartNew();
-                }
+                Application.Current.Dispatcher.BeginInvoke(new Action(ShowWonWindow));
             }
             else if (game.GameState == GameState.Initialized)
             {
                 Player.Play(@".\Sound\GameStart.wma");
+            }
+        }
+
+        private void ShowLostWindow()
+        {
+            var lostWindow = new GameLostWindow();
+            lostWindow.Owner = Application.Current.MainWindow;
+            if ((bool)lostWindow.ShowDialog())
+            {
+                game.StartNew();
+            }
+            else
+            {
+                game.Restart();
+            }
+        }
+
+        private void ShowWonWindow()
+        {
+            var wonWindow = new GameWonWindow();
+            wonWindow.Owner = Application.Current.MainWindow;
+            if ((bool)wonWindow.ShowDialog())
+            {
+                Application.Current.Shutdown();
+            }
+            else
+            {
+                game.StartNew();
             }
         }
 

@@ -142,5 +142,17 @@ namespace ClearMine.Properties {
                 this["AutoContinueSaved"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool PlayAnimation {
+            get {
+                return ((bool)(this["PlayAnimation"]));
+            }
+            set {
+                this["PlayAnimation"] = value;
+            }
+        }
     }
 }

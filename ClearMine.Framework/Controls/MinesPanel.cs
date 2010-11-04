@@ -49,11 +49,6 @@
                         finalRect.X = beginX;
                     }
                 }
-                else
-                {
-                    // Hide the redundent items.
-                    element.Arrange(new Rect());
-                }
             }
 
             return arrangeSize;

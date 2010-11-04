@@ -20,6 +20,7 @@
 
         public event EventHandler StateChanged;
         public event EventHandler TimeChanged;
+        public event EventHandler<CellStateChangedEventArgs> CellStateChanged;
 
         public ClearMineGame()
         {
@@ -30,7 +31,10 @@
         public void Initialize(Size size, int mines)
         {
             this.totalMines = mines;
-            this.cells.SetSize(size);
+            foreach (var newCell in this.cells.SetSize(size))
+            {
+                newCell.StateChanged += new EventHandler<CellStateChangedEventArgs>(OnCellStateChanged);
+            }
         }
 
         public void Restart()
@@ -44,6 +48,16 @@
             Restart();
             this.cells.ClearMines();
             new MinesGenerator().Fill(this.cells, totalMines);
+        }
+
+        public void Pause()
+        {
+            timer.IsEnabled = false;
+        }
+
+        public void Resume()
+        {
+            timer.IsEnabled = true;
         }
 
         public IEnumerable<MineCell> TryExpandAt(MineCell cell)
@@ -94,6 +108,10 @@
                 this.cells.ClearMineAround(cell);
                 GameState = GameState.Started;
                 result = this.cells.ExpandFrom(cell).ToList();
+                if (cells.CheckWinning())
+                {
+                    GameState = GameState.Success;
+                }
             }
 
             // Change Game State Once! Don't change it more than one time.
@@ -198,6 +216,19 @@
             if (temp != null)
             {
                 temp(this, e);
+            }
+        }
+
+        private void OnCellStateChanged(object sender, CellStateChangedEventArgs e)
+        {
+            var cell = sender as MineCell;
+            if (cell != null && cell.CachingState == CachingState.InUse)
+            {
+                var temp = CellStateChanged;
+                if (temp != null)
+                {
+                    temp(this, e);
+                }
             }
         }
 

@@ -108,8 +108,8 @@
                           IsChecked="{Binding PlaySound}"
                           DockPanel.Dock="Top" />
                 <CheckBox Content="Play Animation"
-                          IsEnabled="False"
-                          DockPanel.Dock="Top" />
+                          DockPanel.Dock="Top"
+                          IsChecked="{Binding PlayAnimation}" />
             </StackPanel>
         </GroupBox>
         <GroupBox Header="Control settings"
@@ -121,8 +121,10 @@
                           Margin="0,0,0,5" />
                 <CheckBox Content="Always save game on exit"
                           IsChecked="{Binding SaveOnExit}"
+                          IsEnabled="False"
                           Margin="0,0,0,5" />
                 <CheckBox Content="Always continue saved game"
+                          IsEnabled="False"
                           IsChecked="{Binding AutoContinueSaved}" />
             </StackPanel>
         </GroupBox>

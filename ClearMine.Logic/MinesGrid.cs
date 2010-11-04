@@ -14,16 +14,6 @@
     {
         private Size size = Size.Empty;
 
-        internal MinesGrid()
-        {
-        }
-
-        internal MinesGrid(Size size)
-            //: base (size.Width * size.Height)
-        {
-            SetSize(size);
-        }
-
         public override string ToString()
         {
             var strBuilder = new StringBuilder((int)(Size.Width + Environment.NewLine.Length) * (int)Size.Height);
@@ -52,21 +42,26 @@
 
         internal Size Size { get { return size; } }
 
-        internal void SetSize(Size newSize)
+        internal IEnumerable<MineCell> SetSize(Size newSize)
         {
             if (this.size != newSize)
             {
                 this.size = newSize;
-
                 this.Clear();
-
                 // Generate cells row by row. So first Height then Width;
                 int index = 0;
                 for (int row = 0; row < newSize.Height; ++row)
                 {
                     for (int column = 0; column < newSize.Width; ++column)
                     {
-                        base.InsertItem(index++, new MineCell(column, row));
+                        var newCell = new MineCell(column, row);
+                        // if call base.InsertItem directly, C# compiler will unable to generate a valid assembly!
+                        // Woops.
+                        this.InsertItem(index++, newCell);
+                        if (newCell.CachingState == CachingState.InUse)
+                        {
+                            yield return newCell;
+                        }
                     }
                 }
 

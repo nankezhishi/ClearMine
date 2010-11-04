@@ -2,14 +2,13 @@
 {
     using System;
     using System.Collections.ObjectModel;
-    using System.Collections.Specialized;
 
     /// <summary>
     /// 
     /// </summary>
     /// <typeparam name="T"></typeparam>
     internal class CachedObservableCollection<T> : ObservableCollection<T>
-        where T : class, IUpdatable<T>
+        where T : class, ICachable<T>
     {
         private int countInUse = 0;
 
@@ -20,10 +19,16 @@
             // But we still need to clear mines on any initialize.
 
             countInUse = 0;
+            foreach (T item in this)
+            {
+                item.CachingState = CachingState.InCache;
+            }
         }
 
         protected override void RemoveItem(int index)
         {
+            this[index].CachingState = CachingState.InCache;
+
             // Move the item to be remove to the end;
             MoveItem(index, Count - 1);
 
@@ -44,10 +49,13 @@
                     MoveItem(countInUse, index);
                 }
 
+                item.CachingState = CachingState.Disposed;
+                this[index].CachingState = CachingState.InUse;
                 this[index].Update(item);
             }
             else
             {
+                item.CachingState = CachingState.InUse;
                 base.InsertItem(index, item);
             }
             ++countInUse;
@@ -57,6 +65,7 @@
         {
             if (index < countInUse)
             {
+                item.CachingState = CachingState.Disposed;
                 this[index].Update(item);
             }
             else
