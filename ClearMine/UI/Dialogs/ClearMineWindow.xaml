@@ -4,6 +4,7 @@
         xmlns:vm="clr-namespace:ClearMine.UI.Dialogs"
         TextOptions.TextFormattingMode="Display"
         WindowStartupLocation="CenterScreen"
+        StateChanged="OnStateChanged"
         SnapsToDevicePixels="True"
         Title="Clear Mine"
         Loaded="OnLoaded"

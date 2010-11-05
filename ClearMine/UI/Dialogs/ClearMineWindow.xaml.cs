@@ -1,11 +1,11 @@
 ﻿namespace ClearMine.UI.Dialogs
 {
+    using System;
     using System.Windows;
     using System.Windows.Input;
 
     using ClearMine.Common.Utilities;
     using ClearMine.Logic;
-    using ClearMine.Properties;
 
     /// <summary>
     /// Interaction logic for ClearMineWindow.xaml
@@ -14,6 +14,7 @@
     {
         private bool expanding = false;
         private ClearMineViewModel vm = new ClearMineViewModel();
+        private DateTime? lastStateChangedTime;
 
         public ClearMineWindow()
         {
@@ -44,6 +45,13 @@
 
         private void OnMineGroudMouseUp(object sender, MouseButtonEventArgs e)
         {
+            // Maximim the window trigger a mouse up within the playground.
+            // We need to block it here.
+            if (lastStateChangedTime.HasValue && (DateTime.Now - lastStateChangedTime.Value).TotalMilliseconds < Math.Min(Win32.GetDoubleClickTime(), 300))
+            {
+                return;
+            }
+
             var cell = e.ExtractDataContext<MineCell>();
             if (cell == null)
             {
@@ -67,6 +75,14 @@
                 {
                     vm.MarkAt(cell);
                 }
+            }
+        }
+
+        private void OnStateChanged(object sender, EventArgs e)
+        {
+            if (WindowState == WindowState.Maximized)
+            {
+                lastStateChangedTime = DateTime.Now;
             }
         }
     }

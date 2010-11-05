@@ -73,7 +73,7 @@
         private static void OnCloseCanExecuted(object sender, CanExecuteRoutedEventArgs e)
         {
             e.CanExecute = true;
-        } 
+        }
         #endregion
         #region Show Statistics Command
         private static ICommand showStatistics = new RoutedUICommand("Statistics", "Statistics",
@@ -100,7 +100,7 @@
         private static void OnStaisticsCanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
             e.CanExecute = true;
-        } 
+        }
         #endregion
         #region Option Command
         private static ICommand option = new RoutedUICommand("Option", "Option",
@@ -132,9 +132,7 @@
             {
                 e.ExtractDataContext<ClearMineViewModel>(vm =>
                 {
-                    if (Settings.Default.Rows != vm.game.Size.Height ||
-                        Settings.Default.Columns != vm.game.Size.Width ||
-                        Settings.Default.Mines != vm.game.TotalMines)
+                    if (vm.game.GameState == GameState.Initialized)
                     {
                         vm.Start();
                     }
@@ -175,7 +173,7 @@
         private static void OnAboutCanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
             e.CanExecute = true;
-        }  
+        }
         #endregion
         #region Feeback Command
         private static ICommand feedback = new RoutedUICommand("Feedback", "Feedback", typeof(ClearMineViewModel));
@@ -260,7 +258,7 @@
 
         public void MarkAt(MineCell cell)
         {
-            if (cell != null)
+            if (cell != null && (game.GameState == GameState.Initialized || game.GameState == GameState.Started))
             {
                 if (cell.State == CellState.Normal)
                 {
@@ -291,7 +289,7 @@
 
         public void DigAt(MineCell cell)
         {
-            if (cell != null)
+            if (cell != null && (game.GameState == GameState.Initialized || game.GameState == GameState.Started))
             {
                 ThreadPool.QueueUserWorkItem(o => HandleExpandedCells(game.TryDigAt(cell)));
             }
@@ -299,7 +297,7 @@
 
         public void TryExpand(MineCell cell)
         {
-            if (cell != null)
+            if (cell != null && (game.GameState == GameState.Initialized || game.GameState == GameState.Started))
             {
                 ThreadPool.QueueUserWorkItem(o => HandleExpandedCells(game.TryExpandAt(cell)));
             }
@@ -352,14 +350,20 @@
             if (game.GameState == GameState.Failed)
             {
                 Player.Play(@".\Sound\Lose.wma");
-                UpdateStatistics();
-                Application.Current.Dispatcher.BeginInvoke(new Action(ShowLostWindow));
+                Application.Current.Dispatcher.BeginInvoke(new Action(() =>
+                {
+                    UpdateStatistics();
+                    ShowLostWindow();
+                }));
             }
             else if (game.GameState == GameState.Success)
             {
                 Player.Play(@".\Sound\Win.wma");
-                UpdateStatistics();
-                Application.Current.Dispatcher.BeginInvoke(new Action(ShowWonWindow));
+                Application.Current.Dispatcher.BeginInvoke(new Action(() =>
+                {
+                    UpdateStatistics();
+                    ShowWonWindow();
+                }));
             }
             else if (game.GameState == GameState.Initialized)
             {
@@ -373,11 +377,11 @@
             lostWindow.Owner = Application.Current.MainWindow;
             if ((bool)lostWindow.ShowDialog())
             {
-                game.StartNew();
+                ThreadPool.QueueUserWorkItem(a => game.StartNew());
             }
             else
             {
-                game.Restart();
+                ThreadPool.QueueUserWorkItem(a => game.Restart());
             }
         }
 
@@ -391,7 +395,7 @@
             }
             else
             {
-                game.StartNew();
+                ThreadPool.QueueUserWorkItem(a => game.StartNew());
             }
         }
 

@@ -28,7 +28,7 @@
         public bool HasMine
         {
             get { return hasMine; }
-            set { SetProperty(ref hasMine, value); }
+            set { SetProperty(ref hasMine, value, "HasMine"); }
         }
 
         public int Row { get; private set; }

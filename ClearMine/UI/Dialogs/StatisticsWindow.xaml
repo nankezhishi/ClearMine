@@ -60,7 +60,7 @@
         </DockPanel>
         <DockPanel DockPanel.Dock="Bottom" LastChildFill="False">
             <Button Content="_Reset"
-                    CommandParameter="{Binding}"
+                    CommandParameter="{Binding HistoryList}"
                     Command="vm:StatisticsViewModel.Reset" />
             <Button Content="OK" IsDefault="True"
                     IsCancel="True" DockPanel.Dock="Right" />

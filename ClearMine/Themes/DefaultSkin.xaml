@@ -21,6 +21,16 @@
         </VisualBrush.Visual>
     </VisualBrush>
     
+    <VisualBrush x:Key="WrongMineMark">
+        <VisualBrush.Visual>
+            <Path StrokeThickness="2"
+                  Stroke="Red"
+                  SnapsToDevicePixels="False"
+                  Data="M0,0 L1,1 M1,0 L 0,1"
+                  Stretch="UniformToFill" />
+        </VisualBrush.Visual>
+    </VisualBrush>
+    
     <DrawingBrush x:Key="SeperatorBrush"
                   TileMode="Tile"
                   Viewport="0,0 1,2"

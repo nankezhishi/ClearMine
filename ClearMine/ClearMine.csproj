@@ -114,6 +114,7 @@
     </Compile>
     <Compile Include="UI\Converters\CacheStateToVisibilityConverter.cs" />
     <Compile Include="UI\Converters\DifficultyToBooleanConverter.cs" />
+    <Compile Include="UI\Converters\WidthToFontSizeConverter.cs" />
     <Compile Include="UI\Dialogs\AboutDialog.xaml.cs">
       <DependentUpon>AboutDialog.xaml</DependentUpon>
     </Compile>

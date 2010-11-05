@@ -115,7 +115,7 @@
             }
 
             // Change Game State Once! Don't change it more than one time.
-            if (cell.HasMine)
+            if (cell.HasMine && cell.State != CellState.MarkAsMine)
             {
                 cell.IsTerminator = true;
                 GameState = GameState.Failed;
@@ -145,7 +145,7 @@
         {
             get
             {
-                if (timer.IsEnabled)
+                if (GameState != GameState.Initialized)
                 {
                     return (int)(DateTime.Now - startTime).TotalMilliseconds;
                 }

@@ -72,7 +72,7 @@
 
         public OptionsViewModel()
         {
-            Settings.Default.Reload();
+            //Settings.Default.Reload();
         }
 
         public Difficulty? Difficulty
