@@ -2,7 +2,9 @@
 {
     using System;
     using System.ComponentModel;
+    using System.IO;
     using System.Windows;
+    using System.Windows.Forms;
     using System.Windows.Input;
 
     using ClearMine.Common.ComponentModel;
@@ -70,8 +72,43 @@
         } 
         #endregion
 
+        #region BrowseHistory Command
+        private static ICommand browseHistory = new RoutedUICommand("BrowseHistory", "BrowseHistory",
+            typeof(OptionsViewModel), new InputGestureCollection() { new KeyGesture(Key.B, ModifierKeys.Control) });
+        private static CommandBinding browseHistoryBinding = new CommandBinding(BrowseHistory,
+            new ExecutedRoutedEventHandler(OnBrowseHistoryExecuted), new CanExecuteRoutedEventHandler(OnBrowseHistoryCanExecute));
+        public static ICommand BrowseHistory
+        {
+            get { return browseHistory; }
+        }
+
+        public static CommandBinding BrowseHistoryBinding
+        {
+            get { return browseHistoryBinding; }
+        }
+
+        private static void OnBrowseHistoryExecuted(object sender, ExecutedRoutedEventArgs e)
+        {
+            FolderBrowserDialog folderBrowser = new FolderBrowserDialog();
+            folderBrowser.ShowNewFolderButton = true;
+            folderBrowser.Description = "Please select a folder to place your game playing record.";
+            folderBrowser.SelectedPath = Path.GetFullPath(Settings.Default.GameHistoryFolder);
+            if (folderBrowser.ShowDialog() == DialogResult.OK)
+            {
+                Settings.Default.GameHistoryFolder = folderBrowser.SelectedPath;
+            }
+        }
+
+        private static void OnBrowseHistoryCanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = Settings.Default.SaveGame;
+        }
+        
+        #endregion
+
         public OptionsViewModel()
         {
+            Settings.Default.PropertyChanged += new PropertyChangedEventHandler(OnSettingsChanged);
             //Settings.Default.Reload();
         }
 
@@ -158,6 +195,24 @@
             set { Settings.Default.AutoContinueSaved = value; }
         }
 
+        public bool AlwaysNewGame
+        {
+            get { return Settings.Default.AlwaysNewGame; }
+            set { Settings.Default.AlwaysNewGame = value; }
+        }
+
+        public bool SaveGame
+        {
+            get { return Settings.Default.SaveGame; }
+            set { Settings.Default.SaveGame = value; }
+        }
+
+        public string GameHistoryFolder
+        {
+            get { return Settings.Default.GameHistoryFolder; }
+            set { Settings.Default.GameHistoryFolder = value; }
+        }
+
         public void Save()
         {
             Settings.Default.Save();
@@ -211,6 +266,17 @@
                         Error = null;
                     }
                 }
+                else if ("GameHistoryFolder".Equals(propertyName, StringComparison.Ordinal))
+                {
+                    if (Directory.Exists(GameHistoryFolder))
+                    {
+                        Error = null;
+                    }
+                    else
+                    {
+                        Error = "The game history folder doesn't exists.";
+                    }
+                }
                 else
                 {
                     Error = null;
@@ -218,6 +284,11 @@
 
                 return Error;
             }
+        }
+
+        private void OnSettingsChanged(object sender, PropertyChangedEventArgs e)
+        {
+            OnPropertyChanged(e.PropertyName);
         }
     }
 }

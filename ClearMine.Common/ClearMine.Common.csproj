@@ -71,6 +71,7 @@
     <Compile Include="ComponentModel\CachedObservableCollection.cs" />
     <Compile Include="ComponentModel\CachingState.cs" />
     <Compile Include="ComponentModel\ICachable.cs" />
+    <Compile Include="ComponentModel\IUpdatable.cs" />
     <Compile Include="ComponentModel\ViewModelBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utilities\GenericExtension.cs" />

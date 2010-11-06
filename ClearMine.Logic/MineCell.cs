@@ -6,7 +6,7 @@
     using System.Threading;
     using ClearMine.Common.ComponentModel;
 
-    internal class MineCell : BindableObject, ICachable<MineCell>
+    public class MineCell : BindableObject, ICachable<MineCell>
     {
         private CachingState cachingState;
         private CellState state;
@@ -19,6 +19,7 @@
         {
             UpdatePosition(column, row);
             State = CellState.Normal;
+            MinesNearby = -1;
         }
 
         public event EventHandler CacheStateChanged;
@@ -115,6 +116,12 @@
         {
             Row = newValue.Row;
             Column = newValue.Column;
+            State = newValue.State;
+            HasMine = newValue.HasMine;
+            if (newValue.MinesNearby >= 0)
+            {
+                MinesNearby = newValue.MinesNearby;
+            }
         }
 
         internal bool Near(MineCell other)

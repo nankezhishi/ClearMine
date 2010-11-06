@@ -18,6 +18,8 @@
         <x:Static Member="vm:ClearMineViewModel.OptionBinding" />
         <x:Static Member="vm:ClearMineViewModel.AboutBinding" />
         <x:Static Member="vm:ClearMineViewModel.FeedbackBinding" />
+        <x:Static Member="vm:ClearMineViewModel.SaveAsBinding" />
+        <x:Static Member="vm:ClearMineViewModel.OpenBinding" />
     </Window.CommandBindings>
     <DockPanel>
         <Menu DockPanel.Dock="Top">
@@ -26,6 +28,11 @@
                           Command="New" />
                 <MenuItem Header="Restart Game"
                           Command="Refresh" />
+                <Separator />
+                <MenuItem Header="Open Game..."
+                          Command="Open" />
+                <MenuItem Header="Save Game..."
+                          Command="SaveAs" />
                 <Separator />
                 <MenuItem Header="Statistics"
                           Command="{x:Static vm:ClearMineViewModel.ShowStatistics}" />

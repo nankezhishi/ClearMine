@@ -30,6 +30,11 @@
 
         }
 
+        public void Update(IClearMine clearMine)
+        {
+            Contract.Requires<ArgumentNullException>(clearMine != null);
+        }
+
         public void TryMarkAt(MineCell cell, CellState newState)
         {
             Contract.Requires<ArgumentNullException>(cell != null);

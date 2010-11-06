@@ -1,6 +1,6 @@
 ﻿namespace ClearMine.Logic
 {
-    internal enum CellState
+    public enum CellState
     {
         Normal,
         MarkAsMine,

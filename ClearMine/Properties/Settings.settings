@@ -44,5 +44,14 @@
     <Setting Name="PlayAnimation" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
+    <Setting Name="AlwaysNewGame" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="SaveGame" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="GameHistoryFolder" Type="System.String" Scope="User">
+      <Value Profile="(Default)">.</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

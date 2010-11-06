@@ -76,6 +76,7 @@
     <Compile Include="MineCell.cs" />
     <Compile Include="MinesGenerator.cs" />
     <Compile Include="MinesGrid.cs" />
+    <Compile Include="MinesGridConverter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -2,15 +2,20 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel;
     using System.Diagnostics.Contracts;
     using System.Globalization;
     using System.Linq;
+    using System.Threading.Tasks;
     using System.Windows;
     using System.Windows.Threading;
+    using System.Xml.Serialization;
 
     using ClearMine.Common.ComponentModel;
 
-    internal class ClearMineGame : BindableObject, IClearMine
+    [Serializable]
+    [XmlRoot("savedGame")]
+    public class ClearMineGame : BindableObject, IClearMine
     {
         private int totalMines;
         private DateTime startTime;
@@ -18,14 +23,118 @@
         private DispatcherTimer timer;
         private MinesGrid cells = new MinesGrid();
 
+        [field: NonSerialized]
         public event EventHandler StateChanged;
+        [field: NonSerialized]
         public event EventHandler TimeChanged;
+        [field: NonSerialized]
         public event EventHandler<CellStateChangedEventArgs> CellStateChanged;
 
         public ClearMineGame()
         {
             timer = new DispatcherTimer() { Interval = new TimeSpan(0, 0, 0, 0, 100) };
             timer.Tick += new EventHandler(OnTick);
+        }
+
+        [XmlAttribute("timeUsed")]
+        public int UsedTime
+        {
+            get
+            {
+                if (GameState != GameState.Initialized)
+                {
+                    return (int)(DateTime.Now - startTime).TotalMilliseconds;
+                }
+
+                return 0;
+            }
+            set { startTime = DateTime.Now.AddMilliseconds(-value); }
+        }
+
+        [XmlIgnore]
+        public int TotalMines
+        {
+            get { return totalMines; }
+        }
+
+        [XmlIgnore]
+        public int RemainedMines
+        {
+            get { return totalMines - cells.Count(cell => cell.State == CellState.MarkAsMine); }
+        }
+
+        [XmlIgnore]
+        public GameState GameState
+        {
+            get { return gameState; }
+            private set
+            {
+                if (SetProperty(ref gameState, value))
+                {
+                    if (value == GameState.Success || value == GameState.Failed)
+                    {
+                        this.timer.Stop();
+                        this.cells.DoForThat(c => c.HasMine || c.State == CellState.MarkAsMine, c => c.ShowResult = true);
+                    }
+                    else if (value == GameState.Started)
+                    {
+                        this.timer.Start();
+                        this.startTime = DateTime.Now;
+                    }
+                    else if (value == GameState.Initialized)
+                    {
+                        this.timer.Stop();
+                        this.cells.MarkAllAsNoraml();
+                    }
+                    else
+                    {
+                        throw new NotImplementedException();
+                    }
+
+                    if (StateChanged != null)
+                    {
+                        StateChanged.Invoke(this, EventArgs.Empty);
+                    }
+                }
+            }
+        }
+
+        [XmlIgnore]
+        public IEnumerable<MineCell> Cells
+        {
+            get { return cells; }
+        }
+
+        [XmlText]
+        public string CellsForSerialize
+        {
+            get
+            {
+                if (cells == null)
+                {
+                    return null;
+                }
+
+                var gridConverter = TypeDescriptor.GetConverter(typeof(MinesGrid));
+                return gridConverter.ConvertToInvariantString(cells);
+            }
+            set
+            {
+                if (!String.IsNullOrWhiteSpace(value))
+                {
+                    var gridConverter = TypeDescriptor.GetConverter(typeof(MinesGrid));
+                    cells = (MinesGrid)gridConverter.ConvertFromInvariantString(value);
+                    cells.CalculateMinesCount();
+                    totalMines = cells.Where(c => c.HasMine).Count();
+                    gameState = GameState.Started;
+                }
+            }
+        }
+
+        [XmlIgnore]
+        public Size Size
+        {
+            get { return cells.Size; }
         }
 
         public void Initialize(Size size, int mines)
@@ -48,6 +157,29 @@
             Restart();
             this.cells.ClearMines();
             new MinesGenerator().Fill(this.cells, totalMines);
+            this.cells.CalculateMinesCount();
+        }
+
+        public void Update(IClearMine mine)
+        {
+            var game = mine as ClearMineGame;
+
+            if (game == null)
+            {
+                throw new ArgumentException("mine");
+            }
+
+            int index = 0;
+            this.cells.Clear();
+            foreach (var cell in game.Cells)
+            {
+                this.cells.Insert(index++, cell);
+            }
+
+            this.cells.Size = game.cells.Size;
+            totalMines = game.totalMines;
+            UsedTime = game.UsedTime;
+            GameState = game.GameState;
         }
 
         public void Pause()
@@ -139,74 +271,6 @@
         public MineCell GetCell(int column, int row)
         {
             return this.cells.GetCell(column, row);
-        }
-
-        public int UsedTime
-        {
-            get
-            {
-                if (GameState != GameState.Initialized)
-                {
-                    return (int)(DateTime.Now - startTime).TotalMilliseconds;
-                }
-
-                return 0;
-            }
-        }
-
-        public int TotalMines
-        {
-            get { return totalMines; }
-        }
-
-        public int RemainedMines
-        {
-            get { return totalMines - cells.Count(cell => cell.State == CellState.MarkAsMine); }
-        }
-
-        public GameState GameState
-        {
-            get { return gameState; }
-            private set
-            {
-                if (SetProperty(ref gameState, value))
-                {
-                    if (value == GameState.Success || value == GameState.Failed)
-                    {
-                        this.timer.Stop();
-                        this.cells.DoForThat(c => c.HasMine || c.State == CellState.MarkAsMine, c => c.ShowResult = true);
-                    }
-                    else if (value == GameState.Started)
-                    {
-                        this.timer.Start();
-                        this.startTime = DateTime.Now;
-                    }
-                    else if (value == GameState.Initialized)
-                    {
-                        this.timer.Stop();
-                        this.cells.MarkAllAsNoraml();
-                    }
-                    else
-                    {
-                        throw new NotImplementedException();
-                    }
-
-                    if (StateChanged != null)
-                    {
-                        StateChanged.Invoke(this, EventArgs.Empty);
-                    }
-                }
-            }
-        }
-
-        public IEnumerable<MineCell> Cells
-        {
-            get { return cells; }
-        }
-
-        public Size Size
-        {
-            get { return cells.Size; }
         }
 
         private void OnTick(object sender, EventArgs e)

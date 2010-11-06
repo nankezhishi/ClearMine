@@ -91,6 +91,7 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
@@ -121,6 +122,9 @@
     <Compile Include="UI\Dialogs\ClearMineViewModel.cs" />
     <Compile Include="UI\Dialogs\ClearMineWindow.xaml.cs">
       <DependentUpon>ClearMineWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Dialogs\ConfirmNewGameWindow.xaml.cs">
+      <DependentUpon>ConfirmNewGameWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\Dialogs\GameLostWindow.xaml.cs">
       <DependentUpon>GameLostWindow.xaml</DependentUpon>
@@ -155,6 +159,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\Dialogs\ClearMineWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Dialogs\ConfirmNewGameWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

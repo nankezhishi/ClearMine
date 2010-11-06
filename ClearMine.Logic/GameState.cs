@@ -1,6 +1,6 @@
 ﻿namespace ClearMine.Logic
 {
-    internal enum GameState
+    public enum GameState
     {
         Initialized,
         Started,

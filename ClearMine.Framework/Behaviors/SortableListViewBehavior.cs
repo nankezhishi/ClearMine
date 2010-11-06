@@ -86,6 +86,11 @@ namespace ClearMine.Framework.Behaviors
         {
             ListView listView = e.Source as ListView;
             GridViewColumnHeader header = e.OriginalSource as GridViewColumnHeader;
+            if (header.Role == GridViewColumnHeaderRole.Padding)
+            {
+                return;
+            }
+
             SortInfo sortInfo = listView.GetValue(SortInfoProperty.DependencyProperty) as SortInfo;
 
             if (sortInfo != null)

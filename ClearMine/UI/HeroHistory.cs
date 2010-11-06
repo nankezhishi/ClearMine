@@ -36,6 +36,9 @@
         [XmlAttribute("won")]
         public int GameWon { get; set; }
 
+        [XmlAttribute("lost")]
+        public int GameLost { get; set; }
+
         [XmlAttribute("longestWinning")]
         public int LongestWinning { get; set; }
 
@@ -49,13 +52,13 @@
         public double AverageScore { get; set; }
 
         [XmlIgnore]
-        public int GameLost
+        public int GameUndone
         {
             get
             {
-                Debug.Assert(GamePlayed >= GameWon);
+                Debug.Assert(GamePlayed >= GameWon + GameLost);
 
-                return GamePlayed - GameWon;
+                return GamePlayed - GameWon - GameLost;
             }
         }
 
@@ -107,6 +110,11 @@
             Items.Add(new HistoryRecord() { Score = score, Date = time });
         }
 
+        public void IncreaseUndone()
+        {
+            ++GamePlayed;
+        }
+
         public void IncreaseLost()
         {
             ++GamePlayed;
@@ -129,6 +137,7 @@
             Items.Clear();
             GamePlayed = 0;
             GameWon = 0;
+            GameLost = 0;
             LongestLosing = 0;
             LongestWinning = 0;
             CurrentStatus = 0;

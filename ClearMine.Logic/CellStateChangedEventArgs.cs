@@ -2,7 +2,7 @@
 {
     using System;
 
-    internal class CellStateChangedEventArgs : EventArgs
+    public class CellStateChangedEventArgs : EventArgs
     {
         public MineCell Cell { get; set; }
 

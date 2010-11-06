@@ -8,11 +8,20 @@
     using System.Text;
     using System.Threading.Tasks;
     using System.Windows;
+
     using ClearMine.Common.ComponentModel;
 
+    [Serializable]
+    [TypeConverter(typeof(MinesGridConverter))]
     internal class MinesGrid : CachedObservableCollection<MineCell>
     {
         private Size size = Size.Empty;
+
+        internal Size Size
+        {
+            get { return size; }
+            set { this.size = value; }
+        }
 
         public override string ToString()
         {
@@ -39,8 +48,6 @@
 
             base.InsertItem(index, item);
         }
-
-        internal Size Size { get { return size; } }
 
         internal IEnumerable<MineCell> SetSize(Size newSize)
         {
@@ -117,7 +124,17 @@
                 calculateList.AddRange(GetCellsAround(updatedCell));
             }
 
-            Parallel.ForEach(calculateList.Union(updateList).Distinct(), c => c.MinesNearby = GetMinesCountNearBy(c));
+            CalculateMinesCount(calculateList.Union(updateList).Distinct());
+        }
+
+        internal void CalculateMinesCount(IEnumerable<MineCell> cells = null)
+        {
+            if (cells == null)
+            {
+                cells = GetCellsAround(null, c => !c.HasMine);
+            }
+
+            Parallel.ForEach(cells, c => c.MinesNearby = GetMinesCountNearBy(c));
         }
 
         internal MineCell GetCell(int column, int row)
@@ -182,11 +199,11 @@
 
             if (current.State == CellState.Shown)
             {
-                var cellsNearBy = GetCellsAround(current, cell => cell.State == CellState.Normal || cell.State == CellState.Question);
+                var cellsNearBy = GetCellsAround(current, cell => cell.State != CellState.Shown);
 
                 if (CheckIfAllMarked(cellsNearBy))
                 {
-                    foreach (var cell in cellsNearBy)
+                    foreach (var cell in cellsNearBy.Where(c => c.State != CellState.MarkAsMine))
                     {
                         foreach (var expanded in ExpandFrom(cell))
                         {

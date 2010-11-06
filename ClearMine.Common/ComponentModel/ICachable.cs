@@ -2,11 +2,9 @@
 {
     using System;
 
-    internal interface ICachable<T>
+    internal interface ICachable<T> : IUpdatable<T>
         where T : class
     {
-        void Update(T newValue);
-
         CachingState CachingState { get; set; }
 
         event EventHandler CacheStateChanged;

@@ -3,20 +3,24 @@
     using System;
     using System.Collections.Generic;
     using System.ComponentModel;
+    using System.IO;
     using System.Linq;
     using System.Threading;
     using System.Windows;
     using System.Windows.Input;
+    using System.Xml.Serialization;
 
     using ClearMine.Common.ComponentModel;
     using ClearMine.Common.Utilities;
     using ClearMine.Logic;
     using ClearMine.Media;
     using ClearMine.Properties;
+    using Microsoft.Win32;
 
     internal sealed class ClearMineViewModel : ViewModelBase
     {
-        private IClearMine game = new ClearMineGame();
+        private IClearMine game;
+        private bool pandingInitialize = true;
 
         #region NewGame Command
         private static CommandBinding newGameBinding = new CommandBinding(ApplicationCommands.New,
@@ -29,7 +33,7 @@
 
         private static void OnNewGameExecuted(object sender, ExecutedRoutedEventArgs e)
         {
-            e.ExtractDataContext<ClearMineViewModel>(vm => vm.game.StartNew());
+            e.ExtractDataContext<ClearMineViewModel>(vm => vm.StartNewGame());
         }
 
         private static void OnNewGameCanExecuted(object sender, CanExecuteRoutedEventArgs e)
@@ -132,14 +136,7 @@
             {
                 e.ExtractDataContext<ClearMineViewModel>(vm =>
                 {
-                    if (vm.game.GameState == GameState.Initialized)
-                    {
-                        vm.Start();
-                    }
-                    else if (vm.game.GameState == GameState.Started)
-                    {
-                        vm.game.Resume();
-                    }
+                    vm.StartNewGame();
                 });
             }
         }
@@ -199,12 +196,54 @@
             e.CanExecute = true;
         }
         #endregion
+        #region SaveAsCommand
+        private static CommandBinding saveAsBinding = new CommandBinding(ApplicationCommands.SaveAs,
+            new ExecutedRoutedEventHandler(OnSaveAsExecuted), new CanExecuteRoutedEventHandler(OnSaveAsCanExecute));
+
+        public static CommandBinding SaveAsBinding
+        {
+            get { return saveAsBinding; }
+        }
+
+        private static void OnSaveAsExecuted(object sender, ExecutedRoutedEventArgs e)
+        {
+            e.ExtractDataContext<ClearMineViewModel>().SaveCurrentGame();
+        }
+
+        private static void OnSaveAsCanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = e.ExtractDataContext<ClearMineViewModel>().game.GameState == GameState.Started;
+        } 
+        #endregion
+        #region OpenCommand
+        private static CommandBinding openBinding = new CommandBinding(ApplicationCommands.Open,
+            new ExecutedRoutedEventHandler(OnOpenExecuted), new CanExecuteRoutedEventHandler(OnOpenCanExecute));
+
+        public static CommandBinding OpenBinding
+        {
+            get { return openBinding; }
+        }
+
+        private static void OnOpenExecuted(object sender, ExecutedRoutedEventArgs e)
+        {
+            var openFileDialog = new OpenFileDialog();
+            openFileDialog.DefaultExt = ".cmg";
+            openFileDialog.Filter = "ClearMine Saved Game File (*.cmg)|*.cmg";
+            if (openFileDialog.ShowDialog() == true)
+            {
+                e.ExtractDataContext<ClearMineViewModel>().LoadSavedGame(openFileDialog.FileName);
+            }
+        }
+
+        private static void OnOpenCanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = true;
+        }  
+        #endregion
 
         public ClearMineViewModel()
         {
-            game.StateChanged += new EventHandler(OnGameStateChanged);
-            game.TimeChanged += new EventHandler(OnGameTimeChanged);
-            game.CellStateChanged += new EventHandler<CellStateChangedEventArgs>(OnCellStateChanged);
+            HookupToGame(new ClearMineGame());
             Settings.Default.PropertyChanged += new PropertyChangedEventHandler(OnSettingsChanged);
         }
 
@@ -233,27 +272,53 @@
             get { return game.Cells; }
         }
 
-        public void Start()
+        public void StartNewGame()
         {
-            try
+            if (game.GameState != GameState.Started)
             {
-                InitialPlayground();
+                if (pandingInitialize)
+                {
+                    Initialize();
+                }
+                game.StartNew();
             }
-            catch (InvalidOperationException)
+            else if (game.GameState == GameState.Started)
             {
-                // While, there probably something wrong with your configurations.
-                Settings.Default.Rows = 9;
-                Settings.Default.Columns = 9;
-                Settings.Default.Mines = 10;
-                Settings.Default.Difficulty = Difficulty.Beginner;
-                Settings.Default.Save();
-                // Try again.
-                InitialPlayground();
+                var confirm = new ConfirmNewGameWindow();
+                confirm.Owner = Application.Current.MainWindow;
+                if (confirm.ShowDialog().Value)
+                {
+                    if (pandingInitialize)
+                    {
+                        Initialize();
+                    }
+                    UpdateStatistics();
+                    game.StartNew();
+                }
+                else
+                {
+                    game.Resume();
+                }
             }
-            OnPropertyChanged("Columns");
-            OnPropertyChanged("Rows");
-            OnPropertyChanged("RemainedMines");
-            game.StartNew();
+            else
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public void RequestToClose(CancelEventArgs e)
+        {
+            if (game.GameState == GameState.Started)
+            {
+                if (Settings.Default.SaveOnExit || MessageBox.Show("Do you want to save the game?", "Clear Mine - Save", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                {
+                    SaveCurrentGame(@".\SavedGame.cmg");
+                }
+                else
+                {
+                    UpdateStatistics();
+                }
+            }
         }
 
         public void MarkAt(MineCell cell)
@@ -303,6 +368,27 @@
             }
         }
 
+        private void Initialize()
+        {
+            try
+            {
+                InitialPlayground();
+                pandingInitialize = false;
+            }
+            catch (InvalidOperationException)
+            {
+                // While, there probably something wrong with your configurations.
+                Settings.Default.Rows = 9;
+                Settings.Default.Columns = 9;
+                Settings.Default.Mines = 10;
+                Settings.Default.Difficulty = Difficulty.Beginner;
+                Settings.Default.Save();
+                // Try again.
+                InitialPlayground();
+            }
+            RefreshUI();
+        }
+
         private void InitialPlayground()
         {
             game.Initialize(new Size(Settings.Default.Columns, Settings.Default.Rows), (int)Settings.Default.Mines);
@@ -319,12 +405,12 @@
             {
                 if (game.GameState == GameState.Initialized)
                 {
-                    InitialPlayground();
+                    Initialize();
                     OnPropertyChanged(e.PropertyName);
                 }
                 else
                 {
-                    // Ignore it.
+                    pandingInitialize = true;
                 }
             }
             else
@@ -408,9 +494,13 @@
                 {
                     history.IncreaseWon(game.UsedTime / 1000, DateTime.Now);
                 }
-                else
+                else if (game.GameState == GameState.Failed)
                 {
                     history.IncreaseLost();
+                }
+                else
+                {
+                    history.IncreaseUndone();
                 }
             }
             Settings.Default.Save();
@@ -430,6 +520,67 @@
             else
             {
                 Player.Play(@".\Sound\TileSingle.wma");
+            }
+        }
+
+        private void SaveCurrentGame(string path = null)
+        {
+            if (String.IsNullOrWhiteSpace(path))
+            {
+                var savePathDialog = new SaveFileDialog();
+                savePathDialog.DefaultExt = ".cmg";
+                savePathDialog.Filter = "ClearMine Saved Game File (*.cmg)|*.cmg";
+                if (savePathDialog.ShowDialog() == true)
+                {
+                    path = savePathDialog.FileName;
+                }
+                else
+                {
+                    return;
+                }
+            }
+
+            var gameSaver = new XmlSerializer(typeof(ClearMineGame));
+            var file = File.Open(path, FileMode.Create, FileAccess.Write);
+            gameSaver.Serialize(file, game);
+        }
+
+        private void RefreshUI()
+        {
+            OnPropertyChanged("Columns");
+            OnPropertyChanged("Rows");
+            OnPropertyChanged("RemainedMines");
+            OnPropertyChanged("Time");
+        }
+
+        private void LoadSavedGame(string path)
+        {
+            if (!File.Exists(path))
+            {
+                throw new FileNotFoundException("Cannot open game file", path);
+            }
+
+            var gameLoader = new XmlSerializer(typeof(ClearMineGame));
+            var file = File.Open(path, FileMode.Open, FileAccess.Read);
+            var newgame = (ClearMineGame)gameLoader.Deserialize(file);
+            HookupToGame(newgame);
+
+            RefreshUI();
+        }
+
+        private void HookupToGame(IClearMine newgame)
+        {
+            if (game != null)
+            {
+                game.Update(newgame);
+            }
+            else
+            {
+                game = newgame;
+
+                game.StateChanged += new EventHandler(OnGameStateChanged);
+                game.TimeChanged += new EventHandler(OnGameTimeChanged);
+                game.CellStateChanged += new EventHandler<CellStateChangedEventArgs>(OnCellStateChanged);
             }
         }
     }

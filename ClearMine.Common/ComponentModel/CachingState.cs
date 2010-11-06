@@ -1,6 +1,6 @@
 ﻿namespace ClearMine.Common.ComponentModel
 {
-    internal enum CachingState
+    public enum CachingState
     {
         InUse,
         InCache,

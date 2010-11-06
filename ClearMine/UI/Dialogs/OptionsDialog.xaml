@@ -3,12 +3,12 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:c="clr-namespace:ClearMine.UI.Converters"
         xmlns:d="clr-namespace:ClearMine.UI.Dialogs"
-        TextOptions.TextFormattingMode="Display"
-        ShowInTaskbar="False"
-        SizeToContent="WidthAndHeight"
-        ResizeMode="NoResize"
-        WindowStartupLocation="CenterOwner"
         Background="{StaticResource DialogBackground}"
+        TextOptions.TextFormattingMode="Display"
+        WindowStartupLocation="CenterOwner"
+        SizeToContent="WidthAndHeight"
+        ShowInTaskbar="False"
+        ResizeMode="NoResize"
         Title="Clear Mine - Options">
     <Window.Resources>
         <c:DifficultyToBooleanConverter x:Key="DifficultyToBooleanConverter" />
@@ -16,6 +16,7 @@
     <Window.CommandBindings>
         <x:Static Member="d:OptionsViewModel.SaveBinding" />
         <x:Static Member="d:OptionsViewModel.CloseBinding" />
+        <x:Static Member="d:OptionsViewModel.BrowseHistoryBinding" />
     </Window.CommandBindings>
     <DockPanel Margin="12">
         <DockPanel LastChildFill="False"
@@ -102,30 +103,51 @@
         <GroupBox Header="Effect settings"
                   DockPanel.Dock="Top"
                   Style="{StaticResource SeparatorGroupBoxStyle}">
-            <StackPanel>
+            <WrapPanel>
                 <CheckBox Content="Play Sound"
-                          Margin="0,0,0,5"
+                          Margin="0,0,12,0"
                           IsChecked="{Binding PlaySound}"
                           DockPanel.Dock="Top" />
                 <CheckBox Content="Play Animation"
                           DockPanel.Dock="Top"
                           IsChecked="{Binding PlayAnimation}" />
-            </StackPanel>
+            </WrapPanel>
         </GroupBox>
         <GroupBox Header="Control settings"
-                  Margin="0,0,0,12"
+                  DockPanel.Dock="Top"
                   Style="{StaticResource SeparatorGroupBoxStyle}">
             <StackPanel>
                 <CheckBox Content="Show question(?) mark"
                           IsChecked="{Binding ShowQuestionMark}"
                           Margin="0,0,0,5" />
+                <CheckBox Content="Always disgards current game when new game"
+                          IsChecked="{Binding AlwaysNewGame}"
+                          Margin="0,0,0,5" />
                 <CheckBox Content="Always save game on exit"
                           IsChecked="{Binding SaveOnExit}"
-                          IsEnabled="False"
                           Margin="0,0,0,5" />
                 <CheckBox Content="Always continue saved game"
-                          IsEnabled="False"
                           IsChecked="{Binding AutoContinueSaved}" />
+            </StackPanel>
+        </GroupBox>
+        <GroupBox Header="History settings"
+                  Margin="0,0,0,12"
+                  DockPanel.Dock="Top"
+                  Style="{StaticResource SeparatorGroupBoxStyle}">
+            <StackPanel>
+                <DockPanel Margin="0,0,12,0">
+                    <CheckBox Content="_Save game history:"
+                              DockPanel.Dock="Top"
+                              Margin="0,0,0,5"
+                              IsChecked="{Binding SaveGame}" />
+                    <Button Content="Browse..."
+                            Margin="5,0,0,0"
+                            DockPanel.Dock="Right"
+                            Command="{x:Static d:OptionsViewModel.BrowseHistory}" />
+                    <TextBox Margin="18,0,0,0"
+                             Text="{Binding GameHistoryFolder, ValidatesOnDataErrors=True, ValidatesOnExceptions=True, NotifyOnValidationError=True}"
+                             IsEnabled="{Binding SaveGame}" />
+                </DockPanel>
             </StackPanel>
         </GroupBox>
     </DockPanel>

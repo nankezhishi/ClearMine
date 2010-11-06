@@ -75,8 +75,6 @@
                 }
                 #endregion
             }
-
-            Parallel.ForEach(grid.GetCellsAround(null, c => !c.HasMine), c => c.MinesNearby = grid.GetMinesCountNearBy(c));
         }
     }
 }

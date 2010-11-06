@@ -1,6 +1,7 @@
 ﻿namespace ClearMine.UI.Dialogs
 {
     using System;
+    using System.ComponentModel;
     using System.Windows;
     using System.Windows.Input;
 
@@ -22,9 +23,15 @@
             InitializeComponent();
         }
 
+        protected override void OnClosing(CancelEventArgs e)
+        {
+            vm.RequestToClose(e);
+            base.OnClosing(e);
+        }
+
         private void OnLoaded(object sender, RoutedEventArgs e)
         {
-            vm.Start();
+            vm.StartNewGame();
         }
 
         private void OnMineGroudMouseDown(object sender, MouseButtonEventArgs e)

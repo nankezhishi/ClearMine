@@ -154,5 +154,41 @@ namespace ClearMine.Properties {
                 this["PlayAnimation"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool AlwaysNewGame {
+            get {
+                return ((bool)(this["AlwaysNewGame"]));
+            }
+            set {
+                this["AlwaysNewGame"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool SaveGame {
+            get {
+                return ((bool)(this["SaveGame"]));
+            }
+            set {
+                this["SaveGame"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute(".")]
+        public string GameHistoryFolder {
+            get {
+                return ((string)(this["GameHistoryFolder"]));
+            }
+            set {
+                this["GameHistoryFolder"] = value;
+            }
+        }
     }
 }
