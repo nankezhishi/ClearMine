@@ -19,6 +19,8 @@
 
         void Resume();
 
+        bool CheckHash();
+
         void TryMarkAt(MineCell cell, CellState newState);
 
         IEnumerable<MineCell> TryDigAt(MineCell cell);

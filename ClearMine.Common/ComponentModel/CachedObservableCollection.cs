@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.ObjectModel;
+    using System.Diagnostics;
 
     /// <summary>
     /// 
@@ -46,6 +47,8 @@
             {
                 if (index < countInUse)
                 {
+                    Trace.TraceWarning("Item moving in cached collection. This is harmful to performance.");
+
                     MoveItem(countInUse, index);
                 }
 

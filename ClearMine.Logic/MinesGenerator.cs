@@ -2,7 +2,6 @@
 {
     using System;
     using System.Diagnostics.Contracts;
-    using System.Threading.Tasks;
 
     internal class MinesGenerator
     {
@@ -13,7 +12,7 @@
             Contract.Requires<ArgumentNullException>(grid != null);
             if (mines > grid.Size.Height * grid.Size.Width)
             {
-                throw new InvalidOperationException("Too many mines to generate.");
+                throw new ArgumentOutOfRangeException("mines", "Too many mines to generate.");
             }
 
             int total = (int)(grid.Size.Width * grid.Size.Height);

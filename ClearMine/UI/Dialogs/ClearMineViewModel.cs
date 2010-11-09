@@ -21,6 +21,7 @@
     {
         private IClearMine game;
         private bool pandingInitialize = true;
+        private double itemSize;
 
         #region NewGame Command
         private static CommandBinding newGameBinding = new CommandBinding(ApplicationCommands.New,
@@ -33,7 +34,7 @@
 
         private static void OnNewGameExecuted(object sender, ExecutedRoutedEventArgs e)
         {
-            e.ExtractDataContext<ClearMineViewModel>(vm => vm.StartNewGame());
+            e.ExtractDataContext<ClearMineViewModel>().StartNewGame();
         }
 
         private static void OnNewGameCanExecuted(object sender, CanExecuteRoutedEventArgs e)
@@ -52,7 +53,7 @@
 
         private static void OnRefreshExecuted(object sender, ExecutedRoutedEventArgs e)
         {
-            e.ExtractDataContext<ClearMineViewModel>(vm => vm.game.Restart());
+            e.ExtractDataContext<ClearMineViewModel>().game.Restart();
         }
 
         private static void OnRefreshCanExecute(object sender, CanExecuteRoutedEventArgs e)
@@ -71,7 +72,7 @@
 
         private static void OnCloseExecuted(object sender, ExecutedRoutedEventArgs e)
         {
-            e.ExtractDataContext<ClearMineViewModel>(vm => Application.Current.Shutdown());
+            Application.Current.MainWindow.Close();
         }
 
         private static void OnCloseCanExecuted(object sender, CanExecuteRoutedEventArgs e)
@@ -134,10 +135,11 @@
             optionsWindow.Owner = Application.Current.MainWindow;
             if (optionsWindow.ShowDialog().Value)
             {
-                e.ExtractDataContext<ClearMineViewModel>(vm =>
-                {
-                    vm.StartNewGame();
-                });
+                e.ExtractDataContext<ClearMineViewModel>().StartNewGame();
+            }
+            else
+            {
+                e.ExtractDataContext<ClearMineViewModel>().game.Resume();
             }
         }
 
@@ -257,6 +259,12 @@
             get { return (int)game.Size.Height; }
         }
 
+        public double ItemSize
+        {
+            get { return itemSize; }
+            set { SetProperty(ref itemSize, value, "ItemSize"); }
+        }
+
         public int Time
         {
             get { return game.UsedTime / 1000; }
@@ -291,6 +299,7 @@
                     if (pandingInitialize)
                     {
                         Initialize();
+                        RefreshUI();
                     }
                     UpdateStatistics();
                     game.StartNew();
@@ -310,7 +319,13 @@
         {
             if (game.GameState == GameState.Started)
             {
-                if (Settings.Default.SaveOnExit || MessageBox.Show("Do you want to save the game?", "Clear Mine - Save", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                var result =  MessageBox.Show("Do you want to save the game?", "Clear Mine - Save",
+                                MessageBoxButton.YesNoCancel, MessageBoxImage.Question);
+                if (result == MessageBoxResult.Cancel)
+                {
+                    e.Cancel = true;
+                }
+                else if (Settings.Default.SaveOnExit || result == MessageBoxResult.Yes)
                 {
                     SaveCurrentGame(@".\SavedGame.cmg");
                 }
@@ -368,6 +383,14 @@
             }
         }
 
+        public void RefreshUI()
+        {
+            OnPropertyChanged("Columns");
+            OnPropertyChanged("Rows");
+            OnPropertyChanged("RemainedMines");
+            OnPropertyChanged("Time");
+        }
+
         private void Initialize()
         {
             try
@@ -386,7 +409,6 @@
                 // Try again.
                 InitialPlayground();
             }
-            RefreshUI();
         }
 
         private void InitialPlayground()
@@ -541,16 +563,10 @@
             }
 
             var gameSaver = new XmlSerializer(typeof(ClearMineGame));
-            var file = File.Open(path, FileMode.Create, FileAccess.Write);
-            gameSaver.Serialize(file, game);
-        }
-
-        private void RefreshUI()
-        {
-            OnPropertyChanged("Columns");
-            OnPropertyChanged("Rows");
-            OnPropertyChanged("RemainedMines");
-            OnPropertyChanged("Time");
+            using (var file = File.Open(path, FileMode.Create, FileAccess.Write))
+            {
+                gameSaver.Serialize(file, game);
+            }
         }
 
         private void LoadSavedGame(string path)
@@ -560,27 +576,37 @@
                 throw new FileNotFoundException("Cannot open game file", path);
             }
 
+            ClearMineGame newgame = null;
             var gameLoader = new XmlSerializer(typeof(ClearMineGame));
-            var file = File.Open(path, FileMode.Open, FileAccess.Read);
-            var newgame = (ClearMineGame)gameLoader.Deserialize(file);
-            HookupToGame(newgame);
-
-            RefreshUI();
+            using (var file = File.Open(path, FileMode.Open, FileAccess.Read))
+            {
+                newgame = (ClearMineGame)gameLoader.Deserialize(file);
+            }
+            if (newgame.CheckHash())
+            {
+                HookupToGame(newgame);
+                RefreshUI();
+                game.Resume();
+            }
+            else
+            {
+                MessageBox.Show("The saved game has been modified to an incorrect state. Please try to fix it and open again.", "Clear Mine - Corrupted game file");
+            }
         }
 
         private void HookupToGame(IClearMine newgame)
         {
-            if (game != null)
-            {
-                game.Update(newgame);
-            }
-            else
+            if (game == null)
             {
                 game = newgame;
 
                 game.StateChanged += new EventHandler(OnGameStateChanged);
                 game.TimeChanged += new EventHandler(OnGameTimeChanged);
                 game.CellStateChanged += new EventHandler<CellStateChangedEventArgs>(OnCellStateChanged);
+            }
+            else
+            {
+                game.Update(newgame);
             }
         }
     }

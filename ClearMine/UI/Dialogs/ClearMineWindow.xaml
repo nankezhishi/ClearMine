@@ -1,11 +1,13 @@
 ﻿<Window x:Class="ClearMine.UI.Dialogs.ClearMineWindow" x:ClassModifier="internal"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:c="clr-namespace:ClearMine.UI.Converters"
         xmlns:vm="clr-namespace:ClearMine.UI.Dialogs"
         TextOptions.TextFormattingMode="Display"
         WindowStartupLocation="CenterScreen"
         StateChanged="OnStateChanged"
         SnapsToDevicePixels="True"
+        Background="Silver"
         Title="Clear Mine"
         Loaded="OnLoaded"
         Height="640"
@@ -65,23 +67,56 @@
                           Command="{x:Static vm:ClearMineViewModel.About}"/>
             </MenuItem>
         </Menu>
-        <DockPanel DockPanel.Dock="Top"
-                   LastChildFill="False"
-                   Margin="24,0">
-            <TextBlock Text="{Binding Time}" />
-            <TextBlock Text="{Binding RemainedMines}"
-                       DockPanel.Dock="Right" />
-        </DockPanel>
-        <ItemsControl ItemsSource="{Binding Cells}"
-                      MouseDown="OnMineGroudMouseDown"
-                      MouseUp="OnMineGroudMouseUp"
-                      Margin="24,12">
-            <ItemsControl.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <MinesPanel Rows="{Binding Rows}"
-                                Columns="{Binding Columns}" />
-                </ItemsPanelTemplate>
-            </ItemsControl.ItemsPanel>
-        </ItemsControl>
+        <Border Margin="5"
+                BorderBrush="{DynamicResource PlaygroundBorderBrush}"
+                DockPanel.Dock="Top">
+            <Border.BorderThickness>
+                <MultiBinding Converter="{StaticResource PlaygroundBorderThicknessConverter}"
+                              ConverterParameter="0.2">
+                    <Binding Path="ActualWidth"
+                             ElementName="playground" />
+                    <Binding Path="Columns" />
+                </MultiBinding>
+            </Border.BorderThickness>
+            <DockPanel LastChildFill="False"
+                       Margin="0,5"
+                       HorizontalAlignment="Center">
+                <TextBlock Text="{Binding Time}"
+                           Margin="0,0,18,0" />
+                <Button Content="_New Game"
+                        Command="New"
+                        Margin="0,0,18,0" />
+                <TextBlock Text="{Binding RemainedMines}"
+                           DockPanel.Dock="Right" />
+            </DockPanel>
+        </Border>
+        <Decorator x:Name="playground">
+            <Border Margin="5"
+                    BorderBrush="{DynamicResource PlaygroundBorderBrush}"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center">
+                <Border.BorderThickness>
+                    <MultiBinding Converter="{StaticResource PlaygroundBorderThicknessConverter}"
+                                  ConverterParameter="0.2">
+                        <Binding Path="ActualWidth"
+                                 ElementName="playground" />
+                        <Binding Path="Columns" />
+                    </MultiBinding>
+                </Border.BorderThickness>
+                <ItemsControl ItemsSource="{Binding Cells}"
+                              MouseDown="OnMineGroudMouseDown"
+                              MouseUp="OnMineGroudMouseUp">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <MinesPanel Rows="{Binding Rows}"
+                                        Columns="{Binding Columns}"
+                                        ItemSize="{Binding ItemSize, Mode=OneWayToSource}"
+                                        GridLineBrush="Gray"
+                                        GridLineThickness="2" />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                </ItemsControl>
+            </Border>
+        </Decorator>
     </DockPanel>
 </Window>

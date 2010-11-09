@@ -43,7 +43,7 @@
         {
             if (index >= Size.Width * Size.Height)
             {
-                throw new InvalidOperationException("No slot available for more mine cells.");
+                throw new InvalidOperationException("No slot available for more mine cells. Please change the size of the mines grid first.");
             }
 
             base.InsertItem(index, item);
@@ -253,7 +253,7 @@
                     }
 
                     var result = GetCell(i, j);
-                    if ((condition ?? (cell => true))(result))
+                    if (condition == null || condition(result))
                     {
                         yield return result;
                     }

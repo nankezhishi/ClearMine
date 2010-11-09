@@ -32,6 +32,7 @@
         private void OnLoaded(object sender, RoutedEventArgs e)
         {
             vm.StartNewGame();
+            vm.RefreshUI();
         }
 
         private void OnMineGroudMouseDown(object sender, MouseButtonEventArgs e)

@@ -30,6 +30,11 @@
 
         }
 
+        public bool CheckHash()
+        {
+            return default(bool);
+        }
+
         public void Update(IClearMine clearMine)
         {
             Contract.Requires<ArgumentNullException>(clearMine != null);

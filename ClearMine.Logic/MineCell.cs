@@ -98,7 +98,7 @@
         public bool IsTerminator
         {
             get { return isTerminator; }
-            set { SetProperty(ref isTerminator, value); }
+            set { SetProperty(ref isTerminator, value, "IsTerminator"); }
         }
 
         public override string ToString()

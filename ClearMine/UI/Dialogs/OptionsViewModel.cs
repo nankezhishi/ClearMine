@@ -68,7 +68,7 @@
 
         private static void OnSaveCanExecuted(object sender, CanExecuteRoutedEventArgs e)
         {
-            e.ExtractDataContext<OptionsViewModel>(vm => e.CanExecute = String.IsNullOrEmpty(vm.Error));
+            e.CanExecute = String.IsNullOrWhiteSpace(e.ExtractDataContext<OptionsViewModel>().Error);
         } 
         #endregion
 

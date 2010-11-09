@@ -6,7 +6,6 @@
     using System.Diagnostics.Contracts;
     using System.Globalization;
     using System.Linq;
-    using System.Threading.Tasks;
     using System.Windows;
     using System.Windows.Threading;
     using System.Xml.Serialization;
@@ -18,6 +17,8 @@
     public class ClearMineGame : BindableObject, IClearMine
     {
         private int totalMines;
+        private int? hash;
+        private int usedTime;
         private DateTime startTime;
         private GameState gameState;
         private DispatcherTimer timer;
@@ -41,14 +42,20 @@
         {
             get
             {
-                if (GameState != GameState.Initialized)
+                if (timer.IsEnabled)
                 {
                     return (int)(DateTime.Now - startTime).TotalMilliseconds;
                 }
-
-                return 0;
+                else
+                {
+                    return usedTime;
+                }
             }
-            set { startTime = DateTime.Now.AddMilliseconds(-value); }
+            set
+            {
+                usedTime = value;
+                startTime = DateTime.Now.AddMilliseconds(-value);
+            }
         }
 
         [XmlIgnore]
@@ -69,7 +76,7 @@
             get { return gameState; }
             private set
             {
-                if (SetProperty(ref gameState, value))
+                if (SetProperty(ref gameState, value, "GameState"))
                 {
                     if (value == GameState.Success || value == GameState.Failed)
                     {
@@ -83,6 +90,7 @@
                     }
                     else if (value == GameState.Initialized)
                     {
+                        usedTime = 0;
                         this.timer.Stop();
                         this.cells.MarkAllAsNoraml();
                     }
@@ -103,6 +111,21 @@
         public IEnumerable<MineCell> Cells
         {
             get { return cells; }
+        }
+
+        [XmlAttribute("hash")]
+        public int Hash
+        {
+            get
+            {
+                if (!hash.HasValue)
+                {
+                    hash = CellsForSerialize.GetHashCode() ^ UsedTime.GetHashCode();
+                }
+
+                return hash.Value;
+            }
+            set { hash = value; }
         }
 
         [XmlText]
@@ -160,6 +183,11 @@
             this.cells.CalculateMinesCount();
         }
 
+        public bool CheckHash()
+        {
+            return Hash == (CellsForSerialize.GetHashCode() ^ UsedTime.GetHashCode());
+        }
+
         public void Update(IClearMine mine)
         {
             var game = mine as ClearMineGame;
@@ -170,13 +198,18 @@
             }
 
             int index = 0;
+            
             this.cells.Clear();
+            this.cells.Size = game.cells.Size;
             foreach (var cell in game.Cells)
             {
                 this.cells.Insert(index++, cell);
+                if (cell.CachingState == CachingState.InUse)
+                {
+                    cell.StateChanged += new EventHandler<CellStateChangedEventArgs>(OnCellStateChanged);
+                }
             }
 
-            this.cells.Size = game.cells.Size;
             totalMines = game.totalMines;
             UsedTime = game.UsedTime;
             GameState = game.GameState;
@@ -185,11 +218,13 @@
         public void Pause()
         {
             timer.IsEnabled = false;
+            usedTime = (int)(DateTime.Now - startTime).TotalMilliseconds;
         }
 
         public void Resume()
         {
             timer.IsEnabled = true;
+            UsedTime = usedTime;
         }
 
         public IEnumerable<MineCell> TryExpandAt(MineCell cell)

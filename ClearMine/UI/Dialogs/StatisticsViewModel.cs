@@ -2,7 +2,9 @@
 {
     using System.Collections;
     using System.Collections.Generic;
+    using System.ComponentModel;
     using System.Windows;
+    using System.Windows.Data;
     using System.Windows.Input;
 
     using ClearMine.Common.ComponentModel;
@@ -53,7 +55,18 @@
         public Difficulty SelectedLevel
         {
             get { return selectedLevel; }
-            set { SetProperty(ref selectedLevel, value); }
+            set
+            {
+                SetProperty(ref selectedLevel, value, "SelectedLevel");
+
+                // Sort the history by score by default.
+                var histories = Settings.Default.HeroList.GetByLevel(value).Items;
+                var view = CollectionViewSource.GetDefaultView(histories);
+                if (view != null && view.SortDescriptions.Count == 0)
+                {
+                    view.SortDescriptions.Add(new SortDescription("Score", ListSortDirection.Ascending));
+                }
+            }
         }
     }
 }

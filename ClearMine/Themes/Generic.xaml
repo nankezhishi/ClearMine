@@ -3,38 +3,39 @@
                     xmlns:local="clr-namespace:ClearMine.UI.Controls"
                     xmlns:con="clr-namespace:ClearMine.UI.Converters"
                     xmlns:logic="clr-namespace:ClearMine.Logic;assembly=ClearMine.Logic">
-    <con:WidthToFontSizeConverter x:Key="WidthToFontSizeConverter" />
+    <con:MathOperationConverter x:Key="MathOperationConverter" />
     <Style TargetType="{x:Type local:MineCellControl}">
         <Setter Property="Foreground" Value="Transparent" />
-        <Setter Property="Background" Value="Blue" />
-        <Setter Property="BorderBrush" Value="White" />
-        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="Background"
+                Value="{DynamicResource NormalCellBackground}" />
+        <Setter Property="BorderBrush" Value="Transparent" />
+        <!-- Binding BorderThickness will make the whole panel re-layout. Peformace issue. -->
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="RenderOptions.EdgeMode" Value="Aliased" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
         <Setter Property="HorizontalContentAlignment" Value="Center" />
         <!--Keep the default template simple. -->
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type local:MineCellControl}">
-                    <Grid Background="{TemplateBinding Background}">
-                        <Border x:Name="groudLayer"
-                                BorderBrush="{TemplateBinding BorderBrush}"
-                                BorderThickness="{TemplateBinding BorderThickness}" />
-                        <Border x:Name="minesLayer">
-                            <TextBlock x:Name="minesLabel"
-                                       TextAlignment="Center"
-                                       VerticalAlignment="Center"
-                                       HorizontalAlignment="Stretch"
-                                       FontWeight="ExtraBold"
-                                       FontSize="{Binding ActualWidth, ElementName=minesLayer, Converter={StaticResource WidthToFontSizeConverter}}" />
-                        </Border>
-                        <Border x:Name="markLayer" />
-                    </Grid>
+                    <Border x:Name="groudLayer"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}">
+                        <Grid IsHitTestVisible="False">
+                            <!-- Don't collapsed the border, because it will cause a re-layout. -->
+                            <Border x:Name="minesLayer"
+                                    Visibility="Hidden"
+                                    Background="{TemplateBinding Foreground}" />
+                            <Border x:Name="markLayer"
+                                    Visibility="Hidden" />
+                        </Grid>
+                    </Border>
                     <ControlTemplate.Triggers>
                         <DataTrigger Binding="{Binding State}"
                                      Value="{x:Static logic:CellState.Shown}">
-                            <Setter Property="Background" Value="Transparent" />
                             <Setter TargetName="minesLayer" Property="Visibility" Value="Visible" />
-                            <Setter TargetName="minesLabel" Property="Text" Value="{Binding MinesNearby}" />
+                            <Setter Property="Background" Value="{DynamicResource ShownCellBackground}" />
                         </DataTrigger>
                         <DataTrigger Binding="{Binding State}"
                                      Value="{x:Static logic:CellState.MarkAsMine}">
@@ -45,12 +46,6 @@
                                      Value="{x:Static logic:CellState.Question}">
                             <Setter TargetName="markLayer" Property="Visibility" Value="Visible" />
                             <Setter TargetName="markLayer" Property="Background" Value="{DynamicResource QuestionMark}" />
-                        </DataTrigger>
-                        <DataTrigger Binding="{Binding State}"
-                                     Value="{x:Static logic:CellState.Normal}">
-                            <Setter TargetName="markLayer" Property="Visibility" Value="Collapsed" />
-                            <Setter TargetName="minesLayer" Property="Visibility" Value="Collapsed" />
-                            <Setter TargetName="minesLabel" Property="Text" Value="" />
                         </DataTrigger>
                         <!-- Shows a un-marked mine. -->
                         <MultiDataTrigger>
@@ -77,6 +72,10 @@
             </Setter.Value>
         </Setter>
         <Style.Triggers>
+            <Trigger Property="IsPressed" Value="True">
+                <Setter Property="Background"
+                        Value="{DynamicResource PressedCellBackground}" />
+            </Trigger>
             <DataTrigger Binding="{Binding IsTerminator}"
                          Value="True">
                 <Setter Property="Background"
@@ -85,42 +84,42 @@
             <DataTrigger Binding="{Binding MinesNearby}"
                          Value="1">
                 <Setter Property="Foreground"
-                        Value="#FF3A50C0" />
+                        Value="{DynamicResource Number1Brush}" />
             </DataTrigger>
             <DataTrigger Binding="{Binding MinesNearby}"
                          Value="2">
                 <Setter Property="Foreground"
-                        Value="#FF176801" />
+                        Value="{DynamicResource Number2Brush}" />
             </DataTrigger>
             <DataTrigger Binding="{Binding MinesNearby}"
                          Value="3">
                 <Setter Property="Foreground"
-                        Value="#FFAC0200" />
+                        Value="{DynamicResource Number3Brush}" />
             </DataTrigger>
             <DataTrigger Binding="{Binding MinesNearby}"
                          Value="4">
                 <Setter Property="Foreground"
-                        Value="#FF000379" />
+                        Value="{DynamicResource Number4Brush}" />
             </DataTrigger>
             <DataTrigger Binding="{Binding MinesNearby}"
                          Value="5">
                 <Setter Property="Foreground"
-                        Value="#FF7E0002" />
+                        Value="{DynamicResource Number5Brush}" />
             </DataTrigger>
             <DataTrigger Binding="{Binding MinesNearby}"
                          Value="6">
                 <Setter Property="Foreground"
-                        Value="#FF007E79" />
+                        Value="{DynamicResource Number6Brush}" />
             </DataTrigger>
             <DataTrigger Binding="{Binding MinesNearby}"
                          Value="7">
                 <Setter Property="Foreground"
-                        Value="#FFAA0408" />
+                        Value="{DynamicResource Number7Brush}" />
             </DataTrigger>
             <DataTrigger Binding="{Binding MinesNearby}"
                          Value="8">
                 <Setter Property="Foreground"
-                        Value="#FFA5090D" />
+                        Value="{DynamicResource Number8Brush}" />
             </DataTrigger>
         </Style.Triggers>
     </Style>

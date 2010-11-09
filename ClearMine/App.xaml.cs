@@ -46,7 +46,10 @@
         private void OnCurrentDispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
         {
             MessageBox.Show(e.Exception.Message, "Exception");
-            e.Handled = true;
+            if (MainWindow != null)
+            {
+                e.Handled = true;
+            }
         }
     }
 }

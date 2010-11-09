@@ -9,9 +9,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	ProjectSection(SolutionItems) = preProject
 		ClearMine.vsmdi = ClearMine.vsmdi
 		Local.testsettings = Local.testsettings
-		Performance5.psess = Performance5.psess
-		Performance6.psess = Performance6.psess
-		Performance7.psess = Performance7.psess
 		TraceAndTestImpact.testsettings = TraceAndTestImpact.testsettings
 	EndProjectSection
 EndProject
@@ -34,14 +31,16 @@ Global
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{91247A0D-C7CE-4E8A-9AB8-DC7640534218}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{91247A0D-C7CE-4E8A-9AB8-DC7640534218}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{91247A0D-C7CE-4E8A-9AB8-DC7640534218}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{91247A0D-C7CE-4E8A-9AB8-DC7640534218}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
 		{91247A0D-C7CE-4E8A-9AB8-DC7640534218}.Debug|Mixed Platforms.Build.0 = Debug|x86
 		{91247A0D-C7CE-4E8A-9AB8-DC7640534218}.Debug|x86.ActiveCfg = Debug|x86
 		{91247A0D-C7CE-4E8A-9AB8-DC7640534218}.Debug|x86.Build.0 = Debug|x86
-		{91247A0D-C7CE-4E8A-9AB8-DC7640534218}.Release|Any CPU.ActiveCfg = Release|x86
-		{91247A0D-C7CE-4E8A-9AB8-DC7640534218}.Release|Mixed Platforms.ActiveCfg = Release|x86
-		{91247A0D-C7CE-4E8A-9AB8-DC7640534218}.Release|Mixed Platforms.Build.0 = Release|x86
+		{91247A0D-C7CE-4E8A-9AB8-DC7640534218}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{91247A0D-C7CE-4E8A-9AB8-DC7640534218}.Release|Any CPU.Build.0 = Release|Any CPU
+		{91247A0D-C7CE-4E8A-9AB8-DC7640534218}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{91247A0D-C7CE-4E8A-9AB8-DC7640534218}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{91247A0D-C7CE-4E8A-9AB8-DC7640534218}.Release|x86.ActiveCfg = Release|x86
 		{91247A0D-C7CE-4E8A-9AB8-DC7640534218}.Release|x86.Build.0 = Release|x86
 		{8EE980F1-AFAC-4294-864A-C0B9549AAC4D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
