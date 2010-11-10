@@ -24,3 +24,4 @@ using System.Windows.Markup;
 [assembly: InternalsVisibleTo("ClearMine.Logic")]
 [assembly: XmlnsDefinition("http://schemas.microsoft.com/winfx/2006/xaml/presentation", "ClearMine.Framework.Dialogs")]
 [assembly: XmlnsDefinition("http://schemas.microsoft.com/winfx/2006/xaml/presentation", "ClearMine.Framework.Controls")]
+[assembly: XmlnsDefinition("http://schemas.microsoft.com/winfx/2006/xaml/presentation", "ClearMine.Framework.Converters")]

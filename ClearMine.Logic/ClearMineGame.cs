@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.ComponentModel;
+    using System.Diagnostics;
     using System.Diagnostics.Contracts;
     using System.Globalization;
     using System.Linq;
@@ -51,11 +52,6 @@
                     return usedTime;
                 }
             }
-            set
-            {
-                usedTime = value;
-                startTime = DateTime.Now.AddMilliseconds(-value);
-            }
         }
 
         [XmlIgnore]
@@ -80,6 +76,7 @@
                 {
                     if (value == GameState.Success || value == GameState.Failed)
                     {
+                        PersistantUsedTime(UsedTime);
                         this.timer.Stop();
                         this.cells.DoForThat(c => c.HasMine || c.State == CellState.MarkAsMine, c => c.ShowResult = true);
                     }
@@ -211,7 +208,7 @@
             }
 
             totalMines = game.totalMines;
-            UsedTime = game.UsedTime;
+            PersistantUsedTime(game.UsedTime);
             GameState = game.GameState;
         }
 
@@ -224,7 +221,7 @@
         public void Resume()
         {
             timer.IsEnabled = true;
-            UsedTime = usedTime;
+            PersistantUsedTime(usedTime);
         }
 
         public IEnumerable<MineCell> TryExpandAt(MineCell cell)
@@ -306,6 +303,14 @@
         public MineCell GetCell(int column, int row)
         {
             return this.cells.GetCell(column, row);
+        }
+
+        private void PersistantUsedTime(int usedTime)
+        {
+            Debug.Assert(timer.IsEnabled);
+
+            this.usedTime = usedTime;
+            startTime = DateTime.Now.AddMilliseconds(-usedTime);
         }
 
         private void OnTick(object sender, EventArgs e)

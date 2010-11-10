@@ -139,14 +139,11 @@
     </ApplicationDefinition>
     <Compile Include="Properties\Settings.cs" />
     <Compile Include="Media\Player.cs" />
-    <Compile Include="UI\Controls\MineCellControl.cs" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="UI\Converters\CacheStateToVisibilityConverter.cs" />
     <Compile Include="UI\Converters\DifficultyToBooleanConverter.cs" />
-    <Compile Include="UI\Converters\MathOperationConverter.cs" />
     <Compile Include="UI\Converters\PlaygroundBorderThicknessConverter.cs" />
     <Compile Include="UI\Dialogs\AboutDialog.xaml.cs">
       <DependentUpon>AboutDialog.xaml</DependentUpon>
@@ -181,10 +178,6 @@
     <Page Include="Themes\DefaultSkin.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Themes\Generic.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
     </Page>
     <Page Include="UI\Dialogs\AboutDialog.xaml">
       <SubType>Designer</SubType>

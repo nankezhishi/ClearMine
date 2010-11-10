@@ -8,6 +8,7 @@
     using System.Xml.Serialization;
 
     using ClearMine.Common.ComponentModel;
+    using ClearMine.Common.Utilities;
 
     [Serializable]
     [XmlRoot("record")]
@@ -17,6 +18,13 @@
         public int Score { get; set; }
         [XmlAttribute("when")]
         public DateTime Date { get; set; }
+        [XmlAttribute("shoot")]
+        public string ScreenShoot { get; set; }
+        [XmlIgnore]
+        public Uri ScreenShootUri
+        {
+            get { return new Uri(Util.GetAbsolutePath(ScreenShoot)); }
+        }
     }
 
     [Serializable]
@@ -90,7 +98,7 @@
             }
         }
 
-        public void IncreaseWon(int score, DateTime time)
+        public void IncreaseWon(int score, DateTime time, string screenShoot)
         {
             AverageScore = (GameWon * AverageScore + score) / ++GameWon;
             ++GamePlayed;
@@ -107,7 +115,10 @@
                 LongestWinning = CurrentStatus;
             }
 
-            Items.Add(new HistoryRecord() { Score = score, Date = time });
+            Items.Add(new HistoryRecord()
+            {
+                Score = score, Date = time, ScreenShoot = screenShoot
+            });
         }
 
         public void IncreaseUndone()

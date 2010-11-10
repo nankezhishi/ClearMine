@@ -85,4 +85,37 @@
             </Setter.Value>
         </Setter>
     </Style>
+
+    <!-- Don't put any game logic here. -->
+    <Style TargetType="{x:Type con:MineCellControl}">
+        <Setter Property="Foreground"
+                Value="Transparent" />
+        <Setter Property="Background"
+                Value="{DynamicResource NormalCellBackground}" />
+        <Setter Property="BorderBrush"
+                Value="Transparent" />
+        <Setter Property="Mark"
+                Value="Transparent" />
+        <!-- Binding BorderThickness will make the whole panel re-layout. Peformace issue. -->
+        <Setter Property="BorderThickness"
+                Value="0" />
+        <Setter Property="RenderOptions.EdgeMode"
+                Value="Aliased" />
+        <Setter Property="VerticalContentAlignment"
+                Value="Center" />
+        <Setter Property="HorizontalContentAlignment"
+                Value="Center" />
+        <!--Keep the default template simple. -->
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type con:MineCellControl}">
+                    <Grid>
+                        <Border Background="{TemplateBinding Background}" />
+                        <Border Background="{TemplateBinding Foreground}" />
+                        <Border Background="{TemplateBinding Mark}" />
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
 </ResourceDictionary>

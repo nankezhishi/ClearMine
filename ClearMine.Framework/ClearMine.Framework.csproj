@@ -97,8 +97,11 @@
   <ItemGroup>
     <Compile Include="Behaviors\SortableListViewBehavior.cs" />
     <Compile Include="Controls\ListSortDecorator.cs" />
+    <Compile Include="Controls\MineCellControl.cs" />
     <Compile Include="Controls\MinesPanel.cs" />
     <Compile Include="Controls\VisualAdorner.cs" />
+    <Compile Include="Converters\CacheStateToVisibilityConverter.cs" />
+    <Compile Include="Converters\MathOperationConverter.cs" />
     <Compile Include="Dialogs\OptionDialog.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>

@@ -16,6 +16,9 @@
     using ClearMine.Media;
     using ClearMine.Properties;
     using Microsoft.Win32;
+    using System.Windows.Media.Imaging;
+    using System.Windows.Media;
+    using System.Windows.Threading;
 
     internal sealed class ClearMineViewModel : ViewModelBase
     {
@@ -471,12 +474,39 @@
                 {
                     UpdateStatistics();
                     ShowWonWindow();
-                }));
+                }), DispatcherPriority.Input);
             }
             else if (game.GameState == GameState.Initialized)
             {
                 Player.Play(@".\Sound\GameStart.wma");
             }
+        }
+
+        private string TakeScreenShoot()
+        {
+            var target = Application.Current.MainWindow;
+
+            // render InkCanvas' visual tree to the RenderTargetBitmap
+            var targetBitmap =
+                new RenderTargetBitmap((int)target.ActualWidth,
+                                       (int)target.ActualHeight,
+                                       96d, 96d,
+                                       PixelFormats.Default);
+            targetBitmap.Render(target);
+
+            // add the RenderTargetBitmap to a Bitmapencoder
+            var encoder = new PngBitmapEncoder();
+            encoder.Frames.Add(BitmapFrame.Create(targetBitmap));
+
+            string fileName = DateTime.Now.ToString("yy-MM-dd-HH-mm-ss") + ".png";
+
+            // save file to disk
+            using (FileStream fs = File.Open(fileName, FileMode.OpenOrCreate))
+            {
+                encoder.Save(fs);
+            }
+
+            return fileName;
         }
 
         private void ShowLostWindow()
@@ -514,7 +544,7 @@
             {
                 if (game.GameState == GameState.Success)
                 {
-                    history.IncreaseWon(game.UsedTime / 1000, DateTime.Now);
+                    history.IncreaseWon(game.UsedTime / 1000, DateTime.Now, TakeScreenShoot());
                 }
                 else if (game.GameState == GameState.Failed)
                 {

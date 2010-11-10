@@ -1,4 +1,4 @@
-﻿namespace ClearMine.UI.Converters
+﻿namespace ClearMine.Framework.Converters
 {
     using System;
     using System.Globalization;

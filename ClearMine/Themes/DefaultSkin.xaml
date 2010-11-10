@@ -1,36 +1,44 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:b="clr-namespace:ClearMine.Framework.Behaviors;assembly=ClearMine.Framework"
-                    xmlns:d="clr-namespace:System.Windows.Media;assembly=PresentationCore">
+                    xmlns:d="clr-namespace:System.Windows.Media;assembly=PresentationCore"
+                    xmlns:logic="clr-namespace:ClearMine.Logic;assembly=ClearMine.Logic">
+    <Rect x:Key="NumberViewbox">-0.2,-0.2 1.5,1.5</Rect>
+    <Rect x:Key="MarkViewbox">-0.25,-0.2 1.45,1.5</Rect>
+
     <VisualBrush x:Key="FlagImage"
-                 Stretch="Uniform">
+                 Stretch="Uniform"
+                 Viewbox="{StaticResource MarkViewbox}">
         <VisualBrush.Visual>
             <Image Source="..\Images\Flag.png" />
         </VisualBrush.Visual>
     </VisualBrush>
 
     <VisualBrush x:Key="QuestionMark"
-                 Stretch="Uniform">
+                 Stretch="Uniform"
+                 Viewbox="{StaticResource MarkViewbox}">
         <VisualBrush.Visual>
             <Image Source="..\Images\QuestionMark.png" />
         </VisualBrush.Visual>
     </VisualBrush>
     
-    <VisualBrush x:Key="MineImage">
+    <VisualBrush x:Key="MineImage"
+                 Stretch="Uniform"
+                 Viewbox="{StaticResource MarkViewbox}">
         <VisualBrush.Visual>
             <Image Source="..\Images\Mine.png" />
         </VisualBrush.Visual>
     </VisualBrush>
-    
-    <VisualBrush x:Key="WrongMineMark">
-        <VisualBrush.Visual>
-            <Path StrokeThickness="2"
-                  Stroke="Red"
-                  SnapsToDevicePixels="False"
-                  Data="M0,0 L1,1 M1,0 L 0,1"
-                  Stretch="UniformToFill" />
-        </VisualBrush.Visual>
-    </VisualBrush>
+
+    <DrawingBrush x:Key="WrongMineMark">
+        <DrawingBrush.Drawing>
+            <GeometryDrawing Geometry="M0,0 L15,15 M15,0 L 0,15">
+                <GeometryDrawing.Pen>
+                    <Pen Brush="Red" Thickness="1" />
+                </GeometryDrawing.Pen>
+            </GeometryDrawing>
+        </DrawingBrush.Drawing>
+    </DrawingBrush>
 
     <DrawingBrush x:Key="SeperatorBrush"
                   TileMode="Tile"
@@ -76,7 +84,8 @@
     <SolidColorBrush x:Key="ShownCellBackground" Color="Transparent" />
 
     <DrawingBrush x:Key="Number1Brush"
-                  Stretch="Uniform">
+                  Stretch="Uniform"
+                  Viewbox="{StaticResource NumberViewbox}">
         <DrawingBrush.Drawing>
             <DrawingGroup>
                 <DrawingGroup.Children>
@@ -87,7 +96,8 @@
         </DrawingBrush.Drawing>
     </DrawingBrush>
     <DrawingBrush x:Key="Number2Brush"
-                  Stretch="Uniform">
+                  Stretch="Uniform"
+                  Viewbox="{StaticResource NumberViewbox}">
         <DrawingBrush.Drawing>
             <DrawingGroup>
                 <DrawingGroup.Children>
@@ -98,7 +108,8 @@
         </DrawingBrush.Drawing>
     </DrawingBrush>
     <DrawingBrush x:Key="Number3Brush"
-                  Stretch="Uniform">
+                  Stretch="Uniform"
+                  Viewbox="{StaticResource NumberViewbox}">
         <DrawingBrush.Drawing>
             <DrawingGroup>
                 <DrawingGroup.Children>
@@ -109,7 +120,8 @@
         </DrawingBrush.Drawing>
     </DrawingBrush>
     <DrawingBrush x:Key="Number4Brush"
-                  Stretch="Uniform">
+                  Stretch="Uniform"
+                  Viewbox="{StaticResource NumberViewbox}">
         <DrawingBrush.Drawing>
             <DrawingGroup>
                 <DrawingGroup.Children>
@@ -120,7 +132,8 @@
         </DrawingBrush.Drawing>
     </DrawingBrush>
     <DrawingBrush x:Key="Number5Brush"
-                  Stretch="Uniform">
+                  Stretch="Uniform"
+                  Viewbox="{StaticResource NumberViewbox}">
         <DrawingBrush.Drawing>
             <DrawingGroup>
                 <DrawingGroup.Children>
@@ -131,7 +144,8 @@
         </DrawingBrush.Drawing>
     </DrawingBrush>
     <DrawingBrush x:Key="Number6Brush"
-                  Stretch="Uniform">
+                  Stretch="Uniform"
+                  Viewbox="{StaticResource NumberViewbox}">
         <DrawingBrush.Drawing>
             <DrawingGroup>
                 <DrawingGroup.Children>
@@ -142,7 +156,8 @@
         </DrawingBrush.Drawing>
     </DrawingBrush>
     <DrawingBrush x:Key="Number7Brush"
-                  Stretch="Uniform">
+                  Stretch="Uniform"
+                  Viewbox="{StaticResource NumberViewbox}">
         <DrawingBrush.Drawing>
             <DrawingGroup>
                 <DrawingGroup.Children>
@@ -153,7 +168,8 @@
         </DrawingBrush.Drawing>
     </DrawingBrush>
     <DrawingBrush x:Key="Number8Brush"
-                  Stretch="Uniform">
+                  Stretch="Uniform"
+                  Viewbox="{StaticResource NumberViewbox}">
         <DrawingBrush.Drawing>
             <DrawingGroup>
                 <DrawingGroup.Children>
@@ -163,6 +179,111 @@
             </DrawingGroup>
         </DrawingBrush.Drawing>
     </DrawingBrush>
+
+    <Style TargetType="{x:Type MineCellControl}">
+        <Style.Triggers>
+            <Trigger Property="IsPressed"
+                     Value="True">
+                <Setter Property="Background"
+                        Value="{DynamicResource PressedCellBackground}" />
+            </Trigger>
+            <DataTrigger Binding="{Binding IsTerminator}"
+                         Value="True">
+                <Setter Property="Background"
+                        Value="#FFAA3333" />
+            </DataTrigger>
+            <DataTrigger Binding="{Binding MinesNearby}"
+                         Value="1">
+                <Setter Property="Foreground"
+                        Value="{DynamicResource Number1Brush}" />
+            </DataTrigger>
+            <DataTrigger Binding="{Binding MinesNearby}"
+                         Value="2">
+                <Setter Property="Foreground"
+                        Value="{DynamicResource Number2Brush}" />
+            </DataTrigger>
+            <DataTrigger Binding="{Binding MinesNearby}"
+                         Value="3">
+                <Setter Property="Foreground"
+                        Value="{DynamicResource Number3Brush}" />
+            </DataTrigger>
+            <DataTrigger Binding="{Binding MinesNearby}"
+                         Value="4">
+                <Setter Property="Foreground"
+                        Value="{DynamicResource Number4Brush}" />
+            </DataTrigger>
+            <DataTrigger Binding="{Binding MinesNearby}"
+                         Value="5">
+                <Setter Property="Foreground"
+                        Value="{DynamicResource Number5Brush}" />
+            </DataTrigger>
+            <DataTrigger Binding="{Binding MinesNearby}"
+                         Value="6">
+                <Setter Property="Foreground"
+                        Value="{DynamicResource Number6Brush}" />
+            </DataTrigger>
+            <DataTrigger Binding="{Binding MinesNearby}"
+                         Value="7">
+                <Setter Property="Foreground"
+                        Value="{DynamicResource Number7Brush}" />
+            </DataTrigger>
+            <DataTrigger Binding="{Binding MinesNearby}"
+                         Value="8">
+                <Setter Property="Foreground"
+                        Value="{DynamicResource Number8Brush}" />
+            </DataTrigger>
+            <DataTrigger Binding="{Binding State}"
+                         Value="{x:Static logic:CellState.Normal}">
+                <Setter Property="Foreground"
+                        Value="Transparent" />
+            </DataTrigger>
+            <DataTrigger Binding="{Binding State}"
+                         Value="{x:Static logic:CellState.Shown}">
+                <Setter Property="Background"
+                        Value="{DynamicResource ShownCellBackground}" />
+            </DataTrigger>
+            <DataTrigger Binding="{Binding State}"
+                         Value="{x:Static logic:CellState.MarkAsMine}">
+                <Setter Property="Mark"
+                        Value="{DynamicResource FlagImage}" />
+                <Setter Property="Foreground"
+                        Value="Transparent" />
+            </DataTrigger>
+            <DataTrigger Binding="{Binding State}"
+                         Value="{x:Static logic:CellState.Question}">
+                <Setter Property="Mark"
+                        Value="{DynamicResource QuestionMark}" />
+                <Setter Property="Foreground"
+                        Value="Transparent" />
+            </DataTrigger>
+            <!-- Shows a un-marked mine. -->
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding ShowResult}"
+                               Value="True" />
+                    <Condition Binding="{Binding HasMine}"
+                               Value="True" />
+                </MultiDataTrigger.Conditions>
+                <Setter Property="Foreground"
+                        Value="{DynamicResource MineImage}" />
+            </MultiDataTrigger>
+            <!-- Shows a wrong marked mine. -->
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding ShowResult}"
+                               Value="True" />
+                    <Condition Binding="{Binding State}"
+                               Value="{x:Static logic:CellState.MarkAsMine}" />
+                    <Condition Binding="{Binding HasMine}"
+                               Value="False" />
+                </MultiDataTrigger.Conditions>
+                <Setter Property="Foreground"
+                        Value="{DynamicResource MineImage}" />
+                <Setter Property="Mark"
+                        Value="{DynamicResource WrongMineMark}" />
+            </MultiDataTrigger>
+        </Style.Triggers>
+    </Style>
 
     <SolidColorBrush x:Key="DialogBackground" Color="#F0F0F0" />
 
