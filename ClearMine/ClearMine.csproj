@@ -165,6 +165,9 @@
       <DependentUpon>OptionsDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\Dialogs\OptionsViewModel.cs" />
+    <Compile Include="UI\Dialogs\OutputWindow.xaml.cs">
+      <DependentUpon>OutputWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\Dialogs\StatisticsViewModel.cs" />
     <Compile Include="UI\Dialogs\StatisticsWindow.xaml.cs">
       <DependentUpon>StatisticsWindow.xaml</DependentUpon>
@@ -200,6 +203,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\Dialogs\OptionsDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Dialogs\OutputWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

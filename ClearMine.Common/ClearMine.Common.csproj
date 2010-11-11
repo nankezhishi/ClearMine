@@ -96,6 +96,7 @@
     <Compile Include="ComponentModel\ICachable.cs" />
     <Compile Include="ComponentModel\IUpdatable.cs" />
     <Compile Include="ComponentModel\ViewModelBase.cs" />
+    <Compile Include="Log\RedirectorTraceListener.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utilities\GenericExtension.cs" />
     <Compile Include="Utilities\Util.cs" />

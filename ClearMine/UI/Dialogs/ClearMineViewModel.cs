@@ -8,6 +8,9 @@
     using System.Threading;
     using System.Windows;
     using System.Windows.Input;
+    using System.Windows.Media;
+    using System.Windows.Media.Imaging;
+    using System.Windows.Threading;
     using System.Xml.Serialization;
 
     using ClearMine.Common.ComponentModel;
@@ -16,9 +19,7 @@
     using ClearMine.Media;
     using ClearMine.Properties;
     using Microsoft.Win32;
-    using System.Windows.Media.Imaging;
-    using System.Windows.Media;
-    using System.Windows.Threading;
+    using System.Diagnostics;
 
     internal sealed class ClearMineViewModel : ViewModelBase
     {
@@ -127,7 +128,7 @@
 
         private static void OnOptionExecuted(object sender, ExecutedRoutedEventArgs e)
         {
-            e.ExtractDataContext<ClearMineViewModel>(vm =>
+            var viewModel =  e.ExtractDataContext<ClearMineViewModel>(vm =>
             {
                 if (vm.game.GameState == GameState.Started)
                 {
@@ -138,11 +139,11 @@
             optionsWindow.Owner = Application.Current.MainWindow;
             if (optionsWindow.ShowDialog().Value)
             {
-                e.ExtractDataContext<ClearMineViewModel>().StartNewGame();
+                viewModel.StartNewGame();
             }
-            else
+            else if (viewModel.game.GameState == GameState.Started)
             {
-                e.ExtractDataContext<ClearMineViewModel>().game.Resume();
+                viewModel.game.Resume();
             }
         }
 
@@ -241,6 +242,33 @@
         }
 
         private static void OnOpenCanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = true;
+        }  
+        #endregion
+        #region ShowLogCommand
+        private static ICommand showLog = new RoutedUICommand("ShowLog", "ShowLog",
+            typeof(ClearMineViewModel), new InputGestureCollection() { new KeyGesture(Key.L, ModifierKeys.Control) });
+        private static CommandBinding showLogBinding = new CommandBinding(ShowLog,
+            new ExecutedRoutedEventHandler(OnShowLogExecuted), new CanExecuteRoutedEventHandler(OnShowLogCanExecute));
+        public static ICommand ShowLog
+        {
+            get { return showLog; }
+        }
+
+        public static CommandBinding ShowLogBinding
+        {
+            get { return showLogBinding; }
+        }
+
+        private static void OnShowLogExecuted(object sender, ExecutedRoutedEventArgs e)
+        {
+            var outputWindow = new OutputWindow();
+            outputWindow.Owner = Application.Current.MainWindow;
+            outputWindow.Show();
+        }
+
+        private static void OnShowLogCanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
             e.CanExecute = true;
         }  
@@ -484,27 +512,30 @@
 
         private string TakeScreenShoot()
         {
-            var target = Application.Current.MainWindow;
-
-            // render InkCanvas' visual tree to the RenderTargetBitmap
-            var targetBitmap =
-                new RenderTargetBitmap((int)target.ActualWidth,
-                                       (int)target.ActualHeight,
-                                       96d, 96d,
-                                       PixelFormats.Default);
+            var target = VisualTreeHelper.GetChild(Application.Current.MainWindow, 0) as FrameworkElement;
+            var targetBitmap = new RenderTargetBitmap((int)target.ActualWidth, (int)target.ActualHeight, 96d, 96d, PixelFormats.Default);
             targetBitmap.Render(target);
 
-            // add the RenderTargetBitmap to a Bitmapencoder
             var encoder = new PngBitmapEncoder();
             encoder.Frames.Add(BitmapFrame.Create(targetBitmap));
 
             string fileName = DateTime.Now.ToString("yy-MM-dd-HH-mm-ss") + ".png";
+            string folder = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Poleaf\ClearMine\ScreenShoots\";
+
+            if (!Directory.Exists(folder))
+            {
+                Directory.CreateDirectory(folder);
+            }
+
+            fileName = Path.Combine(folder, fileName);
 
             // save file to disk
             using (FileStream fs = File.Open(fileName, FileMode.OpenOrCreate))
             {
                 encoder.Save(fs);
             }
+
+            Trace.TraceInformation("Screen shoot saved to {0}", fileName);
 
             return fileName;
         }

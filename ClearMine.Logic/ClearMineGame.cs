@@ -52,6 +52,8 @@
                     return usedTime;
                 }
             }
+            // setter is a must for XML Serialization.
+            set { PersistantUsedTime(value); }
         }
 
         [XmlIgnore]

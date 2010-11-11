@@ -1,6 +1,7 @@
 ﻿namespace ClearMine.Framework.Controls
 {
     using System;
+    using System.Diagnostics;
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Controls.Primitives;
@@ -156,6 +157,8 @@
 
         protected override Size ArrangeOverride(Size arrangeSize)
         {
+            Trace.TraceInformation("MinesPanel Arranged.");
+
             if (this.Columns == 0 || this.Rows == 0)
             {
                 return new Size(0, 0);
