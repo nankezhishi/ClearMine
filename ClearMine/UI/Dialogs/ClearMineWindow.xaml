@@ -69,6 +69,7 @@
             </MenuItem>
         </Menu>
         <Border Margin="5"
+                UseLayoutRounding="True"
                 BorderBrush="{DynamicResource PlaygroundBorderBrush}"
                 DockPanel.Dock="Top">
             <Border.BorderThickness>
@@ -81,14 +82,13 @@
             </Border.BorderThickness>
             <DockPanel LastChildFill="False"
                        Margin="0,5"
+                       MaxHeight="46"
                        HorizontalAlignment="Center">
-                <TextBlock Text="{Binding Time}"
-                           Margin="0,0,18,0" />
+                <ElectronicNumber DisplayNumber="{Binding Time}" />
                 <Button Content="_New Game"
                         Command="New"
-                        Margin="0,0,18,0" />
-                <TextBlock Text="{Binding RemainedMines}"
-                           DockPanel.Dock="Right" />
+                        Margin="18,0,18,0" />
+                <ElectronicNumber DisplayNumber="{Binding RemainedMines}" />
             </DockPanel>
         </Border>
         <Decorator x:Name="playground">

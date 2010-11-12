@@ -1,6 +1,7 @@
 ﻿namespace ClearMine.Framework.Controls
 {
     using System;
+    using System.Diagnostics;
     using System.Windows;
     using System.Windows.Controls;
 
@@ -14,7 +15,7 @@
         Bottom = 16,
         BottomL = 32,
         BottomR = 64,
-        Number0 = 111,
+        Number0 = 119,
         Number1 = 68,
         Number2 = 61,
         Number3 = 93,
@@ -31,6 +32,11 @@
         static NumberPresenter()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(NumberPresenter), new FrameworkPropertyMetadata(typeof(NumberPresenter)));
+        }
+
+        public NumberPresenter()
+        {
+            Trace.TraceInformation("A new NumberPresenter created.");
         }
 
         #region LightUpStrokes Property - ReadOnly
@@ -54,15 +60,15 @@
         /// <summary>
         /// Gets or sets the Number property of current instance of NumberPresenter
         /// </summary>
-        public int Number
+        public object Number
         {
-            get { return (int)GetValue(NumberProperty); }
+            get { return (object)GetValue(NumberProperty); }
             set { SetValue(NumberProperty, value); }
         }
 
         // Using a DependencyProperty as the backing store for Number.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty NumberProperty =
-            DependencyProperty.Register("Number", typeof(int), typeof(NumberPresenter), new UIPropertyMetadata(new PropertyChangedCallback(OnNumberPropertyChanged)));
+            DependencyProperty.Register("Number", typeof(object), typeof(NumberPresenter), new UIPropertyMetadata(new PropertyChangedCallback(OnNumberPropertyChanged)));
 
         private static void OnNumberPropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
         {
@@ -75,12 +81,22 @@
 
         protected virtual void OnNumberChanged(DependencyPropertyChangedEventArgs e)
         {
-            if (Number < 0 || Number > 10)
-            {
-                throw new NotSupportedException();
-            }
+            int number = Convert.ToInt32(e.NewValue);
 
-            LightUpStrokes = (LightUps)Enum.Parse(typeof(LightUps), "Number" + Number);
+            if (number >= '0' && number <= '9')
+            {
+                number -= '0';
+                Trace.TraceInformation("NumberPresenter Number changed to {0}", number);
+                LightUpStrokes = (LightUps)Enum.Parse(typeof(LightUps), "Number" + number.ToString());
+            }
+            else if (number == '-')
+            {
+                LightUpStrokes = LightUps.Middle;
+            }
+            else
+            {
+                LightUpStrokes = 0;
+            }
         }
         #endregion
     }

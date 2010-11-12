@@ -296,14 +296,14 @@
             set { SetProperty(ref itemSize, value, "ItemSize"); }
         }
 
-        public int Time
+        public string Time
         {
-            get { return game.UsedTime / 1000; }
+            get { return (game.UsedTime / 1000).ToString(); }
         }
 
-        public int RemainedMines
+        public string RemainedMines
         {
-            get { return game.RemainedMines; }
+            get { return game.RemainedMines.ToString(); }
         }
 
         public IEnumerable<MineCell> Cells

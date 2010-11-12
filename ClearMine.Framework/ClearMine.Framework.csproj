@@ -96,6 +96,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Behaviors\SortableListViewBehavior.cs" />
+    <Compile Include="Controls\ElectronicNumber.cs" />
     <Compile Include="Controls\ListSortDecorator.cs" />
     <Compile Include="Controls\MineCellControl.cs" />
     <Compile Include="Controls\MinesPanel.cs" />

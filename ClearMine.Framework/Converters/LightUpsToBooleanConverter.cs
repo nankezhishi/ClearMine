@@ -6,17 +6,16 @@
 
     using ClearMine.Framework.Controls;
 
-    [ValueConversion(typeof(LightUps), typeof(bool))]
-    public class LightUpsToBooleanConverter : IValueConverter
+    public class LightUpsToBooleanConverter : IMultiValueConverter
     {
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
-            LightUps target = (LightUps)Enum.Parse(typeof(LightUps), parameter.ToString());
-            LightUps flags = (LightUps)value;
+            LightUps target = (LightUps)values[1];
+            LightUps flags = (LightUps)values[0];
             return (flags & target) == target;
         }
 
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
         {
             throw new NotSupportedException();
         }

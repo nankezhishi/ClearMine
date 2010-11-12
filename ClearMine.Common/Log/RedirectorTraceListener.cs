@@ -19,8 +19,8 @@
 
         public RedirectorTraceListener()
         {
-            Debug.Assert(instance == null);
-
+            // Don't use any Trace of Debug in this constructor.
+            // Otherwise may stack overflow exception.
             instance = this;
         }
 
