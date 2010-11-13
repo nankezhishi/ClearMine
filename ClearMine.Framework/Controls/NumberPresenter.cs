@@ -93,6 +93,11 @@
             {
                 LightUpStrokes = LightUps.Middle;
             }
+            else if (number >= 0 && number <= 9)
+            {
+                Trace.TraceInformation("NumberPresenter Number changed to {0}", number);
+                LightUpStrokes = (LightUps)Enum.Parse(typeof(LightUps), "Number" + number.ToString());
+            }
             else
             {
                 LightUpStrokes = 0;

@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
+using System.Windows.Threading;
 
 using ClearMine.Common.Log;
 
@@ -18,8 +20,19 @@ namespace ClearMine.UI.Dialogs
 
         private void OnInstanceShowMessage(object sender, TraceEventArgs e)
         {
-            logBox.Text = RedirectorTraceListener.Current.Log;
-            logBox.ScrollToEnd();
+            if (this.Dispatcher == Dispatcher.CurrentDispatcher)
+            {
+                logBox.Text = RedirectorTraceListener.Current.Log;
+                logBox.ScrollToEnd();
+            }
+            else
+            {
+                Dispatcher.Invoke((Action)delegate
+                {
+                    logBox.Text = RedirectorTraceListener.Current.Log;
+                    logBox.ScrollToEnd();
+                });
+            }
         }
 
         private void OnClearClick(object sender, RoutedEventArgs e)

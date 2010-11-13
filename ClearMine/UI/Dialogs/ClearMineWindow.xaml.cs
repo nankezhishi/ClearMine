@@ -3,6 +3,7 @@
     using System;
     using System.ComponentModel;
     using System.Windows;
+    using System.Windows.Controls;
     using System.Windows.Input;
 
     using ClearMine.Common.Utilities;
@@ -49,6 +50,8 @@
                 vm.TryExpand(cell);
                 expanding = true;
             }
+
+            newGameIcon.SetCurrentValue(Border.BackgroundProperty, Application.Current.FindResource("TryFaceBrush"));
         }
 
         private void OnMineGroudMouseUp(object sender, MouseButtonEventArgs e)
@@ -84,6 +87,8 @@
                     vm.MarkAt(cell);
                 }
             }
+
+            newGameIcon.SetCurrentValue(Border.BackgroundProperty, Application.Current.FindResource("NormalFaceBrush"));
         }
 
         private void OnStateChanged(object sender, EventArgs e)

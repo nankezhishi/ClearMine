@@ -271,12 +271,20 @@
             // Hit the mine on first hit.
             if (GameState == GameState.Initialized)
             {
-                this.cells.ClearMineAround(cell);
-                GameState = GameState.Started;
-                result = this.cells.ExpandFrom(cell).ToList();
-                if (cells.CheckWinning())
+                // Don't dig at a Marked cell.
+                if (cell.State != CellState.MarkAsMine)
                 {
-                    GameState = GameState.Success;
+                    this.cells.ClearMineAround(cell);
+                    GameState = GameState.Started;
+                    result = this.cells.ExpandFrom(cell).ToList();
+                    if (cells.CheckWinning())
+                    {
+                        GameState = GameState.Success;
+                    }
+                }
+                else
+                {
+                    return result;
                 }
             }
 
@@ -286,6 +294,7 @@
                 cell.IsTerminator = true;
                 GameState = GameState.Failed;
             }
+            // Cannot dig at a flagged cell.
             else if (cell.State == CellState.Normal || cell.State == CellState.Question)
             {
                 result = this.cells.ExpandFrom(cell).ToList();
@@ -322,7 +331,16 @@
             if (temp != null)
             {
                 temp(this, e);
+                Trace.TraceInformation("Trigger time changed event on {0} ms", UsedTime);
             }
+
+            // Make sure the timer trigger at most twice per second.
+            int next = 1000 - UsedTime % 1000;
+            if (next < 300)
+            {
+                next = 1000 - next;
+            }
+            timer.Interval = new TimeSpan(0, 0, 0, 0, next);
         }
 
         private void OnCellStateChanged(object sender, CellStateChangedEventArgs e)

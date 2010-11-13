@@ -5,6 +5,178 @@
                     xmlns:logic="clr-namespace:ClearMine.Logic;assembly=ClearMine.Logic">
     <Rect x:Key="NumberViewbox">-0.2,-0.2 1.5,1.5</Rect>
     <Rect x:Key="MarkViewbox">-0.25,-0.2 1.45,1.5</Rect>
+    <Rect x:Key="FaceViewbox">-0.2,-0.2 1.4,1.4</Rect>
+
+    <DrawingBrush x:Key="NormalFaceBrush"
+                  Stretch="Uniform"
+                  Viewbox="{StaticResource FaceViewbox}">
+        <DrawingBrush.Drawing>
+            <DrawingGroup>
+                <GeometryDrawing Brush="Yellow">
+                    <GeometryDrawing.Pen>
+                        <Pen Brush="Black"
+                             Thickness="1" />
+                    </GeometryDrawing.Pen>
+                    <GeometryDrawing.Geometry>
+                        <EllipseGeometry Center="8.5 8.5"
+                                         RadiusX="8.5"
+                                         RadiusY="8.5" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+                <GeometryDrawing Geometry="M5,6 H7 M10,6 H12">
+                    <GeometryDrawing.Pen>
+                        <Pen Brush="Black"
+                             Thickness="2" />
+                    </GeometryDrawing.Pen>
+                </GeometryDrawing>
+                <GeometryDrawing Geometry="M4.5,10.5 C6.5,13.5 10.5,13.5 12.5,10.5">
+                    <GeometryDrawing.Pen>
+                        <Pen Brush="Black"
+                             Thickness="1" />
+                    </GeometryDrawing.Pen>
+                </GeometryDrawing>
+            </DrawingGroup>
+        </DrawingBrush.Drawing>
+    </DrawingBrush>
+
+    <DrawingBrush x:Key="TryFaceBrush"
+                  Stretch="Uniform"
+                  Viewbox="{StaticResource FaceViewbox}">
+        <DrawingBrush.Drawing>
+            <DrawingGroup>
+                <GeometryDrawing Brush="Yellow">
+                    <GeometryDrawing.Pen>
+                        <Pen Brush="Black"
+                             Thickness="1" />
+                    </GeometryDrawing.Pen>
+                    <GeometryDrawing.Geometry>
+                        <EllipseGeometry Center="8.5 8.5"
+                                         RadiusX="8.5"
+                                         RadiusY="8.5" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+                <GeometryDrawing>
+                    <GeometryDrawing.Pen>
+                        <Pen Brush="Black"
+                             Thickness="1" />
+                    </GeometryDrawing.Pen>
+                    <GeometryDrawing.Geometry>
+                        <EllipseGeometry Center="6 6"
+                                         RadiusX="1"
+                                         RadiusY="1" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+                <GeometryDrawing>
+                    <GeometryDrawing.Pen>
+                        <Pen Brush="Black"
+                             Thickness="1" />
+                    </GeometryDrawing.Pen>
+                    <GeometryDrawing.Geometry>
+                        <EllipseGeometry Center="11 6"
+                                         RadiusX="1"
+                                         RadiusY="1" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+                <GeometryDrawing>
+                    <GeometryDrawing.Pen>
+                        <Pen Brush="Black"
+                             Thickness="1" />
+                    </GeometryDrawing.Pen>
+                    <GeometryDrawing.Geometry>
+                        <EllipseGeometry Center="8.5 11.5"
+                                         RadiusX="2"
+                                         RadiusY="2.5" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+            </DrawingGroup>
+        </DrawingBrush.Drawing>
+    </DrawingBrush>
+
+    <DrawingBrush x:Key="WinFaceBrush"
+                  Stretch="Uniform"
+                  Viewbox="{StaticResource FaceViewbox}">
+        <DrawingBrush.Drawing>
+            <DrawingGroup>
+                <GeometryDrawing Brush="Yellow">
+                    <GeometryDrawing.Pen>
+                        <Pen Brush="Black"
+                             Thickness="1" />
+                    </GeometryDrawing.Pen>
+                    <GeometryDrawing.Geometry>
+                        <EllipseGeometry Center="8.5 8.5"
+                                         RadiusX="8.5"
+                                         RadiusY="8.5" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+                <GeometryDrawing Brush="Black">
+                    <GeometryDrawing.Pen>
+                        <Pen Brush="Black"
+                             Thickness="1" />
+                    </GeometryDrawing.Pen>
+                    <GeometryDrawing.Geometry>
+                        <EllipseGeometry Center="5.5 6"
+                                         RadiusX="2"
+                                         RadiusY="2" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+                <GeometryDrawing Brush="Black">
+                    <GeometryDrawing.Pen>
+                        <Pen Brush="Black"
+                             Thickness="1" />
+                    </GeometryDrawing.Pen>
+                    <GeometryDrawing.Geometry>
+                        <EllipseGeometry Center="11.5 6"
+                                         RadiusX="2"
+                                         RadiusY="2" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+                <GeometryDrawing Geometry="M5.5,11.5 C6.5,13.5 10.5,13.5 11.5,11.5">
+                    <GeometryDrawing.Pen>
+                        <Pen Brush="Black"
+                             Thickness="1" />
+                    </GeometryDrawing.Pen>
+                </GeometryDrawing>
+                <GeometryDrawing Geometry="M0,8.5 C6.5,3.5 10.5,3.5 17,8.5">
+                    <GeometryDrawing.Pen>
+                        <Pen Brush="Black"
+                             Thickness="1" />
+                    </GeometryDrawing.Pen>
+                </GeometryDrawing>
+            </DrawingGroup>
+        </DrawingBrush.Drawing>
+    </DrawingBrush>
+
+    <DrawingBrush x:Key="LosingFaceBrush"
+                  Stretch="Uniform"
+                  Viewbox="{StaticResource FaceViewbox}">
+        <DrawingBrush.Drawing>
+            <DrawingGroup>
+                <GeometryDrawing Brush="Yellow">
+                    <GeometryDrawing.Pen>
+                        <Pen Brush="Black"
+                             Thickness="1" />
+                    </GeometryDrawing.Pen>
+                    <GeometryDrawing.Geometry>
+                        <EllipseGeometry Center="8.5 8.5"
+                                         RadiusX="8.5"
+                                         RadiusY="8.5" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+                <GeometryDrawing Geometry="M5,6 H7 M10,6 H12">
+                    <GeometryDrawing.Pen>
+                        <Pen Brush="Black"
+                             Thickness="1" />
+                    </GeometryDrawing.Pen>
+                </GeometryDrawing>
+                <GeometryDrawing Geometry="M4.5,12.5 C6.5,9 10.5,9 12.5,12.5">
+                    <GeometryDrawing.Pen>
+                        <Pen Brush="Black"
+                             Thickness="1" />
+                    </GeometryDrawing.Pen>
+                </GeometryDrawing>
+            </DrawingGroup>
+        </DrawingBrush.Drawing>
+    </DrawingBrush>
 
     <VisualBrush x:Key="FlagImage"
                  Stretch="Uniform"
@@ -30,7 +202,9 @@
         </VisualBrush.Visual>
     </VisualBrush>
 
-    <DrawingBrush x:Key="WrongMineMark">
+    <DrawingBrush x:Key="WrongMineMark"
+                  Stretch="Uniform"
+                  Viewbox="{StaticResource NumberViewbox}">
         <DrawingBrush.Drawing>
             <GeometryDrawing Geometry="M0,0 L15,15 M15,0 L 0,15">
                 <GeometryDrawing.Pen>
@@ -65,6 +239,57 @@
             </DrawingGroup>
         </DrawingBrush.Drawing>
     </DrawingBrush>
+
+    <DrawingBrush x:Key="NewGameButtonBackground">
+        <DrawingBrush.Drawing>
+            <DrawingGroup>
+                <GeometryDrawing Brush="#FFFFFFFF"
+                                 Geometry="M0,0 L24,0 0,24 Z" />
+                <GeometryDrawing Brush="#FF808080"
+                                 Geometry="M24,24 L24,0 0,24 Z" />
+                <GeometryDrawing Brush="#FFC0C0C0"
+                                 Geometry="M2,2 L22,2 22,22 2,22 Z" />
+            </DrawingGroup>
+        </DrawingBrush.Drawing>
+    </DrawingBrush>
+
+    <DrawingBrush x:Key="NewGameButtonPressedBackground">
+        <DrawingBrush.Drawing>
+            <DrawingGroup>
+                <GeometryDrawing Geometry="M24,0 L0,0 0,24">
+                    <GeometryDrawing.Pen>
+                        <Pen Thickness="1" Brush="Gray" />
+                    </GeometryDrawing.Pen>
+                </GeometryDrawing>
+            </DrawingGroup>
+        </DrawingBrush.Drawing>
+    </DrawingBrush>
+    
+    <Style x:Key="NewGameButtonStyle"
+           TargetType="{x:Type Button}">
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="BorderBrush" Value="Gray" />
+        <Setter Property="Background"
+                Value="{StaticResource NewGameButtonBackground}" />
+        <Setter Property="Width" Value="{Binding ActualHeight, RelativeSource={RelativeSource Self}}" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border BorderThickness="{TemplateBinding BorderThickness}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            Background="{TemplateBinding Background}">
+                        <ContentPresenter />
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsPressed" Value="True">
+                <Setter Property="Background"
+                        Value="{StaticResource NewGameButtonPressedBackground}" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
 
     <DrawingBrush x:Key="NormalCellBackground">
         <DrawingBrush.Drawing>

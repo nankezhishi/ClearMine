@@ -306,6 +306,29 @@
             get { return game.RemainedMines.ToString(); }
         }
 
+        public Brush NewGameIcon
+        {
+            get
+            {
+                if (game.GameState == GameState.Initialized || game.GameState == GameState.Started)
+                {
+                    return Application.Current.FindResource("NormalFaceBrush") as Brush;
+                }
+                else if (game.GameState == GameState.Success)
+                {
+                    return Application.Current.FindResource("WinFaceBrush") as Brush;
+                }
+                else if (game.GameState == GameState.Failed)
+                {
+                    return Application.Current.FindResource("LosingFaceBrush") as Brush;
+                }
+                else
+                {
+                    throw new InvalidProgramException();
+                }
+            }
+        }
+
         public IEnumerable<MineCell> Cells
         {
             get { return game.Cells; }
@@ -486,6 +509,7 @@
         private void OnGameStateChanged(object sender, EventArgs e)
         {
             OnPropertyChanged("RemainedMines");
+            OnPropertyChanged("NewGameIcon");
             if (game.GameState == GameState.Failed)
             {
                 Player.Play(@".\Sound\Lose.wma");

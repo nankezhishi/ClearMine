@@ -46,11 +46,6 @@
             DefaultStyleKeyProperty.OverrideMetadata(typeof(ElectronicNumber), new FrameworkPropertyMetadata(typeof(ElectronicNumber)));
         }
 
-        public ElectronicNumber()
-        {
-            Numbers = new ObservableCollection<SingleNumber>();
-        }
-
         #region Numbers Property - ReadOnly
         /// <summary>
         /// Gets the Numbers property of current instance of ElectronicNumber
@@ -67,6 +62,35 @@
 
         public static readonly DependencyProperty NumbersProperty = NumbersPropertyKey.DependencyProperty;
         #endregion
+        #region MinLength Property
+        /// <summary>
+        /// Gets or sets the MinLength property of current instance of ElectronicNumber
+        /// </summary>
+        public int MinLength
+        {
+            get { return (int)GetValue(MinLengthProperty); }
+            set { SetValue(MinLengthProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for MinLength.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty MinLengthProperty =
+            DependencyProperty.Register("MinLength", typeof(int), typeof(ElectronicNumber), new UIPropertyMetadata(2, new PropertyChangedCallback(OnMinLengthPropertyChanged)));
+
+        private static void OnMinLengthPropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
+        {
+            ElectronicNumber instance = sender as ElectronicNumber;
+            if (instance != null)
+            {
+                instance.OnMinLengthChanged(e);
+            }
+        }
+
+        protected virtual void OnMinLengthChanged(DependencyPropertyChangedEventArgs e)
+        {
+            InitializeNumbersCollection();
+        }
+        #endregion
+        
         #region DisplayNumber Property
         /// <summary>
         /// Gets or sets the DisplayNumber property of current instance of ElectronicNumber
@@ -92,10 +116,22 @@
 
         protected virtual void OnDisplayNumberChanged(DependencyPropertyChangedEventArgs e)
         {
-            if (e.NewValue != null)
+            if (Numbers == null)
+            {
+                InitializeNumbersCollection();
+            }
+
+            if (DisplayNumber != null)
             {
                 int i = 0;
-                string newNumber = e.NewValue as string;
+                string newNumber = DisplayNumber as string;
+
+                // Remove redandent numbers.
+                while (newNumber.Length < Numbers.Count && Numbers.Count > MinLength)
+                {
+                    Numbers.RemoveAt(0);
+                }
+
                 int startOffset = Numbers.Count - newNumber.Length;
                 if (startOffset < 0)
                 {
@@ -121,9 +157,28 @@
             }
             else
             {
-                Numbers.Clear();
+                InitializeNumbersCollection();
             }
         }
         #endregion
+
+        private void InitializeNumbersCollection()
+        {
+            if (Numbers == null)
+            {
+                Numbers = new ObservableCollection<SingleNumber>();
+                for (int i = 0; i < MinLength; i++)
+                {
+                    Numbers.Add(new SingleNumber(0));
+                }
+            }
+            else
+            {
+                while (Numbers.Count > MinLength)
+                {
+                    Numbers.RemoveAt(0);
+                }
+            }
+        }
     }
 }
