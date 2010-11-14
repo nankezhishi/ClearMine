@@ -1,8 +1,9 @@
 ﻿<Window x:Class="ClearMine.UI.Dialogs.StatisticsWindow" x:ClassModifier="internal" x:Name="root"
         xmlns:b="clr-namespace:ClearMine.Framework.Behaviors;assembly=ClearMine.Framework"
+        xmlns:c="clr-namespace:ClearMine.Framework.Commands;assembly=ClearMine.Framework"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:vm="clr-namespace:ClearMine.UI.Dialogs"
+        c:CommandsHelper.LoadBindingsFromVM="True"
         Background="{StaticResource DialogBackground}"
         TextOptions.TextFormattingMode="Display"
         WindowStartupLocation="CenterOwner"
@@ -10,9 +11,6 @@
         ShowInTaskbar="False"
         ResizeMode="NoResize"
         Title="Clear Mine - Statistics">
-    <Window.CommandBindings>
-        <x:Static Member="vm:StatisticsViewModel.ResetBinding" />
-    </Window.CommandBindings>
     <DockPanel Margin="12">
         <DockPanel DockPanel.Dock="Top" Margin="0,0,0,12">
             <ListBox ItemsSource="{Binding HistoryList}"
@@ -61,7 +59,7 @@
         <DockPanel DockPanel.Dock="Bottom" LastChildFill="False">
             <Button Content="_Reset"
                     CommandParameter="{Binding HistoryList}"
-                    Command="vm:StatisticsViewModel.Reset" />
+                    Command="{x:Static c:StatisticsCommands.Reset}" />
             <Button Content="OK" IsDefault="True"
                     IsCancel="True" DockPanel.Dock="Right" />
         </DockPanel>

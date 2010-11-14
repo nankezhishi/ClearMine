@@ -1,15 +1,18 @@
-﻿namespace ClearMine.UI.Dialogs
+﻿namespace ClearMine.VM
 {
     using System;
+    using System.Collections.Generic;
     using System.ComponentModel;
     using System.IO;
     using System.Windows;
     using System.Windows.Forms;
     using System.Windows.Input;
 
+    using ClearMine.Common;
     using ClearMine.Common.ComponentModel;
+    using ClearMine.Common.Properties;
     using ClearMine.Common.Utilities;
-    using ClearMine.Properties;
+    using ClearMine.Framework.Commands;
 
     internal sealed class OptionsViewModel : ViewModelBase, IDataErrorInfo
     {
@@ -73,14 +76,8 @@
         #endregion
 
         #region BrowseHistory Command
-        private static ICommand browseHistory = new RoutedUICommand("BrowseHistory", "BrowseHistory",
-            typeof(OptionsViewModel), new InputGestureCollection() { new KeyGesture(Key.B, ModifierKeys.Control) });
-        private static CommandBinding browseHistoryBinding = new CommandBinding(BrowseHistory,
+        private static CommandBinding browseHistoryBinding = new CommandBinding(OptionsCommands.BrowseHistory,
             new ExecutedRoutedEventHandler(OnBrowseHistoryExecuted), new CanExecuteRoutedEventHandler(OnBrowseHistoryCanExecute));
-        public static ICommand BrowseHistory
-        {
-            get { return browseHistory; }
-        }
 
         public static CommandBinding BrowseHistoryBinding
         {
@@ -121,19 +118,19 @@
                 {
                     Settings.Default.Difficulty = value.Value;
 
-                    if (value.Value == UI.Difficulty.Beginner)
+                    if (value.Value == Common.Difficulty.Beginner)
                     {
                         Rows = 9;
                         Columns = 9;
                         Mines = 10;
                     }
-                    else if (value.Value == UI.Difficulty.Intermediate)
+                    else if (value.Value == Common.Difficulty.Intermediate)
                     {
                         Rows = 16;
                         Columns = 16;
                         Mines = 40;
                     }
-                    else if (value.Value == UI.Difficulty.Advanced)
+                    else if (value.Value == Common.Difficulty.Advanced)
                     {
                         Rows = 16;
                         Columns = 30;
@@ -284,6 +281,13 @@
 
                 return Error;
             }
+        }
+
+        public override IEnumerable<CommandBinding> GetCommandBindings()
+        {
+            yield return SaveBinding;
+            yield return CloseBinding;
+            yield return BrowseHistoryBinding;
         }
 
         private void OnSettingsChanged(object sender, PropertyChangedEventArgs e)

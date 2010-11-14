@@ -1,6 +1,9 @@
 ﻿namespace ClearMine.Common.ComponentModel
 {
-    internal class ViewModelBase : BindableObject
+    using System.Windows.Input;
+    using System.Collections.Generic;
+
+    internal abstract class ViewModelBase : BindableObject
     {
         private bool loaded;
         private bool initialized;
@@ -16,5 +19,7 @@
             get { return initialized; }
             set { SetProperty(ref initialized, value, "Initialized"); }
         }
+
+        public abstract IEnumerable<CommandBinding> GetCommandBindings();
     }
 }

@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("ClearMine.Common")]
+[assembly: AssemblyTitle("ClearMine.VM")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("ClearMine.Common")]
+[assembly: AssemblyProduct("ClearMine.VM")]
 [assembly: AssemblyCopyright("Copyright ©  2010")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("488ac7a0-c9e2-4da8-adcd-c2490e6e9ff3")]
+[assembly: Guid("0a320a58-78bd-4f1e-946a-96cb4f5b27ed")]
 
 // Version information for an assembly consists of the following four values:
 //
@@ -35,7 +35,3 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyVersion("1.0.0.0")]
 [assembly: AssemblyFileVersion("1.0.0.0")]
 [assembly: InternalsVisibleTo("ClearMine")]
-[assembly: InternalsVisibleTo("ClearMine.VM")]
-[assembly: InternalsVisibleTo("ClearMine.Logic")]
-[assembly: InternalsVisibleTo("ClearMine.Dialogs")]
-[assembly: InternalsVisibleTo("ClearMine.Framework")]

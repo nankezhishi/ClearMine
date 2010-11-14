@@ -122,12 +122,9 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
-    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
-    <Reference Include="System.Xml" />
-    <Reference Include="System.Xml.Linq" />
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
@@ -137,80 +134,19 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Properties\Settings.cs" />
-    <Compile Include="Media\Player.cs" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="UI\Converters\DifficultyToBooleanConverter.cs" />
     <Compile Include="UI\Converters\PlaygroundBorderThicknessConverter.cs" />
-    <Compile Include="UI\Dialogs\AboutDialog.xaml.cs">
-      <DependentUpon>AboutDialog.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UI\Dialogs\ClearMineViewModel.cs" />
     <Compile Include="UI\Dialogs\ClearMineWindow.xaml.cs">
       <DependentUpon>ClearMineWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\Dialogs\ConfirmNewGameWindow.xaml.cs">
-      <DependentUpon>ConfirmNewGameWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UI\Dialogs\GameLostWindow.xaml.cs">
-      <DependentUpon>GameLostWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UI\Dialogs\GameWonWindow.xaml.cs">
-      <DependentUpon>GameWonWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UI\Dialogs\OptionsDialog.xaml.cs">
-      <DependentUpon>OptionsDialog.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UI\Dialogs\OptionsViewModel.cs" />
-    <Compile Include="UI\Dialogs\OutputWindow.xaml.cs">
-      <DependentUpon>OutputWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UI\Dialogs\StatisticsViewModel.cs" />
-    <Compile Include="UI\Dialogs\StatisticsWindow.xaml.cs">
-      <DependentUpon>StatisticsWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UI\Difficulty.cs" />
-    <Compile Include="UI\HeroHistory.cs" />
     <Page Include="Themes\Common.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Themes\DefaultSkin.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UI\Dialogs\AboutDialog.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="UI\Dialogs\ClearMineWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UI\Dialogs\ConfirmNewGameWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UI\Dialogs\GameLostWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UI\Dialogs\GameWonWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UI\Dialogs\OptionsDialog.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UI\Dialogs\OutputWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UI\Dialogs\StatisticsWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -219,27 +155,8 @@
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Properties\Settings.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Settings.settings</DependentUpon>
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-    </Compile>
-    <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
     <None Include="app.config" />
     <None Include="app.manifest" />
-    <None Include="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </None>
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
@@ -303,6 +220,14 @@
     <ProjectReference Include="..\ClearMine.Logic\ClearMine.Logic.csproj">
       <Project>{EEB5C47E-76B0-472B-9991-0F2D9A861A62}</Project>
       <Name>ClearMine.Logic</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ClearMine.Themes\ClearMine.Themes.csproj">
+      <Project>{1A571635-C086-40A8-9D2C-2E4BB74BD549}</Project>
+      <Name>ClearMine.Themes</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ClearMine.VM\ClearMine.VM.csproj">
+      <Project>{3D129E1B-FED1-4C73-99B7-8E497CCA19A0}</Project>
+      <Name>ClearMine.VM</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -1,8 +1,9 @@
-﻿namespace ClearMine.UI.Converters
+﻿namespace ClearMine.Framework.Converters
 {
     using System;
     using System.Globalization;
     using System.Windows.Data;
+    using ClearMine.Common;
 
     [ValueConversion(typeof(Difficulty?), typeof(bool))]
     internal class DifficultyToBooleanConverter : IValueConverter

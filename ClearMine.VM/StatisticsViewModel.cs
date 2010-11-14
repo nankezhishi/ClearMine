@@ -1,4 +1,4 @@
-﻿namespace ClearMine.UI.Dialogs
+﻿namespace ClearMine.VM
 {
     using System.Collections;
     using System.Collections.Generic;
@@ -7,21 +7,19 @@
     using System.Windows.Data;
     using System.Windows.Input;
 
+    using ClearMine.Common;
     using ClearMine.Common.ComponentModel;
-    using ClearMine.Properties;
+    using ClearMine.Common.Properties;
+    using ClearMine.Framework.Commands;
 
     internal class StatisticsViewModel : ViewModelBase
     {
         private Difficulty selectedLevel;
 
         #region Reset Command
-        private static ICommand reset = new RoutedUICommand("Reset", "Reset", typeof(StatisticsViewModel));
-        private static CommandBinding resetBinding = new CommandBinding(Reset,
+
+        private static CommandBinding resetBinding = new CommandBinding(StatisticsCommands.Reset,
             new ExecutedRoutedEventHandler(OnResetExecuted), new CanExecuteRoutedEventHandler(OnResetCanExecute));
-        public static ICommand Reset
-        {
-            get { return reset; }
-        }
 
         public static CommandBinding ResetBinding
         {
@@ -67,6 +65,11 @@
                     view.SortDescriptions.Add(new SortDescription("Score", ListSortDirection.Ascending));
                 }
             }
+        }
+
+        public override IEnumerable<CommandBinding> GetCommandBindings()
+        {
+            yield return ResetBinding;
         }
     }
 }

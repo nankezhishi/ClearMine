@@ -3,7 +3,9 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:c="clr-namespace:ClearMine.UI.Converters"
-        xmlns:vm="clr-namespace:ClearMine.UI.Dialogs"
+        xmlns:vm="clr-namespace:ClearMine.VM;assembly=ClearMine.VM"
+        xmlns:m="clr-namespace:ClearMine.Framework.Commands;assembly=ClearMine.Framework"
+        m:CommandsHelper.LoadBindingsFromVM="True"
         TextOptions.TextFormattingMode="Display"
         WindowStartupLocation="CenterScreen"
         StateChanged="OnStateChanged"
@@ -13,18 +15,6 @@
         Loaded="OnLoaded"
         Height="640"
         Width="600">
-    <Window.CommandBindings>
-        <x:Static Member="vm:ClearMineViewModel.CloseBinding" />
-        <x:Static Member="vm:ClearMineViewModel.RefreshBinding" />
-        <x:Static Member="vm:ClearMineViewModel.NewGameBinding" />
-        <x:Static Member="vm:ClearMineViewModel.StatisticsBinding" />
-        <x:Static Member="vm:ClearMineViewModel.OptionBinding" />
-        <x:Static Member="vm:ClearMineViewModel.AboutBinding" />
-        <x:Static Member="vm:ClearMineViewModel.FeedbackBinding" />
-        <x:Static Member="vm:ClearMineViewModel.SaveAsBinding" />
-        <x:Static Member="vm:ClearMineViewModel.OpenBinding" />
-        <x:Static Member="vm:ClearMineViewModel.ShowLogBinding" />
-    </Window.CommandBindings>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />

@@ -4,7 +4,7 @@
     using System.Windows;
     using System.Windows.Threading;
 
-    using ClearMine.Properties;
+    using ClearMine.Common.Properties;
     using ClearMine.UI.Dialogs;
 
     /// <summary>

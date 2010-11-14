@@ -7,13 +7,8 @@
     /// </summary>
     internal partial class StatisticsWindow : Window
     {
-        public StatisticsWindow(Difficulty selectedLevel)
+        public StatisticsWindow()
         {
-            if (selectedLevel == Difficulty.Custom)
-            {
-                selectedLevel = Difficulty.Beginner;
-            }
-            DataContext = new StatisticsViewModel() { SelectedLevel = selectedLevel };
             InitializeComponent();
         }
 

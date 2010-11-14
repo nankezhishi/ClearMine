@@ -8,6 +8,7 @@
 
     using ClearMine.Common.Utilities;
     using ClearMine.Logic;
+    using ClearMine.VM;
 
     /// <summary>
     /// Interaction logic for ClearMineWindow.xaml

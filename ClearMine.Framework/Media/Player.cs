@@ -1,9 +1,9 @@
-﻿namespace ClearMine.Media
+﻿namespace ClearMine.Framework.Media
 {
     using System;
     using System.Threading;
     using System.Windows.Media;
-    using ClearMine.Properties;
+    using ClearMine.Common.Properties;
 
     /// <summary>
     /// 

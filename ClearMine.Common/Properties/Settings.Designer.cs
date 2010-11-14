@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ClearMine.Properties {
+namespace ClearMine.Common.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
@@ -26,9 +26,9 @@ namespace ClearMine.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("Beginner")]
-        public global::ClearMine.UI.Difficulty Difficulty {
+        public global::ClearMine.Common.Difficulty Difficulty {
             get {
-                return ((global::ClearMine.UI.Difficulty)(this["Difficulty"]));
+                return ((global::ClearMine.Common.Difficulty)(this["Difficulty"]));
             }
             set {
                 this["Difficulty"] = value;
@@ -86,9 +86,9 @@ namespace ClearMine.Properties {
                         </heroOnLevel>
                     </heroList>
                 ")]
-        public global::ClearMine.UI.HeroHistoryList HeroList {
+        public global::ClearMine.Common.HeroHistoryList HeroList {
             get {
-                return ((global::ClearMine.UI.HeroHistoryList)(this["HeroList"]));
+                return ((global::ClearMine.Common.HeroHistoryList)(this["HeroList"]));
             }
             set {
                 this["HeroList"] = value;

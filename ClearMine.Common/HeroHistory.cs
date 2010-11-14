@@ -1,4 +1,4 @@
-﻿namespace ClearMine.UI
+﻿namespace ClearMine.Common
 {
     using System;
     using System.Collections.ObjectModel;

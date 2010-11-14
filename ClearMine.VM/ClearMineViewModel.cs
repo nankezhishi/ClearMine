@@ -1,8 +1,9 @@
-﻿namespace ClearMine.UI.Dialogs
+﻿namespace ClearMine.VM
 {
     using System;
     using System.Collections.Generic;
     using System.ComponentModel;
+    using System.Diagnostics;
     using System.IO;
     using System.Linq;
     using System.Threading;
@@ -13,13 +14,14 @@
     using System.Windows.Threading;
     using System.Xml.Serialization;
 
+    using ClearMine.Common;
     using ClearMine.Common.ComponentModel;
+    using ClearMine.Common.Properties;
     using ClearMine.Common.Utilities;
+    using ClearMine.Framework.Media;
     using ClearMine.Logic;
-    using ClearMine.Media;
-    using ClearMine.Properties;
+    using ClearMine.UI.Dialogs;
     using Microsoft.Win32;
-    using System.Diagnostics;
 
     internal sealed class ClearMineViewModel : ViewModelBase
     {
@@ -101,8 +103,12 @@
 
         private static void OnStatisticsExecuted(object sender, ExecutedRoutedEventArgs e)
         {
-            var statisticsWindow = new StatisticsWindow(Settings.Default.Difficulty);
+            var statisticsWindow = new StatisticsWindow();
             statisticsWindow.Owner = Application.Current.MainWindow;
+            statisticsWindow.DataContext = new StatisticsViewModel()
+            {
+                SelectedLevel = Settings.Default.Difficulty != Difficulty.Custom ? Settings.Default.Difficulty : Difficulty.Beginner
+            };
             statisticsWindow.ShowDialog();
         }
 
@@ -137,6 +143,7 @@
             });
             var optionsWindow = new OptionsDialog();
             optionsWindow.Owner = Application.Current.MainWindow;
+            optionsWindow.DataContext = new OptionsViewModel();
             if (optionsWindow.ShowDialog().Value)
             {
                 viewModel.StartNewGame();
@@ -443,6 +450,20 @@
             OnPropertyChanged("Rows");
             OnPropertyChanged("RemainedMines");
             OnPropertyChanged("Time");
+        }
+
+        public override IEnumerable<CommandBinding> GetCommandBindings()
+        {
+            yield return AboutBinding;
+            yield return CloseBinding;
+            yield return FeedbackBinding;
+            yield return NewGameBinding;
+            yield return OpenBinding;
+            yield return OptionBinding;
+            yield return RefreshBinding;
+            yield return SaveAsBinding;
+            yield return ShowLogBinding;
+            yield return StatisticsBinding;
         }
 
         private void Initialize()

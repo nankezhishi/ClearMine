@@ -182,7 +182,7 @@
                  Stretch="Uniform"
                  Viewbox="{StaticResource MarkViewbox}">
         <VisualBrush.Visual>
-            <Image Source="..\Images\Flag.png" />
+            <Image Source="pack://application:,,,/Images/Flag.png" />
         </VisualBrush.Visual>
     </VisualBrush>
 
@@ -190,15 +190,15 @@
                  Stretch="Uniform"
                  Viewbox="{StaticResource MarkViewbox}">
         <VisualBrush.Visual>
-            <Image Source="..\Images\QuestionMark.png" />
+            <Image Source="pack://application:,,,/Images/QuestionMark.png" />
         </VisualBrush.Visual>
     </VisualBrush>
-    
+
     <VisualBrush x:Key="MineImage"
                  Stretch="Uniform"
                  Viewbox="{StaticResource MarkViewbox}">
         <VisualBrush.Visual>
-            <Image Source="..\Images\Mine.png" />
+            <Image Source="pack://application:,,,/Images/Mine.png" />
         </VisualBrush.Visual>
     </VisualBrush>
 
@@ -208,24 +208,10 @@
         <DrawingBrush.Drawing>
             <GeometryDrawing Geometry="M0,0 L15,15 M15,0 L 0,15">
                 <GeometryDrawing.Pen>
-                    <Pen Brush="Red" Thickness="1" />
+                    <Pen Brush="Red"
+                         Thickness="1" />
                 </GeometryDrawing.Pen>
             </GeometryDrawing>
-        </DrawingBrush.Drawing>
-    </DrawingBrush>
-
-    <DrawingBrush x:Key="SeperatorBrush"
-                  TileMode="Tile"
-                  Viewport="0,0 1,2"
-                  ViewportUnits="Absolute"
-                  Stretch="None">
-        <DrawingBrush.Drawing>
-            <DrawingGroup>
-                <GeometryDrawing Geometry="M0,0 L1,0 1,1 0,1Z"
-                                 Brush="{DynamicResource {x:Static SystemColors.ControlDarkBrushKey}}"/>
-                <GeometryDrawing Geometry="M0,1 L1,1 1,2 0,2Z"
-                                 Brush="White" />
-            </DrawingGroup>
         </DrawingBrush.Drawing>
     </DrawingBrush>
 
@@ -258,20 +244,24 @@
             <DrawingGroup>
                 <GeometryDrawing Geometry="M24,0 L0,0 0,24">
                     <GeometryDrawing.Pen>
-                        <Pen Thickness="1" Brush="Gray" />
+                        <Pen Thickness="1"
+                             Brush="Gray" />
                     </GeometryDrawing.Pen>
                 </GeometryDrawing>
             </DrawingGroup>
         </DrawingBrush.Drawing>
     </DrawingBrush>
-    
+
     <Style x:Key="NewGameButtonStyle"
            TargetType="{x:Type Button}">
-        <Setter Property="BorderThickness" Value="1" />
-        <Setter Property="BorderBrush" Value="Gray" />
+        <Setter Property="BorderThickness"
+                Value="1" />
+        <Setter Property="BorderBrush"
+                Value="Gray" />
         <Setter Property="Background"
                 Value="{StaticResource NewGameButtonBackground}" />
-        <Setter Property="Width" Value="{Binding ActualHeight, RelativeSource={RelativeSource Self}}" />
+        <Setter Property="Width"
+                Value="{Binding ActualHeight, RelativeSource={RelativeSource Self}}" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Button}">
@@ -284,7 +274,8 @@
             </Setter.Value>
         </Setter>
         <Style.Triggers>
-            <Trigger Property="IsPressed" Value="True">
+            <Trigger Property="IsPressed"
+                     Value="True">
                 <Setter Property="Background"
                         Value="{StaticResource NewGameButtonPressedBackground}" />
             </Trigger>
@@ -303,10 +294,12 @@
             </DrawingGroup>
         </DrawingBrush.Drawing>
     </DrawingBrush>
-    
-    <SolidColorBrush x:Key="PressedCellBackground" Color="Transparent" />
-    
-    <SolidColorBrush x:Key="ShownCellBackground" Color="Transparent" />
+
+    <SolidColorBrush x:Key="PressedCellBackground"
+                     Color="Transparent" />
+
+    <SolidColorBrush x:Key="ShownCellBackground"
+                     Color="Transparent" />
 
     <DrawingBrush x:Key="Number1Brush"
                   Stretch="Uniform"
@@ -508,369 +501,5 @@
                         Value="{DynamicResource WrongMineMark}" />
             </MultiDataTrigger>
         </Style.Triggers>
-    </Style>
-
-    <SolidColorBrush x:Key="DialogBackground" Color="#F0F0F0" />
-
-    <!--Common Colors definition-->
-    <SolidColorBrush x:Key="FocusBorderBrush"
-                     Color="#FF7DA2CE" />
-    <SolidColorBrush x:Key="DarkSeparatorBrush"
-                     Color="#FFA0A0A0" />
-    <SolidColorBrush x:Key="LightSeparatorBrush"
-                     Color="#FFCCCCCC" />
-
-    <DrawingBrush x:Key="DashFocusBrush"
-                  TileMode="Tile"
-                  Viewport="0,0 2,2"
-                  ViewportUnits="Absolute"
-                  Stretch="None">
-        <DrawingBrush.Drawing>
-            <GeometryDrawing Geometry="M0,0 L1,0 1,1 2,1 2,2 1,2 1,1 0,1Z"
-                             Brush="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" />
-        </DrawingBrush.Drawing>
-    </DrawingBrush>
-
-    <!--Item relative brushes-->
-    <!--Mouse Over-->
-    <SolidColorBrush x:Key="MouseOverItemBorderBrush"
-                     Color="#FFB8D6FB" />
-    <LinearGradientBrush x:Key="MouseOverItemInnerBorderBrush"
-                         StartPoint="0,0"
-                         EndPoint="0,1">
-        <GradientStop Offset="0"
-                      Color="#FFFCFDFE" />
-        <GradientStop Offset="1"
-                      Color="#FFF2F7FE" />
-    </LinearGradientBrush>
-    <LinearGradientBrush x:Key="MouseOverItemBackground"
-                         StartPoint="0,0"
-                         EndPoint="0,1">
-        <GradientStop Offset="0"
-                      Color="#FFFAFBFD" />
-        <GradientStop Offset="1"
-                      Color="#FFEBF3FD" />
-    </LinearGradientBrush>
-    <!--Selected-->
-    <SolidColorBrush x:Key="SelectedItemBorderBrush"
-                     Color="#FF84ACDD" />
-    <LinearGradientBrush x:Key="SelectedItemInnerBorderBrush"
-                         StartPoint="0,0"
-                         EndPoint="0,1">
-        <GradientStop Offset="0"
-                      Color="#FFF1F7FE" />
-        <GradientStop Offset="1"
-                      Color="#FFDEEDFE" />
-    </LinearGradientBrush>
-    <LinearGradientBrush x:Key="SelectedItemBackground"
-                         StartPoint="0,0"
-                         EndPoint="0,1">
-        <GradientStop Offset="0"
-                      Color="#FFEBF4FE" />
-        <GradientStop Offset="1"
-                      Color="#FFCFE4FE" />
-    </LinearGradientBrush>
-    <!--Active-->
-    <SolidColorBrush x:Key="ActiveItemBorderBrush"
-                     Color="#FF7DA2EC" />
-    <LinearGradientBrush x:Key="ActiveItemInnerBorderBrush"
-                         StartPoint="0,0"
-                         EndPoint="0,1">
-        <GradientStop Offset="0"
-                      Color="#FFEBF4FD" />
-        <GradientStop Offset="1"
-                      Color="#FFDBEAFD" />
-    </LinearGradientBrush>
-    <LinearGradientBrush x:Key="ActiveItemBackground"
-                         StartPoint="0,0"
-                         EndPoint="0,1">
-        <GradientStop Offset="0"
-                      Color="#FFDCEBFC" />
-        <GradientStop Offset="1"
-                      Color="#FFC1DBFC" />
-    </LinearGradientBrush>
-    <!--In active-->
-    <SolidColorBrush x:Key="InactiveItemBorderBrush"
-                     Color="#FFD9D9D9" />
-    <LinearGradientBrush x:Key="InactiveItemInnerBorderBrush"
-                         StartPoint="0,0"
-                         EndPoint="0,1">
-        <GradientStop Offset="0"
-                      Color="#FFFAFAFB" />
-        <GradientStop Offset="1"
-                      Color="#FFF0F0F0" />
-    </LinearGradientBrush>
-    <LinearGradientBrush x:Key="InactiveItemBackground"
-                         StartPoint="0,0"
-                         EndPoint="0,1">
-        <GradientStop Offset="0"
-                      Color="#FFF8F8F8" />
-        <GradientStop Offset="1"
-                      Color="#FFE5E5E5" />
-    </LinearGradientBrush>
-
-    <Style x:Key="ButtonFocusVisual">
-        <Setter Property="Control.Template">
-            <Setter.Value>
-                <ControlTemplate>
-                    <Rectangle StrokeThickness="1"
-                               Margin="2"
-                               Stroke="{StaticResource DashFocusBrush}" />
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-    </Style>
-
-    <Style TargetType="{x:Type Button}">
-        <Setter Property="Padding"
-                Value="10,2" />
-        <Setter Property="MinWidth"
-                Value="75" />
-        <Setter Property="VerticalAlignment"
-                Value="Center" />
-        <Setter Property="FocusVisualStyle"
-                Value="{StaticResource ButtonFocusVisual}"/>
-    </Style>
-    
-    <Style TargetType="{x:Type Label}">
-        <Setter Property="Padding"
-                Value="0" />
-        <Setter Property="VerticalAlignment"
-                Value="Center" />
-    </Style>
-
-    <Style TargetType="{x:Type Separator}">
-        <Setter Property="Background"
-                Value="{StaticResource SeperatorBrush}" />
-        <Setter Property="Margin"
-                Value="0,2,0,2" />
-        <Setter Property="Focusable"
-                Value="false" />
-        <Setter Property="Height"
-                Value="2" />
-        <Setter Property="UseLayoutRounding"
-                Value="True" />
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="{x:Type Separator}">
-                    <Border Background="{TemplateBinding Background}" />
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-    </Style>
-
-    <Style x:Key="{x:Static MenuItem.SeparatorStyleKey}"
-           TargetType="{x:Type Separator}"
-           BasedOn="{StaticResource {x:Type Separator}}">
-        <Setter Property="Margin"
-                Value="30,3,1,3" />
-    </Style>
-
-    <Style x:Key="SeparatorGroupBoxStyle"
-           TargetType="{x:Type GroupBox}">
-        <Setter Property="Padding" Value="18,5,7,12" />
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="{x:Type GroupBox}">
-                    <DockPanel>
-                        <DockPanel DockPanel.Dock="Top">
-                            <ContentPresenter ContentSource="Header"
-                                              Margin="0,0,5,0"
-                                              RecognizesAccessKey="True" />
-                            <Separator Margin="0,2,0,0"
-                                       HorizontalAlignment="Stretch"
-                                       VerticalAlignment="Center" />
-                        </DockPanel>
-                        <ContentPresenter Margin="{TemplateBinding Padding}" />
-                    </DockPanel>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-    </Style>
-    
-    <Style TargetType="{x:Type ListBoxItem}">
-        <Setter Property="BorderBrush" Value="Transparent" />
-        <Setter Property="Background" Value="Transparent" />
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="{x:Type ListBoxItem}">
-                    <Border BorderBrush="{TemplateBinding BorderBrush}"
-                            BorderThickness="1">
-                        <Border x:Name="InnerBorder" BorderThickness="1"
-                                Padding="3" Background="{TemplateBinding Background}">
-                            <ContentPresenter />
-                        </Border>
-                    </Border>
-                    <ControlTemplate.Triggers>
-                        <Trigger Property="IsMouseOver"
-                                 Value="true">
-                            <Setter Property="Background"
-                                    Value="{StaticResource MouseOverItemBackground}" />
-                            <Setter Property="BorderBrush"
-                                    Value="{StaticResource MouseOverItemBorderBrush}" />
-                            <Setter TargetName="InnerBorder"
-                                    Property="BorderBrush"
-                                    Value="{StaticResource MouseOverItemInnerBorderBrush}" />
-                        </Trigger>
-                        <Trigger Property="IsSelected"
-                                 Value="true">
-                            <Setter Property="Background"
-                                    Value="{StaticResource SelectedItemBackground}" />
-                            <Setter Property="BorderBrush"
-                                    Value="{StaticResource SelectedItemBorderBrush}" />
-                            <Setter TargetName="InnerBorder"
-                                    Property="BorderBrush"
-                                    Value="{StaticResource SelectedItemInnerBorderBrush}" />
-                        </Trigger>
-                        <MultiTrigger>
-                            <MultiTrigger.Conditions>
-                                <Condition Property="IsSelected"
-                                           Value="true" />
-                                <Condition Property="Selector.IsSelectionActive"
-                                           Value="false" />
-                            </MultiTrigger.Conditions>
-                            <Setter Property="Background"
-                                    Value="{StaticResource InactiveItemBackground}" />
-                            <Setter Property="BorderBrush"
-                                    Value="{StaticResource InactiveItemBorderBrush}" />
-                            <Setter TargetName="InnerBorder"
-                                    Property="BorderBrush"
-                                    Value="{StaticResource InactiveItemInnerBorderBrush}" />
-                        </MultiTrigger>
-                        <MultiTrigger>
-                            <MultiTrigger.Conditions>
-                                <Condition Property="IsSelected"
-                                           Value="true" />
-                                <Condition Property="IsMouseOver"
-                                           Value="true" />
-                            </MultiTrigger.Conditions>
-                            <Setter Property="Background"
-                                    Value="{StaticResource ActiveItemBackground}" />
-                            <Setter Property="BorderBrush"
-                                    Value="{StaticResource ActiveItemBorderBrush}" />
-                            <Setter TargetName="InnerBorder"
-                                    Property="BorderBrush"
-                                    Value="{StaticResource ActiveItemInnerBorderBrush}" />
-                        </MultiTrigger>
-                    </ControlTemplate.Triggers>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-    </Style>
-
-    <Style x:Key="ListViewItemFocusVisual">
-        <Setter Property="Control.Template">
-            <Setter.Value>
-                <ControlTemplate>
-                    <Rectangle StrokeThickness="1"
-                               RadiusX="2"
-                               RadiusY="2"
-                               Stroke="{StaticResource FocusBorderBrush}" />
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-    </Style>
-
-    <Style x:Key="{x:Static GridView.GridViewItemContainerStyleKey}"
-           TargetType="{x:Type ListViewItem}">
-        <Setter Property="FocusVisualStyle"
-                Value="{StaticResource ListViewItemFocusVisual}" />
-        <Setter Property="Background"
-                Value="Transparent" />
-        <Setter Property="BorderBrush"
-                Value="Transparent" />
-        <Setter Property="BorderThickness"
-                Value="1" />
-        <Setter Property="Margin"
-                Value="0,0,0,1" />
-        <Setter Property="Padding"
-                Value="5,2,5,2" />
-        <Setter Property="VerticalContentAlignment"
-                Value="Center" />
-        <Setter Property="HorizontalContentAlignment"
-                Value="Stretch" />
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="{x:Type ListViewItem}">
-                    <Border BorderThickness="{TemplateBinding BorderThickness}"
-                            BorderBrush="{TemplateBinding BorderBrush}"
-                            Background="{TemplateBinding Background}"
-                            CornerRadius="2"
-                            SnapsToDevicePixels="true">
-                        <Border Name="InnerBorder"
-                                CornerRadius="1"
-                                BorderThickness="1">
-                            <GridViewRowPresenter Grid.RowSpan="2"
-                                                  VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-                                                  SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
-                        </Border>
-                    </Border>
-                    <ControlTemplate.Triggers>
-                        <Trigger Property="IsMouseOver"
-                                 Value="true">
-                            <Setter Property="Background"
-                                    Value="{StaticResource MouseOverItemBackground}" />
-                            <Setter Property="BorderBrush"
-                                    Value="{StaticResource MouseOverItemBorderBrush}" />
-                            <Setter TargetName="InnerBorder"
-                                    Property="BorderBrush"
-                                    Value="{StaticResource MouseOverItemInnerBorderBrush}" />
-                        </Trigger>
-                        <Trigger Property="IsSelected"
-                                 Value="true">
-                            <Setter Property="Background"
-                                    Value="{StaticResource SelectedItemBackground}" />
-                            <Setter Property="BorderBrush"
-                                    Value="{StaticResource SelectedItemBorderBrush}" />
-                            <Setter TargetName="InnerBorder"
-                                    Property="BorderBrush"
-                                    Value="{StaticResource SelectedItemInnerBorderBrush}" />
-                        </Trigger>
-                        <MultiTrigger>
-                            <MultiTrigger.Conditions>
-                                <Condition Property="IsSelected"
-                                           Value="true" />
-                                <Condition Property="Selector.IsSelectionActive"
-                                           Value="false" />
-                            </MultiTrigger.Conditions>
-                            <Setter Property="Background"
-                                    Value="{StaticResource InactiveItemBackground}" />
-                            <Setter Property="BorderBrush"
-                                    Value="{StaticResource InactiveItemBorderBrush}" />
-                            <Setter TargetName="InnerBorder"
-                                    Property="BorderBrush"
-                                    Value="{StaticResource InactiveItemInnerBorderBrush}" />
-                        </MultiTrigger>
-                        <MultiTrigger>
-                            <MultiTrigger.Conditions>
-                                <Condition Property="IsSelected"
-                                           Value="true" />
-                                <Condition Property="IsMouseOver"
-                                           Value="true" />
-                            </MultiTrigger.Conditions>
-                            <Setter Property="Background"
-                                    Value="{StaticResource ActiveItemBackground}" />
-                            <Setter Property="BorderBrush"
-                                    Value="{StaticResource ActiveItemBorderBrush}" />
-                            <Setter TargetName="InnerBorder"
-                                    Property="BorderBrush"
-                                    Value="{StaticResource ActiveItemInnerBorderBrush}" />
-                        </MultiTrigger>
-                        <Trigger Property="IsEnabled"
-                                 Value="false">
-                            <Setter Property="Foreground"
-                                    Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}" />
-                        </Trigger>
-                    </ControlTemplate.Triggers>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-    </Style>
-
-    <Style TargetType="{x:Type ListView}">
-        <Setter Property="b:SortableListViewBehavior.HeaderSort"
-                Value="True" />
-        <Setter Property="ItemContainerStyle"
-                Value="{StaticResource {x:Static GridView.GridViewItemContainerStyleKey}}" />
     </Style>
 </ResourceDictionary>

@@ -1,8 +1,10 @@
 ﻿<Window x:Class="ClearMine.UI.Dialogs.OptionsDialog" x:ClassModifier="internal"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:c="clr-namespace:ClearMine.UI.Converters"
+        xmlns:c="clr-namespace:ClearMine.Framework.Converters;assembly=ClearMine.Framework"
+        xmlns:m="clr-namespace:ClearMine.Framework.Commands;assembly=ClearMine.Framework"
         xmlns:d="clr-namespace:ClearMine.UI.Dialogs"
+        m:CommandsHelper.LoadBindingsFromVM="True"
         Background="{StaticResource DialogBackground}"
         TextOptions.TextFormattingMode="Display"
         WindowStartupLocation="CenterOwner"
@@ -13,11 +15,6 @@
     <Window.Resources>
         <c:DifficultyToBooleanConverter x:Key="DifficultyToBooleanConverter" />
     </Window.Resources>
-    <Window.CommandBindings>
-        <x:Static Member="d:OptionsViewModel.SaveBinding" />
-        <x:Static Member="d:OptionsViewModel.CloseBinding" />
-        <x:Static Member="d:OptionsViewModel.BrowseHistoryBinding" />
-    </Window.CommandBindings>
     <DockPanel Margin="12">
         <DockPanel LastChildFill="False"
                    DockPanel.Dock="Bottom">
@@ -143,7 +140,7 @@
                     <Button Content="Browse..."
                             Margin="5,0,0,0"
                             DockPanel.Dock="Right"
-                            Command="{x:Static d:OptionsViewModel.BrowseHistory}" />
+                            Command="{x:Static m:OptionsCommands.BrowseHistory}" />
                     <TextBox Margin="18,0,0,0"
                              Text="{Binding GameHistoryFolder, ValidatesOnDataErrors=True, ValidatesOnExceptions=True, NotifyOnValidationError=True}"
                              IsEnabled="{Binding SaveGame}" />
