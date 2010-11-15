@@ -104,5 +104,35 @@
             }
         }
         #endregion
+
+        #region IsFloatingPoint Property
+        /// <summary>
+        /// Gets or sets the IsFloatingPoint property of current instance of NumberPresenter
+        /// </summary>
+        public bool IsFloatingPoint
+        {
+            get { return (bool)GetValue(IsFloatingPointProperty); }
+            set { SetValue(IsFloatingPointProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for IsFloatingPoint.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty IsFloatingPointProperty =
+            DependencyProperty.Register("IsFloatingPoint", typeof(bool), typeof(NumberPresenter), new UIPropertyMetadata(new PropertyChangedCallback(OnIsFloatingPointPropertyChanged)));
+
+        private static void OnIsFloatingPointPropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
+        {
+            NumberPresenter instance = sender as NumberPresenter;
+            if (instance != null)
+            {
+                instance.OnIsFloatingPointChanged(e);
+            }
+        }
+
+        protected virtual void OnIsFloatingPointChanged(DependencyPropertyChangedEventArgs e)
+        {
+
+        }
+        #endregion
+        
     }
 }

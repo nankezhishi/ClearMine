@@ -331,16 +331,7 @@
             if (temp != null)
             {
                 temp(this, e);
-                Trace.TraceInformation("Trigger time changed event on {0} ms", UsedTime);
             }
-
-            // Make sure the timer trigger at most twice per second.
-            int next = 1000 - UsedTime % 1000;
-            if (next < 300)
-            {
-                next = 1000 - next;
-            }
-            timer.Interval = new TimeSpan(0, 0, 0, 0, next);
         }
 
         private void OnCellStateChanged(object sender, CellStateChangedEventArgs e)

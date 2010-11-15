@@ -10,11 +10,18 @@
     public class SingleNumber : BindableObject, IComparable
     {
         private int number;
+        private bool isPoint;
 
         public int Number
         {
             get { return number; }
             set { SetProperty(ref number, value, "Number"); }
+        }
+
+        public bool IsPoint
+        {
+            get { return isPoint; }
+            set { SetProperty(ref isPoint, value, "IsPoint"); }
         }
 
         public SingleNumber(int value)
@@ -87,10 +94,44 @@
 
         protected virtual void OnMinLengthChanged(DependencyPropertyChangedEventArgs e)
         {
+            if ((int)e.NewValue < 1)
+            {
+                throw new InvalidOperationException("The MinLength must bigger than 0.");
+            }
+
             InitializeNumbersCollection();
         }
         #endregion
-        
+
+        #region LengthAfterPoint Property
+        /// <summary>
+        /// Gets or sets the LengthAfterPoint property of current instance of ElectronicNumber
+        /// </summary>
+        public int LengthAfterPoint
+        {
+            get { return (int)GetValue(LengthAfterPointProperty); }
+            set { SetValue(LengthAfterPointProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for LengthAfterPoint.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty LengthAfterPointProperty =
+            DependencyProperty.Register("LengthAfterPoint", typeof(int), typeof(ElectronicNumber), new UIPropertyMetadata(new PropertyChangedCallback(OnLengthAfterPointPropertyChanged)));
+
+        private static void OnLengthAfterPointPropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
+        {
+            ElectronicNumber instance = sender as ElectronicNumber;
+            if (instance != null)
+            {
+                instance.OnLengthAfterPointChanged(e);
+            }
+        }
+
+        protected virtual void OnLengthAfterPointChanged(DependencyPropertyChangedEventArgs e)
+        {
+            InitializeNumbersCollection();
+        }
+        #endregion
+
         #region DisplayNumber Property
         /// <summary>
         /// Gets or sets the DisplayNumber property of current instance of ElectronicNumber
@@ -123,36 +164,48 @@
 
             if (DisplayNumber != null)
             {
-                int i = 0;
                 string newNumber = DisplayNumber as string;
 
-                // Remove redandent numbers.
-                while (newNumber.Length < Numbers.Count && Numbers.Count > MinLength)
+                if (LengthAfterPoint > 0)
                 {
-                    Numbers.RemoveAt(0);
+                    newNumber = Double.Parse(newNumber).ToString("0." + new String('0', LengthAfterPoint));
+                }
+                else
+                {
+                    newNumber = ((int)Double.Parse(newNumber)).ToString();
                 }
 
-                int startOffset = Numbers.Count - newNumber.Length;
-                if (startOffset < 0)
+                int current = newNumber.Length - 1;
+                int updateIndex = Numbers.Count - 1;
+
+                while (current >= 0)
                 {
-                    startOffset = 0;
-                }
-                for (int z = 0; z < startOffset; z++)
-                {
-                    Numbers[z].Number = '0';
-                }
-                foreach (var item in newNumber)
-                {
-                    int number = Convert.ToInt32(item);
-                    if (Numbers.Count > i)
+                    if (updateIndex >= 0)
                     {
-                        Numbers[i + startOffset].Number = number;
+                        if (newNumber[current].Equals('.'))
+                        {
+                            Numbers[updateIndex].IsPoint = true;
+                        }
+                        else
+                        {
+                            Numbers[updateIndex].IsPoint = false;
+                            Numbers[updateIndex].Number = newNumber[current];
+                        }
                     }
                     else
                     {
-                        Numbers.Insert(i, new SingleNumber(number));
+                        Numbers.Add(new SingleNumber(newNumber[current]));
                     }
-                    i++;
+
+                    current--;
+                    updateIndex--;
+                }
+
+                while (updateIndex >= 0)
+                {
+                    Numbers[updateIndex].IsPoint = false;
+                    Numbers[updateIndex].Number = 0;
+                    updateIndex--;
                 }
             }
             else
@@ -167,17 +220,17 @@
             if (Numbers == null)
             {
                 Numbers = new ObservableCollection<SingleNumber>();
-                for (int i = 0; i < MinLength; i++)
-                {
-                    Numbers.Add(new SingleNumber(0));
-                }
             }
-            else
+
+            int targetLength = LengthAfterPoint > 0 ? MinLength + LengthAfterPoint + 1 : MinLength;
+            while (Numbers.Count > targetLength)
             {
-                while (Numbers.Count > MinLength)
-                {
-                    Numbers.RemoveAt(0);
-                }
+                Numbers.RemoveAt(0);
+            }
+
+            while (Numbers.Count < targetLength)
+            {
+                Numbers.Add(new SingleNumber(0));
             }
         }
     }

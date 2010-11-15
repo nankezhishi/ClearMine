@@ -78,7 +78,8 @@
                    Grid.ColumnSpan="3"
                    HorizontalAlignment="Center"
                    UseLayoutRounding="True">
-            <ElectronicNumber DisplayNumber="{Binding Time}" />
+            <ElectronicNumber LengthAfterPoint="1"
+                              DisplayNumber="{Binding Time}" />
             <Button Command="New"
                     Margin="18,0,18,0"
                     Style="{StaticResource NewGameButtonStyle}">

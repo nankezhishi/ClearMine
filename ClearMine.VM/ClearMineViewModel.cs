@@ -305,7 +305,7 @@
 
         public string Time
         {
-            get { return (game.UsedTime / 1000).ToString(); }
+            get { return ((double)game.UsedTime / 1000).ToString(); }
         }
 
         public string RemainedMines
