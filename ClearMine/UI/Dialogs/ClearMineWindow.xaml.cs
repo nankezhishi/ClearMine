@@ -7,7 +7,7 @@
     using System.Windows.Input;
 
     using ClearMine.Common.Utilities;
-    using ClearMine.Logic;
+    using ClearMine.Common.Logic;
     using ClearMine.VM;
 
     /// <summary>

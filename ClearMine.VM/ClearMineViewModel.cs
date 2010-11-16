@@ -16,10 +16,10 @@
 
     using ClearMine.Common;
     using ClearMine.Common.ComponentModel;
+    using ClearMine.Common.Logic;
     using ClearMine.Common.Properties;
     using ClearMine.Common.Utilities;
     using ClearMine.Framework.Media;
-    using ClearMine.Logic;
     using ClearMine.UI.Dialogs;
     using Microsoft.Win32;
 
@@ -283,7 +283,7 @@
 
         public ClearMineViewModel()
         {
-            HookupToGame(new ClearMineGame());
+            HookupToGame(Util.Container.GetExportedValue<IClearMine>());
             Settings.Default.PropertyChanged += new PropertyChangedEventHandler(OnSettingsChanged);
         }
 
@@ -353,9 +353,8 @@
             }
             else if (game.GameState == GameState.Started)
             {
-                var confirm = new ConfirmNewGameWindow();
-                confirm.Owner = Application.Current.MainWindow;
-                if (confirm.ShowDialog().Value)
+                if (Settings.Default.AlwaysNewGame ||
+                    new ConfirmNewGameWindow() { Owner = Application.Current.MainWindow }.ShowDialog().Value)
                 {
                     if (pandingInitialize)
                     {
@@ -380,19 +379,26 @@
         {
             if (game.GameState == GameState.Started)
             {
-                var result =  MessageBox.Show("Do you want to save the game?", "Clear Mine - Save",
-                                MessageBoxButton.YesNoCancel, MessageBoxImage.Question);
-                if (result == MessageBoxResult.Cancel)
-                {
-                    e.Cancel = true;
-                }
-                else if (Settings.Default.SaveOnExit || result == MessageBoxResult.Yes)
+                if (Settings.Default.SaveOnExit)
                 {
                     SaveCurrentGame(@".\SavedGame.cmg");
                 }
                 else
                 {
-                    UpdateStatistics();
+                    var result = MessageBox.Show("Do you want to save the game?", "Clear Mine - Save",
+                        MessageBoxButton.YesNoCancel, MessageBoxImage.Question);
+                    if (result == MessageBoxResult.Cancel)
+                    {
+                        e.Cancel = true;
+                    }
+                    else if (result == MessageBoxResult.Yes)
+                    {
+                        SaveCurrentGame(@".\SavedGame.cmg");
+                    }
+                    else
+                    {
+                        UpdateStatistics();
+                    }
                 }
             }
         }
@@ -620,7 +626,7 @@
             {
                 if (game.GameState == GameState.Success)
                 {
-                    history.IncreaseWon(game.UsedTime / 1000, DateTime.Now, TakeScreenShoot());
+                    history.IncreaseWon(game.UsedTime / 1000.0, DateTime.Now, TakeScreenShoot());
                 }
                 else if (game.GameState == GameState.Failed)
                 {
@@ -668,7 +674,9 @@
                 }
             }
 
-            var gameSaver = new XmlSerializer(typeof(ClearMineGame));
+            // Pause game to make sure the timestamp currect.
+            game.Pause();
+            var gameSaver = new XmlSerializer(game.GetType());
             using (var file = File.Open(path, FileMode.Create, FileAccess.Write))
             {
                 gameSaver.Serialize(file, game);
@@ -682,11 +690,11 @@
                 throw new FileNotFoundException("Cannot open game file", path);
             }
 
-            ClearMineGame newgame = null;
-            var gameLoader = new XmlSerializer(typeof(ClearMineGame));
+            IClearMine newgame = null;
+            var gameLoader = new XmlSerializer(game.GetType());
             using (var file = File.Open(path, FileMode.Open, FileAccess.Read))
             {
-                newgame = (ClearMineGame)gameLoader.Deserialize(file);
+                newgame = (IClearMine)gameLoader.Deserialize(file);
             }
             if (newgame.CheckHash())
             {

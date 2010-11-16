@@ -1,4 +1,4 @@
-﻿namespace ClearMine.Logic
+﻿namespace ClearMine.Common.Logic
 {
     public enum CellState
     {

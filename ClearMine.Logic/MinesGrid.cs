@@ -10,6 +10,7 @@
     using System.Windows;
 
     using ClearMine.Common.ComponentModel;
+    using ClearMine.Common.Logic;
 
     [Serializable]
     [TypeConverter(typeof(MinesGridConverter))]

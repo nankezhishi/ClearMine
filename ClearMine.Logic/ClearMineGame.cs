@@ -3,7 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.ComponentModel;
-    using System.Diagnostics;
+    using System.ComponentModel.Composition;
     using System.Diagnostics.Contracts;
     using System.Globalization;
     using System.Linq;
@@ -12,9 +12,11 @@
     using System.Xml.Serialization;
 
     using ClearMine.Common.ComponentModel;
+    using ClearMine.Common.Logic;
 
     [Serializable]
     [XmlRoot("savedGame")]
+    [Export(typeof(IClearMine))]
     public class ClearMineGame : BindableObject, IClearMine
     {
         private int totalMines;
@@ -216,8 +218,12 @@
 
         public void Pause()
         {
-            timer.IsEnabled = false;
-            usedTime = (int)(DateTime.Now - startTime).TotalMilliseconds;
+            // Pause twice cause game time not accurate.
+            if (timer.IsEnabled)
+            {
+                timer.IsEnabled = false;
+                usedTime = (int)(DateTime.Now - startTime).TotalMilliseconds;
+            }
         }
 
         public void Resume()
@@ -318,8 +324,6 @@
 
         private void PersistantUsedTime(int usedTime)
         {
-            Debug.Assert(timer.IsEnabled);
-
             this.usedTime = usedTime;
             startTime = DateTime.Now.AddMilliseconds(-usedTime);
         }

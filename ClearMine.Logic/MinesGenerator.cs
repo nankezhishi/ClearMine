@@ -3,6 +3,8 @@
     using System;
     using System.Diagnostics.Contracts;
 
+    using ClearMine.Common.Logic;
+
     internal class MinesGenerator
     {
         private Random random = new Random();

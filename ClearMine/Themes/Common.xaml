@@ -1,7 +1,7 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:con="clr-namespace:ClearMine.UI.Converters"
-                    xmlns:logic="clr-namespace:ClearMine.Logic;assembly=ClearMine.Logic">
+                    xmlns:logic="clr-namespace:ClearMine.Common.Logic;assembly=ClearMine.Common">
     <MathOperationConverter x:Key="MathOperationConverter" />
     <con:PlaygroundBorderThicknessConverter x:Key="PlaygroundBorderThicknessConverter" />
     <DataTemplate DataType="{x:Type logic:MineCell}">

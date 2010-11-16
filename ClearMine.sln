@@ -22,6 +22,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClearMine.VM", "ClearMine.V
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClearMine.Dialogs", "ClearMine.Dialogs\ClearMine.Dialogs.csproj", "{FFB181E2-DF4F-4332-8AE9-3BE561C26CA5}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Modules", "Modules", "{741AE855-69CA-4CF7-80DF-E80AEE547281}"
+EndProject
 Global
 	GlobalSection(TestCaseManagementSettings) = postSolution
 		CategoryFile = ClearMine.vsmdi
@@ -110,5 +112,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{EEB5C47E-76B0-472B-9991-0F2D9A861A62} = {741AE855-69CA-4CF7-80DF-E80AEE547281}
 	EndGlobalSection
 EndGlobal

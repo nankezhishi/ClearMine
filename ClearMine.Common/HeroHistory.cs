@@ -14,8 +14,11 @@
     [XmlRoot("record")]
     public class HistoryRecord 
     {
+        /// <summary>
+        /// The time used in seconds.
+        /// </summary>
         [XmlAttribute("score")]
-        public int Score { get; set; }
+        public double Score { get; set; }
         [XmlAttribute("when")]
         public DateTime Date { get; set; }
         [XmlAttribute("shoot")]
@@ -98,7 +101,7 @@
             }
         }
 
-        public void IncreaseWon(int score, DateTime time, string screenShoot)
+        public void IncreaseWon(double score, DateTime time, string screenShoot)
         {
             AverageScore = (GameWon * AverageScore + score) / ++GameWon;
             ++GamePlayed;

@@ -93,7 +93,7 @@
                     <GridView>
                         <GridViewColumn Header="Score" Width="50"
                                         b:SortableListViewBehavior.SortField="Score"
-                                        DisplayMemberBinding="{Binding Score}" />
+                                        DisplayMemberBinding="{Binding Score, StringFormat=0.00}" />
                         <GridViewColumn Header="Date" Width="160"
                                         b:SortableListViewBehavior.SortField="Date"
                                         DisplayMemberBinding="{Binding Date}" />

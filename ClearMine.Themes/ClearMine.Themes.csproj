@@ -20,7 +20,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
+    <OutputPath>..\bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -28,7 +28,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
+    <OutputPath>..\bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -61,13 +61,13 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ClearMine.Common\ClearMine.Common.csproj">
+      <Project>{A2631FA1-E4A4-41AC-8E8E-5C8AEB63C83E}</Project>
+      <Name>ClearMine.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ClearMine.Framework\ClearMine.Framework.csproj">
       <Project>{730AFF67-B857-42CD-9DAF-E94FC79BA721}</Project>
       <Name>ClearMine.Framework</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ClearMine.Logic\ClearMine.Logic.csproj">
-      <Project>{EEB5C47E-76B0-472B-9991-0F2D9A861A62}</Project>
-      <Name>ClearMine.Logic</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

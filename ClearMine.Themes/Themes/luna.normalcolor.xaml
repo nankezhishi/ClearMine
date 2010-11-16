@@ -2,7 +2,7 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:b="clr-namespace:ClearMine.Framework.Behaviors;assembly=ClearMine.Framework"
                     xmlns:d="clr-namespace:System.Windows.Media;assembly=PresentationCore"
-                    xmlns:logic="clr-namespace:ClearMine.Logic;assembly=ClearMine.Logic">
+                    xmlns:logic="clr-namespace:ClearMine.Common.Logic;assembly=ClearMine.Common">
     <Rect x:Key="NumberViewbox">-0.2,-0.2 1.5,1.5</Rect>
     <Rect x:Key="MarkViewbox">-0.25,-0.2 1.45,1.5</Rect>
     <Rect x:Key="FaceViewbox">-0.2,-0.2 1.4,1.4</Rect>

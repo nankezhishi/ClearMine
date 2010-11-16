@@ -8,6 +8,7 @@
     using System.Windows;
 
     using ClearMine.Common.ComponentModel;
+    using ClearMine.Common.Logic;
 
     /// <summary>
     /// Save MinesGrid data into string to save space.

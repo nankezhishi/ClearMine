@@ -37,7 +37,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
+    <OutputPath>..\Bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -71,7 +71,7 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
+    <OutputPath>..\bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -216,10 +216,6 @@
     <ProjectReference Include="..\ClearMine.Framework\ClearMine.Framework.csproj">
       <Project>{730AFF67-B857-42CD-9DAF-E94FC79BA721}</Project>
       <Name>ClearMine.Framework</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ClearMine.Logic\ClearMine.Logic.csproj">
-      <Project>{EEB5C47E-76B0-472B-9991-0F2D9A861A62}</Project>
-      <Name>ClearMine.Logic</Name>
     </ProjectReference>
     <ProjectReference Include="..\ClearMine.Themes\ClearMine.Themes.csproj">
       <Project>{1A571635-C086-40A8-9D2C-2E4BB74BD549}</Project>
