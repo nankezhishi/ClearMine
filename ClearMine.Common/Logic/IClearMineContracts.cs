@@ -59,11 +59,6 @@
             return default(IEnumerable<MineCell>);
         }
 
-        public MineCell GetCell(int column, int row)
-        {
-            throw new NotImplementedException();
-        }
-
         public int UsedTime
         {
             get { throw new NotImplementedException(); }

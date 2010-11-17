@@ -22,7 +22,9 @@
             MinesNearby = -1;
         }
 
+        [field: NonSerialized]
         public event EventHandler CacheStateChanged;
+        [field: NonSerialized]
         public event EventHandler<CellStateChangedEventArgs> StateChanged;
 
         [Bindable(true)]

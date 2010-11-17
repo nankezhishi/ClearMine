@@ -32,8 +32,6 @@
         /// <returns>All the mines that has been shown </returns>
         IEnumerable<MineCell> TryExpandAt(MineCell cell);
 
-        MineCell GetCell(int column, int row);
-
         int UsedTime { get; }
 
         int TotalMines { get; }

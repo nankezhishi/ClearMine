@@ -130,13 +130,7 @@
                                          RadiusY="2" />
                     </GeometryDrawing.Geometry>
                 </GeometryDrawing>
-                <GeometryDrawing Geometry="M5.5,11.5 C6.5,13.5 10.5,13.5 11.5,11.5">
-                    <GeometryDrawing.Pen>
-                        <Pen Brush="Black"
-                             Thickness="1" />
-                    </GeometryDrawing.Pen>
-                </GeometryDrawing>
-                <GeometryDrawing Geometry="M0,8.5 C6.5,3.5 10.5,3.5 17,8.5">
+                <GeometryDrawing Geometry="M5.5,11.5 C6.5,13.5 10.5,13.5 11.5,11.5 M0,8.5 C6.5,3.5 10.5,3.5 17,8.5">
                     <GeometryDrawing.Pen>
                         <Pen Brush="Black"
                              Thickness="1" />
@@ -162,13 +156,7 @@
                                          RadiusY="8.5" />
                     </GeometryDrawing.Geometry>
                 </GeometryDrawing>
-                <GeometryDrawing Geometry="M5,6 H7 M10,6 H12">
-                    <GeometryDrawing.Pen>
-                        <Pen Brush="Black"
-                             Thickness="1" />
-                    </GeometryDrawing.Pen>
-                </GeometryDrawing>
-                <GeometryDrawing Geometry="M4.5,12.5 C6.5,9 10.5,9 12.5,12.5">
+                <GeometryDrawing Geometry="M5,6 H7 M10,6 H12 M4.5,12.5 C6.5,9 10.5,9 12.5,12.5">
                     <GeometryDrawing.Pen>
                         <Pen Brush="Black"
                              Thickness="1" />
@@ -178,33 +166,77 @@
         </DrawingBrush.Drawing>
     </DrawingBrush>
 
-    <VisualBrush x:Key="FlagImage"
-                 Stretch="Uniform"
-                 Viewbox="{StaticResource MarkViewbox}">
-        <VisualBrush.Visual>
-            <Image Source="pack://application:,,,/Images/Flag.png" />
-        </VisualBrush.Visual>
-    </VisualBrush>
+    <DrawingBrush x:Key="FlagBrush"
+                  Stretch="Uniform"
+                  Viewbox="{StaticResource FaceViewbox}">
+        <DrawingBrush.Drawing>
+            <DrawingGroup>
+                <GeometryDrawing Geometry="M0,2.5 L5,0 L5,5 L4,5 Z"
+                                 Brush="Red" />
+                <GeometryDrawing Geometry="M0,9 H8 M2,8 H6 M4,6 H5">
+                    <GeometryDrawing.Pen>
+                        <Pen Brush="Black"
+                             Thickness="2" />
+                    </GeometryDrawing.Pen>
+                </GeometryDrawing>
+            </DrawingGroup>
+        </DrawingBrush.Drawing>
+    </DrawingBrush>
 
-    <VisualBrush x:Key="QuestionMark"
-                 Stretch="Uniform"
-                 Viewbox="{StaticResource MarkViewbox}">
-        <VisualBrush.Visual>
-            <Image Source="pack://application:,,,/Images/QuestionMark.png" />
-        </VisualBrush.Visual>
-    </VisualBrush>
+    <DrawingBrush x:Key="QuestionBrush"
+                  Stretch="Uniform"
+                  Viewbox="{StaticResource FaceViewbox}">
+        <DrawingBrush.Drawing>
+            <DrawingGroup>
+                <DrawingGroup.Children>
+                    <GeometryDrawing Brush="#FF000000"
+                                     Geometry="F1 M 16.95,24L 7.98749,24L 7.98749,23.1375C 7.98749,21.6675 8.16501,20.475 8.52002,19.56C 8.875,18.6449 9.40375,17.81 10.1063,17.055C 10.8087,16.3 12.3875,14.9675 14.8425,13.0575C 16.1475,12.0625 16.8,11.1475 16.8,10.3125C 16.8,9.48247 16.5463,8.83623 16.0388,8.3737C 15.5313,7.91124 14.765,7.67998 13.74,7.67998C 12.63,7.67998 11.7137,8.03624 10.9913,8.7487C 10.2687,9.46123 9.80499,10.705 9.60001,12.48L 0,11.385C 0.320007,7.96498 1.55875,5.21245 3.71625,3.12746C 5.87375,1.04247 9.1825,-1.52588e-005 13.6425,-1.52588e-005C 17.1125,-1.52588e-005 19.915,0.704971 22.05,2.11497C 24.95,4.02495 26.4,6.56996 26.4,9.74998C 26.4,11.07 26.0237,12.3437 25.2712,13.5712C 24.5187,14.7987 22.98,16.2975 20.655,18.0675C 19.035,19.3075 18.0125,20.3037 17.5875,21.0562C 17.1625,21.8087 16.95,22.79 16.95,24 Z M 7.67999,26.3999L 17.28,26.3999L 17.28,35.04L 7.67999,35.04L 7.67999,26.3999 Z " />
+                </DrawingGroup.Children>
+            </DrawingGroup>
+        </DrawingBrush.Drawing>
+    </DrawingBrush>
 
-    <VisualBrush x:Key="MineImage"
-                 Stretch="Uniform"
-                 Viewbox="{StaticResource MarkViewbox}">
-        <VisualBrush.Visual>
-            <Image Source="pack://application:,,,/Images/Mine.png" />
-        </VisualBrush.Visual>
-    </VisualBrush>
+    <DrawingBrush x:Key="MineBrush"
+                  Stretch="Uniform"
+                  Viewbox="{StaticResource FaceViewbox}">
+        <DrawingBrush.Drawing>
+            <DrawingGroup>
+                <GeometryDrawing Geometry="M0,6.5 H13 M6.5,0 V13 M2.5,2.5 L10.5,10.5 M10.5,2.5 L2.5,10.5">
+                    <GeometryDrawing.Pen>
+                        <Pen Brush="#FF222222"
+                             Thickness="1"
+                             StartLineCap="Triangle"
+                             EndLineCap="Triangle" />
+                    </GeometryDrawing.Pen>
+                </GeometryDrawing>
+                <GeometryDrawing>
+                    <GeometryDrawing.Geometry>
+                        <EllipseGeometry Center="6.5,6.5"
+                                         RadiusX="4"
+                                         RadiusY="4" />
+                    </GeometryDrawing.Geometry>
+                    <GeometryDrawing.Brush>
+                        <RadialGradientBrush GradientOrigin="0.27,0.27"
+                                             RadiusX="0.8"
+                                             RadiusY="0.8">
+                            <GradientStop Color="White"
+                                          Offset="0" />
+                            <GradientStop Color="Black"
+                                          Offset="0.3" />
+                            <GradientStop Color="Black"
+                                          Offset="0.6" />
+                            <GradientStop Color="White"
+                                          Offset="1" />
+                        </RadialGradientBrush>
+                    </GeometryDrawing.Brush>
+                </GeometryDrawing>
+            </DrawingGroup>
+        </DrawingBrush.Drawing>
+    </DrawingBrush>
 
     <DrawingBrush x:Key="WrongMineMark"
                   Stretch="Uniform"
-                  Viewbox="{StaticResource NumberViewbox}">
+                  Viewbox="{StaticResource FaceViewbox}">
         <DrawingBrush.Drawing>
             <GeometryDrawing Geometry="M0,0 L15,15 M15,0 L 0,15">
                 <GeometryDrawing.Pen>
@@ -408,7 +440,7 @@
             <DataTrigger Binding="{Binding IsTerminator}"
                          Value="True">
                 <Setter Property="Background"
-                        Value="#FFAA3333" />
+                        Value="Red" />
             </DataTrigger>
             <DataTrigger Binding="{Binding MinesNearby}"
                          Value="1">
@@ -463,14 +495,14 @@
             <DataTrigger Binding="{Binding State}"
                          Value="{x:Static logic:CellState.MarkAsMine}">
                 <Setter Property="Mark"
-                        Value="{DynamicResource FlagImage}" />
+                        Value="{DynamicResource FlagBrush}" />
                 <Setter Property="Foreground"
                         Value="Transparent" />
             </DataTrigger>
             <DataTrigger Binding="{Binding State}"
                          Value="{x:Static logic:CellState.Question}">
                 <Setter Property="Mark"
-                        Value="{DynamicResource QuestionMark}" />
+                        Value="{DynamicResource QuestionBrush}" />
                 <Setter Property="Foreground"
                         Value="Transparent" />
             </DataTrigger>
@@ -483,7 +515,10 @@
                                Value="True" />
                 </MultiDataTrigger.Conditions>
                 <Setter Property="Foreground"
-                        Value="{DynamicResource MineImage}" />
+                        Value="{DynamicResource MineBrush}" />
+                <!--This setter should only work for XP style.-->
+                <Setter Property="Mark"
+                        Value="Transparent" />
             </MultiDataTrigger>
             <!-- Shows a wrong marked mine. -->
             <MultiDataTrigger>
@@ -496,7 +531,7 @@
                                Value="False" />
                 </MultiDataTrigger.Conditions>
                 <Setter Property="Foreground"
-                        Value="{DynamicResource MineImage}" />
+                        Value="{DynamicResource MineBrush}" />
                 <Setter Property="Mark"
                         Value="{DynamicResource WrongMineMark}" />
             </MultiDataTrigger>

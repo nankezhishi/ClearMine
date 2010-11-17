@@ -317,11 +317,6 @@
             return result;
         }
 
-        public MineCell GetCell(int column, int row)
-        {
-            return this.cells.GetCell(column, row);
-        }
-
         private void PersistantUsedTime(int usedTime)
         {
             this.usedTime = usedTime;

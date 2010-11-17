@@ -111,6 +111,9 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type con:MineCellControl}">
+                    <!-- For better performance, this template must be as simple as possible -->
+                    <!-- Don't change/add any margin, padding, thickness etc property that causing layout pass. -->
+                    <!-- Of course, we can render the whole control ourselves. But at the cost of customizing capability. -->
                     <Grid>
                         <Border Background="{TemplateBinding Background}" />
                         <Border Background="{TemplateBinding Foreground}" />

@@ -17,7 +17,7 @@
                     IsDefault="True" />
         </DockPanel>
         <DockPanel Margin="0,0,0,12">
-            <Border Background="{StaticResource MineImage}"
+            <Border Background="{StaticResource MineBrush}"
                     Width="48" Height="48"
                     UseLayoutRounding="True"
                     Margin="0,0,12,0"/>
