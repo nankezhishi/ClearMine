@@ -1,8 +1,33 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:v="clr-namespace:ClearMine.VM;assembly=ClearMine.VM"
+                    xmlns:m="clr-namespace:ClearMine.Framework.Commands;assembly=ClearMine.Framework"
                     xmlns:b="clr-namespace:ClearMine.Framework.Behaviors;assembly=ClearMine.Framework">
     <SolidColorBrush x:Key="DialogBackground"
                      Color="#F0F0F0" />
+    
+    <DataTemplate DataType="{x:Type v:GameWonDetailsViewModel}">
+        <StackPanel Margin="36,12,24,12">
+            <StackPanel Orientation="Horizontal"
+                        Margin="0,0,0,7">
+                <TextBlock Text="Best Time: " />
+                <TextBlock>
+                    <Run Text="{Binding BestTime, StringFormat=0.00, Mode=OneWay}" />
+                </TextBlock>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal"
+                        Margin="0,0,0,7">
+                <TextBlock Text="Game Played: " />
+                <TextBlock>
+                    <Run Text="{Binding GameWon, Mode=OneWay}" />/<Run Text="{Binding GamePlayed, Mode=OneWay}" />
+                    (<Run Text="{Binding WonRate, StringFormat= {}{0:P}, Mode=OneWay}" />)
+                </TextBlock>
+            </StackPanel>
+            <TextBlock TextAlignment="Right">
+                    <Hyperlink Command="{x:Static m:GameCommands.ShowStatistics}">Show me all history</Hyperlink>
+            </TextBlock>
+        </StackPanel>
+    </DataTemplate>
 
     <!--Common Colors definition-->
     <SolidColorBrush x:Key="FocusBorderBrush"

@@ -69,6 +69,10 @@
       <Project>{730AFF67-B857-42CD-9DAF-E94FC79BA721}</Project>
       <Name>ClearMine.Framework</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ClearMine.VM\ClearMine.VM.csproj">
+      <Project>{3D129E1B-FED1-4C73-99B7-8E497CCA19A0}</Project>
+      <Name>ClearMine.VM</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

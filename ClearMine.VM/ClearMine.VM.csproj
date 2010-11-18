@@ -45,6 +45,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ClearMineViewModel.cs" />
+    <Compile Include="Commands\GameCommandBindings.cs" />
+    <Compile Include="GameWonDetailsViewModel.cs" />
+    <Compile Include="GameWonViewModel.cs" />
     <Compile Include="OptionsViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StatisticsViewModel.cs" />

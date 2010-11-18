@@ -3,7 +3,7 @@
               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
               WindowStartupLocation="CenterOwner"
-              Message="You lost this game!"
+              Message="Sorry, you lost this game. Better luck next time!"
               Title="Clear Mine - Lost">
     <OptionDialog.Options>
         <x:Array Type="{x:Type Button}">

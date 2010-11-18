@@ -21,6 +21,7 @@
     using ClearMine.Common.Utilities;
     using ClearMine.Framework.Media;
     using ClearMine.UI.Dialogs;
+    using ClearMine.VM.Commands;
     using Microsoft.Win32;
 
     internal sealed class ClearMineViewModel : ViewModelBase
@@ -67,56 +68,6 @@
             e.CanExecute = true;
         }
         #endregion
-        #region Close Command
-        private static CommandBinding closeBinding = new CommandBinding(ApplicationCommands.Close,
-            new ExecutedRoutedEventHandler(OnCloseExecuted), new CanExecuteRoutedEventHandler(OnCloseCanExecuted));
-
-        public static CommandBinding CloseBinding
-        {
-            get { return closeBinding; }
-        }
-
-        private static void OnCloseExecuted(object sender, ExecutedRoutedEventArgs e)
-        {
-            Application.Current.MainWindow.Close();
-        }
-
-        private static void OnCloseCanExecuted(object sender, CanExecuteRoutedEventArgs e)
-        {
-            e.CanExecute = true;
-        }
-        #endregion
-        #region Show Statistics Command
-        private static ICommand showStatistics = new RoutedUICommand("Statistics", "Statistics",
-            typeof(ClearMineViewModel), new InputGestureCollection() { new KeyGesture(Key.F4) });
-        private static CommandBinding statisticsBinding = new CommandBinding(ShowStatistics,
-            new ExecutedRoutedEventHandler(OnStatisticsExecuted), new CanExecuteRoutedEventHandler(OnStaisticsCanExecute));
-        public static ICommand ShowStatistics
-        {
-            get { return showStatistics; }
-        }
-
-        public static CommandBinding StatisticsBinding
-        {
-            get { return statisticsBinding; }
-        }
-
-        private static void OnStatisticsExecuted(object sender, ExecutedRoutedEventArgs e)
-        {
-            var statisticsWindow = new StatisticsWindow();
-            statisticsWindow.Owner = Application.Current.MainWindow;
-            statisticsWindow.DataContext = new StatisticsViewModel()
-            {
-                SelectedLevel = Settings.Default.Difficulty != Difficulty.Custom ? Settings.Default.Difficulty : Difficulty.Beginner
-            };
-            statisticsWindow.ShowDialog();
-        }
-
-        private static void OnStaisticsCanExecute(object sender, CanExecuteRoutedEventArgs e)
-        {
-            e.CanExecute = true;
-        }
-        #endregion
         #region Option Command
         private static ICommand option = new RoutedUICommand("Option", "Option",
             typeof(ClearMineViewModel), new InputGestureCollection() { new KeyGesture(Key.O, ModifierKeys.Control) });
@@ -155,56 +106,6 @@
         }
 
         private static void OnOptionCanExecute(object sender, CanExecuteRoutedEventArgs e)
-        {
-            e.CanExecute = true;
-        }
-        #endregion
-        #region About Command
-        private static ICommand about = new RoutedUICommand("About", "About", typeof(ClearMineViewModel));
-        private static CommandBinding aboutBinding = new CommandBinding(About,
-            new ExecutedRoutedEventHandler(OnAboutExecuted), new CanExecuteRoutedEventHandler(OnAboutCanExecute));
-        public static ICommand About
-        {
-            get { return about; }
-        }
-
-        public static CommandBinding AboutBinding
-        {
-            get { return aboutBinding; }
-        }
-
-        private static void OnAboutExecuted(object sender, ExecutedRoutedEventArgs e)
-        {
-            var about = new AboutDialog();
-            about.Owner = Application.Current.MainWindow;
-            about.ShowDialog();
-        }
-
-        private static void OnAboutCanExecute(object sender, CanExecuteRoutedEventArgs e)
-        {
-            e.CanExecute = true;
-        }
-        #endregion
-        #region Feeback Command
-        private static ICommand feedback = new RoutedUICommand("Feedback", "Feedback", typeof(ClearMineViewModel));
-        private static CommandBinding feedbackBinding = new CommandBinding(Feedback,
-            new ExecutedRoutedEventHandler(OnFeedbackExecuted), new CanExecuteRoutedEventHandler(OnFeedbackCanExecute));
-        public static ICommand Feedback
-        {
-            get { return feedback; }
-        }
-
-        public static CommandBinding FeedbackBinding
-        {
-            get { return feedbackBinding; }
-        }
-
-        private static void OnFeedbackExecuted(object sender, ExecutedRoutedEventArgs e)
-        {
-
-        }
-
-        private static void OnFeedbackCanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
             e.CanExecute = true;
         }
@@ -249,33 +150,6 @@
         }
 
         private static void OnOpenCanExecute(object sender, CanExecuteRoutedEventArgs e)
-        {
-            e.CanExecute = true;
-        }  
-        #endregion
-        #region ShowLogCommand
-        private static ICommand showLog = new RoutedUICommand("ShowLog", "ShowLog",
-            typeof(ClearMineViewModel), new InputGestureCollection() { new KeyGesture(Key.L, ModifierKeys.Control) });
-        private static CommandBinding showLogBinding = new CommandBinding(ShowLog,
-            new ExecutedRoutedEventHandler(OnShowLogExecuted), new CanExecuteRoutedEventHandler(OnShowLogCanExecute));
-        public static ICommand ShowLog
-        {
-            get { return showLog; }
-        }
-
-        public static CommandBinding ShowLogBinding
-        {
-            get { return showLogBinding; }
-        }
-
-        private static void OnShowLogExecuted(object sender, ExecutedRoutedEventArgs e)
-        {
-            var outputWindow = new OutputWindow();
-            outputWindow.Owner = Application.Current.MainWindow;
-            outputWindow.Show();
-        }
-
-        private static void OnShowLogCanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
             e.CanExecute = true;
         }  
@@ -460,16 +334,16 @@
 
         public override IEnumerable<CommandBinding> GetCommandBindings()
         {
-            yield return AboutBinding;
-            yield return CloseBinding;
-            yield return FeedbackBinding;
+            yield return GameCommandBindings.AboutBinding;
+            yield return GameCommandBindings.CloseBinding;
+            yield return GameCommandBindings.FeedbackBinding;
             yield return NewGameBinding;
             yield return OpenBinding;
             yield return OptionBinding;
             yield return RefreshBinding;
             yield return SaveAsBinding;
-            yield return ShowLogBinding;
-            yield return StatisticsBinding;
+            yield return GameCommandBindings.ShowLogBinding;
+            yield return GameCommandBindings.StatisticsBinding;
         }
 
         private void Initialize()
@@ -608,6 +482,7 @@
         private void ShowWonWindow()
         {
             var wonWindow = new GameWonWindow();
+            wonWindow.DataContext = new GameWonViewModel(game.UsedTime, DateTime.Now);
             wonWindow.Owner = Application.Current.MainWindow;
             if ((bool)wonWindow.ShowDialog())
             {

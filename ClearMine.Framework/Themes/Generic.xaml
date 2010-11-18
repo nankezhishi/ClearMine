@@ -4,6 +4,8 @@
                     xmlns:con="clr-namespace:ClearMine.Framework.Controls"
                     xmlns:c="clr-namespace:ClearMine.Framework.Converters">
     <c:LightUpsToBooleanConverter x:Key="LightUpsToBooleanConverter" />
+    <c:ObjectToVisibilityConverter x:Key="ObjectToVisibilityConverter" />
+    <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
     <Style TargetType="{x:Type local:OptionDialog}"
            BasedOn="{StaticResource {x:Type Window}}">
         <!-- Setting the WindowStartupLocation causing an ArgumentNullException in WPF -->
@@ -32,8 +34,10 @@
                         <DockPanel LastChildFill="False"
                                    DockPanel.Dock="Bottom"
                                    Background="#FFF0F0F0">
-                            <Expander Header="Show more details"
-                                      Margin="12" />
+                            <Expander x:Name="detailExpander"
+                                      Header="Show more details"
+                                      Margin="12"
+                                      Visibility="{Binding Content, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource ObjectToVisibilityConverter}}"/>
                             <ItemsControl DockPanel.Dock="Right"
                                           Margin="0,12,12,12"
                                           ItemsSource="{TemplateBinding Options}">
@@ -47,7 +51,11 @@
                         <Separator Margin="0"
                                    DockPanel.Dock="Bottom"
                                    Foreground="#FFDFDFDF" />
-                        <AdornerDecorator>
+                        <Separator Margin="0"
+                                   Visibility="{Binding IsExpanded, ElementName=detailExpander, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                   DockPanel.Dock="Top"
+                                   Foreground="#FFDFDFDF" />
+                        <AdornerDecorator Visibility="{Binding IsExpanded, ElementName=detailExpander, Converter={StaticResource BooleanToVisibilityConverter}}">
                             <ContentPresenter />
                         </AdornerDecorator>
                     </DockPanel>

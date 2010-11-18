@@ -4,8 +4,9 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:c="clr-namespace:ClearMine.UI.Converters"
         xmlns:vm="clr-namespace:ClearMine.VM;assembly=ClearMine.VM"
-        xmlns:m="clr-namespace:ClearMine.Framework.Commands;assembly=ClearMine.Framework"
-        m:CommandsHelper.LoadBindingsFromVM="True"
+        xmlns:m="clr-namespace:ClearMine.VM.Commands;assembly=ClearMine.VM"
+        xmlns:h="clr-namespace:ClearMine.Framework.Commands;assembly=ClearMine.Framework"
+        h:CommandsHelper.LoadBindingsFromVM="True"
         TextOptions.TextFormattingMode="Display"
         WindowStartupLocation="CenterScreen"
         StateChanged="OnStateChanged"
@@ -43,7 +44,7 @@
                           Command="SaveAs" />
                 <Separator />
                 <MenuItem Header="Statistics"
-                          Command="{x:Static vm:ClearMineViewModel.ShowStatistics}" />
+                          Command="{x:Static h:GameCommands.ShowStatistics}" />
                 <Separator />
                 <MenuItem Header="Exit"
                           Command="Close" />
@@ -67,10 +68,10 @@
             </MenuItem>
             <MenuItem Header="Help">
                 <MenuItem Header="Send Feedback"
-                          Command="{x:Static vm:ClearMineViewModel.Feedback}" />
+                          Command="{x:Static h:GameCommands.Feedback}" />
                 <Separator />
                 <MenuItem Header="About"
-                          Command="{x:Static vm:ClearMineViewModel.About}" />
+                          Command="{x:Static h:GameCommands.About}" />
             </MenuItem>
         </Menu>
         <DockPanel LastChildFill="False"

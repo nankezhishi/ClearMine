@@ -1,9 +1,12 @@
 ﻿<OptionDialog x:Class="ClearMine.UI.Dialogs.GameWonWindow"
               x:ClassModifier="internal"
+              xmlns:h="clr-namespace:ClearMine.Framework.Commands;assembly=ClearMine.Framework"
               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+              h:CommandsHelper.LoadBindingsFromVM="True"
               WindowStartupLocation="CenterOwner"
-              Message="Congratulations!"
+              Message="{Binding Message, Mode=OneWay}"
+              Content="{Binding Details, Mode=OneWay}"
               Title="Clear Mine - Won">
     <OptionDialog.Options>
         <x:Array Type="{x:Type Button}">
