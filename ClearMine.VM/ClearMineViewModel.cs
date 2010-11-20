@@ -334,14 +334,14 @@
 
         public override IEnumerable<CommandBinding> GetCommandBindings()
         {
-            yield return GameCommandBindings.AboutBinding;
-            yield return GameCommandBindings.CloseBinding;
-            yield return GameCommandBindings.FeedbackBinding;
             yield return NewGameBinding;
             yield return OpenBinding;
             yield return OptionBinding;
             yield return RefreshBinding;
             yield return SaveAsBinding;
+            yield return GameCommandBindings.AboutBinding;
+            yield return GameCommandBindings.CloseBinding;
+            yield return GameCommandBindings.FeedbackBinding;
             yield return GameCommandBindings.ShowLogBinding;
             yield return GameCommandBindings.StatisticsBinding;
         }

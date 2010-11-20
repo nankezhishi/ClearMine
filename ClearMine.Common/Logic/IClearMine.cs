@@ -21,6 +21,8 @@
 
         bool CheckHash();
 
+        MineCell GetCell(int column, int row);
+
         void TryMarkAt(MineCell cell, CellState newState);
 
         IEnumerable<MineCell> TryDigAt(MineCell cell);

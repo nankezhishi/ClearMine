@@ -7,6 +7,7 @@
     using ClearMine.Common.Properties;
     using ClearMine.Framework.Commands;
     using ClearMine.UI.Dialogs;
+    using System.Diagnostics;
 
     public static class GameCommandBindings
     {
@@ -89,7 +90,9 @@
 
         private static void OnFeedbackExecuted(object sender, ExecutedRoutedEventArgs e)
         {
-
+            Process p = new Process();
+            p.StartInfo.FileName = "mailto: nankezhishi@hotmail.com?subject=Clear Mine Feedback&body=Hi";
+            p.Start();
         }
 
         private static void OnFeedbackCanExecute(object sender, CanExecuteRoutedEventArgs e)

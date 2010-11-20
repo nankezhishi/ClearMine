@@ -100,6 +100,7 @@
     <Compile Include="Commands\GameCommands.cs" />
     <Compile Include="Commands\OptionsCommands.cs" />
     <Compile Include="Commands\StatisticsCommands.cs" />
+    <Compile Include="Controls\AutoTransformPanel.cs" />
     <Compile Include="Controls\ElectronicNumber.cs" />
     <Compile Include="Controls\ListSortDecorator.cs" />
     <Compile Include="Controls\MineCellControl.cs" />

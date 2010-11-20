@@ -7,26 +7,26 @@
                      Color="#F0F0F0" />
     
     <DataTemplate DataType="{x:Type v:GameWonDetailsViewModel}">
-        <StackPanel Margin="36,12,24,12">
-            <StackPanel Orientation="Horizontal"
-                        Margin="0,0,0,7">
-                <TextBlock Text="Best Time: " />
-                <TextBlock>
+        <AutoTransformPanel Margin="24,12,20,12">
+            <StackPanel VerticalAlignment="Top">
+                <StackPanel Orientation="Horizontal"
+                            Margin="0,0,0,7">
+                    <TextBlock Text="Best Time: " />
+                    <TextBlock Margin="0,0,20,0">
                     <Run Text="{Binding BestTime, StringFormat=0.00, Mode=OneWay}" />
-                </TextBlock>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal"
-                        Margin="0,0,0,7">
-                <TextBlock Text="Game Played: " />
-                <TextBlock>
+                    <Run Text=" seconds" />
+                    </TextBlock>
+                    <TextBlock Text="Game Played: " />
+                    <TextBlock>
                     <Run Text="{Binding GameWon, Mode=OneWay}" />/<Run Text="{Binding GamePlayed, Mode=OneWay}" />
                     (<Run Text="{Binding WonRate, StringFormat= {}{0:P}, Mode=OneWay}" />)
+                    </TextBlock>
+                </StackPanel>
+                <TextBlock TextAlignment="Right">
+                    <Hyperlink Command="{x:Static m:GameCommands.ShowStatistics}">Show me all history</Hyperlink>
                 </TextBlock>
             </StackPanel>
-            <TextBlock TextAlignment="Right">
-                    <Hyperlink Command="{x:Static m:GameCommands.ShowStatistics}">Show me all history</Hyperlink>
-            </TextBlock>
-        </StackPanel>
+        </AutoTransformPanel>
     </DataTemplate>
 
     <!--Common Colors definition-->
@@ -189,6 +189,23 @@
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
+    </Style>
+    
+    <Style TargetType="{x:Type Hyperlink}">
+        <Setter Property="Foreground"
+                Value="#FF0066CC" />
+        <Setter Property="Background"
+                Value="Transparent" />
+        <Setter Property="TextDecorations"
+                Value="{x:Null}" />
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Foreground"
+                        Value="#FF3399FF" />
+                <Setter Property="TextDecorations"
+                        Value="Underline" />
+            </Trigger>
+        </Style.Triggers>
     </Style>
 
     <Style x:Key="{x:Static MenuItem.SeparatorStyleKey}"

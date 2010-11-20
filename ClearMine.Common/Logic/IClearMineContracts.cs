@@ -35,6 +35,11 @@
             return default(bool);
         }
 
+        public MineCell GetCell(int column, int row)
+        {
+            return default(MineCell);
+        }
+
         public void Update(IClearMine clearMine)
         {
             Contract.Requires<ArgumentNullException>(clearMine != null);

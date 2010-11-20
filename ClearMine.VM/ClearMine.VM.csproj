@@ -50,6 +50,7 @@
     <Compile Include="GameWonViewModel.cs" />
     <Compile Include="OptionsViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Records\GameRecorder.cs" />
     <Compile Include="StatisticsViewModel.cs" />
   </ItemGroup>
   <ItemGroup>

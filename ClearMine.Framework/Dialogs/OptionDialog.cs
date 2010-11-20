@@ -3,6 +3,8 @@
     using System.Collections;
     using System.Windows;
     using System.Windows.Media;
+    using System.Windows.Media.Animation;
+    using System;
 
     public class OptionDialog : Window
     {

@@ -189,6 +189,11 @@
             return Hash == (CellsForSerialize.GetHashCode() ^ UsedTime.GetHashCode());
         }
 
+        public MineCell GetCell(int column, int row)
+        {
+            return cells[row * (int)Size.Width + column];
+        }
+
         public void Update(IClearMine mine)
         {
             var game = mine as ClearMineGame;
