@@ -2,6 +2,7 @@
 {
     using System;
     using System.ComponentModel;
+    using System.Diagnostics;
     using System.Windows;
     using System.Windows.Media;
     using System.Windows.Media.Effects;
@@ -13,9 +14,19 @@
     {
         #region Dependency Properties
         /// <summary>
-        /// Dependency property which modifies the SwirlStrength variable within the pixel shader.
+        /// Dependency property which modifies the Strength variable within the pixel shader.
         /// </summary>
-        public static readonly DependencyProperty StrengthProperty = DependencyProperty.Register("Strength", typeof(double), typeof(WaveEffect), new UIPropertyMetadata(0.5, PixelShaderConstantCallback(0)));
+        public static readonly DependencyProperty StrengthProperty = DependencyProperty.Register("Strength", typeof(double), typeof(WaveEffect), new UIPropertyMetadata(0.1, PixelShaderConstantCallback(0)));
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static readonly DependencyProperty LengthProperty = DependencyProperty.Register("Length", typeof(double), typeof(WaveEffect), new UIPropertyMetadata(6.28, PixelShaderConstantCallback(1)));
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static readonly DependencyProperty OffsetProperty = DependencyProperty.Register("Offset", typeof(double), typeof(WaveEffect), new UIPropertyMetadata(0.0, PixelShaderConstantCallback(2)));
 
         /// <summary>
         /// Dependency property for the shader sampler.
@@ -52,7 +63,11 @@
             this.PixelShader = pixelShader;
 
             UpdateShaderValue(StrengthProperty);
+            UpdateShaderValue(LengthProperty);
+            UpdateShaderValue(OffsetProperty);
             UpdateShaderValue(InputProperty);
+
+            Trace.TraceInformation("A wave effect has been created.");
         }
 
         #endregion
@@ -64,6 +79,24 @@
         {
             get { return (double)GetValue(StrengthProperty); }
             set { SetValue(StrengthProperty, value); }
+        }
+
+        /// <summary>
+        /// Gets or sets Stength variable within the shader.
+        /// </summary>
+        public double Length
+        {
+            get { return (double)GetValue(LengthProperty); }
+            set { SetValue(LengthProperty, value); }
+        }
+
+        /// <summary>
+        /// Gets or sets Stength variable within the shader.
+        /// </summary>
+        public double Offset
+        {
+            get { return (double)GetValue(OffsetProperty); }
+            set { SetValue(OffsetProperty, value); }
         }
 
         /// <summary>

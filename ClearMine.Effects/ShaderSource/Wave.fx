@@ -4,6 +4,8 @@
 //-----------------------------------------------------------------------------------------
 
 float strength : register(C0);
+float length : register(C1);
+float offset : register(C2);
 
 //--------------------------------------------------------------------------------------
 // Sampler Inputs (Brushes, including ImplicitInput)
@@ -17,8 +19,7 @@ sampler2D implicitInputSampler : register(S0);
 
 float4 main(float2 uv : TEXCOORD) : COLOR
 {
-    float remainder = frac(uv.x / strength);
-    float2 newCoord = float2(uv.x, (1 + cos(uv.y + remainder)) * uv.y);
+    uv.y = uv.y + sin(uv.x * length + offset) * strength;
    
-    return tex2D( implicitInputSampler, newCoord );
+    return tex2D(implicitInputSampler, uv);
 }

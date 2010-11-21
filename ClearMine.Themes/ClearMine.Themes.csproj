@@ -65,6 +65,10 @@
       <Project>{A2631FA1-E4A4-41AC-8E8E-5C8AEB63C83E}</Project>
       <Name>ClearMine.Common</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ClearMine.Effects\ClearMine.Effects.csproj">
+      <Project>{1FD89229-5F29-4093-9B7F-6F8E09BADF7C}</Project>
+      <Name>ClearMine.Effects</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ClearMine.Framework\ClearMine.Framework.csproj">
       <Project>{730AFF67-B857-42CD-9DAF-E94FC79BA721}</Project>
       <Name>ClearMine.Framework</Name>

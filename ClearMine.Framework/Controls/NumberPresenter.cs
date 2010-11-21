@@ -86,7 +86,6 @@
             if (number >= '0' && number <= '9')
             {
                 number -= '0';
-                Trace.TraceInformation("NumberPresenter Number changed to {0}", number);
                 LightUpStrokes = (LightUps)Enum.Parse(typeof(LightUps), "Number" + number.ToString());
             }
             else if (number == '-')
