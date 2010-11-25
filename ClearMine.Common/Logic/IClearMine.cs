@@ -15,9 +15,9 @@
 
         void StartNew();
 
-        void Pause();
+        void PauseGame();
 
-        void Resume();
+        void ResumeGame();
 
         bool CheckHash();
 

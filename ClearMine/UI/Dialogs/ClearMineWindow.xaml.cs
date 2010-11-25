@@ -59,7 +59,7 @@
         {
             // Maximim the window trigger a mouse up within the playground.
             // We need to block it here.
-            if (lastStateChangedTime.HasValue && (DateTime.Now - lastStateChangedTime.Value).TotalMilliseconds < Math.Min(Win32.GetDoubleClickTime(), 300))
+            if (lastStateChangedTime.HasValue && (DateTime.Now - lastStateChangedTime.Value).TotalMilliseconds < Math.Min(WindowsApi.GetDoubleClickInterval(), 300))
             {
                 return;
             }

@@ -51,7 +51,7 @@
         {
             var absolutePosition = panel.PointToScreen(Position);
 
-            if (!Win32.SetCursorPos((int)absolutePosition.X, (int)absolutePosition.Y))
+            if (!WindowsApi.MoveMouseTo((int)absolutePosition.X, (int)absolutePosition.Y))
             {
                 Trace.TraceError("Cannot move mouse to {0}.", absolutePosition);
             }

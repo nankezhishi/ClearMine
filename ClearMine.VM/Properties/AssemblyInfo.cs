@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using System.Diagnostics.CodeAnalysis;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
@@ -36,3 +37,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyFileVersion("1.0.0.0")]
 [assembly: InternalsVisibleTo("ClearMine")]
 [assembly: InternalsVisibleTo("ClearMine.Themes")]
+[assembly: SuppressMessage("Microsoft.Performance", "CA1811", 
+    Justification = "They property in the vm will be accessed by the xaml where FxCop cannot recogize.")]
+[assembly: SuppressMessage("Microsoft.Performance", "CA1822",
+    Justification = "A static property requires the xaml knows the VM's name which will create a tight relationship between them.")]

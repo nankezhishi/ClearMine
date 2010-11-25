@@ -2,7 +2,7 @@
 {
     using System.Windows.Input;
 
-    public class StatisticsCommands
+    public static class StatisticsCommands
     {
         private static ICommand reset = new RoutedUICommand("Reset", "Reset", typeof(StatisticsCommands));
 

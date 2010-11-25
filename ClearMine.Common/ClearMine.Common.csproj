@@ -114,8 +114,8 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Compile Include="Utilities\GenericExtension.cs" />
-    <Compile Include="Utilities\Util.cs" />
-    <Compile Include="Utilities\Win32.cs" />
+    <Compile Include="Utilities\Infrastructure.cs" />
+    <Compile Include="Utilities\WindowsApi.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Properties\Settings.settings">

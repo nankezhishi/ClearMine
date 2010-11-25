@@ -26,7 +26,7 @@
         [XmlIgnore]
         public Uri ScreenShootUri
         {
-            get { return new Uri(Util.GetAbsolutePath(ScreenShoot)); }
+            get { return new Uri(Infrastructure.GetAbsolutePath(ScreenShoot)); }
         }
     }
 

@@ -38,8 +38,12 @@
 
         private static void OnLoaded(object sender, RoutedEventArgs e)
         {
-            (sender as FrameworkElement).Loaded -= new RoutedEventHandler(OnLoaded);
-            LoadBindings(sender as FrameworkElement);
+            var frameElement = sender as FrameworkElement;
+            if (frameElement != null)
+            {
+                frameElement.Loaded -= new RoutedEventHandler(OnLoaded);
+                LoadBindings(frameElement);
+            }
         }
 
         private static void LoadBindings(FrameworkElement host)

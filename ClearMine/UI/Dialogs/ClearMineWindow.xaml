@@ -103,7 +103,8 @@
                         <Binding Path="Columns" />
                     </MultiBinding>
                 </Border.BorderThickness>
-                <ItemsControl ItemsSource="{Binding Cells}"
+                <ItemsControl x:Name="cellsPanel"
+                              ItemsSource="{Binding Cells}"
                               MouseDown="OnMineGroudMouseDown"
                               MouseUp="OnMineGroudMouseUp">
                     <ItemsControl.ItemsPanel>

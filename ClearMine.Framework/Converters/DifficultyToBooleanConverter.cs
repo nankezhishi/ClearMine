@@ -1,10 +1,12 @@
 ﻿namespace ClearMine.Framework.Converters
 {
     using System;
+    using System.Diagnostics.CodeAnalysis;
     using System.Globalization;
     using System.Windows.Data;
     using ClearMine.Common;
 
+    [SuppressMessage("Microsoft.Performance", "CA1812", Justification = "Used in Xaml.")]
     [ValueConversion(typeof(Difficulty?), typeof(bool))]
     internal class DifficultyToBooleanConverter : IValueConverter
     {

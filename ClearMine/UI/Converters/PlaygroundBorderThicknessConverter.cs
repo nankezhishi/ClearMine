@@ -11,7 +11,7 @@
         {
             double width = (double)values[0];
             int columns = (int)values[1];
-            double itemPercent = Double.Parse(parameter.ToString());
+            double itemPercent = Double.Parse(parameter.ToString(), CultureInfo.InvariantCulture);
 
             if (columns > 0)
             {

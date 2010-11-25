@@ -174,10 +174,29 @@
                   Viewbox="{StaticResource FaceViewbox}">
         <VisualBrush.Visual>
             <Grid>
-                <Path Data="M0,2.5 L5,0 L5,5 L4,5 Z"
+                <Path Name="flag" Data="M0,2.5 L5,0 L5,5 L4,5 Z"
                       Effect="{StaticResource waveEffect}"
                       b:AnimateEffectBehavior.Waving="True"
-                      Fill="Red" />
+                      Fill="Red">
+                    <!-- The following code should work but didn't. -->
+                    <!--<Path.Triggers>
+                        <EventTrigger RoutedEvent="FrameworkElement.Loaded">
+                            <EventTrigger.Actions>
+                                <BeginStoryboard>
+                                    <BeginStoryboard.Storyboard>
+                                        <Storyboard>
+                                            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="flag"
+                                                                           Storyboard.TargetProperty="(UIElement.Effect).(DropShadowEffect.ShadowDepth)"
+                                                                           RepeatBehavior="Forever" Timeline.DesiredFrameRate="12">
+                                                <LinearDoubleKeyFrame KeyTime="0:0:1" Value="6.28" />
+                                            </DoubleAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </BeginStoryboard.Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger.Actions>
+                        </EventTrigger>
+                    </Path.Triggers>-->
+                </Path>
                 <Path Data="M0,9 H8 M2,8 H6 M4,6 H5" Stroke="Black" StrokeThickness="2"/>
             </Grid>
             <!--<DrawingGroup>

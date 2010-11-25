@@ -1,15 +1,17 @@
 ﻿namespace ClearMine.Common.Utilities
 {
     using System.ComponentModel.Composition.Hosting;
+    using System.Diagnostics.CodeAnalysis;
     using System.IO;
     using System.Reflection;
-    using System.ComponentModel.Composition.Primitives;
 
-    public static class Util
+    [SuppressMessage("Microsoft.Performance", "CA1810",
+        Justification = "Can you tell me a way to initialize container inline?")]
+    public static class Infrastructure
     {
         private static CompositionContainer container;
 
-        static Util()
+        static Infrastructure()
         {
             var catalog = new AggregateCatalog();
             var moduleDirectory = new DirectoryCatalog(@".");

@@ -20,12 +20,12 @@
         {
         }
 
-        public void Pause()
+        public void PauseGame()
         {
 
         }
 
-        public void Resume()
+        public void ResumeGame()
         {
 
         }

@@ -24,6 +24,7 @@
         private int usedTime;
         private DateTime startTime;
         private GameState gameState;
+        [NonSerialized]
         private DispatcherTimer timer;
         private MinesGrid cells = new MinesGrid();
 
@@ -194,13 +195,13 @@
             return cells[row * (int)Size.Width + column];
         }
 
-        public void Update(IClearMine mine)
+        public void Update(IClearMine newValue)
         {
-            var game = mine as ClearMineGame;
+            var game = newValue as ClearMineGame;
 
             if (game == null)
             {
-                throw new ArgumentException("mine");
+                throw new ArgumentException("The new value should be of ClearMineGame type.", "newValue");
             }
 
             int index = 0;
@@ -221,7 +222,7 @@
             GameState = game.GameState;
         }
 
-        public void Pause()
+        public void PauseGame()
         {
             // Pause twice cause game time not accurate.
             if (timer.IsEnabled)
@@ -231,7 +232,7 @@
             }
         }
 
-        public void Resume()
+        public void ResumeGame()
         {
             timer.IsEnabled = true;
             PersistantUsedTime(usedTime);

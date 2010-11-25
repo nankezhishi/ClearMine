@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.ComponentModel;
     using System.Diagnostics;
+    using System.Globalization;
     using System.IO;
     using System.Linq;
     using System.Threading;
@@ -89,7 +90,7 @@
             {
                 if (vm.game.GameState == GameState.Started)
                 {
-                    vm.game.Pause();
+                    vm.game.PauseGame();
                 }
             });
             var optionsWindow = new OptionsDialog();
@@ -101,7 +102,7 @@
             }
             else if (viewModel.game.GameState == GameState.Started)
             {
-                viewModel.game.Resume();
+                viewModel.game.ResumeGame();
             }
         }
 
@@ -157,7 +158,7 @@
 
         public ClearMineViewModel()
         {
-            HookupToGame(Util.Container.GetExportedValue<IClearMine>());
+            HookupToGame(Infrastructure.Container.GetExportedValue<IClearMine>());
             Settings.Default.PropertyChanged += new PropertyChangedEventHandler(OnSettingsChanged);
         }
 
@@ -179,12 +180,12 @@
 
         public string Time
         {
-            get { return ((double)game.UsedTime / 1000).ToString(); }
+            get { return ((double)game.UsedTime / 1000).ToString(CultureInfo.InvariantCulture); }
         }
 
         public string RemainedMines
         {
-            get { return game.RemainedMines.ToString(); }
+            get { return game.RemainedMines.ToString(CultureInfo.InvariantCulture); }
         }
 
         public Brush NewGameIcon
@@ -240,7 +241,7 @@
                 }
                 else
                 {
-                    game.Resume();
+                    game.ResumeGame();
                 }
             }
             else
@@ -435,7 +436,7 @@
             }
         }
 
-        private string TakeScreenShoot()
+        private static string TakeScreenShoot()
         {
             var target = VisualTreeHelper.GetChild(Application.Current.MainWindow, 0) as FrameworkElement;
             var targetBitmap = new RenderTargetBitmap((int)target.ActualWidth, (int)target.ActualHeight, 96d, 96d, PixelFormats.Default);
@@ -444,7 +445,7 @@
             var encoder = new PngBitmapEncoder();
             encoder.Frames.Add(BitmapFrame.Create(targetBitmap));
 
-            string fileName = DateTime.Now.ToString("yy-MM-dd-HH-mm-ss") + ".png";
+            string fileName = DateTime.Now.ToString("yy-MM-dd-HH-mm-ss", CultureInfo.InvariantCulture) + ".png";
             string folder = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Poleaf\ClearMine\ScreenShoots\";
 
             if (!Directory.Exists(folder))
@@ -550,7 +551,7 @@
             }
 
             // Pause game to make sure the timestamp currect.
-            game.Pause();
+            game.PauseGame();
             var gameSaver = new XmlSerializer(game.GetType());
             using (var file = File.Open(path, FileMode.Create, FileAccess.Write))
             {
@@ -575,7 +576,7 @@
             {
                 HookupToGame(newgame);
                 RefreshUI();
-                game.Resume();
+                game.ResumeGame();
             }
             else
             {

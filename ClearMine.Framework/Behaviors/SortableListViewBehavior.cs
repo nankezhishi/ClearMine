@@ -16,7 +16,7 @@ namespace ClearMine.Framework.Behaviors
         public VisualAdorner CurrentAdorner { get; set; }
     }
 
-    public class SortableListViewBehavior
+    public static class SortableListViewBehavior
     {
         /// <summary>
         /// 

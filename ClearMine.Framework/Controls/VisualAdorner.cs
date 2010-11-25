@@ -2,6 +2,7 @@
 {
     using System;
     using System.ComponentModel;
+    using System.Globalization;
     using System.Windows;
     using System.Windows.Documents;
     using System.Windows.Markup;
@@ -121,7 +122,7 @@
             }
             else
             {
-                throw new IndexOutOfRangeException(string.Format("Current {0} has only {1} child.", this, VisualChildrenCount));
+                throw new IndexOutOfRangeException(String.Format(CultureInfo.InvariantCulture, "Current {0} has only {1} child.", this, VisualChildrenCount));
             }
         }
 

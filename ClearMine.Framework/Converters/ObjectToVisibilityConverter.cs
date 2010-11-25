@@ -1,6 +1,7 @@
 ﻿namespace ClearMine.Framework.Converters
 {
     using System;
+    using System.Diagnostics.CodeAnalysis;
     using System.Globalization;
     using System.Windows;
     using System.Windows.Data;
@@ -8,6 +9,7 @@
     /// <summary>
     /// 
     /// </summary>
+    [SuppressMessage("Microsoft.Performance", "CA1812", Justification = "Used in Xaml.")]
     [ValueConversion(typeof(object), typeof(Visibility))]
     internal class ObjectToVisibilityConverter : IValueConverter
     {

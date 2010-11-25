@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.ObjectModel;
+    using System.Globalization;
     using System.Windows;
     using System.Windows.Controls;
 
@@ -168,11 +169,11 @@
 
                 if (LengthAfterPoint > 0)
                 {
-                    newNumber = Double.Parse(newNumber).ToString("0." + new String('0', LengthAfterPoint));
+                    newNumber = Double.Parse(newNumber).ToString("0." + new String('0', LengthAfterPoint), CultureInfo.InvariantCulture);
                 }
                 else
                 {
-                    newNumber = ((int)Double.Parse(newNumber)).ToString();
+                    newNumber = ((int)Double.Parse(newNumber)).ToString(CultureInfo.InvariantCulture);
                 }
 
                 int current = newNumber.Length - 1;
