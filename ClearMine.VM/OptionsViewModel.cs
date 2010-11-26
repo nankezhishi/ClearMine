@@ -13,6 +13,7 @@
     using ClearMine.Common.Properties;
     using ClearMine.Common.Utilities;
     using ClearMine.Framework.Commands;
+    using ClearMine.Localization;
 
     internal sealed class OptionsViewModel : ViewModelBase, IDataErrorInfo
     {
@@ -88,7 +89,7 @@
         {
             FolderBrowserDialog folderBrowser = new FolderBrowserDialog();
             folderBrowser.ShowNewFolderButton = true;
-            folderBrowser.Description = "Please select a folder to place your game playing record.";
+            folderBrowser.Description = LocalizationHelper.FindText("BrowseGameFolderMessage");
             folderBrowser.SelectedPath = Path.GetFullPath(Settings.Default.GameHistoryFolder);
             if (folderBrowser.ShowDialog() == DialogResult.OK)
             {
@@ -234,7 +235,7 @@
                 {
                     if (Rows < 9 || Rows > 24)
                     {
-                        Error = "Height should less than 24 and greater than 9.";
+                        Error = LocalizationHelper.FindText("InvalidHeightMessage");
                     }
                     else
                     {
@@ -245,7 +246,7 @@
                 {
                     if (Columns < 9 || Columns > 30)
                     {
-                        Error = "Width should less than 30 and greater than 9.";
+                        Error = LocalizationHelper.FindText("InvalidWidthMessage");
                     }
                     else
                     {
@@ -256,7 +257,7 @@
                 {
                     if (Mines < 10 || Mines > Rows * Columns)
                     {
-                        Error = "Mines amount should less than the size of the area and greater than 10";
+                        Error = LocalizationHelper.FindText("InvalidMinesMessage");
                     }
                     else
                     {
@@ -271,7 +272,7 @@
                     }
                     else
                     {
-                        Error = "The game history folder doesn't exists.";
+                        Error = LocalizationHelper.FindText("HistoryNotExistMessage");
                     }
                 }
                 else

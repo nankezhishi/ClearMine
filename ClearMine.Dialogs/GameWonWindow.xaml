@@ -7,15 +7,15 @@
               WindowStartupLocation="CenterOwner"
               Message="{Binding Message, Mode=OneWay}"
               Content="{Binding Details, Mode=OneWay}"
-              Title="Clear Mine - Won">
+              Title="{DynamicResource GameWonDialogTitle}">
     <OptionDialog.Options>
         <x:Array Type="{x:Type Button}">
             <Button Margin="0,0,7,0"
                     IsCancel="True"
-                    Content="E_xit"
+                    Content="{DynamicResource ExitGameLabel}"
                     Click="OnExitClick" />
             <Button IsDefault="True"
-                    Content="Start _new game"
+                    Content="{DynamicResource StartNewGameLabel}"
                     Click="OnNewGameButtonClick" />
         </x:Array>
     </OptionDialog.Options>

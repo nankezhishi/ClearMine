@@ -26,12 +26,19 @@
             get { return feedback; }
         }
 
-        private static ICommand showLog = new RoutedUICommand("ShowLog", "ShowLog",
+        private static ICommand showLog = new RoutedUICommand("Show Log", "ShowLog",
             typeof(GameCommands), new InputGestureCollection() { new KeyGesture(Key.L, ModifierKeys.Control) });
 
         public static ICommand ShowLog
         {
             get { return showLog; }
+        }
+
+        private static ICommand switchLanguage = new RoutedUICommand("Change Language", "ChangeLanguage", typeof(GameCommands));
+
+        public static ICommand SwitchLanguage
+        {
+            get { return switchLanguage; }
         }
     }
 }

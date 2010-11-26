@@ -2,15 +2,15 @@
               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
               WindowStartupLocation="CenterOwner"
-              Message="Do you want to start a new game or finish current game first?"
-              Title="Clear Min - New Game">
+              Message="{DynamicResource ConfirmNewGameMessage}"
+              Title="{DynamicResource ConfirmNewGameDialogTitle}">
     <OptionDialog.Options>
         <x:Array Type="{x:Type Button}">
             <Button IsDefault="True"
                     Margin="0,0,7,0"
-                    Content="Start _new game"
+                    Content="{DynamicResource StartNewGameLabel}"
                     Click="OnNewGameButtonClick" />
-            <Button Content="_Continue this game"
+            <Button Content="{DynamicResource ContinueGameLabel}"
                     IsCancel="True"
                     Click="OnContinueClick" />
         </x:Array>

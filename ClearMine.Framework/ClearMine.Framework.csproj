@@ -134,6 +134,10 @@
       <Project>{1FD89229-5F29-4093-9B7F-6F8E09BADF7C}</Project>
       <Name>ClearMine.Effects</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ClearMine.Localization\ClearMine.Localization.csproj">
+      <Project>{71C67E90-41FD-457E-B155-1EBE7396024A}</Project>
+      <Name>ClearMine.Localization</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

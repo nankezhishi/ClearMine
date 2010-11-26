@@ -21,6 +21,7 @@
     using ClearMine.Common.Properties;
     using ClearMine.Common.Utilities;
     using ClearMine.Framework.Media;
+    using ClearMine.Localization;
     using ClearMine.UI.Dialogs;
     using ClearMine.VM.Commands;
     using Microsoft.Win32;
@@ -143,7 +144,7 @@
         {
             var openFileDialog = new OpenFileDialog();
             openFileDialog.DefaultExt = ".cmg";
-            openFileDialog.Filter = "ClearMine Saved Game File (*.cmg)|*.cmg";
+            openFileDialog.Filter = LocalizationHelper.FindText("SavedGameFilter");
             if (openFileDialog.ShowDialog() == true)
             {
                 e.ExtractDataContext<ClearMineViewModel>().LoadSavedGame(openFileDialog.FileName);
@@ -260,7 +261,7 @@
                 }
                 else
                 {
-                    var result = MessageBox.Show("Do you want to save the game?", "Clear Mine - Save",
+                    var result = MessageBox.Show(LocalizationHelper.FindText("AskingSaveGameMessage"), LocalizationHelper.FindText("AskingSaveGameTitle"),
                         MessageBoxButton.YesNoCancel, MessageBoxImage.Question);
                     if (result == MessageBoxResult.Cancel)
                     {
@@ -345,6 +346,7 @@
             yield return GameCommandBindings.FeedbackBinding;
             yield return GameCommandBindings.ShowLogBinding;
             yield return GameCommandBindings.StatisticsBinding;
+            yield return GameCommandBindings.SwitchLanguageBinding;
         }
 
         private void Initialize()
@@ -539,7 +541,7 @@
             {
                 var savePathDialog = new SaveFileDialog();
                 savePathDialog.DefaultExt = ".cmg";
-                savePathDialog.Filter = "ClearMine Saved Game File (*.cmg)|*.cmg";
+                savePathDialog.Filter = LocalizationHelper.FindText("SavedGameFilter");
                 if (savePathDialog.ShowDialog() == true)
                 {
                     path = savePathDialog.FileName;
@@ -580,7 +582,7 @@
             }
             else
             {
-                MessageBox.Show("The saved game has been modified to an incorrect state. Please try to fix it and open again.", "Clear Mine - Corrupted game file");
+                MessageBox.Show(LocalizationHelper.FindText("CorruptedSavedGameMessage"), LocalizationHelper.FindText("CorruptedSavedGameTitle"));
             }
         }
 

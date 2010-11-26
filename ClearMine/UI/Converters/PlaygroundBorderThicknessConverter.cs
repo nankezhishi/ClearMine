@@ -9,6 +9,16 @@
     {
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
+            if (parameter == null)
+            {
+                throw new ArgumentNullException("parameter");
+            }
+
+            if (values == null || values.Length < 2)
+            {
+                throw new ArgumentException("values must contains at least two element.", "values");
+            }
+
             double width = (double)values[0];
             int columns = (int)values[1];
             double itemPercent = Double.Parse(parameter.ToString(), CultureInfo.InvariantCulture);

@@ -2,11 +2,9 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Diagnostics.Contracts;
     using System.Windows;
     using ClearMine.Common.ComponentModel;
 
-    [ContractClass(typeof(IClearMineContracts))]
     public interface IClearMine : IUpdatable<IClearMine>
     {
         void Initialize(Size size, int mines);

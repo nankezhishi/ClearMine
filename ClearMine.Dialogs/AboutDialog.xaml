@@ -5,13 +5,13 @@
         TextOptions.TextFormattingMode="Display"
         WindowStartupLocation="CenterOwner"
         SizeToContent="WidthAndHeight"
-        Title="About ClearMine"
+        Title="{DynamicResource AboutDialogTitle}"
         ShowInTaskbar="False"
         ResizeMode="NoResize">
     <DockPanel Margin="12">
         <DockPanel DockPanel.Dock="Bottom"
                    LastChildFill="False">
-            <Button Content="OK"
+            <Button Content="{DynamicResource OKButtonLabel}"
                     DockPanel.Dock="Right"
                     IsCancel="True"
                     IsDefault="True" />
@@ -22,11 +22,12 @@
                     UseLayoutRounding="True"
                     Margin="0,0,12,0"/>
             <TextBlock>
-                <Run Text="Clear Mine "
+                <Run Text="{DynamicResource GameName}"
                      FontSize="16" FontWeight="Bold" />
-                Version 1.0<LineBreak />
+                <Run Text="{DynamicResource GameVersion}" />
                 <LineBreak />
-                <Run Text="Hugo Gu All Rights Reserved." />
+                <LineBreak />
+                <Run Text="{DynamicResource GameCopyRight}" />
             </TextBlock>
         </DockPanel>
     </DockPanel>

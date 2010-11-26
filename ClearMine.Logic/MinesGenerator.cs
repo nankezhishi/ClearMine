@@ -1,7 +1,6 @@
 ﻿namespace ClearMine.Logic
 {
     using System;
-    using System.Diagnostics.Contracts;
 
     using ClearMine.Common.Logic;
 
@@ -11,7 +10,6 @@
 
         public void Fill(MinesGrid grid, int mines, MineCell noMineCell = null)
         {
-            Contract.Requires<ArgumentNullException>(grid != null);
             if (mines > grid.Size.Height * grid.Size.Width)
             {
                 throw new ArgumentOutOfRangeException("mines", "Too many mines to generate.");

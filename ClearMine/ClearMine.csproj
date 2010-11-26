@@ -41,7 +41,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <CodeContractsEnableRuntimeChecking>True</CodeContractsEnableRuntimeChecking>
+    <CodeContractsEnableRuntimeChecking>False</CodeContractsEnableRuntimeChecking>
     <CodeContractsRuntimeOnlyPublicSurface>False</CodeContractsRuntimeOnlyPublicSurface>
     <CodeContractsRuntimeThrowOnFailure>True</CodeContractsRuntimeThrowOnFailure>
     <CodeContractsRuntimeCallSiteRequires>False</CodeContractsRuntimeCallSiteRequires>
@@ -65,7 +65,7 @@
     <CodeContractsRuntimeCheckingLevel>Full</CodeContractsRuntimeCheckingLevel>
     <CodeContractsReferenceAssembly>DoNotBuild</CodeContractsReferenceAssembly>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
-    <GenerateSerializationAssemblies>On</GenerateSerializationAssemblies>
+    <GenerateSerializationAssemblies>Auto</GenerateSerializationAssemblies>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -220,6 +220,10 @@
     <ProjectReference Include="..\ClearMine.Framework\ClearMine.Framework.csproj">
       <Project>{730AFF67-B857-42CD-9DAF-E94FC79BA721}</Project>
       <Name>ClearMine.Framework</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ClearMine.Localization\ClearMine.Localization.csproj">
+      <Project>{71C67E90-41FD-457E-B155-1EBE7396024A}</Project>
+      <Name>ClearMine.Localization</Name>
     </ProjectReference>
     <ProjectReference Include="..\ClearMine.Themes\ClearMine.Themes.csproj">
       <Project>{1A571635-C086-40A8-9D2C-2E4BB74BD549}</Project>

@@ -22,7 +22,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <CodeContractsEnableRuntimeChecking>True</CodeContractsEnableRuntimeChecking>
+    <CodeContractsEnableRuntimeChecking>False</CodeContractsEnableRuntimeChecking>
     <CodeContractsRuntimeOnlyPublicSurface>False</CodeContractsRuntimeOnlyPublicSurface>
     <CodeContractsRuntimeThrowOnFailure>True</CodeContractsRuntimeThrowOnFailure>
     <CodeContractsRuntimeCallSiteRequires>False</CodeContractsRuntimeCallSiteRequires>
@@ -100,6 +100,10 @@
     <ProjectReference Include="..\ClearMine.Common\ClearMine.Common.csproj">
       <Project>{A2631FA1-E4A4-41AC-8E8E-5C8AEB63C83E}</Project>
       <Name>ClearMine.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ClearMine.Localization\ClearMine.Localization.csproj">
+      <Project>{71C67E90-41FD-457E-B155-1EBE7396024A}</Project>
+      <Name>ClearMine.Localization</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -12,20 +12,37 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClearMine.Framework", "ClearMine.Framework\ClearMine.Framework.csproj", "{730AFF67-B857-42CD-9DAF-E94FC79BA721}"
+	ProjectSection(ProjectDependencies) = postProject
+		{71C67E90-41FD-457E-B155-1EBE7396024A} = {71C67E90-41FD-457E-B155-1EBE7396024A}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClearMine.Logic", "ClearMine.Logic\ClearMine.Logic.csproj", "{EEB5C47E-76B0-472B-9991-0F2D9A861A62}"
+	ProjectSection(ProjectDependencies) = postProject
+		{71C67E90-41FD-457E-B155-1EBE7396024A} = {71C67E90-41FD-457E-B155-1EBE7396024A}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClearMine.Common", "ClearMine.Common\ClearMine.Common.csproj", "{A2631FA1-E4A4-41AC-8E8E-5C8AEB63C83E}"
+	ProjectSection(ProjectDependencies) = postProject
+		{71C67E90-41FD-457E-B155-1EBE7396024A} = {71C67E90-41FD-457E-B155-1EBE7396024A}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClearMine.Themes", "ClearMine.Themes\ClearMine.Themes.csproj", "{1A571635-C086-40A8-9D2C-2E4BB74BD549}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClearMine.VM", "ClearMine.VM\ClearMine.VM.csproj", "{3D129E1B-FED1-4C73-99B7-8E497CCA19A0}"
+	ProjectSection(ProjectDependencies) = postProject
+		{71C67E90-41FD-457E-B155-1EBE7396024A} = {71C67E90-41FD-457E-B155-1EBE7396024A}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClearMine.Dialogs", "ClearMine.Dialogs\ClearMine.Dialogs.csproj", "{FFB181E2-DF4F-4332-8AE9-3BE561C26CA5}"
+	ProjectSection(ProjectDependencies) = postProject
+		{71C67E90-41FD-457E-B155-1EBE7396024A} = {71C67E90-41FD-457E-B155-1EBE7396024A}
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Modules", "Modules", "{741AE855-69CA-4CF7-80DF-E80AEE547281}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClearMine.Effects", "ClearMine.Effects\ClearMine.Effects.csproj", "{1FD89229-5F29-4093-9B7F-6F8E09BADF7C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClearMine.Localization", "ClearMine.Localization\ClearMine.Localization.csproj", "{71C67E90-41FD-457E-B155-1EBE7396024A}"
 EndProject
 Global
 	GlobalSection(TestCaseManagementSettings) = postSolution
@@ -122,6 +139,16 @@ Global
 		{1FD89229-5F29-4093-9B7F-6F8E09BADF7C}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{1FD89229-5F29-4093-9B7F-6F8E09BADF7C}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{1FD89229-5F29-4093-9B7F-6F8E09BADF7C}.Release|x86.ActiveCfg = Release|Any CPU
+		{71C67E90-41FD-457E-B155-1EBE7396024A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{71C67E90-41FD-457E-B155-1EBE7396024A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{71C67E90-41FD-457E-B155-1EBE7396024A}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{71C67E90-41FD-457E-B155-1EBE7396024A}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{71C67E90-41FD-457E-B155-1EBE7396024A}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{71C67E90-41FD-457E-B155-1EBE7396024A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{71C67E90-41FD-457E-B155-1EBE7396024A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{71C67E90-41FD-457E-B155-1EBE7396024A}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{71C67E90-41FD-457E-B155-1EBE7396024A}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{71C67E90-41FD-457E-B155-1EBE7396024A}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

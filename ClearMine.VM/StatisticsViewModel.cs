@@ -11,6 +11,7 @@
     using ClearMine.Common.ComponentModel;
     using ClearMine.Common.Properties;
     using ClearMine.Framework.Commands;
+    using ClearMine.Localization;
 
     internal class StatisticsViewModel : ViewModelBase
     {
@@ -28,7 +29,7 @@
 
         private static void OnResetExecuted(object sender, ExecutedRoutedEventArgs e)
         {
-            if (MessageBox.Show("Do you want to reset all your statistics to zero?", "ClearMine - Reset Statistics",
+            if (MessageBox.Show(LocalizationHelper.FindText("ResetHistoryMessage"), LocalizationHelper.FindText("ResetHistoryTitle"),
                 MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No) == MessageBoxResult.Yes)
             {
                 foreach (HeroHistory history in e.Parameter as IEnumerable)

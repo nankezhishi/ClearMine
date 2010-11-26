@@ -4,7 +4,6 @@
     using System.Collections.Generic;
     using System.ComponentModel;
     using System.ComponentModel.Composition;
-    using System.Diagnostics.Contracts;
     using System.Globalization;
     using System.Linq;
     using System.Windows;
@@ -354,8 +353,6 @@
 
         private void VerifyStateIs(params GameState[] args)
         {
-            Contract.Requires<ArgumentNullException>(args != null);
-
             if (!args.Contains(GameState))
             {
                 throw new InvalidOperationException();

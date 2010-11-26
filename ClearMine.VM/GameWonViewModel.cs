@@ -7,6 +7,7 @@
     using ClearMine.Common;
     using ClearMine.Common.ComponentModel;
     using ClearMine.Common.Properties;
+    using ClearMine.Localization;
     using ClearMine.VM.Commands;
 
     internal class GameWonViewModel : ViewModelBase
@@ -15,7 +16,7 @@
         {
             Time = time;
             TimeUsed = usedTime;
-            Message = "Congratulations, you won the game!";
+            Message = LocalizationHelper.FindText("GameWonMessage");
 
             if (Settings.Default.Difficulty != Difficulty.Custom)
             {

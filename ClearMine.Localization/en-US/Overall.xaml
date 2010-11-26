@@ -1,0 +1,103 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:s="clr-namespace:System;assembly=mscorlib">
+    <!--Common Texts-->
+    <s:String x:Key="OKButtonLabel">OK</s:String>
+    <s:String x:Key="CancelButtonLabel">Cancel</s:String>
+    <s:String x:Key="ResetButtonLabel">_Reset</s:String>
+    <s:String x:Key="CopyCommandLabel">Copy</s:String>
+    <s:String x:Key="ClearCommandLabel">Clear</s:String>
+    <s:String x:Key="GameName">Clear Mine</s:String>
+    <s:String x:Key="GameVersion">Version 1.0</s:String>
+    <s:String x:Key="GameCopyRight">Hugo Gu All Rights Reserved.</s:String>
+    <s:String x:Key="SavedGameFilter">ClearMine Saved Game File (*.cmg)|*.cmg</s:String>
+    
+    <!-- Main Window -->
+    <s:String x:Key="ApplicationTitle">Clear Mine</s:String>
+    <s:String x:Key="GameMenuHeader">Game</s:String>
+    <s:String x:Key="NewGameMenuHeader">New Game</s:String>
+    <s:String x:Key="RestartGameMenuHeader">Restart Game</s:String>
+    <s:String x:Key="OpenGameMenuHeader">Open Game...</s:String>
+    <s:String x:Key="SaveAsGameMenuHeader">Save Game As...</s:String>
+    <s:String x:Key="HeroListMenuHeader">Statistics</s:String>
+    <s:String x:Key="ExitMenuHeader">Exit</s:String>
+    <s:String x:Key="ToolsMenuHeader">Tools</s:String>
+    <s:String x:Key="ThemeMenuHeader">Appearance</s:String>
+    <s:String x:Key="CustomThemeMenuHeader">Custom...</s:String>
+    <s:String x:Key="LanguageMenuHeader">Language</s:String>
+    <s:String x:Key="EnglishMenuItemHeader">English</s:String>
+    <s:String x:Key="ChineseMenuItemHeader">Chinese</s:String>
+    <s:String x:Key="CustomLanguageMenuItemHeader">Custom...</s:String>
+    <s:String x:Key="OptionsMenuItemHeader">Options</s:String>
+    <s:String x:Key="HelpMenuItemHeader">Help</s:String>
+    <s:String x:Key="SendFeedbakMenuItemHeader">Send feedback</s:String>
+    <s:String x:Key="AboutMenuItemHeader">About</s:String>
+    <s:String x:Key="AskingSaveGameMessage">Do you want to save the game?</s:String>
+    <s:String x:Key="AskingSaveGameTitle">Clear Mine - Save</s:String>
+    <s:String x:Key="CorruptedSavedGameMessage">The saved game has been modified to an incorrect state. Please try to fix it and open again.</s:String>
+    <s:String x:Key="CorruptedSavedGameTitle">Clear Mine - Corrupted game file</s:String>
+
+    <!-- About Dialog -->
+    <s:String x:Key="AboutDialogTitle">About ClearMine</s:String>
+    
+    <!-- Output Dialog -->
+    <s:String x:Key="OutputDialogTitle">Clear Mine - Log</s:String>
+    
+    <!-- Game Won Dialog-->
+    <s:String x:Key="GameWonDialogTitle">Clear Mine - Won</s:String>
+    <s:String x:Key="ExitGameLabel">E_xit</s:String>
+    <s:String x:Key="StartNewGameLabel">Start _new game</s:String>
+    <s:String x:Key="GameWonMessage">Congratulations, you won the game!</s:String>
+
+    <!-- Game Lost Dialog -->
+    <s:String x:Key="GameLostDialogTitle">Clear Mine - Lost</s:String>
+    <s:String x:Key="GameLostMessage">Sorry, you lost this game. Better luck next time!</s:String>
+    <s:String x:Key="TryAgainLabel">_Try it again</s:String>
+    
+    <!-- Confirm New Game Dialog -->
+    <s:String x:Key="ConfirmNewGameDialogTitle">Clear Mine - New Game</s:String>
+    <s:String x:Key="ConfirmNewGameMessage">Do you want to start a new game or finish current game first?</s:String>
+    <s:String x:Key="ContinueGameLabel">_Continue this game</s:String>
+
+    <!-- Statistics Dialog -->
+    <s:String x:Key="StatisticsDialogTitle">Clear Mine - Statistics</s:String>
+    <s:String x:Key="GamePlayedLabel">Game played:</s:String>
+    <s:String x:Key="GameWonLabel">Game won:</s:String>
+    <s:String x:Key="GameWonRateLabel">Winning percentage:</s:String>
+    <s:String x:Key="WinningStreakLabel">Longest winning streak:</s:String>
+    <s:String x:Key="LosingStreakLabel">Longest losing streak:</s:String>
+    <s:String x:Key="CurrentStreakLabel">Current streak:</s:String>
+    <s:String x:Key="AverageScoreLabel">Average score:</s:String>
+    <s:String x:Key="PlayedHistoryLabel">_Play history of selected level:</s:String>
+    <s:String x:Key="PlayedHistoryScoreColumnLabel">Score</s:String>
+    <s:String x:Key="PlayedHistoryDateColumnLabel">Date</s:String>
+    <s:String x:Key="ResetHistoryMessage">Do you want to reset all your statistics to zero?</s:String>
+    <s:String x:Key="ResetHistoryTitle">ClearMine - Reset Statistics</s:String>
+
+    <!-- Options Dialog -->
+    <s:String x:Key="OptionsDialogTitle">Clear Mine - Options</s:String>
+    <s:String x:Key="DifficultySettingsGroupLabel">Diffculty settings</s:String>
+    <s:String x:Key="BeginnerLevelLabel">_Beginner</s:String>
+    <s:String x:Key="IntermediateLevelLabel">_Intermediate</s:String>
+    <s:String x:Key="AdvancedLevelLabel">_Advanced</s:String>
+    <s:String x:Key="CustomDifficultyLabel">_Custom:</s:String>
+    <s:String x:Key="CustomHeightLabel">_Height (9-24):</s:String>
+    <s:String x:Key="CustomWidthLabel">_Width (9-30):</s:String>
+    <s:String x:Key="CustomMinesLabel">_Mines (10-668):</s:String>
+    <s:String x:Key="GameEffectGroupLabel">Effect settings</s:String>
+    <s:String x:Key="PlaySoundLabel">Play Sound</s:String>
+    <s:String x:Key="PlayAnimationLabel">Play Animation</s:String>
+    <s:String x:Key="GameControlGroupLabel">Control settings</s:String>
+    <s:String x:Key="ShowQuestionMarkLabel">Show question(?) mark</s:String>
+    <s:String x:Key="AlwaysNewGameLabel">Always disgards current game when new game</s:String>
+    <s:String x:Key="AlwaysSaveGameLabel">Always save game on exit</s:String>
+    <s:String x:Key="AlwaysContinueGameLabel">Always continue saved game</s:String>
+    <s:String x:Key="GameHistoryGroupLabel">History settings</s:String>
+    <s:String x:Key="SaveGameHistoryLabel">_Save game history:</s:String>
+    <s:String x:Key="BrowseGameHistoryLabel">Browse...</s:String>
+    <s:String x:Key="BrowseGameFolderMessage">Please select a folder to place your game playing record.</s:String>
+    <s:String x:Key="InvalidHeightMessage">Height should less than 24 and greater than 9.</s:String>
+    <s:String x:Key="InvalidWidthMessage">Width should less than 30 and greater than 9.</s:String>
+    <s:String x:Key="InvalidMinesMessage">Mines amount should less than the size of the area and greater than 10.</s:String>
+    <s:String x:Key="HistoryNotExistMessage">The game history folder doesn't exists.</s:String>
+</ResourceDictionary>

@@ -11,45 +11,45 @@
         SizeToContent="WidthAndHeight"
         ShowInTaskbar="False"
         ResizeMode="NoResize"
-        Title="Clear Mine - Options">
+        Title="{DynamicResource OptionsDialogTitle}">
     <Window.Resources>
         <c:DifficultyToBooleanConverter x:Key="DifficultyToBooleanConverter" />
     </Window.Resources>
     <DockPanel Margin="12">
         <DockPanel LastChildFill="False"
                    DockPanel.Dock="Bottom">
-            <Button Content="Cancel"
+            <Button Content="{DynamicResource CancelButtonLabel}"
                     IsCancel="True"
                     Command="Close"
                     DockPanel.Dock="Right" />
-            <Button Content="OK"
+            <Button Content="{DynamicResource OKButtonLabel}"
                     IsDefault="True"
                     Command="Save"
                     DockPanel.Dock="Right"
                     Margin="0,0,7,0" />
         </DockPanel>
-        <GroupBox Header="Diffculty settings"
+        <GroupBox Header="{DynamicResource DifficultySettingsGroupLabel}"
                   Style="{StaticResource SeparatorGroupBoxStyle}"
                   DockPanel.Dock="Top">
             <DockPanel>
                 <StackPanel Orientation="Horizontal"
                             Margin="0,0,0,7"
                             DockPanel.Dock="Top">
-                    <RadioButton Content="_Beginner"
+                    <RadioButton Content="{DynamicResource BeginnerLevelLabel}"
                                  Margin="0,0,7,0"
                                  IsChecked="{Binding Difficulty, Converter={StaticResource DifficultyToBooleanConverter}, ConverterParameter=Beginner}"
                                  GroupName="difficulty" />
-                    <RadioButton Content="_Intermediate"
+                    <RadioButton Content="{DynamicResource IntermediateLevelLabel}"
                                  Margin="0,0,7,0"
                                  IsChecked="{Binding Difficulty, Converter={StaticResource DifficultyToBooleanConverter}, ConverterParameter=Intermediate}"
                                  GroupName="difficulty" />
-                    <RadioButton Content="_Advanced"
+                    <RadioButton Content="{DynamicResource AdvancedLevelLabel}"
                                  IsChecked="{Binding Difficulty, Converter={StaticResource DifficultyToBooleanConverter}, ConverterParameter=Advanced}"
                                  GroupName="difficulty" />
                 </StackPanel>
                 <DockPanel>
                     <RadioButton x:Name="customChecker"
-                                 Content="_Custom:"
+                                 Content="{DynamicResource CustomDifficultyLabel}"
                                  Margin="0,0,0,5"
                                  DockPanel.Dock="Top"
                                  IsChecked="{Binding Difficulty, Converter={StaticResource DifficultyToBooleanConverter}, ConverterParameter=Custom}"
@@ -68,11 +68,11 @@
                             <RowDefinition Height="Auto" />
                             <RowDefinition Height="*" />
                         </Grid.RowDefinitions>
-                        <Label Content="_Height (9-24):"
+                        <Label Content="{DynamicResource CustomHeightLabel}"
                                Grid.Row="0" />
-                        <Label Content="_Width (9-30):"
+                        <Label Content="{DynamicResource CustomWidthLabel}"
                                Grid.Row="2" />
-                        <Label Content="_Mines (10-668):"
+                        <Label Content="{DynamicResource CustomMinesLabel}"
                                Margin="0,0,5,0"
                                Grid.Row="4" />
                         <TextBox Grid.Column="1"
@@ -97,47 +97,47 @@
                 </DockPanel>
             </DockPanel>
         </GroupBox>
-        <GroupBox Header="Effect settings"
+        <GroupBox Header="{DynamicResource GameEffectGroupLabel}"
                   DockPanel.Dock="Top"
                   Style="{StaticResource SeparatorGroupBoxStyle}">
             <WrapPanel>
-                <CheckBox Content="Play Sound"
+                <CheckBox Content="{DynamicResource PlaySoundLabel}"
                           Margin="0,0,12,0"
                           IsChecked="{Binding PlaySound}"
                           DockPanel.Dock="Top" />
-                <CheckBox Content="Play Animation"
+                <CheckBox Content="{DynamicResource PlayAnimationLabel}"
                           DockPanel.Dock="Top"
                           IsChecked="{Binding PlayAnimation}" />
             </WrapPanel>
         </GroupBox>
-        <GroupBox Header="Control settings"
+        <GroupBox Header="{DynamicResource GameControlGroupLabel}"
                   DockPanel.Dock="Top"
                   Style="{StaticResource SeparatorGroupBoxStyle}">
             <StackPanel>
-                <CheckBox Content="Show question(?) mark"
+                <CheckBox Content="{DynamicResource ShowQuestionMarkLabel}"
                           IsChecked="{Binding ShowQuestionMark}"
                           Margin="0,0,0,5" />
-                <CheckBox Content="Always disgards current game when new game"
+                <CheckBox Content="{DynamicResource AlwaysNewGameLabel}"
                           IsChecked="{Binding AlwaysNewGame}"
                           Margin="0,0,0,5" />
-                <CheckBox Content="Always save game on exit"
+                <CheckBox Content="{DynamicResource AlwaysSaveGameLabel}"
                           IsChecked="{Binding SaveOnExit}"
                           Margin="0,0,0,5" />
-                <CheckBox Content="Always continue saved game"
+                <CheckBox Content="{DynamicResource AlwaysContinueGameLabel}"
                           IsChecked="{Binding AutoContinueSaved}" />
             </StackPanel>
         </GroupBox>
-        <GroupBox Header="History settings"
+        <GroupBox Header="{DynamicResource GameHistoryGroupLabel}"
                   Margin="0,0,0,12"
                   DockPanel.Dock="Top"
                   Style="{StaticResource SeparatorGroupBoxStyle}">
             <StackPanel>
                 <DockPanel Margin="0,0,12,0">
-                    <CheckBox Content="_Save game history:"
+                    <CheckBox Content="{DynamicResource SaveGameHistoryLabel}"
                               DockPanel.Dock="Top"
                               Margin="0,0,0,5"
                               IsChecked="{Binding SaveGame}" />
-                    <Button Content="Browse..."
+                    <Button Content="{DynamicResource BrowseGameHistoryLabel}"
                             Margin="5,0,0,0"
                             DockPanel.Dock="Right"
                             Command="{x:Static h:OptionsCommands.BrowseHistory}" />

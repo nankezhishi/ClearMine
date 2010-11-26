@@ -3,15 +3,15 @@
               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
               WindowStartupLocation="CenterOwner"
-              Message="Sorry, you lost this game. Better luck next time!"
-              Title="Clear Mine - Lost">
+              Message="{DynamicResource GameLostMessage}"
+              Title="{DynamicResource GameLostDialogTitle}">
     <OptionDialog.Options>
         <x:Array Type="{x:Type Button}">
             <Button Margin="0,0,7,0"
-                    Content="_Try it again"
+                    Content="{DynamicResource TryAgainLabel}"
                     Click="OnTryAgainClick" />
             <Button IsDefault="True"
-                    Content="Start _new game"
+                    Content="{DynamicResource StartNewGameLabel}"
                     Click="OnNewGameButtonClick" />
         </x:Array>
     </OptionDialog.Options>

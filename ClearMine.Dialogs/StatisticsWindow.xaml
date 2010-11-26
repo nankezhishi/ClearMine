@@ -10,7 +10,7 @@
         SizeToContent="WidthAndHeight"
         ShowInTaskbar="False"
         ResizeMode="NoResize"
-        Title="Clear Mine - Statistics">
+        Title="{DynamicResource StatisticsDialogTitle}">
     <DockPanel Margin="12">
         <DockPanel DockPanel.Dock="Top" Margin="0,0,0,12">
             <ListBox ItemsSource="{Binding HistoryList}"
@@ -40,13 +40,13 @@
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-                <Label Margin="0,0,12,0" Grid.Row="0" Content="Game played:" />
-                <Label Margin="0,0,12,0" Grid.Row="2" Content="Game won:" />
-                <Label Margin="0,0,12,0" Grid.Row="4" Content="Game won percentage:" />
-                <Label Margin="0,0,12,0" Grid.Row="6" Content="Longest winning streak:" />
-                <Label Margin="0,0,12,0" Grid.Row="8" Content="Longest losing streak:" />
-                <Label Margin="0,0,12,0" Grid.Row="10" Content="Current streak:" />
-                <Label Margin="0,0,12,0" Grid.Row="12" Content="Average score:" />
+                <Label Margin="0,0,12,0" Grid.Row="0" Content="{DynamicResource GamePlayedLabel}" />
+                <Label Margin="0,0,12,0" Grid.Row="2" Content="{DynamicResource GameWonLabel}" />
+                <Label Margin="0,0,12,0" Grid.Row="4" Content="{DynamicResource GameWonRateLabel}" />
+                <Label Margin="0,0,12,0" Grid.Row="6" Content="{DynamicResource WinningStreakLabel}" />
+                <Label Margin="0,0,12,0" Grid.Row="8" Content="{DynamicResource LosingStreakLabel}" />
+                <Label Margin="0,0,12,0" Grid.Row="10" Content="{DynamicResource CurrentStreakLabel}" />
+                <Label Margin="0,0,12,0" Grid.Row="12" Content="{DynamicResource AverageScoreLabel}" />
                 <TextBlock Grid.Column="1" Grid.Row="0" TextAlignment="Right" Text="{Binding GamePlayed}" />
                 <TextBlock Grid.Column="1" Grid.Row="2" TextAlignment="Right" Text="{Binding GameWon}" />
                 <TextBlock Grid.Column="1" Grid.Row="4" TextAlignment="Right" Text="{Binding GameWonPercentage, StringFormat={}{0:P}}" />
@@ -57,15 +57,15 @@
             </Grid>
         </DockPanel>
         <DockPanel DockPanel.Dock="Bottom" LastChildFill="False">
-            <Button Content="_Reset"
+            <Button Content="{DynamicResource ResetButtonLabel}"
                     CommandParameter="{Binding HistoryList}"
                     Command="{x:Static h:StatisticsCommands.Reset}" />
-            <Button Content="OK" IsDefault="True"
+            <Button Content="{DynamicResource OKButtonLabel}" IsDefault="True"
                     IsCancel="True" DockPanel.Dock="Right" />
         </DockPanel>
         <DockPanel DataContext="{Binding HistoryList}" Margin="0,0,0,16">
             <Label DockPanel.Dock="Top" Margin="0,0,0,5"
-                   Content="_Play history of selected level:" />
+                   Content="{DynamicResource PlayedHistoryLabel}" />
             <ListView DataContext="{Binding /}"
                       ItemsSource="{Binding Items}"
                       Height="150" Loaded="OnHistoryListLoaded"
@@ -91,10 +91,10 @@
                 </ListView.ItemContainerStyle>
                 <ListView.View>
                     <GridView>
-                        <GridViewColumn Header="Score" Width="50"
+                        <GridViewColumn Header="{DynamicResource PlayedHistoryScoreColumnLabel}" Width="50"
                                         b:SortableListViewBehavior.SortField="Score"
                                         DisplayMemberBinding="{Binding Score, StringFormat=0.00}" />
-                        <GridViewColumn Header="Date" Width="160"
+                        <GridViewColumn Header="{DynamicResource PlayedHistoryDateColumnLabel}" Width="160"
                                         b:SortableListViewBehavior.SortField="Date"
                                         DisplayMemberBinding="{Binding Date}" />
                     </GridView>

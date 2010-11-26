@@ -1,5 +1,8 @@
 ﻿namespace ClearMine.VM.Commands
 {
+    using System;
+    using System.Diagnostics;
+    using System.Globalization;
     using System.Windows;
     using System.Windows.Input;
 
@@ -7,7 +10,6 @@
     using ClearMine.Common.Properties;
     using ClearMine.Framework.Commands;
     using ClearMine.UI.Dialogs;
-    using System.Diagnostics;
 
     public static class GameCommandBindings
     {
@@ -121,6 +123,32 @@
         {
             e.CanExecute = true;
         }
+        #endregion
+
+        #region Switch Language Command
+
+        private static CommandBinding switchLanguageBinding = new CommandBinding(GameCommands.SwitchLanguage,
+            new ExecutedRoutedEventHandler(OnSwitchLanguageExecuted), new CanExecuteRoutedEventHandler(OnSwitchLanguageCanExecute));
+
+        public static CommandBinding SwitchLanguageBinding
+        {
+            get { return switchLanguageBinding; }
+        }
+
+        private static void OnSwitchLanguageExecuted(object sender, ExecutedRoutedEventArgs e)
+        {
+            ResourceDictionary languageDictionary = new ResourceDictionary()
+            {
+                Source = new Uri(String.Format(CultureInfo.InvariantCulture, "/ClearMine.Localization;component/{0}/Overall.xaml", e.Parameter.ToString()), UriKind.RelativeOrAbsolute)
+            };
+            Application.Current.Resources.MergedDictionaries[0] = languageDictionary;
+        }
+
+        private static void OnSwitchLanguageCanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = true;
+        } 
+
         #endregion
     }
 }

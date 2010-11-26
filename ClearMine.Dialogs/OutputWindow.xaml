@@ -6,17 +6,17 @@
         ShowActivated="False"
         WindowStyle="ToolWindow"
         Width="300" Height="300"
-        Title="Clear Mine - Log">
+        Title="{DynamicResource OutputDialogTitle}">
     <TextBox x:Name="logBox"
              IsReadOnly="True"
              VerticalScrollBarVisibility="Auto">
         <TextBox.ContextMenu>
             <ContextMenu>
-                <MenuItem Command="Copy"
+                <MenuItem Command="{DynamicResource CopyCommandLabel}"
                           CommandTarget="{x:Reference logBox}"
                           Header="Copy" />
                 <Separator />
-                <MenuItem Header="Clear"
+                <MenuItem Header="{DynamicResource ClearCommandLabel}"
                           Click="OnClearClick" />
             </ContextMenu>
         </TextBox.ContextMenu>

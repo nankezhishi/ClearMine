@@ -3,7 +3,6 @@
     using System;
     using System.Collections.Generic;
     using System.ComponentModel;
-    using System.Diagnostics.Contracts;
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
@@ -103,8 +102,6 @@
         /// <param name="cell"></param>
         internal void ClearMineAround(MineCell cell)
         {
-            Contract.Requires<ArgumentNullException>(cell != null);
-
             var updateList = new List<MineCell>();
 
             foreach (MineCell cellHasMine in GetCellsAround(cell, null).Union(new[] { cell }).Where(c => c.HasMine))
@@ -156,8 +153,6 @@
         /// <returns>All the cells that Expanded.</returns>
         internal IEnumerable<MineCell> ExpandFrom(MineCell current)
         {
-            Contract.Requires<ArgumentNullException>(current != null);
-
             if (current.State != CellState.Shown)
             {
                 current.State = CellState.Shown;
@@ -196,8 +191,6 @@
         /// <returns>The number of cells that has no mines around from the current mine cell.</returns>
         internal IEnumerable<MineCell> TryExpandFrom(MineCell current)
         {
-            Contract.Requires<ArgumentNullException>(current != null);
-
             if (current.State == CellState.Shown)
             {
                 var cellsNearBy = GetCellsAround(current, cell => cell.State != CellState.Shown);
@@ -279,8 +272,6 @@
 
         internal int GetMinesCountNearBy(MineCell cell)
         {
-            Contract.Requires<ArgumentNullException>(cell != null);
-
             return GetCellsAround(cell, c => c.HasMine).Count();
         }
 

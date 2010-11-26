@@ -104,7 +104,6 @@
     <Compile Include="Logic\ExpandFailedException.cs" />
     <Compile Include="Logic\GameState.cs" />
     <Compile Include="Logic\IClearMine.cs" />
-    <Compile Include="Logic\IClearMineContracts.cs" />
     <Compile Include="Logic\MineCell.cs" />
     <Compile Include="Log\RedirectorTraceListener.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -123,6 +122,12 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ClearMine.Localization\ClearMine.Localization.csproj">
+      <Project>{71C67E90-41FD-457E-B155-1EBE7396024A}</Project>
+      <Name>ClearMine.Localization</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
