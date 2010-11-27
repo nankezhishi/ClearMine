@@ -141,7 +141,7 @@
                             Margin="5,0,0,0"
                             DockPanel.Dock="Right"
                             Command="{x:Static h:OptionsCommands.BrowseHistory}" />
-                    <TextBox Margin="18,0,0,0"
+                    <TextBox Margin="18,0,0,0" MinWidth="150"
                              Text="{Binding GameHistoryFolder, ValidatesOnDataErrors=True, ValidatesOnExceptions=True, NotifyOnValidationError=True}"
                              IsEnabled="{Binding SaveGame}" />
                 </DockPanel>

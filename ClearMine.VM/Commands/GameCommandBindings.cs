@@ -1,14 +1,15 @@
 ﻿namespace ClearMine.VM.Commands
 {
     using System;
-    using System.Diagnostics;
     using System.Globalization;
     using System.Windows;
     using System.Windows.Input;
 
     using ClearMine.Common;
     using ClearMine.Common.Properties;
+    using ClearMine.Common.Utilities;
     using ClearMine.Framework.Commands;
+    using ClearMine.Localization;
     using ClearMine.UI.Dialogs;
 
     public static class GameCommandBindings
@@ -92,9 +93,7 @@
 
         private static void OnFeedbackExecuted(object sender, ExecutedRoutedEventArgs e)
         {
-            Process p = new Process();
-            p.StartInfo.FileName = "mailto: nankezhishi@hotmail.com?subject=Clear Mine Feedback&body=Hi";
-            p.Start();
+            EmailHelper.Send("hi", LocalizationHelper.FindText("ClearMineFeedbackTitle"), "nankezhishi@hotmail.com");
         }
 
         private static void OnFeedbackCanExecute(object sender, CanExecuteRoutedEventArgs e)

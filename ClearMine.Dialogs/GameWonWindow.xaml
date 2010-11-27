@@ -7,6 +7,7 @@
               WindowStartupLocation="CenterOwner"
               Message="{Binding Message, Mode=OneWay}"
               Content="{Binding Details, Mode=OneWay}"
+              ExpanderMessage="{DynamicResource MoreDetailsMessage}"
               Title="{DynamicResource GameWonDialogTitle}">
     <OptionDialog.Options>
         <x:Array Type="{x:Type Button}">

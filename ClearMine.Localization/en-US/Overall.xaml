@@ -12,6 +12,11 @@
     <s:String x:Key="GameCopyRight">Hugo Gu All Rights Reserved.</s:String>
     <s:String x:Key="SavedGameFilter">ClearMine Saved Game File (*.cmg)|*.cmg</s:String>
     
+    <!-- Difficulties -->
+    <s:String x:Key="Beginner">Beginner</s:String>
+    <s:String x:Key="Intermediate">Intermediate</s:String>
+    <s:String x:Key="Advanced">Advanced</s:String>
+    
     <!-- Main Window -->
     <s:String x:Key="ApplicationTitle">Clear Mine</s:String>
     <s:String x:Key="GameMenuHeader">Game</s:String>
@@ -34,6 +39,7 @@
     <s:String x:Key="AboutMenuItemHeader">About</s:String>
     <s:String x:Key="AskingSaveGameMessage">Do you want to save the game?</s:String>
     <s:String x:Key="AskingSaveGameTitle">Clear Mine - Save</s:String>
+    <s:String x:Key="ClearMineFeedbackTitle">Clear Mine Player Feedback</s:String>
     <s:String x:Key="CorruptedSavedGameMessage">The saved game has been modified to an incorrect state. Please try to fix it and open again.</s:String>
     <s:String x:Key="CorruptedSavedGameTitle">Clear Mine - Corrupted game file</s:String>
 
@@ -48,6 +54,7 @@
     <s:String x:Key="ExitGameLabel">E_xit</s:String>
     <s:String x:Key="StartNewGameLabel">Start _new game</s:String>
     <s:String x:Key="GameWonMessage">Congratulations, you won the game!</s:String>
+    <s:String x:Key="MoreDetailsMessage">Show more details</s:String>
 
     <!-- Game Lost Dialog -->
     <s:String x:Key="GameLostDialogTitle">Clear Mine - Lost</s:String>
@@ -100,4 +107,13 @@
     <s:String x:Key="InvalidWidthMessage">Width should less than 30 and greater than 9.</s:String>
     <s:String x:Key="InvalidMinesMessage">Mines amount should less than the size of the area and greater than 10.</s:String>
     <s:String x:Key="HistoryNotExistMessage">The game history folder doesn't exists.</s:String>
+    
+    <!-- Exception Dialog -->
+    <s:String x:Key="ExceptionBoxTitle">Clear Mine - Exception</s:String>
+    <s:String x:Key="IgnoreExceptionButtonLabel">Ignore it</s:String>
+    <s:String x:Key="IgnoreExceptionButtonToolTip">Clear Mine may not be able to run properly if you ignore it and continue playing.</s:String>
+    <s:String x:Key="ShutdownButtonLabel">Exit game</s:String>
+    <s:String x:Key="ExceptionBoxExpanderLabel">Show more details</s:String>
+    <s:String x:Key="SendExceptionReportLabel">Send exception report</s:String>
+    <s:String x:Key="ExceptionReportTitle">Clear Mine Exception Report</s:String>
 </ResourceDictionary>

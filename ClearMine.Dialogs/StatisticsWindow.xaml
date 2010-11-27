@@ -14,7 +14,7 @@
     <DockPanel Margin="12">
         <DockPanel DockPanel.Dock="Top" Margin="0,0,0,12">
             <ListBox ItemsSource="{Binding HistoryList}"
-                     DisplayMemberPath="Level"
+                     DisplayMemberPath="LevelForDisplay"
                      SelectedValuePath="Level"
                      SelectedValue="{Binding SelectedLevel}"
                      IsSynchronizedWithCurrentItem="True"
@@ -60,15 +60,18 @@
             <Button Content="{DynamicResource ResetButtonLabel}"
                     CommandParameter="{Binding HistoryList}"
                     Command="{x:Static h:StatisticsCommands.Reset}" />
-            <Button Content="{DynamicResource OKButtonLabel}" IsDefault="True"
-                    IsCancel="True" DockPanel.Dock="Right" />
+            <Button Content="{DynamicResource OKButtonLabel}"
+                    IsDefault="True"
+                    IsCancel="True"
+                    DockPanel.Dock="Right" />
         </DockPanel>
-        <DockPanel DataContext="{Binding HistoryList}" Margin="0,0,0,16">
+        <DockPanel DataContext="{Binding HistoryList}"
+                   Margin="0,0,0,16">
             <Label DockPanel.Dock="Top" Margin="0,0,0,5"
                    Content="{DynamicResource PlayedHistoryLabel}" />
             <ListView DataContext="{Binding /}"
                       ItemsSource="{Binding Items}"
-                      Height="150" Loaded="OnHistoryListLoaded"
+                      Height="150"
                       IsSynchronizedWithCurrentItem="True">
                 <ListView.Resources>
                     <Style TargetType="{x:Type TextBlock}">

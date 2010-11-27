@@ -9,6 +9,7 @@
 
     using ClearMine.Common.ComponentModel;
     using ClearMine.Common.Utilities;
+    using ClearMine.Localization;
 
     [Serializable]
     [XmlRoot("record")]
@@ -40,6 +41,12 @@
 
         [XmlAttribute("level")]
         public Difficulty Level { get; set; }
+
+        [XmlIgnore]
+        public string LevelForDisplay
+        {
+            get { return LocalizationHelper.FindText(Level.ToString()); }
+        }
 
         [XmlAttribute("played")]
         public int GamePlayed { get; set; }

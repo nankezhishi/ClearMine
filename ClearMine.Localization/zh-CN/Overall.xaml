@@ -12,6 +12,11 @@
     <s:String x:Key="GameCopyRight">谷强强 版权所有.</s:String>
     <s:String x:Key="SavedGameFilter">扫雷存档 (*.cmg)|*.cmg</s:String>
 
+    <!-- Difficulties -->
+    <s:String x:Key="Beginner">初级</s:String>
+    <s:String x:Key="Intermediate">中级</s:String>
+    <s:String x:Key="Advanced">高级</s:String>
+
     <!-- Main Window -->
     <s:String x:Key="ApplicationTitle">扫雷</s:String>
     <s:String x:Key="GameMenuHeader">游戏</s:String>
@@ -34,6 +39,7 @@
     <s:String x:Key="AboutMenuItemHeader">关于扫雷</s:String>
     <s:String x:Key="AskingSaveGameMessage">要保存游戏吗?</s:String>
     <s:String x:Key="AskingSaveGameTitle">扫雷 - 保存</s:String>
+    <s:String x:Key="ClearMineFeedbackTitle">扫雷玩家反馈</s:String>
     <s:String x:Key="CorruptedSavedGameMessage">游戏存档文件存在错误。请还原所做修改后再尝试打开。</s:String>
     <s:String x:Key="CorruptedSavedGameTitle">扫雷 - 存档文件错误</s:String>
 
@@ -48,6 +54,7 @@
     <s:String x:Key="ExitGameLabel">退出(_X)</s:String>
     <s:String x:Key="StartNewGameLabel">再来一局(_N)</s:String>
     <s:String x:Key="GameWonMessage">恭喜你，本局扫雷胜利结束!</s:String>
+    <s:String x:Key="MoreDetailsMessage">显示更多信息</s:String>
 
     <!-- Game Lost Dialog -->
     <s:String x:Key="GameLostDialogTitle">扫雷 - 失败</s:String>
@@ -100,4 +107,13 @@
     <s:String x:Key="InvalidWidthMessage">宽度应当介于9到30之间。</s:String>
     <s:String x:Key="InvalidMinesMessage">地雷总数应当介于10到雷区大小之间</s:String>
     <s:String x:Key="HistoryNotExistMessage">游戏历史文件夹不存在。</s:String>
+
+    <!-- Exception Dialog -->
+    <s:String x:Key="ExceptionBoxTitle">扫雷 - 异常</s:String>
+    <s:String x:Key="IgnoreExceptionButtonLabel">忽略</s:String>
+    <s:String x:Key="IgnoreExceptionButtonToolTip">你可以选择忽略此异常，但是程序可能无法继续正常运行。</s:String>
+    <s:String x:Key="ShutdownButtonLabel">退出游戏</s:String>
+    <s:String x:Key="ExceptionBoxExpanderLabel">显示详情</s:String>
+    <s:String x:Key="SendExceptionReportLabel">发送异常报告</s:String>
+    <s:String x:Key="ExceptionReportTitle">扫雷异常报告</s:String>
 </ResourceDictionary>

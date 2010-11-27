@@ -8,7 +8,7 @@
     {
         private Random random = new Random();
 
-        public void Fill(MinesGrid grid, int mines, MineCell noMineCell = null)
+        public void Fill(MinesGrid grid, int mines)
         {
             if (mines > grid.Size.Height * grid.Size.Width)
             {
@@ -21,14 +21,14 @@
             // While, 0.5 is a guess.
             if (mines > grid.Size.Height * grid.Size.Width * 0.5)
             {
-                #region A mutation of Reservoir Sampling Algorithm
+                #region A MUTATION of Reservoir Sampling Algorithm
                 ///////////////////////////////////////////////////////////////////////////////
                 //               Reservoir Sampling Algorithm and this mutation. 
                 //
                 // The original algorithm choose k element from a list and place them at the beginning of the list.
                 // For more information of the original version. http://en.wikipedia.org/wiki/Reservoir_sampling
                 //
-                // This mutation place sepecified k elements to a randomly position.
+                // This MUTATION place sepecified k elements to a randomly position.
                 // That is, place <param>mines</param> in the <param>grid</param> randomly with equal posibility.
                 // This method gives a better avg performance. Espicailly when there are a lot of mines.
                 // Anyway, this will not be the bottolneck of this game.
@@ -66,7 +66,7 @@
                     // Found an empty cell
                     // When mines to fill, near the size of the grid.
                     // There will be many times re-try that cause performance issues.
-                    if (!grid[index].HasMine && grid[index] != noMineCell)
+                    if (!grid[index].HasMine)
                     {
                         grid[index].HasMine = true;
                         --minesToGenerate;

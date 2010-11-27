@@ -84,24 +84,23 @@
                                        Margin="0,12,12,12"
                                        Foreground="#FF003399" />
                         </DockPanel>
-                        <con:AutoTransformPanel DockPanel.Dock="Bottom">
-                            <DockPanel LastChildFill="False"
-                                       Background="#FFF0F0F0">
-                                <Expander x:Name="detailExpander"
-                                          Header="Show more details"
-                                          Margin="12"
-                                          Visibility="{Binding Content, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource ObjectToVisibilityConverter}}" />
-                                <ItemsControl DockPanel.Dock="Right"
-                                              Margin="0,12,12,12"
-                                              ItemsSource="{TemplateBinding Options}">
-                                    <ItemsControl.ItemsPanel>
-                                        <ItemsPanelTemplate>
-                                            <VirtualizingStackPanel Orientation="Horizontal" />
-                                        </ItemsPanelTemplate>
-                                    </ItemsControl.ItemsPanel>
-                                </ItemsControl>
-                            </DockPanel>
-                        </con:AutoTransformPanel>
+                        <DockPanel LastChildFill="False"
+                                   Background="#FFF0F0F0"
+                                   DockPanel.Dock="Bottom">
+                            <Expander x:Name="detailExpander"
+                                      Header="{TemplateBinding ExpanderMessage}"
+                                      Margin="12"
+                                      Visibility="{Binding Content, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource ObjectToVisibilityConverter}}" />
+                            <ItemsControl DockPanel.Dock="Right"
+                                          Margin="0,12,12,12"
+                                          ItemsSource="{TemplateBinding Options}">
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <VirtualizingStackPanel Orientation="Horizontal" />
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                            </ItemsControl>
+                        </DockPanel>
                         <Separator x:Name="separator" Margin="0"
                                    DockPanel.Dock="Bottom"
                                    Foreground="#FFDFDFDF" />

@@ -5,6 +5,7 @@
     using System.Windows.Threading;
 
     using ClearMine.Common.Properties;
+    using ClearMine.Framework.Dialogs;
     using ClearMine.UI.Dialogs;
 
     /// <summary>
@@ -20,7 +21,6 @@
             Exit += new ExitEventHandler(OnApplicationExit);
             Settings.Default.PropertyChanged += new PropertyChangedEventHandler(OnSettingsChanged);
             Settings.Default.SettingsSaving += new System.Configuration.SettingsSavingEventHandler(OnSavingSettings);
-
             var mainWindow = new ClearMineWindow();
             mainWindow.Show();
         }
@@ -45,11 +45,7 @@
 
         private void OnCurrentDispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
         {
-            MessageBox.Show(e.Exception.Message, "Exception");
-            if (MainWindow != null)
-            {
-                e.Handled = true;
-            }
+            e.Handled = ExceptionBox.Show(e.Exception).Value;
         }
     }
 }

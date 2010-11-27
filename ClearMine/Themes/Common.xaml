@@ -3,6 +3,7 @@
                     xmlns:con="clr-namespace:ClearMine.UI.Converters"
                     xmlns:logic="clr-namespace:ClearMine.Common.Logic;assembly=ClearMine.Common">
     <con:PlaygroundBorderThicknessConverter x:Key="PlaygroundBorderThicknessConverter" />
+    <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
     <DataTemplate DataType="{x:Type logic:MineCell}">
         <MineCellControl />
     </DataTemplate>

@@ -1,10 +1,10 @@
 ﻿namespace ClearMine.Framework.Dialogs
 {
+    using System;
     using System.Collections;
     using System.Windows;
     using System.Windows.Media;
     using System.Windows.Media.Animation;
-    using System;
 
     public class OptionDialog : Window
     {
@@ -25,21 +25,7 @@
 
         // Using a DependencyProperty as the backing store for ImageSource.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty ImageSourceProperty =
-            DependencyProperty.Register("ImageSource", typeof(ImageSource), typeof(OptionDialog), new UIPropertyMetadata(new PropertyChangedCallback(OnImageSourcePropertyChanged)));
-
-        private static void OnImageSourcePropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
-        {
-            OptionDialog instance = sender as OptionDialog;
-            if (instance != null)
-            {
-                instance.OnImageSourceChanged(e);
-            }
-        }
-
-        protected virtual void OnImageSourceChanged(DependencyPropertyChangedEventArgs e)
-        {
-
-        }
+            DependencyProperty.Register("ImageSource", typeof(ImageSource), typeof(OptionDialog), new UIPropertyMetadata());
         #endregion
         #region Message Property
         /// <summary>
@@ -53,21 +39,7 @@
 
         // Using a DependencyProperty as the backing store for Message.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty MessageProperty =
-            DependencyProperty.Register("Message", typeof(string), typeof(OptionDialog), new UIPropertyMetadata(new PropertyChangedCallback(OnMessagePropertyChanged)));
-
-        private static void OnMessagePropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
-        {
-            OptionDialog instance = sender as OptionDialog;
-            if (instance != null)
-            {
-                instance.OnMessageChanged(e);
-            }
-        }
-
-        protected virtual void OnMessageChanged(DependencyPropertyChangedEventArgs e)
-        {
-
-        }
+            DependencyProperty.Register("Message", typeof(string), typeof(OptionDialog), new UIPropertyMetadata());
         #endregion
         #region Options Property
         /// <summary>
@@ -81,21 +53,19 @@
 
         // Using a DependencyProperty as the backing store for Options.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty OptionsProperty =
-            DependencyProperty.Register("Options", typeof(IEnumerable), typeof(OptionDialog), new UIPropertyMetadata(new PropertyChangedCallback(OnOptionsPropertyChanged)));
+            DependencyProperty.Register("Options", typeof(IEnumerable), typeof(OptionDialog), new UIPropertyMetadata());
+        #endregion
 
-        private static void OnOptionsPropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
+        #region ExpanderMessage
+        public string ExpanderMessage
         {
-            OptionDialog instance = sender as OptionDialog;
-            if (instance != null)
-            {
-                instance.OnOptionsChanged(e);
-            }
+            get { return (string)GetValue(ExpanderMessageProperty); }
+            set { SetValue(ExpanderMessageProperty, value); }
         }
 
-        protected virtual void OnOptionsChanged(DependencyPropertyChangedEventArgs e)
-        {
-
-        }
+        // Using a DependencyProperty as the backing store for ExpanderMessage.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty ExpanderMessageProperty =
+            DependencyProperty.Register("ExpanderMessage", typeof(string), typeof(OptionDialog), new UIPropertyMetadata());
         #endregion
     }
 }
