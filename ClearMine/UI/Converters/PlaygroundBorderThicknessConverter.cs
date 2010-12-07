@@ -5,7 +5,7 @@
     using System.Windows;
     using System.Windows.Data;
 
-    internal class PlaygroundBorderThicknessConverter : IMultiValueConverter
+    public class PlaygroundBorderThicknessConverter : IMultiValueConverter
     {
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {

@@ -165,16 +165,16 @@
             AverageScore = 0;
 
             // Update UI after reset.
-            OnPropertyChanged("Items");
-            OnPropertyChanged("GamePlayed");
-            OnPropertyChanged("GameWon");
-            OnPropertyChanged("GameLost");
-            OnPropertyChanged("LogestLosing");
-            OnPropertyChanged("LongestWinning");
-            OnPropertyChanged("CurrentStatus");
-            OnPropertyChanged("EverageScore");
-            OnPropertyChanged("GameWonPercentage");
-            OnPropertyChanged("GameLostPercentage");
+            TriggerPropertyChanged("Items");
+            TriggerPropertyChanged("GamePlayed");
+            TriggerPropertyChanged("GameWon");
+            TriggerPropertyChanged("GameLost");
+            TriggerPropertyChanged("LogestLosing");
+            TriggerPropertyChanged("LongestWinning");
+            TriggerPropertyChanged("CurrentStatus");
+            TriggerPropertyChanged("EverageScore");
+            TriggerPropertyChanged("GameWonPercentage");
+            TriggerPropertyChanged("GameLostPercentage");
         }
     }
 

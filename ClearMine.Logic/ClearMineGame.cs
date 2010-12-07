@@ -330,7 +330,7 @@
 
         private void OnTick(object sender, EventArgs e)
         {
-            OnPropertyChanged("UsedTime");
+            TriggerPropertyChanged("UsedTime");
             var temp = TimeChanged;
             if (temp != null)
             {

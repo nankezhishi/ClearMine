@@ -1,4 +1,4 @@
-﻿<Window x:Class="ClearMine.UI.Dialogs.ClearMineWindow" x:ClassModifier="internal"
+﻿<Window x:Class="ClearMine.UI.Dialogs.ClearMineWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:c="clr-namespace:ClearMine.UI.Converters"
@@ -8,11 +8,9 @@
         h:CommandsHelper.LoadBindingsFromVM="True"
         TextOptions.TextFormattingMode="Display"
         WindowStartupLocation="CenterScreen"
-        StateChanged="OnStateChanged"
         SnapsToDevicePixels="True"
         Background="Silver"
         Title="{DynamicResource ApplicationTitle}"
-        Loaded="OnLoaded"
         Height="640"
         Width="600">
     <Grid>
@@ -107,9 +105,12 @@
                     </MultiBinding>
                 </Border.BorderThickness>
                 <ItemsControl x:Name="cellsPanel"
-                              ItemsSource="{Binding Cells}"
-                              MouseDown="OnMineGroudMouseDown"
-                              MouseUp="OnMineGroudMouseUp">
+                              ItemsSource="{Binding Cells}">
+                    <Interaction.Behaviors>
+                        <BehaviorCollection>
+                            <MainInteractionBehavior />
+                        </BehaviorCollection>
+                    </Interaction.Behaviors>
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
                             <MinesPanel Rows="{Binding Rows}"

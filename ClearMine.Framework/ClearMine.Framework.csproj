@@ -116,6 +116,9 @@
       <DependentUpon>ExceptionBox.xaml</DependentUpon>
     </Compile>
     <Compile Include="Dialogs\OptionDialog.cs" />
+    <Compile Include="Interactivity\Behavior.cs" />
+    <Compile Include="Interactivity\BehaviorCollection.cs" />
+    <Compile Include="Interactivity\Interaction.cs" />
     <Compile Include="Media\Player.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
@@ -146,6 +149,7 @@
       <Name>ClearMine.Localization</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -11,7 +11,7 @@
     /// <summary>
     /// Interaction logic for App.xaml
     /// </summary>
-    internal partial class App : Application
+    public partial class App : Application
     {
         public bool IsSettingsDirty { get; set; }
 

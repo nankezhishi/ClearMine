@@ -293,7 +293,7 @@
 
         private void OnSettingsChanged(object sender, PropertyChangedEventArgs e)
         {
-            OnPropertyChanged(e.PropertyName);
+            TriggerPropertyChanged(e.PropertyName);
         }
     }
 }

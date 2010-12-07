@@ -189,10 +189,17 @@
             get { return game.RemainedMines.ToString(CultureInfo.InvariantCulture); }
         }
 
+        public bool IsMousePressed { get; set; }
+
         public Brush NewGameIcon
         {
             get
             {
+                if (IsMousePressed)
+                {
+                    return Application.Current.FindResource("TryFaceBrush") as Brush;
+                }
+
                 if (game.GameState == GameState.Initialized || game.GameState == GameState.Started)
                 {
                     return Application.Current.FindResource("NormalFaceBrush") as Brush;
@@ -306,7 +313,7 @@
                 {
                     // Do nothing.
                 }
-                OnPropertyChanged("RemainedMines");
+                TriggerPropertyChanged("RemainedMines");
             }
         }
 
@@ -328,10 +335,10 @@
 
         public void RefreshUI()
         {
-            OnPropertyChanged("Columns");
-            OnPropertyChanged("Rows");
-            OnPropertyChanged("RemainedMines");
-            OnPropertyChanged("Time");
+            TriggerPropertyChanged("Columns");
+            TriggerPropertyChanged("Rows");
+            TriggerPropertyChanged("RemainedMines");
+            TriggerPropertyChanged("Time");
         }
 
         public override IEnumerable<CommandBinding> GetCommandBindings()
@@ -376,7 +383,7 @@
 
         private void OnGameTimeChanged(object sender, EventArgs e)
         {
-            OnPropertyChanged("Time");
+            TriggerPropertyChanged("Time");
         }
 
         private void OnSettingsChanged(object sender, PropertyChangedEventArgs e)
@@ -386,7 +393,7 @@
                 if (game.GameState == GameState.Initialized)
                 {
                     Initialize();
-                    OnPropertyChanged(e.PropertyName);
+                    TriggerPropertyChanged(e.PropertyName);
                 }
                 else
                 {
@@ -412,8 +419,8 @@
 
         private void OnGameStateChanged(object sender, EventArgs e)
         {
-            OnPropertyChanged("RemainedMines");
-            OnPropertyChanged("NewGameIcon");
+            TriggerPropertyChanged("RemainedMines");
+            TriggerPropertyChanged("NewGameIcon");
             if (game.GameState == GameState.Failed)
             {
                 Player.Play(@".\Sound\Lose.wma");
