@@ -8,7 +8,6 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/ClearMine.Localization;component/en-US/Overall.xaml" />
                 <ResourceDictionary Source="/ClearMine.Themes;component/Themes/Generic.xaml" />
-                <ResourceDictionary Source="Themes\Common.xaml" />
                 <ResourceDictionary Source="/ClearMine.Themes;component/Themes/luna.normalcolor.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>

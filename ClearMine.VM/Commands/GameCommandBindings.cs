@@ -2,8 +2,10 @@
 {
     using System;
     using System.Globalization;
+    using System.Linq;
     using System.Windows;
     using System.Windows.Input;
+    using System.Windows.Markup;
 
     using ClearMine.Common;
     using ClearMine.Common.Properties;
@@ -11,6 +13,7 @@
     using ClearMine.Framework.Commands;
     using ClearMine.Localization;
     using ClearMine.UI.Dialogs;
+    using Microsoft.Win32;
 
     public static class GameCommandBindings
     {
@@ -127,7 +130,8 @@
         #region Switch Language Command
 
         private static CommandBinding switchLanguageBinding = new CommandBinding(GameCommands.SwitchLanguage,
-            new ExecutedRoutedEventHandler(OnSwitchLanguageExecuted), new CanExecuteRoutedEventHandler(OnSwitchLanguageCanExecute));
+            new ExecutedRoutedEventHandler(OnSwitchLanguageExecuted),
+            new CanExecuteRoutedEventHandler(OnSwitchLanguageCanExecute));
 
         public static CommandBinding SwitchLanguageBinding
         {
@@ -136,18 +140,89 @@
 
         private static void OnSwitchLanguageExecuted(object sender, ExecutedRoutedEventArgs e)
         {
-            ResourceDictionary languageDictionary = new ResourceDictionary()
+            var path = String.Empty;
+
+            if (GameCommands.CustomLanguageKey.Equals(e.Parameter.ToString(), StringComparison.Ordinal))
             {
-                Source = new Uri(String.Format(CultureInfo.InvariantCulture, "/ClearMine.Localization;component/{0}/Overall.xaml", e.Parameter.ToString()), UriKind.RelativeOrAbsolute)
-            };
-            Application.Current.Resources.MergedDictionaries[0] = languageDictionary;
+                var openFileDialog = new OpenFileDialog()
+                {
+                    DefaultExt = ".xaml",
+                    CheckFileExists = true,
+                    Multiselect = false,
+                    Filter = LocalizationHelper.FindText("LanguageFileFilter"),
+                };
+                if (openFileDialog.ShowDialog() == true)
+                {
+                    path = openFileDialog.FileName;
+                }
+                else
+                {
+                    return;
+                }
+            }
+            else
+            {
+                path = String.Format(CultureInfo.InvariantCulture,
+                    "/ClearMine.Localization;component/{0}/Overall.xaml", e.Parameter.ToString());
+            }
+
+            try
+            {
+                ResourceDictionary languageDictionary = new ResourceDictionary()
+                {
+                    Source = new Uri(path, UriKind.RelativeOrAbsolute)
+                };
+
+                if (VerifyLanguageResourceFile(Application.Current.Resources.MergedDictionaries[0], languageDictionary))
+                {
+                    Application.Current.Resources.MergedDictionaries[0] = languageDictionary;
+                }
+            }
+            catch (XamlParseException ex)
+            {
+                var message = String.Format(CultureInfo.InvariantCulture, 
+                    LocalizationHelper.FindText("LanguageResourceParseError"), ex.Message);
+                MessageBox.Show(message, LocalizationHelper.FindText("ApplicationTitle"), MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         private static void OnSwitchLanguageCanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
             e.CanExecute = true;
-        } 
+        }
 
         #endregion
+
+        private static bool VerifyLanguageResourceFile(ResourceDictionary existing, ResourceDictionary newResource)
+        {
+            foreach (var resource in newResource.Values)
+            {
+                if (!(resource is string))
+                {
+                    MessageBox.Show(LocalizationHelper.FindText("InvalidLanguageResourceType"),
+                        LocalizationHelper.FindText("ApplicationTitle"), MessageBoxButton.OK, MessageBoxImage.Error);
+                    return false;
+                }
+            }
+
+            var newKeys = newResource.Keys.Cast<string>();
+
+            foreach (var existingKey in existing.Keys)
+            {
+                if (newKeys.Contains(existingKey))
+                {
+                    continue;
+                }
+                else
+                {
+                    string message = String.Format(CultureInfo.InvariantCulture,
+                        LocalizationHelper.FindText("MissingLanguageResourceKey"), existingKey);
+                    MessageBox.Show(message, LocalizationHelper.FindText("ApplicationTitle"), MessageBoxButton.OK, MessageBoxImage.Error);
+                    return false;
+                }
+            }
+
+            return true;
+        }
     }
 }

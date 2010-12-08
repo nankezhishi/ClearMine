@@ -42,7 +42,7 @@
     public abstract class UIElementBehavior<T> : Behavior<T>
         where T : FrameworkElement
     {
-        private bool autoDetatch;
+        private bool autoDetatch = false;
 
         public bool AutoDetatch
         {

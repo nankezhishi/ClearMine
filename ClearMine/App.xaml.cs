@@ -2,11 +2,12 @@
 {
     using System.ComponentModel;
     using System.Windows;
+    using System.Windows.Media;
     using System.Windows.Threading;
 
     using ClearMine.Common.Properties;
     using ClearMine.Framework.Dialogs;
-    using ClearMine.UI.Dialogs;
+    using ClearMine.VM;
 
     /// <summary>
     /// Interaction logic for App.xaml
@@ -21,7 +22,17 @@
             Exit += new ExitEventHandler(OnApplicationExit);
             Settings.Default.PropertyChanged += new PropertyChangedEventHandler(OnSettingsChanged);
             Settings.Default.SettingsSaving += new System.Configuration.SettingsSavingEventHandler(OnSavingSettings);
-            var mainWindow = new ClearMineWindow();
+            var mainWindow = new Window()
+            {
+                DataContext = new ClearMineViewModel(),
+                Width = 640,
+                Height = 480,
+                Background = Brushes.Silver,
+                WindowStartupLocation = WindowStartupLocation.CenterScreen,
+            };
+            TextOptions.SetTextFormattingMode(mainWindow, TextFormattingMode.Display);
+            mainWindow.SetResourceReference(Window.TitleProperty, "ApplicationTitle");
+            mainWindow.SetBinding(Window.ContentProperty, ".");
             mainWindow.Show();
         }
 

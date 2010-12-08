@@ -40,5 +40,12 @@
         {
             get { return switchLanguage; }
         }
+
+        private static readonly string customLanguageKey = "Custom";
+
+        public static string CustomLanguageKey
+        {
+            get { return customLanguageKey; }
+        }
     }
 }
