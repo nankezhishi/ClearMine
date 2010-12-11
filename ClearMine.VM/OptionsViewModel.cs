@@ -32,7 +32,7 @@
             e.ExtractDataContext<OptionsViewModel>(vm =>
             {
                 vm.Cancel();
-                var window = (sender as DependencyObject).FindAncestor<Window>();
+                var window = Window.GetWindow(sender as DependencyObject);
                 if (window != null)
                 {
                     window.DialogResult = false;
@@ -61,7 +61,7 @@
             e.ExtractDataContext<OptionsViewModel>(vm =>
             {
                 vm.Save();
-                var window = (sender as DependencyObject).FindAncestor<Window>();
+                var window = Window.GetWindow(sender as DependencyObject);
                 if (window != null)
                 {
                     window.DialogResult = true;
@@ -87,7 +87,7 @@
 
         private static void OnBrowseHistoryExecuted(object sender, ExecutedRoutedEventArgs e)
         {
-            FolderBrowserDialog folderBrowser = new FolderBrowserDialog();
+            var folderBrowser = new FolderBrowserDialog();
             folderBrowser.ShowNewFolderButton = true;
             folderBrowser.Description = LocalizationHelper.FindText("BrowseGameFolderMessage");
             folderBrowser.SelectedPath = Path.GetFullPath(Settings.Default.GameHistoryFolder);

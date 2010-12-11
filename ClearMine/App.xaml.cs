@@ -1,6 +1,7 @@
 ﻿namespace ClearMine
 {
     using System.ComponentModel;
+    using System.Configuration;
     using System.Windows;
     using System.Windows.Media;
     using System.Windows.Threading;
@@ -21,7 +22,7 @@
             DispatcherUnhandledException += OnCurrentDispatcherUnhandledException;
             Exit += new ExitEventHandler(OnApplicationExit);
             Settings.Default.PropertyChanged += new PropertyChangedEventHandler(OnSettingsChanged);
-            Settings.Default.SettingsSaving += new System.Configuration.SettingsSavingEventHandler(OnSavingSettings);
+            Settings.Default.SettingsSaving += new SettingsSavingEventHandler(OnSavingSettings);
             var mainWindow = new Window()
             {
                 DataContext = new ClearMineViewModel(),

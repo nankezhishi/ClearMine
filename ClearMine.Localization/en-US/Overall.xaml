@@ -10,7 +10,7 @@
     <s:String x:Key="GameName">Clear Mine</s:String>
     <s:String x:Key="GameVersion">Version 1.0</s:String>
     <s:String x:Key="GameCopyRight">Hugo Gu All Rights Reserved.</s:String>
-    <s:String x:Key="SavedGameFilter">ClearMine Saved Game File (*.cmg)|*.cmg</s:String>
+    <s:String x:Key="SavedGameFilter">ClearMine Saved Game File (*{0})|*{0}</s:String>
     <s:String x:Key="LanguageFileFilter">Language Resource File (*.xaml; *.xml)|*.xaml;*.xml</s:String>
     <s:String x:Key="InvalidLanguageResourceType">A Language Resource File should only contains string resources.</s:String>
     <s:String x:Key="MissingLanguageResourceKey">A resource named ‘{0}’ is missing in the Language Resource File.</s:String>

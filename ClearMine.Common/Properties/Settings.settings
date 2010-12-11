@@ -53,5 +53,32 @@
     <Setting Name="GameHistoryFolder" Type="System.String" Scope="User">
       <Value Profile="(Default)">.</Value>
     </Setting>
+    <Setting Name="SoundLose" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">.\Sound\Lose.wma</Value>
+    </Setting>
+    <Setting Name="SoundWin" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">.\Sound\Win.wma</Value>
+    </Setting>
+    <Setting Name="SoundStart" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">.\Sound\GameStart.wma</Value>
+    </Setting>
+    <Setting Name="SoundTileSingle" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">.\Sound\TileSingle.wma</Value>
+    </Setting>
+    <Setting Name="SoundTileMultiple" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">.\Sound\TileMultiple.wma</Value>
+    </Setting>
+    <Setting Name="SavedGameExt" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">.cmg</Value>
+    </Setting>
+    <Setting Name="UnfinishedGameFileName" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">SavedGame.cmg</Value>
+    </Setting>
+    <Setting Name="ScreenShotFolder" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">\Poleaf\ClearMine\ScreenShoots\</Value>
+    </Setting>
+    <Setting Name="ScreenShotFileTimeFormat" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">yy-MM-dd-HH-mm-ss</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

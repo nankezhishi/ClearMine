@@ -87,23 +87,13 @@
 
         private static void OnOptionExecuted(object sender, ExecutedRoutedEventArgs e)
         {
-            var viewModel =  e.ExtractDataContext<ClearMineViewModel>(vm =>
-            {
-                if (vm.game.GameState == GameState.Started)
-                {
-                    vm.game.PauseGame();
-                }
-            });
+            var viewModel =  e.ExtractDataContext<ClearMineViewModel>();
             var optionsWindow = new OptionsDialog();
             optionsWindow.Owner = Application.Current.MainWindow;
             optionsWindow.DataContext = new OptionsViewModel();
             if (optionsWindow.ShowDialog().Value)
             {
                 viewModel.StartNewGame();
-            }
-            else if (viewModel.game.GameState == GameState.Started)
-            {
-                viewModel.game.ResumeGame();
             }
         }
 
@@ -143,8 +133,8 @@
         private static void OnOpenExecuted(object sender, ExecutedRoutedEventArgs e)
         {
             var openFileDialog = new OpenFileDialog();
-            openFileDialog.DefaultExt = ".cmg";
-            openFileDialog.Filter = LocalizationHelper.FindText("SavedGameFilter");
+            openFileDialog.DefaultExt = Settings.Default.SavedGameExt;
+            openFileDialog.Filter = LocalizationHelper.FindText("SavedGameFilter", Settings.Default.SavedGameExt);
             if (openFileDialog.ShowDialog() == true)
             {
                 e.ExtractDataContext<ClearMineViewModel>().LoadSavedGame(openFileDialog.FileName);
@@ -154,7 +144,7 @@
         private static void OnOpenCanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
             e.CanExecute = true;
-        }  
+        }
         #endregion
 
         public ClearMineViewModel()
@@ -264,7 +254,7 @@
             {
                 if (Settings.Default.SaveOnExit)
                 {
-                    SaveCurrentGame(@".\SavedGame.cmg");
+                    SaveCurrentGame(Settings.Default.UnfinishedGameFileName);
                 }
                 else
                 {
@@ -276,7 +266,7 @@
                     }
                     else if (result == MessageBoxResult.Yes)
                     {
-                        SaveCurrentGame(@".\SavedGame.cmg");
+                        SaveCurrentGame(Settings.Default.UnfinishedGameFileName);
                     }
                     else
                     {
@@ -343,6 +333,8 @@
 
         public override IEnumerable<CommandBinding> GetCommandBindings()
         {
+            //Arrange in alphabetical order.
+
             yield return NewGameBinding;
             yield return OpenBinding;
             yield return OptionBinding;
@@ -423,7 +415,8 @@
             TriggerPropertyChanged("NewGameIcon");
             if (game.GameState == GameState.Failed)
             {
-                Player.Play(@".\Sound\Lose.wma");
+                IsMousePressed = false;
+                Player.Play(Settings.Default.SoundLose);
                 Application.Current.Dispatcher.BeginInvoke(new Action(() =>
                 {
                     UpdateStatistics();
@@ -432,7 +425,8 @@
             }
             else if (game.GameState == GameState.Success)
             {
-                Player.Play(@".\Sound\Win.wma");
+                IsMousePressed = false;
+                Player.Play(Settings.Default.SoundWin);
                 Application.Current.Dispatcher.BeginInvoke(new Action(() =>
                 {
                     UpdateStatistics();
@@ -441,7 +435,7 @@
             }
             else if (game.GameState == GameState.Initialized)
             {
-                Player.Play(@".\Sound\GameStart.wma");
+                Player.Play(Settings.Default.SoundStart);
             }
         }
 
@@ -454,8 +448,8 @@
             var encoder = new PngBitmapEncoder();
             encoder.Frames.Add(BitmapFrame.Create(targetBitmap));
 
-            string fileName = DateTime.Now.ToString("yy-MM-dd-HH-mm-ss", CultureInfo.InvariantCulture) + ".png";
-            string folder = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Poleaf\ClearMine\ScreenShoots\";
+            string fileName = DateTime.Now.ToString(Settings.Default.ScreenShotFileTimeFormat, CultureInfo.InvariantCulture) + ".png";
+            string folder = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + Settings.Default.ScreenShotFolder;
 
             if (!Directory.Exists(folder))
             {
@@ -534,11 +528,11 @@
             }
             else if (emptyCellExpanded > 1)
             {
-                Player.Play(@".\Sound\TileMultiple.wma");
+                Player.Play(Settings.Default.SoundTileMultiple);
             }
             else
             {
-                Player.Play(@".\Sound\TileSingle.wma");
+                Player.Play(Settings.Default.SoundTileSingle);
             }
         }
 
@@ -547,8 +541,8 @@
             if (String.IsNullOrWhiteSpace(path))
             {
                 var savePathDialog = new SaveFileDialog();
-                savePathDialog.DefaultExt = ".cmg";
-                savePathDialog.Filter = LocalizationHelper.FindText("SavedGameFilter");
+                savePathDialog.DefaultExt = Settings.Default.SavedGameExt;
+                savePathDialog.Filter = LocalizationHelper.FindText("SavedGameFilter", Settings.Default.SavedGameExt);
                 if (savePathDialog.ShowDialog() == true)
                 {
                     path = savePathDialog.FileName;

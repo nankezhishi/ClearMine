@@ -1,6 +1,8 @@
 ﻿namespace ClearMine.Common.Utilities
 {
     using System;
+    using System.Diagnostics;
+    using System.Linq.Expressions;
     using System.Reflection;
     using System.Windows;
     using System.Windows.Media;
@@ -22,6 +24,8 @@
         public static T FindAncestor<T>(this DependencyObject element, Predicate<T> condition = null)
             where T : DependencyObject
         {
+            VerifyFindAncestorCall<T>();
+
             if (element == null)
             {
                 return default(T);
@@ -33,7 +37,7 @@
                 return result;
             }
 
-            // Just keep the code clean. 
+            // Just keep the code clean. Don't need to worry about performance here.
             // While, .NET Reflector 6.5 still cannot handle the following code correctly.
             var parent = VisualTreeHelper.GetParent(element) ?? ((dynamic)element).Parent ?? ((dynamic)element).TemplatedParent;
 
@@ -61,6 +65,41 @@
             }
 
             return default(T);
+        }
+
+        public static string GetMemberName<T>(this T obj, Expression<Func<object>> expression)
+        {
+            return GetMemberName(expression);
+        }
+
+        public static string GetMemberName<T>(Expression<Func<T, object>> expression)
+        {
+            return GetMemberName(expression);
+        }
+
+        private static string GetMemberName(LambdaExpression expression)
+        {
+            MemberExpression memberExpression = expression.Body as MemberExpression;
+            if (memberExpression == null && expression.Body is UnaryExpression)
+            {
+                memberExpression = (expression.Body as UnaryExpression).Operand as MemberExpression;
+            }
+            if (memberExpression == null)
+            {
+                throw new ArgumentException(String.Format("Expression of type {0} is not supported by the GetMemberName method.", expression.Body.Type));
+            }
+
+            return memberExpression.Member.Name;
+        }
+
+        [Conditional("DEBUG")]
+        private static void VerifyFindAncestorCall<T>()
+            where T : DependencyObject
+        {
+            if (typeof(T).IsSubclassOf(typeof(Window)))
+            {
+                throw new InvalidProgramException("Use Window.GetWindow method to find the ancestor window of a control.");
+            }
         }
     }
 }

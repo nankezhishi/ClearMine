@@ -10,7 +10,7 @@
     <s:String x:Key="GameName">扫雷</s:String>
     <s:String x:Key="GameVersion">版本 1.0</s:String>
     <s:String x:Key="GameCopyRight">谷强强 版权所有.</s:String>
-    <s:String x:Key="SavedGameFilter">扫雷存档 (*.cmg)|*.cmg</s:String>
+    <s:String x:Key="SavedGameFilter">扫雷存档 (*{0})|*{0}</s:String>
     <s:String x:Key="LanguageFileFilter">本地化资源文件 (*.xaml; *.xml)|*.xaml;*.xml</s:String>
     <s:String x:Key="InvalidLanguageResourceType">本地化资源文件只能包含字符串资源。</s:String>
     <s:String x:Key="MissingLanguageResourceKey">本地化资源文件中缺失名为‘{0}’的资源项。</s:String>

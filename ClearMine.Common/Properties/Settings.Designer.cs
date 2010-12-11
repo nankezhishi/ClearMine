@@ -190,5 +190,86 @@ namespace ClearMine.Common.Properties {
                 this["GameHistoryFolder"] = value;
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute(".\\Sound\\Lose.wma")]
+        public string SoundLose {
+            get {
+                return ((string)(this["SoundLose"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute(".\\Sound\\Win.wma")]
+        public string SoundWin {
+            get {
+                return ((string)(this["SoundWin"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute(".\\Sound\\GameStart.wma")]
+        public string SoundStart {
+            get {
+                return ((string)(this["SoundStart"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute(".\\Sound\\TileSingle.wma")]
+        public string SoundTileSingle {
+            get {
+                return ((string)(this["SoundTileSingle"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute(".\\Sound\\TileMultiple.wma")]
+        public string SoundTileMultiple {
+            get {
+                return ((string)(this["SoundTileMultiple"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute(".cmg")]
+        public string SavedGameExt {
+            get {
+                return ((string)(this["SavedGameExt"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("SavedGame.cmg")]
+        public string UnfinishedGameFileName {
+            get {
+                return ((string)(this["UnfinishedGameFileName"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("\\Poleaf\\ClearMine\\ScreenShoots\\")]
+        public string ScreenShotFolder {
+            get {
+                return ((string)(this["ScreenShotFolder"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("yy-MM-dd-HH-mm-ss")]
+        public string ScreenShotFileTimeFormat {
+            get {
+                return ((string)(this["ScreenShotFileTimeFormat"]));
+            }
+        }
     }
 }

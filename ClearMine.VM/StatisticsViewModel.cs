@@ -10,11 +10,13 @@
     using ClearMine.Common;
     using ClearMine.Common.ComponentModel;
     using ClearMine.Common.Properties;
+    using ClearMine.Common.Utilities;
     using ClearMine.Framework.Commands;
     using ClearMine.Localization;
 
     internal class StatisticsViewModel : ViewModelBase
     {
+        private static string defaultSortColumn = GenericExtension.GetMemberName<HistoryRecord>(r => r.Score);
         private Difficulty selectedLevel;
 
         #region Reset Command
@@ -56,14 +58,14 @@
             get { return selectedLevel; }
             set
             {
-                SetProperty(ref selectedLevel, value, "SelectedLevel");
+                SetProperty(ref selectedLevel, value, this.GetMemberName(() => SelectedLevel));
 
                 // Sort the history by score by default.
                 var histories = Settings.Default.HeroList.GetByLevel(value).Items;
                 var view = CollectionViewSource.GetDefaultView(histories);
                 if (view != null && view.SortDescriptions.Count == 0)
                 {
-                    view.SortDescriptions.Add(new SortDescription("Score", ListSortDirection.Ascending));
+                    view.SortDescriptions.Add(new SortDescription(defaultSortColumn, ListSortDirection.Ascending));
                 }
             }
         }
