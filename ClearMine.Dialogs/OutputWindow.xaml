@@ -12,9 +12,9 @@
              VerticalScrollBarVisibility="Auto">
         <TextBox.ContextMenu>
             <ContextMenu>
-                <MenuItem Command="{DynamicResource CopyCommandLabel}"
+                <MenuItem Command="Copy"
                           CommandTarget="{x:Reference logBox}"
-                          Header="Copy" />
+                          Header="{DynamicResource CopyCommandLabel}" />
                 <Separator />
                 <MenuItem Header="{DynamicResource ClearCommandLabel}"
                           Click="OnClearClick" />

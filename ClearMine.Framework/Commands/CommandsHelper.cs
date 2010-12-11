@@ -22,7 +22,7 @@
 
         private static void OnLoadBindingsFromVMChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
-            var host = sender as FrameworkElement;
+            var host = Window.GetWindow(sender as DependencyObject);
             if (host != null && (bool) e.NewValue)
             {
                 if (host.IsLoaded)

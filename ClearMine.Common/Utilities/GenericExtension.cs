@@ -67,19 +67,28 @@
             return default(T);
         }
 
+        /// <summary>
+        /// This method is rather heavy. it will takes 5K ticks, about 2ms on a 2.5G CPU.
+        /// </summary>
         public static string GetMemberName<T>(this T obj, Expression<Func<object>> expression)
         {
             return GetMemberName(expression);
         }
 
+        /// <summary>
+        /// This method is rather heavy. it will takes 5K ticks, about 2ms on a 2.5G CPU.
+        /// </summary>
         public static string GetMemberName<T>(Expression<Func<T, object>> expression)
         {
-            return GetMemberName(expression);
+            return GetMemberName(expression as LambdaExpression);
         }
 
+        /// <summary>
+        /// This method takes 18 CPU ticks.
+        /// </summary>
         private static string GetMemberName(LambdaExpression expression)
         {
-            MemberExpression memberExpression = expression.Body as MemberExpression;
+            var memberExpression = expression.Body as MemberExpression;
             if (memberExpression == null && expression.Body is UnaryExpression)
             {
                 memberExpression = (expression.Body as UnaryExpression).Operand as MemberExpression;

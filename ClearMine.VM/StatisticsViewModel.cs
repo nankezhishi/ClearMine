@@ -3,6 +3,7 @@
     using System.Collections;
     using System.Collections.Generic;
     using System.ComponentModel;
+    using System.Diagnostics;
     using System.Windows;
     using System.Windows.Data;
     using System.Windows.Input;
@@ -16,8 +17,15 @@
 
     internal class StatisticsViewModel : ViewModelBase
     {
-        private static string defaultSortColumn = GenericExtension.GetMemberName<HistoryRecord>(r => r.Score);
+        private static string defaultSortColumn;
         private Difficulty selectedLevel;
+
+        static StatisticsViewModel()
+        {
+            Stopwatch timer = Stopwatch.StartNew();
+            defaultSortColumn = GenericExtension.GetMemberName<HistoryRecord>(r => r.Score);
+            Trace.TraceInformation("Get property name by lambda cost {0} ticks, {1} ms.", timer.ElapsedTicks, timer.ElapsedMilliseconds);
+        }
 
         #region Reset Command
 
@@ -58,7 +66,7 @@
             get { return selectedLevel; }
             set
             {
-                SetProperty(ref selectedLevel, value, this.GetMemberName(() => SelectedLevel));
+                SetProperty(ref selectedLevel, value, "SelectedLevel");
 
                 // Sort the history by score by default.
                 var histories = Settings.Default.HeroList.GetByLevel(value).Items;
