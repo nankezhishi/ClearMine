@@ -5,6 +5,7 @@
     using System.Diagnostics;
     using System.Linq;
     using System.Windows;
+    using ClearMine.Localization;
 
     public class BehaviorCollection : ObservableCollection<Behavior>
     {
@@ -19,7 +20,7 @@
 
             if (AttatchedObject != null && attachedObject != AttatchedObject)
             {
-                Trace.TraceWarning("Replacing attatched target of BehaviorCollection.");
+                Trace.TraceWarning(LocalizationHelper.FindText("TraceReplaceBehaviorCollectionTarget"));
             }
 
             if (attachedObject != AttatchedObject)

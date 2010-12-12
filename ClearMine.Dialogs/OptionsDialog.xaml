@@ -103,11 +103,12 @@
             <WrapPanel>
                 <CheckBox Content="{DynamicResource PlaySoundLabel}"
                           Margin="0,0,12,0"
-                          IsChecked="{Binding PlaySound}"
-                          DockPanel.Dock="Top" />
+                          IsChecked="{Binding PlaySound}" />
                 <CheckBox Content="{DynamicResource PlayAnimationLabel}"
-                          DockPanel.Dock="Top"
+                          Margin="0,0,12,0"
                           IsChecked="{Binding PlayAnimation}" />
+                <CheckBox Content="{DynamicResource WavingFlagEffect}"
+                          IsChecked="{Binding WavingFlag}" />
             </WrapPanel>
         </GroupBox>
         <GroupBox Header="{DynamicResource GameControlGroupLabel}"

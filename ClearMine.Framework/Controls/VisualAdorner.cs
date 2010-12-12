@@ -122,7 +122,7 @@
             }
             else
             {
-                throw new IndexOutOfRangeException(String.Format(CultureInfo.InvariantCulture, "Current {0} has only {1} child.", this, VisualChildrenCount));
+                throw new ArgumentOutOfRangeException("index");
             }
         }
 

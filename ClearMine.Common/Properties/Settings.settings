@@ -80,5 +80,11 @@
     <Setting Name="ScreenShotFileTimeFormat" Type="System.String" Scope="Application">
       <Value Profile="(Default)">yy-MM-dd-HH-mm-ss</Value>
     </Setting>
+    <Setting Name="FeedBackEmail" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">nankezhishi@hotmail.com</Value>
+    </Setting>
+    <Setting Name="WavingFlag" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

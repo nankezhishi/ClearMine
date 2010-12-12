@@ -9,7 +9,7 @@
     <s:String x:Key="ClearCommandLabel">清空</s:String>
     <s:String x:Key="GameName">扫雷</s:String>
     <s:String x:Key="GameVersion">版本 1.0</s:String>
-    <s:String x:Key="GameCopyRight">谷强强 版权所有.</s:String>
+    <s:String x:Key="GameCopyRight">谷强强 © 版权所有 2010</s:String>
     <s:String x:Key="SavedGameFilter">扫雷存档 (*{0})|*{0}</s:String>
     <s:String x:Key="LanguageFileFilter">本地化资源文件 (*.xaml; *.xml)|*.xaml;*.xml</s:String>
     <s:String x:Key="InvalidLanguageResourceType">本地化资源文件只能包含字符串资源。</s:String>
@@ -40,7 +40,7 @@
     <s:String x:Key="CustomLanguageMenuItemHeader">自定义...</s:String>
     <s:String x:Key="OptionsMenuItemHeader">选项</s:String>
     <s:String x:Key="HelpMenuItemHeader">帮助</s:String>
-    <s:String x:Key="SendFeedbakMenuItemHeader">发送反馈</s:String>
+    <s:String x:Key="SendFeedbakMenuItemHeader">发送反馈...</s:String>
     <s:String x:Key="AboutMenuItemHeader">关于扫雷</s:String>
     <s:String x:Key="AskingSaveGameMessage">要保存游戏吗?</s:String>
     <s:String x:Key="AskingSaveGameTitle">扫雷 - 保存</s:String>
@@ -58,8 +58,12 @@
     <s:String x:Key="GameWonDialogTitle">扫雷 - 获胜</s:String>
     <s:String x:Key="ExitGameLabel">退出(_X)</s:String>
     <s:String x:Key="StartNewGameLabel">再来一局(_N)</s:String>
-    <s:String x:Key="GameWonMessage">恭喜你，本局扫雷胜利结束!</s:String>
+    <s:String x:Key="GameWonMessage">恭喜您，本局扫雷胜利结束!</s:String>
     <s:String x:Key="MoreDetailsMessage">显示更多信息</s:String>
+    <s:String x:Key="GameWonBestTime">最佳时间：</s:String>
+    <s:String x:Key="GameWonBestTimeSecond">秒</s:String>
+    <s:String x:Key="GameWonGamePlayed">已玩局数：</s:String>
+    <s:String x:Key="GameWonShowAllHistory">打开所有历史记录</s:String>
 
     <!-- Game Lost Dialog -->
     <s:String x:Key="GameLostDialogTitle">扫雷 - 失败</s:String>
@@ -99,6 +103,7 @@
     <s:String x:Key="GameEffectGroupLabel">效果设置</s:String>
     <s:String x:Key="PlaySoundLabel">播放音效</s:String>
     <s:String x:Key="PlayAnimationLabel">播放动画</s:String>
+    <s:String x:Key="WavingFlagEffect">红旗飘飘</s:String>
     <s:String x:Key="GameControlGroupLabel">控制设置</s:String>
     <s:String x:Key="ShowQuestionMarkLabel">两次反键显示不确定记号(?)</s:String>
     <s:String x:Key="AlwaysNewGameLabel">总是开始新的游戏</s:String>
@@ -116,9 +121,19 @@
     <!-- Exception Dialog -->
     <s:String x:Key="ExceptionBoxTitle">扫雷 - 异常</s:String>
     <s:String x:Key="IgnoreExceptionButtonLabel">忽略</s:String>
-    <s:String x:Key="IgnoreExceptionButtonToolTip">你可以选择忽略此异常，但是程序可能无法继续正常运行。</s:String>
+    <s:String x:Key="IgnoreExceptionButtonToolTip">您可以选择忽略此异常，但是程序可能无法继续正常运行。</s:String>
     <s:String x:Key="ShutdownButtonLabel">退出游戏</s:String>
     <s:String x:Key="ExceptionBoxExpanderLabel">显示详情</s:String>
     <s:String x:Key="SendExceptionReportLabel">发送异常报告</s:String>
     <s:String x:Key="ExceptionReportTitle">扫雷异常报告</s:String>
+
+    <!-- Trace Log and Exception Messages -->
+    <s:String x:Key="TraceReplaceBehaviorCollectionTarget">替换了一个BehaviorCollection的宿主对象。</s:String>
+    <s:String x:Key="TraceReplaceBehaviorTarget">为一个{0}实例替换了宿主对象。</s:String>
+    <s:String x:Key="DetatchingUnattachedBehavior">此行为还没有附着到宿主上。</s:String>
+    <s:String x:Key="NewWavingAnimationCreated">创建了一个新的波浪动画实例。</s:String>
+    <s:String x:Key="NewWavingEffectCreated">创建了一个新的波浪效果(WPF Effect)实例。</s:String>
+    <s:String x:Key="NewNumberPresenterCreated">创建了一个数字控件。</s:String>
+    <s:String x:Key="TraceMinesPanelArranged">扫雷面板重新布置。{0}</s:String>
+    <s:String x:Key="ScreenShotSavedTo">截图保存到了 {0}</s:String>
 </ResourceDictionary>

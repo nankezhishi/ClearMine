@@ -6,6 +6,7 @@
     using System.Windows.Controls;
     using System.Windows.Controls.Primitives;
     using System.Windows.Media;
+    using ClearMine.Localization;
 
     /// <summary>
     /// This panel make sure the width and height are equal.
@@ -157,7 +158,7 @@
 
         protected override Size ArrangeOverride(Size arrangeSize)
         {
-            Trace.TraceInformation("MinesPanel Arranged.");
+            Trace.TraceInformation(LocalizationHelper.FindText("TraceMinesPanelArranged", DateTime.Now.ToString()));
 
             if (this.Columns == 0 || this.Rows == 0)
             {

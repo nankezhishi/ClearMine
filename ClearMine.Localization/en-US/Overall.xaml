@@ -9,7 +9,7 @@
     <s:String x:Key="ClearCommandLabel">Clear</s:String>
     <s:String x:Key="GameName">Clear Mine</s:String>
     <s:String x:Key="GameVersion">Version 1.0</s:String>
-    <s:String x:Key="GameCopyRight">Hugo Gu All Rights Reserved.</s:String>
+    <s:String x:Key="GameCopyRight">Hugo Gu © All Rights Reserved 2010</s:String>
     <s:String x:Key="SavedGameFilter">ClearMine Saved Game File (*{0})|*{0}</s:String>
     <s:String x:Key="LanguageFileFilter">Language Resource File (*.xaml; *.xml)|*.xaml;*.xml</s:String>
     <s:String x:Key="InvalidLanguageResourceType">A Language Resource File should only contains string resources.</s:String>
@@ -40,7 +40,7 @@
     <s:String x:Key="CustomLanguageMenuItemHeader">Custom...</s:String>
     <s:String x:Key="OptionsMenuItemHeader">Options</s:String>
     <s:String x:Key="HelpMenuItemHeader">Help</s:String>
-    <s:String x:Key="SendFeedbakMenuItemHeader">Send feedback</s:String>
+    <s:String x:Key="SendFeedbakMenuItemHeader">Send Feedback...</s:String>
     <s:String x:Key="AboutMenuItemHeader">About</s:String>
     <s:String x:Key="AskingSaveGameMessage">Do you want to save the game?</s:String>
     <s:String x:Key="AskingSaveGameTitle">Clear Mine - Save</s:String>
@@ -60,6 +60,10 @@
     <s:String x:Key="StartNewGameLabel">Start _new game</s:String>
     <s:String x:Key="GameWonMessage">Congratulations, you won the game!</s:String>
     <s:String x:Key="MoreDetailsMessage">Show more details</s:String>
+    <s:String x:Key="GameWonBestTime">Best Time:</s:String>
+    <s:String x:Key="GameWonBestTimeSecond"> seconds</s:String>
+    <s:String x:Key="GameWonGamePlayed">Game Played:</s:String>
+    <s:String x:Key="GameWonShowAllHistory">Show me all history</s:String>
 
     <!-- Game Lost Dialog -->
     <s:String x:Key="GameLostDialogTitle">Clear Mine - Lost</s:String>
@@ -99,6 +103,7 @@
     <s:String x:Key="GameEffectGroupLabel">Effect settings</s:String>
     <s:String x:Key="PlaySoundLabel">Play Sound</s:String>
     <s:String x:Key="PlayAnimationLabel">Play Animation</s:String>
+    <s:String x:Key="WavingFlagEffect">Wave Flag</s:String>
     <s:String x:Key="GameControlGroupLabel">Control settings</s:String>
     <s:String x:Key="ShowQuestionMarkLabel">Show question(?) mark</s:String>
     <s:String x:Key="AlwaysNewGameLabel">Always disgards current game when new game</s:String>
@@ -121,4 +126,14 @@
     <s:String x:Key="ExceptionBoxExpanderLabel">Show more details</s:String>
     <s:String x:Key="SendExceptionReportLabel">Send exception report</s:String>
     <s:String x:Key="ExceptionReportTitle">Clear Mine Exception Report</s:String>
+    
+    <!-- Trace Log and Exception Messages -->
+    <s:String x:Key="TraceReplaceBehaviorCollectionTarget">Replacing attatched target of BehaviorCollection.</s:String>
+    <s:String x:Key="TraceReplaceBehaviorTarget">Replacing attatched target of {0}</s:String>
+    <s:String x:Key="DetatchingUnattachedBehavior">The behavior has not been attatched yet.</s:String>
+    <s:String x:Key="NewWavingAnimationCreated">A new waving animation created.</s:String>
+    <s:String x:Key="NewWavingEffectCreated">A wave effect has been created.</s:String>
+    <s:String x:Key="NewNumberPresenterCreated">A new NumberPresenter created.</s:String>
+    <s:String x:Key="TraceMinesPanelArranged">MinesPanel Arranged. {0}</s:String>
+    <s:String x:Key="ScreenShotSavedTo">Screen shoot saved to {0}</s:String>
 </ResourceDictionary>

@@ -271,5 +271,26 @@ namespace ClearMine.Common.Properties {
                 return ((string)(this["ScreenShotFileTimeFormat"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("nankezhishi@hotmail.com")]
+        public string FeedBackEmail {
+            get {
+                return ((string)(this["FeedBackEmail"]));
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool WavingFlag {
+            get {
+                return ((bool)(this["WavingFlag"]));
+            }
+            set {
+                this["WavingFlag"] = value;
+            }
+        }
     }
 }

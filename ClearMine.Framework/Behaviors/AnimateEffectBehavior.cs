@@ -10,8 +10,9 @@
     using System.Windows.Media.Animation;
 
     using ClearMine.Common.Properties;
+    using ClearMine.Localization;
 
-    public static class AnimateEffectBehavior 
+    public static class AnimateEffectBehavior
     {
         private static IList<Storyboard> animations = new List<Storyboard>();
 
@@ -22,20 +23,13 @@
 
         private static void OnSettingsChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (e.PropertyName.Equals("PlayAnimation", StringComparison.Ordinal))
+            if ("WavingFlag".Equals(e.PropertyName, StringComparison.Ordinal))
             {
-                if (Settings.Default.PlayAnimation)
+                if (Settings.Default.WavingFlag)
                 {
-                    if (animations.Count == 0)
+                    foreach (var animation in animations)
                     {
-                        Trace.TraceWarning("There is no animation initialized.");
-                    }
-                    else
-                    {
-                        foreach (var animation in animations)
-                        {
-                            animation.Resume();
-                        }
+                        animation.Resume();
                     }
                 }
                 else
@@ -70,8 +64,8 @@
                 var waving = new DoubleAnimationUsingKeyFrames();
                 waving.KeyFrames.Add(new LinearDoubleKeyFrame()
                 {
-                     Value = 6.28,
-                     KeyTime = KeyTime.FromTimeSpan(new TimeSpan(0, 0, 1)),
+                    Value = 6.28,
+                    KeyTime = KeyTime.FromTimeSpan(new TimeSpan(0, 0, 1)),
                 });
                 Timeline.SetDesiredFrameRate(waving, 12);
                 Storyboard.SetTargetProperty(waving, new PropertyPath("(UIElement.Effect).(WaveEffect.Offset)"));
@@ -84,8 +78,8 @@
                 animations.Add(story);
                 story.Begin();
 
-                Trace.TraceInformation("A new waving animation created.");
-                if (!Settings.Default.PlayAnimation)
+                Trace.TraceInformation(LocalizationHelper.FindText("NewWavingAnimationCreated"));
+                if (!Settings.Default.WavingFlag)
                 {
                     story.Pause();
                 }

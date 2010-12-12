@@ -96,7 +96,7 @@
 
         private static void OnFeedbackExecuted(object sender, ExecutedRoutedEventArgs e)
         {
-            EmailHelper.Send("hi", LocalizationHelper.FindText("ClearMineFeedbackTitle"), "nankezhishi@hotmail.com");
+            EmailHelper.Send("hi", LocalizationHelper.FindText("ClearMineFeedbackTitle"), Settings.Default.FeedBackEmail);
         }
 
         private static void OnFeedbackCanExecute(object sender, CanExecuteRoutedEventArgs e)

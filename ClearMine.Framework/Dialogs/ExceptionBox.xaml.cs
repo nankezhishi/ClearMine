@@ -2,6 +2,7 @@
 {
     using System;
     using System.Windows;
+    using ClearMine.Common.Properties;
     using ClearMine.Common.Utilities;
     using ClearMine.Localization;
 
@@ -59,7 +60,7 @@
 
         private void OnReportButtonClick(object sender, RoutedEventArgs e)
         {
-            EmailHelper.Send(exception.ToString(), LocalizationHelper.FindText("ExceptionReportTitle"), "nankezhishi@hotmail.com");
+            EmailHelper.Send(exception.ToString(), LocalizationHelper.FindText("ExceptionReportTitle"), Settings.Default.FeedBackEmail);
         }
     }
 }

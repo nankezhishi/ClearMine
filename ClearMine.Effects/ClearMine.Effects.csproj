@@ -57,6 +57,12 @@
     <AppDesigner Include="Properties\" />
     <Effect Include="ShaderSource\Wave.fx" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ClearMine.Localization\ClearMine.Localization.csproj">
+      <Project>{71C67E90-41FD-457E-B155-1EBE7396024A}</Project>
+      <Name>ClearMine.Localization</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EffectCompile" Condition="'@(Effect)' != '' ">
     <PixelShaderCompile Sources="@(Effect)">

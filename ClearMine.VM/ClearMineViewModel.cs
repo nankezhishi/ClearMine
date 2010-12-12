@@ -464,7 +464,7 @@
                 encoder.Save(fs);
             }
 
-            Trace.TraceInformation("Screen shoot saved to {0}", fileName);
+            Trace.TraceInformation(LocalizationHelper.FindText("ScreenShotSavedTo"), fileName);
 
             return fileName;
         }
@@ -566,7 +566,7 @@
         {
             if (!File.Exists(path))
             {
-                throw new FileNotFoundException("Cannot open game file", path);
+                throw new FileNotFoundException("The path to saved game cannot be found.", path);
             }
 
             IClearMine newgame = null;

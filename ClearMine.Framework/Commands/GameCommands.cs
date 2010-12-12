@@ -19,7 +19,8 @@
             get { return about; }
         }
 
-        private static ICommand feedback = new RoutedUICommand("Feedback", "Feedback", typeof(GameCommands));
+        private static ICommand feedback = new RoutedUICommand("Feedback", "Feedback", typeof(GameCommands),
+            new InputGestureCollection() { new KeyGesture(Key.F, ModifierKeys.Control) });
 
         public static ICommand Feedback
         {

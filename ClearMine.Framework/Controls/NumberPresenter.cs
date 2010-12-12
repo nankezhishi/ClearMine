@@ -5,6 +5,7 @@
     using System.Globalization;
     using System.Windows;
     using System.Windows.Controls;
+    using ClearMine.Localization;
 
     [Flags]
     public enum LightUps
@@ -37,7 +38,7 @@
 
         public NumberPresenter()
         {
-            Trace.TraceInformation("A new NumberPresenter created.");
+            Trace.TraceInformation(LocalizationHelper.FindText("NewNumberPresenterCreated"));
         }
 
         #region LightUpStrokes Property - ReadOnly
@@ -95,7 +96,6 @@
             }
             else if (number >= 0 && number <= 9)
             {
-                Trace.TraceInformation("NumberPresenter Number changed to {0}", number);
                 LightUpStrokes = (LightUps)Enum.Parse(typeof(LightUps), "Number" + number.ToString(CultureInfo.InvariantCulture));
             }
             else

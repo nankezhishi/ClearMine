@@ -175,6 +175,12 @@
             set { Settings.Default.PlayAnimation = value; }
         }
 
+        public bool WavingFlag
+        {
+            get { return Settings.Default.WavingFlag; }
+            set { Settings.Default.WavingFlag = value; }
+        }
+
         public bool ShowQuestionMark
         {
             get { return Settings.Default.ShowQuestionMark; }

@@ -6,6 +6,7 @@
     using System.Windows;
     using System.Windows.Media;
     using System.Windows.Media.Effects;
+    using ClearMine.Localization;
 
     /// <summary>
     /// 
@@ -67,7 +68,7 @@
             UpdateShaderValue(OffsetProperty);
             UpdateShaderValue(InputProperty);
 
-            Trace.TraceInformation("A wave effect has been created.");
+            Trace.TraceInformation(LocalizationHelper.FindText("NewWavingEffectCreated"));
         }
 
         #endregion

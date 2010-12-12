@@ -4,6 +4,7 @@
     using System.Diagnostics;
     using System.Globalization;
     using System.Windows;
+    using ClearMine.Localization;
 
     public abstract class Behavior : DependencyObject
     {
@@ -17,7 +18,7 @@
             if (AttatchedObject != null)
             {
                 Detatch();
-                Trace.TraceWarning(String.Format(CultureInfo.InvariantCulture, "Replacing attatched target of {0}", this));
+                Trace.TraceWarning(LocalizationHelper.FindText("TraceReplaceBehaviorTarget", this.ToString()));
             }
 
             AttatchedObject = attatchedObject;
@@ -51,7 +52,7 @@
             {
                 if (AttatchedObject == null)
                 {
-                    throw new InvalidOperationException("The behavior has not been attatched yet.");
+                    throw new InvalidOperationException(LocalizationHelper.FindText("DetatchingUnattachedBehavior"));
                 }
 
                 if (autoDetatch != value)

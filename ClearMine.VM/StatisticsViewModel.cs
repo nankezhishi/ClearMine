@@ -22,9 +22,7 @@
 
         static StatisticsViewModel()
         {
-            Stopwatch timer = Stopwatch.StartNew();
             defaultSortColumn = GenericExtension.GetMemberName<HistoryRecord>(r => r.Score);
-            Trace.TraceInformation("Get property name by lambda cost {0} ticks, {1} ms.", timer.ElapsedTicks, timer.ElapsedMilliseconds);
         }
 
         #region Reset Command

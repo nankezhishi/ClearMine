@@ -1,5 +1,6 @@
 ﻿namespace ClearMine.Framework.Commands
 {
+    using System;
     using System.Diagnostics;
     using System.Windows;
     using ClearMine.Common.ComponentModel;
@@ -22,8 +23,13 @@
 
         private static void OnLoadBindingsFromVMChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
-            var host = Window.GetWindow(sender as DependencyObject);
-            if (host != null && (bool) e.NewValue)
+            var host = sender as Window ?? Window.GetWindow(sender as DependencyObject);
+            if (host == null)
+            {
+                throw new InvalidOperationException("LoadBindingsFromVM property requires a window to apply on.");
+            }
+
+            if ((bool)e.NewValue)
             {
                 if (host.IsLoaded)
                 {

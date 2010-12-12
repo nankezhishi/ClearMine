@@ -4,8 +4,7 @@
                     xmlns:logic="clr-namespace:ClearMine.Common.Logic;assembly=ClearMine.Common"
                     xmlns:m="clr-namespace:ClearMine.Framework.Commands;assembly=ClearMine.Framework"
                     xmlns:b="clr-namespace:ClearMine.Framework.Behaviors;assembly=ClearMine.Framework">
-    <SolidColorBrush x:Key="DialogBackground"
-                     Color="#F0F0F0" />
+    <SolidColorBrush x:Key="DialogBackground" Color="#F0F0F0" />
     <PlaygroundBorderThicknessConverter x:Key="PlaygroundBorderThicknessConverter" />
     <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
 
@@ -18,19 +17,21 @@
             <StackPanel VerticalAlignment="Top">
                 <StackPanel Orientation="Horizontal"
                             Margin="0,0,0,7">
-                    <TextBlock Text="Best Time: " />
+                    <TextBlock Text="{DynamicResource GameWonBestTime}" />
                     <TextBlock Margin="0,0,20,0">
                     <Run Text="{Binding BestTime, StringFormat=0.00, Mode=OneWay}" />
-                    <Run Text=" seconds" />
+                    <Run Text="{DynamicResource GameWonBestTimeSecond}" />
                     </TextBlock>
-                    <TextBlock Text="Game Played: " />
+                    <TextBlock Text="{DynamicResource GameWonGamePlayed}" />
                     <TextBlock>
                     <Run Text="{Binding GameWon, Mode=OneWay}" />/<Run Text="{Binding GamePlayed, Mode=OneWay}" />
                     (<Run Text="{Binding WonRate, StringFormat= {}{0:P}, Mode=OneWay}" />)
                     </TextBlock>
                 </StackPanel>
                 <TextBlock TextAlignment="Right">
-                    <Hyperlink Command="{x:Static m:GameCommands.ShowStatistics}">Show me all history</Hyperlink>
+                    <Hyperlink Command="{x:Static m:GameCommands.ShowStatistics}">
+                        <Run Text="{DynamicResource GameWonShowAllHistory}" />
+                    </Hyperlink>
                 </TextBlock>
             </StackPanel>
         </AutoTransformPanel>
