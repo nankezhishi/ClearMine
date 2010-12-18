@@ -40,11 +40,13 @@
     <s:String x:Key="CustomLanguageMenuItemHeader">Custom...</s:String>
     <s:String x:Key="OptionsMenuItemHeader">Options</s:String>
     <s:String x:Key="HelpMenuItemHeader">Help</s:String>
+    <s:String x:Key="ViewHelpMenuItemHeader">View Help</s:String>
     <s:String x:Key="SendFeedbakMenuItemHeader">Send Feedback...</s:String>
     <s:String x:Key="AboutMenuItemHeader">About</s:String>
     <s:String x:Key="AskingSaveGameMessage">Do you want to save the game?</s:String>
     <s:String x:Key="AskingSaveGameTitle">Clear Mine - Save</s:String>
     <s:String x:Key="ClearMineFeedbackTitle">Clear Mine Player Feedback</s:String>
+    <s:String x:Key="ClearMineFeedbackContent">The Clear mine game development team uses your feedback to improve the game. We do not use your email address for any other purpose and we dispose of your email address after the issue you report is resolved. While we are working to resolve the issue you report, we may send email to you to get further details or clarification on the feedback you send to us. After the issue you report has been addressed, we may send email to you to let you know that your feedback has been addressed.</s:String>
     <s:String x:Key="CorruptedSavedGameMessage">The saved game has been modified to an incorrect state. Please try to fix it and open again.</s:String>
     <s:String x:Key="CorruptedSavedGameTitle">Clear Mine - Corrupted game file</s:String>
 
@@ -136,4 +138,6 @@
     <s:String x:Key="NewNumberPresenterCreated">A new NumberPresenter created.</s:String>
     <s:String x:Key="TraceMinesPanelArranged">MinesPanel Arranged. {0}</s:String>
     <s:String x:Key="ScreenShotSavedTo">Screen shoot saved to {0}</s:String>
+    <s:String x:Key="CannotFindHelpFile">Cannot find the help document file: {0}</s:String>
+    <s:String x:Key="InvalidHelpFileType">Cannot open help document {0}, because it is not a CHM file.</s:String>
 </ResourceDictionary>

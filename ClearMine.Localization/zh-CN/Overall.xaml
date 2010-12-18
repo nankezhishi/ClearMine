@@ -40,11 +40,13 @@
     <s:String x:Key="CustomLanguageMenuItemHeader">自定义...</s:String>
     <s:String x:Key="OptionsMenuItemHeader">选项</s:String>
     <s:String x:Key="HelpMenuItemHeader">帮助</s:String>
+    <s:String x:Key="ViewHelpMenuItemHeader">查看帮助</s:String>
     <s:String x:Key="SendFeedbakMenuItemHeader">发送反馈...</s:String>
     <s:String x:Key="AboutMenuItemHeader">关于扫雷</s:String>
     <s:String x:Key="AskingSaveGameMessage">要保存游戏吗?</s:String>
     <s:String x:Key="AskingSaveGameTitle">扫雷 - 保存</s:String>
     <s:String x:Key="ClearMineFeedbackTitle">扫雷玩家反馈</s:String>
+    <s:String x:Key="ClearMineFeedbackContent">扫雷开发团队使用您的反馈改进游戏。我们不会将您的邮箱地址用于任何其它用途，您报告的问题解决之后，我们便会删除您发来的邮件。 在我们解决您报告的问题的过程中, 我们可能会通过邮件向您询问更多的细节或向您澄清您反馈的问题。 您反馈的问题被解决之后, 我们会通过邮件通知您，您所反馈的问题已经得到解决。</s:String>
     <s:String x:Key="CorruptedSavedGameMessage">游戏存档文件存在错误。请还原所做修改后再尝试打开。</s:String>
     <s:String x:Key="CorruptedSavedGameTitle">扫雷 - 存档文件错误</s:String>
 
@@ -136,4 +138,6 @@
     <s:String x:Key="NewNumberPresenterCreated">创建了一个数字控件。</s:String>
     <s:String x:Key="TraceMinesPanelArranged">扫雷面板重新布置。{0}</s:String>
     <s:String x:Key="ScreenShotSavedTo">截图保存到了 {0}</s:String>
+    <s:String x:Key="CannotFindHelpFile">无法找到帮助文档文件：{0}</s:String>
+    <s:String x:Key="InvalidHelpFileType">无法打开帮助文档 {0}， 因为这不是一个CHM文件。</s:String>
 </ResourceDictionary>

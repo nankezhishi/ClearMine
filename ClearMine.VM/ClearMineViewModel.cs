@@ -346,6 +346,7 @@
             yield return GameCommandBindings.ShowLogBinding;
             yield return GameCommandBindings.StatisticsBinding;
             yield return GameCommandBindings.SwitchLanguageBinding;
+            yield return GameCommandBindings.ViewHelpBinding;
         }
 
         private void Initialize()

@@ -43,6 +43,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClearMine.Effects", "ClearM
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClearMine.Localization", "ClearMine.Localization\ClearMine.Localization.csproj", "{71C67E90-41FD-457E-B155-1EBE7396024A}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{8CA33D83-862A-4868-9D2F-AB0E59139A74}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{5BB83E8E-CBBE-4D62-932D-14EDE2050B99}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClearMine.Logic.Test", "ClearMine.Logic.Test\ClearMine.Logic.Test.csproj", "{CC32D652-BD21-4DAE-B075-B74569959801}"
+EndProject
 Global
 	GlobalSection(TestCaseManagementSettings) = postSolution
 		CategoryFile = ClearMine.vsmdi
@@ -148,11 +154,26 @@ Global
 		{71C67E90-41FD-457E-B155-1EBE7396024A}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{71C67E90-41FD-457E-B155-1EBE7396024A}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{71C67E90-41FD-457E-B155-1EBE7396024A}.Release|x86.ActiveCfg = Release|Any CPU
+		{CC32D652-BD21-4DAE-B075-B74569959801}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CC32D652-BD21-4DAE-B075-B74569959801}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CC32D652-BD21-4DAE-B075-B74569959801}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{CC32D652-BD21-4DAE-B075-B74569959801}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{CC32D652-BD21-4DAE-B075-B74569959801}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{CC32D652-BD21-4DAE-B075-B74569959801}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CC32D652-BD21-4DAE-B075-B74569959801}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CC32D652-BD21-4DAE-B075-B74569959801}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{CC32D652-BD21-4DAE-B075-B74569959801}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{CC32D652-BD21-4DAE-B075-B74569959801}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{EEB5C47E-76B0-472B-9991-0F2D9A861A62} = {741AE855-69CA-4CF7-80DF-E80AEE547281}
+		{730AFF67-B857-42CD-9DAF-E94FC79BA721} = {8CA33D83-862A-4868-9D2F-AB0E59139A74}
+		{71C67E90-41FD-457E-B155-1EBE7396024A} = {8CA33D83-862A-4868-9D2F-AB0E59139A74}
+		{A2631FA1-E4A4-41AC-8E8E-5C8AEB63C83E} = {8CA33D83-862A-4868-9D2F-AB0E59139A74}
+		{1FD89229-5F29-4093-9B7F-6F8E09BADF7C} = {8CA33D83-862A-4868-9D2F-AB0E59139A74}
+		{CC32D652-BD21-4DAE-B075-B74569959801} = {5BB83E8E-CBBE-4D62-932D-14EDE2050B99}
 	EndGlobalSection
 EndGlobal

@@ -627,6 +627,8 @@
                               Command="{x:Static vm:ClearMineViewModel.Option}" />
                 </MenuItem>
                 <MenuItem Header="{DynamicResource HelpMenuItemHeader}">
+                    <MenuItem Header="{DynamicResource ViewHelpMenuItemHeader}"
+                              Command="Help" />
                     <MenuItem Header="{DynamicResource SendFeedbakMenuItemHeader}"
                               Command="{x:Static h:GameCommands.Feedback}" />
                     <Separator />

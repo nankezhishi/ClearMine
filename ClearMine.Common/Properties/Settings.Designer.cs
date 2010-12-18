@@ -292,5 +292,14 @@ namespace ClearMine.Common.Properties {
                 this["WavingFlag"] = value;
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("ClearMineHelp.chm")]
+        public string HelpDocumentName {
+            get {
+                return ((string)(this["HelpDocumentName"]));
+            }
+        }
     }
 }

@@ -1,7 +1,9 @@
 ﻿namespace ClearMine.VM.Commands
 {
     using System;
+    using System.Diagnostics;
     using System.Globalization;
+    using System.IO;
     using System.Linq;
     using System.Windows;
     using System.Windows.Input;
@@ -85,6 +87,40 @@
         }
         #endregion
 
+        private static CommandBinding viewHelpBinding = new CommandBinding(ApplicationCommands.Help,
+            new ExecutedRoutedEventHandler(OnHelpExecuted), new CanExecuteRoutedEventHandler(OnHelpCanExecute));
+
+        public static CommandBinding ViewHelpBinding
+        {
+            get { return viewHelpBinding; }
+        }
+
+        private static void OnHelpExecuted(object sender, ExecutedRoutedEventArgs e)
+        {
+            var helpName = Settings.Default.HelpDocumentName;
+
+            if (!String.IsNullOrWhiteSpace(helpName) && helpName.EndsWith("chm"))
+            {
+                try
+                {
+                    Process.Start(helpName);
+                }
+                catch (FileNotFoundException)
+                {
+                    Trace.TraceError(LocalizationHelper.FindText("CannotFindHelpFile", helpName));
+                }
+            }
+            else
+            {
+                Trace.TraceError(LocalizationHelper.FindText("InvalidHelpFileType", helpName));
+            }
+        }
+
+        private static void OnHelpCanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = true;
+        } 
+
         #region Feeback Command
         private static CommandBinding feedbackBinding = new CommandBinding(GameCommands.Feedback,
             new ExecutedRoutedEventHandler(OnFeedbackExecuted), new CanExecuteRoutedEventHandler(OnFeedbackCanExecute));
@@ -96,7 +132,8 @@
 
         private static void OnFeedbackExecuted(object sender, ExecutedRoutedEventArgs e)
         {
-            EmailHelper.Send("hi", LocalizationHelper.FindText("ClearMineFeedbackTitle"), Settings.Default.FeedBackEmail);
+            EmailHelper.Send(LocalizationHelper.FindText("ClearMineFeedbackContent"),
+                LocalizationHelper.FindText("ClearMineFeedbackTitle"), Settings.Default.FeedBackEmail);
         }
 
         private static void OnFeedbackCanExecute(object sender, CanExecuteRoutedEventArgs e)

@@ -1,0 +1,13 @@
+[OPTIONS]
+Compatibility=1.1 or later
+Compiled file=ClearMineHelp.chm
+Contents file=HelpContents.hhc
+Default Font=Calibri,10,0
+Display compile progress=No
+Index file=Index.hhk
+Language=0x409 Ó¢Óï(ÃÀ¹ú)
+Title=Clear Mine Help
+
+
+[INFOTYPES]
+
