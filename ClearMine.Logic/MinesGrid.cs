@@ -209,6 +209,14 @@
                 {
                     throw new ExpandFailedException();
                 }
+                else
+                {
+                    PressCellsAround(current);
+                }
+            }
+            else
+            {
+                PressCellsAround(current);
             }
         }
 
@@ -267,6 +275,14 @@
             foreach (var nearCell in GetCellsAround(null, condition))
             {
                 action(nearCell);
+            }
+        }
+
+        private void PressCellsAround(MineCell current)
+        {
+            foreach (var cell in GetCellsAround(current, c => c.State == CellState.Normal || c.State == CellState.Question))
+            {
+                cell.PressState = PressState.Pressed;
             }
         }
 

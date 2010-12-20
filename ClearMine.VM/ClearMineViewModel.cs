@@ -30,6 +30,7 @@
     {
         private IClearMine game;
         private bool pandingInitialize = true;
+        private bool isMousePressed = false;
         private double itemSize;
 
         #region NewGame Command
@@ -179,7 +180,18 @@
             get { return game.RemainedMines.ToString(CultureInfo.InvariantCulture); }
         }
 
-        public bool IsMousePressed { get; set; }
+        public bool IsMousePressed
+        {
+            get { return isMousePressed; }
+            set
+            {
+                if (isMousePressed != value)
+                {
+                    isMousePressed = value;
+                    TriggerPropertyChanged("NewGameIcon");
+                }
+            }
+        }
 
         public Brush NewGameIcon
         {

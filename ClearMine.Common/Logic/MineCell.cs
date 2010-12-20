@@ -10,6 +10,7 @@
     {
         private CachingState cachingState;
         private CellState state;
+        private PressState pressState;
         private int minesNearBy;
         private bool showResult;
         private bool hasMine;
@@ -53,6 +54,23 @@
                         temp(this, EventArgs.Empty);
                     }
                 }
+            }
+        }
+
+        [ReadOnly(true)]
+        [Bindable(true)]
+        public bool IsPressed
+        {
+            get { return pressState != PressState.Released; }
+        }
+
+        public PressState PressState
+        {
+            get { return pressState; }
+            set
+            {
+                SetProperty(ref pressState, value, "PressState");
+                TriggerPropertyChanged("IsPressed");
             }
         }
 

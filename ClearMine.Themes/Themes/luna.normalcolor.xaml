@@ -463,11 +463,11 @@
 
     <Style TargetType="{x:Type c:MineCellControl}">
         <Style.Triggers>
-            <Trigger Property="IsPressed"
+            <DataTrigger Binding="{Binding IsPressed}"
                      Value="True">
                 <Setter Property="Background"
                         Value="{DynamicResource PressedCellBackground}" />
-            </Trigger>
+            </DataTrigger>
             <DataTrigger Binding="{Binding IsTerminator}"
                          Value="True">
                 <Setter Property="Background"

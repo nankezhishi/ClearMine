@@ -41,7 +41,8 @@
             // While, .NET Reflector 6.5 still cannot handle the following code correctly.
             var parent = VisualTreeHelper.GetParent(element) ?? ((dynamic)element).Parent ?? ((dynamic)element).TemplatedParent;
 
-            return parent.FindAncestor(condition);
+            // dynamic object don't support extension method. So we must call it in a static way.
+            return FindAncestor(parent, condition);
         }
 
         public static T ExtractDataContext<T>(this RoutedEventArgs args, Action<T> action = null)

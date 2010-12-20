@@ -6,6 +6,7 @@
     using System.Windows.Input;
     using ClearMine.Common.Logic;
     using ClearMine.Common.Utilities;
+    using ClearMine.Framework.Controls;
     using ClearMine.Framework.Interactivity;
 
     public class MainInteractionBehavior : UIElementBehavior<FrameworkElement>
@@ -21,8 +22,13 @@
             AttatchedObject.Loaded += new RoutedEventHandler(OnAttatchedObjectLoaded);
             AttatchedObject.MouseUp += new MouseButtonEventHandler(OnMineGroudMouseUp);
             AttatchedObject.MouseDown += new MouseButtonEventHandler(OnMineGroudMouseDown);
+            AttatchedObject.MouseLeave += new MouseEventHandler(OnMineGroudMouseLeave);
+            AttatchedObject.MouseEnter += new MouseEventHandler(OnMineGroudMouseEnter);
             Window.GetWindow(AttatchedObject).Closing += new CancelEventHandler(OnMainWindowClosing);
             Window.GetWindow(AttatchedObject).StateChanged += new EventHandler(OnMainWindowStateChanged);
+
+            EventManager.RegisterClassHandler(typeof(MineCellControl), UIElement.MouseLeaveEvent, new MouseEventHandler(OnCellMouseLeave));
+            EventManager.RegisterClassHandler(typeof(MineCellControl), UIElement.MouseEnterEvent, new MouseEventHandler(OnCellMouseEnter));
         }
 
         protected override void OnDetatching()
@@ -30,13 +36,10 @@
             AttatchedObject.Loaded -= new RoutedEventHandler(OnAttatchedObjectLoaded);
             AttatchedObject.MouseUp -= new MouseButtonEventHandler(OnMineGroudMouseUp);
             AttatchedObject.MouseDown -= new MouseButtonEventHandler(OnMineGroudMouseDown);
+            AttatchedObject.MouseLeave -= new MouseEventHandler(OnMineGroudMouseLeave);
+            AttatchedObject.MouseEnter -= new MouseEventHandler(OnMineGroudMouseEnter);
             Window.GetWindow(AttatchedObject).Closing -= new CancelEventHandler(OnMainWindowClosing);
             Window.GetWindow(AttatchedObject).StateChanged -= new EventHandler(OnMainWindowStateChanged);
-        }
-
-        private void OnMainWindowClosing(object sender, CancelEventArgs e)
-        {
-            vm.RequestToClose(e);
         }
 
         private void OnMineGroudMouseDown(object sender, MouseButtonEventArgs e)
@@ -53,8 +56,13 @@
                 vm.TryExpand(cell);
                 expanding = true;
             }
+
+            if (Mouse.LeftButton == MouseButtonState.Pressed)
+            {
+                cell.PressState = PressState.Pressed;
+            }
+
             vm.IsMousePressed = true;
-            vm.TriggerPropertyChanged("NewGameIcon");
         }
 
         private void OnMineGroudMouseUp(object sender, MouseButtonEventArgs e)
@@ -90,8 +98,69 @@
                     vm.MarkAt(cell);
                 }
             }
+
+            foreach (var c in vm.Cells)
+            {
+                c.PressState = PressState.Released;
+            }
+
+            if (Mouse.LeftButton == MouseButtonState.Released &&
+                Mouse.RightButton == MouseButtonState.Released)
+            {
+                vm.IsMousePressed = false;
+            }
+        }
+
+        private void OnMineGroudMouseEnter(object sender, MouseEventArgs e)
+        {
+            if (Mouse.LeftButton == MouseButtonState.Pressed)
+            {
+                vm.IsMousePressed = true;
+            }
+        }
+
+        private void OnMineGroudMouseLeave(object sender, MouseEventArgs e)
+        {
             vm.IsMousePressed = false;
-            vm.TriggerPropertyChanged("NewGameIcon");
+        }
+
+        private static void OnCellMouseEnter(object sender, MouseEventArgs e)
+        {
+            if (Mouse.LeftButton == MouseButtonState.Pressed)
+            {
+                var cell = e.ExtractDataContext<MineCell>();
+                if (cell != null)
+                {
+                    if (Mouse.RightButton == MouseButtonState.Pressed)
+                    {
+                        cell.PressState = PressState.DoublePressed;
+                        var vm = e.ExtractDataContext<ClearMineViewModel>();
+                        foreach (var c in vm.Cells)
+                        {
+                            if (c.Near(cell) && (c.State == CellState.Normal || c.State == CellState.Question))
+                            {
+                                c.PressState = PressState.Pressed;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        cell.PressState = PressState.Pressed;
+                    }
+                }
+            }
+        }
+
+        private static void OnCellMouseLeave(object sender, MouseEventArgs e)
+        {
+            var vm = e.ExtractDataContext<ClearMineViewModel>();
+            if (vm != null)
+            {
+                foreach (var c in vm.Cells)
+                {
+                    c.PressState = PressState.Released;
+                }
+            }
         }
 
         private void OnMainWindowStateChanged(object sender, EventArgs e)
@@ -106,6 +175,11 @@
         {
             vm.StartNewGame();
             vm.RefreshUI();
+        }
+
+        private void OnMainWindowClosing(object sender, CancelEventArgs e)
+        {
+            vm.RequestToClose(e);
         }
     }
 }

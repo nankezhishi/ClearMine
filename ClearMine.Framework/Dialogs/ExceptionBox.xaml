@@ -30,7 +30,6 @@
         <TextBox Text="{Binding StackTrace, ElementName=root, Mode=OneWay}"
                  ScrollViewer.HorizontalScrollBarVisibility="Auto"
                  ScrollViewer.VerticalScrollBarVisibility="Auto"
-                 MaxWidth="600"
                  BorderThickness="0"
                  IsReadOnly="True" />
     </DockPanel>
