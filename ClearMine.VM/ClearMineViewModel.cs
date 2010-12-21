@@ -89,12 +89,24 @@
         private static void OnOptionExecuted(object sender, ExecutedRoutedEventArgs e)
         {
             var viewModel =  e.ExtractDataContext<ClearMineViewModel>();
+            bool shouldResume = false;
+            if (viewModel.game.GameState == GameState.Started)
+            {
+                shouldResume = true;
+                // Pause the game may takes long time. Needn't wait that finish; 
+                Application.Current.Dispatcher.BeginInvoke(new Action(viewModel.game.PauseGame), DispatcherPriority.Background);
+            }
+
             var optionsWindow = new OptionsDialog();
             optionsWindow.Owner = Application.Current.MainWindow;
             optionsWindow.DataContext = new OptionsViewModel();
             if (optionsWindow.ShowDialog().Value)
             {
                 viewModel.StartNewGame();
+            }
+            else if (shouldResume)
+            {
+                viewModel.game.ResumeGame();
             }
         }
 
@@ -154,11 +166,13 @@
             Settings.Default.PropertyChanged += new PropertyChangedEventHandler(OnSettingsChanged);
         }
 
+        [ReadOnly(true)]
         public int Columns
         {
             get { return (int)game.Size.Width; }
         }
 
+        [ReadOnly(true)]
         public int Rows
         {
             get { return (int)game.Size.Height; }
@@ -170,11 +184,13 @@
             set { SetProperty(ref itemSize, value, "ItemSize"); }
         }
 
+        [ReadOnly(true)]
         public string Time
         {
             get { return ((double)game.UsedTime / 1000).ToString(CultureInfo.InvariantCulture); }
         }
 
+        [ReadOnly(true)]
         public string RemainedMines
         {
             get { return game.RemainedMines.ToString(CultureInfo.InvariantCulture); }
@@ -193,6 +209,12 @@
             }
         }
 
+        [ReadOnly(true)]
+        public bool IsPaused
+        {
+            get { return game.GameState == GameState.Paused; }
+        }
+
         public Brush NewGameIcon
         {
             get
@@ -202,11 +224,7 @@
                     return Application.Current.FindResource("TryFaceBrush") as Brush;
                 }
 
-                if (game.GameState == GameState.Initialized || game.GameState == GameState.Started)
-                {
-                    return Application.Current.FindResource("NormalFaceBrush") as Brush;
-                }
-                else if (game.GameState == GameState.Success)
+                if (game.GameState == GameState.Success)
                 {
                     return Application.Current.FindResource("WinFaceBrush") as Brush;
                 }
@@ -216,7 +234,7 @@
                 }
                 else
                 {
-                    throw new InvalidProgramException();
+                    return Application.Current.FindResource("NormalFaceBrush") as Brush;
                 }
             }
         }
@@ -228,15 +246,7 @@
 
         public void StartNewGame()
         {
-            if (game.GameState != GameState.Started)
-            {
-                if (pandingInitialize)
-                {
-                    Initialize();
-                }
-                game.StartNew();
-            }
-            else if (game.GameState == GameState.Started)
+            if (game.GameState == GameState.Started || game.GameState == GameState.Paused)
             {
                 if (Settings.Default.AlwaysNewGame ||
                     new ConfirmNewGameWindow() { Owner = Application.Current.MainWindow }.ShowDialog().Value)
@@ -256,7 +266,11 @@
             }
             else
             {
-                throw new NotImplementedException();
+                if (pandingInitialize)
+                {
+                    Initialize();
+                }
+                game.StartNew();
             }
         }
 
@@ -424,6 +438,7 @@
 
         private void OnGameStateChanged(object sender, EventArgs e)
         {
+            TriggerPropertyChanged("IsPaused");
             TriggerPropertyChanged("RemainedMines");
             TriggerPropertyChanged("NewGameIcon");
             if (game.GameState == GameState.Failed)

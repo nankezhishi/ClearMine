@@ -134,6 +134,7 @@
     <s:String x:Key="TraceReplaceBehaviorTarget">Replacing attatched target of {0}</s:String>
     <s:String x:Key="DetatchingUnattachedBehavior">The behavior has not been attatched yet.</s:String>
     <s:String x:Key="NewWavingAnimationCreated">A new waving animation created.</s:String>
+    <s:String x:Key="NewMonoEffectCreated">A new mono effect has been created.</s:String>
     <s:String x:Key="NewWavingEffectCreated">A wave effect has been created.</s:String>
     <s:String x:Key="NewNumberPresenterCreated">A new NumberPresenter created.</s:String>
     <s:String x:Key="TraceMinesPanelArranged">MinesPanel Arranged. {0}</s:String>

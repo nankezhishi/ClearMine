@@ -4,7 +4,8 @@
     {
         Initialized,
         Started,
+        Paused,
         Failed,
-        Success
+        Success,
     }
 }

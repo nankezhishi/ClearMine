@@ -685,5 +685,35 @@
                 </Border>
             </Decorator>
         </Grid>
+        <DataTemplate.Resources>
+            <!--While, this animation is slow on my machine.-->
+            <Storyboard x:Key="BlurPlayground" Duration="00:00:01">
+                <DoubleAnimation From="0" To="40" AutoReverse="True" FillBehavior="HoldEnd"
+                                 Storyboard.TargetName="playground"
+                                 Storyboard.TargetProperty="(UIElement.Effect).(BlurEffect.Radius)"/>
+            </Storyboard>
+        </DataTemplate.Resources>
+        <DataTemplate.Triggers>
+            <DataTrigger Binding="{Binding IsPaused}" Value="True">
+                <Setter Property="Effect"
+                        TargetName="cellsPanel">
+                    <Setter.Value>
+                        <MonoEffect />
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="Effect"
+                        TargetName="playground">
+                    <Setter.Value>
+                        <BlurEffect Radius="0" />
+                    </Setter.Value>
+                </Setter>
+                <DataTrigger.EnterActions>
+                    <BeginStoryboard x:Name="blurStoryboard" Storyboard="{StaticResource BlurPlayground}" />
+                </DataTrigger.EnterActions>
+                <DataTrigger.ExitActions>
+                    <StopStoryboard BeginStoryboardName="blurStoryboard" />
+                </DataTrigger.ExitActions>
+            </DataTrigger>
+        </DataTemplate.Triggers>
     </DataTemplate>
 </ResourceDictionary>

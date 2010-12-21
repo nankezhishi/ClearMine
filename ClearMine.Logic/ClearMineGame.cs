@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.ComponentModel;
     using System.ComponentModel.Composition;
+    using System.Diagnostics;
     using System.Globalization;
     using System.Linq;
     using System.Windows;
@@ -76,6 +77,8 @@
             get { return gameState; }
             private set
             {
+                var oldState = GameState;
+
                 if (SetProperty(ref gameState, value, "GameState"))
                 {
                     if (value == GameState.Success || value == GameState.Failed)
@@ -86,14 +89,29 @@
                     }
                     else if (value == GameState.Started)
                     {
-                        this.timer.Start();
-                        this.startTime = DateTime.Now;
+                        // Resume a paused game;
+                        if (oldState == GameState.Paused)
+                        {
+                            timer.IsEnabled = true;
+                            PersistantUsedTime(usedTime);
+                        }
+                        // start a new game.
+                        else
+                        {
+                            this.timer.Start();
+                            this.startTime = DateTime.Now;
+                        }
                     }
                     else if (value == GameState.Initialized)
                     {
                         usedTime = 0;
                         this.timer.Stop();
                         this.cells.MarkAllAsNoraml();
+                    }
+                    else if (value == GameState.Paused)
+                    {
+                        timer.IsEnabled = false;
+                        usedTime = (int)(DateTime.Now - startTime).TotalMilliseconds;
                     }
                     else
                     {
@@ -226,15 +244,13 @@
             // Pause twice cause game time not accurate.
             if (timer.IsEnabled)
             {
-                timer.IsEnabled = false;
-                usedTime = (int)(DateTime.Now - startTime).TotalMilliseconds;
+                GameState = GameState.Paused;
             }
         }
 
         public void ResumeGame()
         {
-            timer.IsEnabled = true;
-            PersistantUsedTime(usedTime);
+            GameState = GameState.Started;
         }
 
         public IEnumerable<MineCell> TryExpandAt(MineCell cell)

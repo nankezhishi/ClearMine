@@ -134,6 +134,7 @@
     <s:String x:Key="TraceReplaceBehaviorTarget">为一个{0}实例替换了宿主对象。</s:String>
     <s:String x:Key="DetatchingUnattachedBehavior">此行为还没有附着到宿主上。</s:String>
     <s:String x:Key="NewWavingAnimationCreated">创建了一个新的波浪动画实例。</s:String>
+    <s:String x:Key="NewMonoEffectCreated">创建了一个新的单色效果(WPF Effect)实例。</s:String>
     <s:String x:Key="NewWavingEffectCreated">创建了一个新的波浪效果(WPF Effect)实例。</s:String>
     <s:String x:Key="NewNumberPresenterCreated">创建了一个数字控件。</s:String>
     <s:String x:Key="TraceMinesPanelArranged">扫雷面板重新布置。{0}</s:String>
