@@ -79,10 +79,13 @@
                         <DockPanel DockPanel.Dock="Top">
                             <Image Source="{TemplateBinding ImageSource}"
                                    Margin="12" />
-                            <TextBlock Text="{TemplateBinding Message}"
-                                       FontSize="14pt"
-                                       Margin="0,12,12,12"
-                                       Foreground="#FF003399" />
+                            <TextBox Text="{TemplateBinding Message}"
+                                     TextWrapping="Wrap"
+                                     IsReadOnly="True"
+                                     BorderThickness="0"
+                                     FontSize="14pt"
+                                     Margin="0,12,12,12"
+                                     Foreground="#FF003399" />
                         </DockPanel>
                         <DockPanel LastChildFill="False"
                                    Background="#FFF0F0F0"

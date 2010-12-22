@@ -37,10 +37,18 @@
 
         public static bool? Show(Exception exception, Window owner = null)
         {
-            return new ExceptionBox(exception)
+            try
             {
-                Owner = owner ?? Application.Current.MainWindow,
-            }.ShowDialog();
+                return new ExceptionBox(exception)
+                {
+                    Owner = owner ?? Application.Current.MainWindow,
+                }.ShowDialog();
+            }
+            // This happens when exception was throwed before the main window shows.
+            catch (InvalidOperationException)
+            {
+                return new ExceptionBox(exception).ShowDialog();
+            }
         }
 
         private void OnShutdownClick(object sender, RoutedEventArgs e)

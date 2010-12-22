@@ -1,10 +1,7 @@
 ﻿namespace ClearMine
 {
-    using System.ComponentModel;
-    using System.Configuration;
     using System.Windows;
     using System.Windows.Media;
-    using System.Windows.Threading;
 
     using ClearMine.Common.Properties;
     using ClearMine.Framework.Dialogs;
@@ -15,18 +12,20 @@
     /// </summary>
     public partial class App : Application
     {
-        public bool IsSettingsDirty { get; set; }
+        public bool IsSettingsDirty { get; private set; }
+
+        public App()
+        {
+            DispatcherUnhandledException += (sender, e) => e.Handled = ExceptionBox.Show(e.Exception).Value;
+            Settings.Default.PropertyChanged += (sender, e) => IsSettingsDirty = true;
+            Settings.Default.SettingsSaving += (sender, e) => IsSettingsDirty = e.Cancel;
+        }
 
         private void OnAppStartup(object sender, StartupEventArgs e)
         {
-            DispatcherUnhandledException += OnCurrentDispatcherUnhandledException;
-            Exit += new ExitEventHandler(OnApplicationExit);
-            Settings.Default.PropertyChanged += new PropertyChangedEventHandler(OnSettingsChanged);
-            Settings.Default.SettingsSaving += new SettingsSavingEventHandler(OnSavingSettings);
             var mainWindow = new Window()
             {
-                DataContext = new ClearMineViewModel(),
-                Width = 640,
+                Width = 480,
                 Height = 480,
                 Background = Brushes.Silver,
                 WindowStartupLocation = WindowStartupLocation.CenterScreen,
@@ -35,6 +34,7 @@
             mainWindow.SetResourceReference(Window.TitleProperty, "ApplicationTitle");
             mainWindow.SetBinding(Window.ContentProperty, ".");
             mainWindow.Show();
+            mainWindow.DataContext = new ClearMineViewModel();
         }
 
         private void OnApplicationExit(object sender, ExitEventArgs e)
@@ -43,21 +43,6 @@
             {
                 Settings.Default.Save();
             }
-        }
-
-        private void OnSettingsChanged(object sender, PropertyChangedEventArgs e)
-        {
-            IsSettingsDirty = true;
-        }
-
-        private void OnSavingSettings(object sender, CancelEventArgs e)
-        {
-            IsSettingsDirty = e.Cancel;
-        }
-
-        private void OnCurrentDispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
-        {
-            e.Handled = ExceptionBox.Show(e.Exception).Value;
         }
     }
 }
