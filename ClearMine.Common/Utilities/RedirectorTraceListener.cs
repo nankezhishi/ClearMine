@@ -1,4 +1,4 @@
-﻿namespace ClearMine.Common.Log
+﻿namespace ClearMine.Common.Utilities
 {
     using System;
     using System.Diagnostics;

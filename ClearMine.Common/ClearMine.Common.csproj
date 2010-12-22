@@ -106,7 +106,7 @@
     <Compile Include="Logic\IClearMine.cs" />
     <Compile Include="Logic\MineCell.cs" />
     <Compile Include="Logic\PressState.cs" />
-    <Compile Include="Log\RedirectorTraceListener.cs" />
+    <Compile Include="Utilities\RedirectorTraceListener.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <DependentUpon>Settings.settings</DependentUpon>
@@ -119,7 +119,6 @@
     <Compile Include="Utilities\WindowsApi.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -132,6 +131,7 @@
       <Name>ClearMine.Localization</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

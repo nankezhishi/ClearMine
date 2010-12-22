@@ -2,7 +2,7 @@
 using System.Windows;
 using System.Windows.Threading;
 
-using ClearMine.Common.Log;
+using ClearMine.Common.Utilities;
 
 namespace ClearMine.UI.Dialogs
 {
