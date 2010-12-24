@@ -6,5 +6,7 @@
     internal abstract class ViewModelBase : BindableObject
     {
         public abstract IEnumerable<CommandBinding> GetCommandBindings();
+
+        public virtual void OnLoaded(object sender) { }
     }
 }

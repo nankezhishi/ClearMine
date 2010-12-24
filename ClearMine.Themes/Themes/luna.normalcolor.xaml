@@ -325,6 +325,11 @@
                 Value="{StaticResource NewGameButtonBackground}" />
         <Setter Property="Width"
                 Value="{Binding ActualHeight, RelativeSource={RelativeSource Self}}" />
+        <Setter Property="FocusVisualStyle"
+                Value="{StaticResource EmptyFocusVisual}" />
+        <!-- A button should be able to get focus, So we just disable tab stop here. -->
+        <Setter Property="IsTabStop"
+                Value="False" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Button}">
@@ -666,6 +671,7 @@
                         </MultiBinding>
                     </Border.BorderThickness>
                     <ItemsControl x:Name="cellsPanel"
+                                  IsTabStop="False"
                                   ItemsSource="{Binding Cells}">
                         <Interaction.Behaviors>
                             <BehaviorCollection>

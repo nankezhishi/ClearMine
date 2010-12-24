@@ -24,25 +24,25 @@
     
     <!-- Main Window -->
     <s:String x:Key="ApplicationTitle">Clear Mine</s:String>
-    <s:String x:Key="GameMenuHeader">Game</s:String>
-    <s:String x:Key="NewGameMenuHeader">New Game</s:String>
-    <s:String x:Key="RestartGameMenuHeader">Restart Game</s:String>
-    <s:String x:Key="OpenGameMenuHeader">Open Game...</s:String>
-    <s:String x:Key="SaveAsGameMenuHeader">Save Game As...</s:String>
-    <s:String x:Key="HeroListMenuHeader">Statistics</s:String>
-    <s:String x:Key="ExitMenuHeader">Exit</s:String>
-    <s:String x:Key="ToolsMenuHeader">Tools</s:String>
-    <s:String x:Key="ThemeMenuHeader">Appearance</s:String>
-    <s:String x:Key="CustomThemeMenuHeader">Custom...</s:String>
-    <s:String x:Key="LanguageMenuHeader">Language</s:String>
-    <s:String x:Key="EnglishMenuItemHeader">English</s:String>
-    <s:String x:Key="ChineseMenuItemHeader">Chinese</s:String>
-    <s:String x:Key="CustomLanguageMenuItemHeader">Custom...</s:String>
-    <s:String x:Key="OptionsMenuItemHeader">Options</s:String>
-    <s:String x:Key="HelpMenuItemHeader">Help</s:String>
-    <s:String x:Key="ViewHelpMenuItemHeader">View Help</s:String>
-    <s:String x:Key="SendFeedbakMenuItemHeader">Send Feedback...</s:String>
-    <s:String x:Key="AboutMenuItemHeader">About</s:String>
+    <s:String x:Key="GameMenuHeader">_Game</s:String>
+    <s:String x:Key="NewGameMenuHeader">_New Game</s:String>
+    <s:String x:Key="RestartGameMenuHeader">_Restart Game</s:String>
+    <s:String x:Key="OpenGameMenuHeader">_Open Game...</s:String>
+    <s:String x:Key="SaveAsGameMenuHeader">Save Game _As...</s:String>
+    <s:String x:Key="HeroListMenuHeader">_Statistics</s:String>
+    <s:String x:Key="ExitMenuHeader">E_xit</s:String>
+    <s:String x:Key="ToolsMenuHeader">_Tools</s:String>
+    <s:String x:Key="ThemeMenuHeader">_Appearance</s:String>
+    <s:String x:Key="CustomThemeMenuHeader">_Custom...</s:String>
+    <s:String x:Key="LanguageMenuHeader">Lan_guage</s:String>
+    <s:String x:Key="EnglishMenuItemHeader">_English</s:String>
+    <s:String x:Key="ChineseMenuItemHeader">Chi_nese</s:String>
+    <s:String x:Key="CustomLanguageMenuItemHeader">_Custom...</s:String>
+    <s:String x:Key="OptionsMenuItemHeader">_Options</s:String>
+    <s:String x:Key="HelpMenuItemHeader">_Help</s:String>
+    <s:String x:Key="ViewHelpMenuItemHeader">_View Help</s:String>
+    <s:String x:Key="SendFeedbakMenuItemHeader">Send _Feedback...</s:String>
+    <s:String x:Key="AboutMenuItemHeader">_About</s:String>
     <s:String x:Key="AskingSaveGameMessage">Do you want to save the game?</s:String>
     <s:String x:Key="AskingSaveGameTitle">Clear Mine - Save</s:String>
     <s:String x:Key="ClearMineFeedbackTitle">Clear Mine Player Feedback</s:String>
@@ -103,17 +103,17 @@
     <s:String x:Key="CustomWidthLabel">_Width (9-30):</s:String>
     <s:String x:Key="CustomMinesLabel">_Mines (10-668):</s:String>
     <s:String x:Key="GameEffectGroupLabel">Effect settings</s:String>
-    <s:String x:Key="PlaySoundLabel">Play Sound</s:String>
-    <s:String x:Key="PlayAnimationLabel">Play Animation</s:String>
-    <s:String x:Key="WavingFlagEffect">Wave Flag</s:String>
+    <s:String x:Key="PlaySoundLabel">Play _Sound</s:String>
+    <s:String x:Key="PlayAnimationLabel">Play A_nimation</s:String>
+    <s:String x:Key="WavingFlagEffect">Wave _Flag</s:String>
     <s:String x:Key="GameControlGroupLabel">Control settings</s:String>
-    <s:String x:Key="ShowQuestionMarkLabel">Show question(?) mark</s:String>
-    <s:String x:Key="AlwaysNewGameLabel">Always disgards current game when new game</s:String>
-    <s:String x:Key="AlwaysSaveGameLabel">Always save game on exit</s:String>
-    <s:String x:Key="AlwaysContinueGameLabel">Always continue saved game</s:String>
+    <s:String x:Key="ShowQuestionMarkLabel">Show _question(?) mark</s:String>
+    <s:String x:Key="AlwaysNewGameLabel">Always _disgards current game when new game</s:String>
+    <s:String x:Key="AlwaysSaveGameLabel">Always save game on e_xit</s:String>
+    <s:String x:Key="AlwaysContinueGameLabel">Alwa_ys continue saved game</s:String>
     <s:String x:Key="GameHistoryGroupLabel">History settings</s:String>
-    <s:String x:Key="SaveGameHistoryLabel">_Save game history:</s:String>
-    <s:String x:Key="BrowseGameHistoryLabel">Browse...</s:String>
+    <s:String x:Key="SaveGameHistoryLabel">Save game _history:</s:String>
+    <s:String x:Key="BrowseGameHistoryLabel">B_rowse...</s:String>
     <s:String x:Key="BrowseGameFolderMessage">Please select a folder to place your game playing record.</s:String>
     <s:String x:Key="InvalidHeightMessage">Height should less than 24 and greater than 9.</s:String>
     <s:String x:Key="InvalidWidthMessage">Width should less than 30 and greater than 9.</s:String>
@@ -122,11 +122,11 @@
     
     <!-- Exception Dialog -->
     <s:String x:Key="ExceptionBoxTitle">Clear Mine - Exception</s:String>
-    <s:String x:Key="IgnoreExceptionButtonLabel">Ignore it</s:String>
+    <s:String x:Key="IgnoreExceptionButtonLabel">_Ignore it</s:String>
     <s:String x:Key="IgnoreExceptionButtonToolTip">Clear Mine may not be able to run properly if you ignore it and continue playing.</s:String>
-    <s:String x:Key="ShutdownButtonLabel">Exit game</s:String>
+    <s:String x:Key="ShutdownButtonLabel">E_xit game</s:String>
     <s:String x:Key="ExceptionBoxExpanderLabel">Show more details</s:String>
-    <s:String x:Key="SendExceptionReportLabel">Send exception report</s:String>
+    <s:String x:Key="SendExceptionReportLabel">_Send exception report</s:String>
     <s:String x:Key="ExceptionReportTitle">Clear Mine Exception Report</s:String>
     
     <!-- Trace Log and Exception Messages -->
@@ -141,4 +141,8 @@
     <s:String x:Key="ScreenShotSavedTo">Screen shoot saved to {0}</s:String>
     <s:String x:Key="CannotFindHelpFile">Cannot find the help document file: {0}</s:String>
     <s:String x:Key="InvalidHelpFileType">Cannot open help document {0}, because it is not a CHM file.</s:String>
+    <s:String x:Key="MinesGridOverflow">No slot available for more mine cells. Please change the size of the mines grid first.</s:String>
+    <s:String x:Key="InvalidUpdateGameType">The new value should be of {0} type.</s:String>
+    <s:String x:Key="InvalidTargetCellState">Cannot set cell state to {0}.</s:String>
+    <s:String x:Key="FocusChangedMessage">Focus moved to {0}.</s:String>
 </ResourceDictionary>

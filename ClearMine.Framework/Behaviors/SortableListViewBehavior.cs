@@ -1,5 +1,4 @@
-﻿
-namespace ClearMine.Framework.Behaviors
+﻿namespace ClearMine.Framework.Behaviors
 {
     using System;
     using System.ComponentModel;
@@ -86,7 +85,7 @@ namespace ClearMine.Framework.Behaviors
         {
             ListView listView = e.Source as ListView;
             GridViewColumnHeader header = e.OriginalSource as GridViewColumnHeader;
-            if (header.Role == GridViewColumnHeaderRole.Padding)
+            if (header == null || header.Role == GridViewColumnHeaderRole.Padding)
             {
                 return;
             }

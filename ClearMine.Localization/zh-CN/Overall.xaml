@@ -24,25 +24,25 @@
 
     <!-- Main Window -->
     <s:String x:Key="ApplicationTitle">扫雷</s:String>
-    <s:String x:Key="GameMenuHeader">游戏</s:String>
-    <s:String x:Key="NewGameMenuHeader">新游戏</s:String>
-    <s:String x:Key="RestartGameMenuHeader">重新开局</s:String>
-    <s:String x:Key="OpenGameMenuHeader">打开存档...</s:String>
-    <s:String x:Key="SaveAsGameMenuHeader">保存游戏...</s:String>
-    <s:String x:Key="HeroListMenuHeader">英雄榜</s:String>
-    <s:String x:Key="ExitMenuHeader">退出游戏</s:String>
-    <s:String x:Key="ToolsMenuHeader">工具</s:String>
-    <s:String x:Key="ThemeMenuHeader">外观</s:String>
-    <s:String x:Key="CustomThemeMenuHeader">自定义...</s:String>
-    <s:String x:Key="LanguageMenuHeader">界面语言</s:String>
-    <s:String x:Key="EnglishMenuItemHeader">英语</s:String>
-    <s:String x:Key="ChineseMenuItemHeader">汉语</s:String>
-    <s:String x:Key="CustomLanguageMenuItemHeader">自定义...</s:String>
-    <s:String x:Key="OptionsMenuItemHeader">选项</s:String>
-    <s:String x:Key="HelpMenuItemHeader">帮助</s:String>
-    <s:String x:Key="ViewHelpMenuItemHeader">查看帮助</s:String>
-    <s:String x:Key="SendFeedbakMenuItemHeader">发送反馈...</s:String>
-    <s:String x:Key="AboutMenuItemHeader">关于扫雷</s:String>
+    <s:String x:Key="GameMenuHeader">游戏(_G)</s:String>
+    <s:String x:Key="NewGameMenuHeader">新游戏(_N)</s:String>
+    <s:String x:Key="RestartGameMenuHeader">重新开局(_R)</s:String>
+    <s:String x:Key="OpenGameMenuHeader">打开存档(_O)...</s:String>
+    <s:String x:Key="SaveAsGameMenuHeader">保存游戏(_A)...</s:String>
+    <s:String x:Key="HeroListMenuHeader">英雄榜(_S)</s:String>
+    <s:String x:Key="ExitMenuHeader">退出游戏(_X)</s:String>
+    <s:String x:Key="ToolsMenuHeader">工具(_T)</s:String>
+    <s:String x:Key="ThemeMenuHeader">外观(_A)</s:String>
+    <s:String x:Key="CustomThemeMenuHeader">自定义(_C)...</s:String>
+    <s:String x:Key="LanguageMenuHeader">界面语言(_G)</s:String>
+    <s:String x:Key="EnglishMenuItemHeader">英语(_E)</s:String>
+    <s:String x:Key="ChineseMenuItemHeader">汉语(_N)</s:String>
+    <s:String x:Key="CustomLanguageMenuItemHeader">自定义(_C)...</s:String>
+    <s:String x:Key="OptionsMenuItemHeader">选项(_O)</s:String>
+    <s:String x:Key="HelpMenuItemHeader">帮助(_H)</s:String>
+    <s:String x:Key="ViewHelpMenuItemHeader">查看帮助(_V)</s:String>
+    <s:String x:Key="SendFeedbakMenuItemHeader">发送反馈(_F)...</s:String>
+    <s:String x:Key="AboutMenuItemHeader">关于扫雷(_A)</s:String>
     <s:String x:Key="AskingSaveGameMessage">要保存游戏吗?</s:String>
     <s:String x:Key="AskingSaveGameTitle">扫雷 - 保存</s:String>
     <s:String x:Key="ClearMineFeedbackTitle">扫雷玩家反馈</s:String>
@@ -99,21 +99,21 @@
     <s:String x:Key="IntermediateLevelLabel">中级(_I)</s:String>
     <s:String x:Key="AdvancedLevelLabel">高级(_A)</s:String>
     <s:String x:Key="CustomDifficultyLabel">自定义(_C)：</s:String>
-    <s:String x:Key="CustomHeightLabel">雷区高度 (9-24):</s:String>
-    <s:String x:Key="CustomWidthLabel">雷区宽度 (9-30):</s:String>
-    <s:String x:Key="CustomMinesLabel">地雷总数 (10-668):</s:String>
+    <s:String x:Key="CustomHeightLabel">雷区高度(_H) (9-24):</s:String>
+    <s:String x:Key="CustomWidthLabel">雷区宽度(_W) (9-30):</s:String>
+    <s:String x:Key="CustomMinesLabel">地雷总数(_M) (10-668):</s:String>
     <s:String x:Key="GameEffectGroupLabel">效果设置</s:String>
-    <s:String x:Key="PlaySoundLabel">播放音效</s:String>
-    <s:String x:Key="PlayAnimationLabel">播放动画</s:String>
-    <s:String x:Key="WavingFlagEffect">红旗飘飘</s:String>
+    <s:String x:Key="PlaySoundLabel">播放音效(_S)</s:String>
+    <s:String x:Key="PlayAnimationLabel">播放动画(_N)</s:String>
+    <s:String x:Key="WavingFlagEffect">红旗飘飘(_F)</s:String>
     <s:String x:Key="GameControlGroupLabel">控制设置</s:String>
-    <s:String x:Key="ShowQuestionMarkLabel">两次反键显示不确定记号(?)</s:String>
-    <s:String x:Key="AlwaysNewGameLabel">总是开始新的游戏</s:String>
-    <s:String x:Key="AlwaysSaveGameLabel">退出时总是保存未完全的游戏</s:String>
-    <s:String x:Key="AlwaysContinueGameLabel">总是继续上次退出时保存的游戏</s:String>
+    <s:String x:Key="ShowQuestionMarkLabel">两次反键显示不确定记号(?)(_Q)</s:String>
+    <s:String x:Key="AlwaysNewGameLabel">总是开始新的游戏(_D)</s:String>
+    <s:String x:Key="AlwaysSaveGameLabel">退出时总是保存未完全的游戏(_X)</s:String>
+    <s:String x:Key="AlwaysContinueGameLabel">总是继续上次退出时保存的游戏(_Y)</s:String>
     <s:String x:Key="GameHistoryGroupLabel">历史设置</s:String>
-    <s:String x:Key="SaveGameHistoryLabel">保存游戏历史(_S)：</s:String>
-    <s:String x:Key="BrowseGameHistoryLabel">浏览...</s:String>
+    <s:String x:Key="SaveGameHistoryLabel">保存游戏历史(_H)：</s:String>
+    <s:String x:Key="BrowseGameHistoryLabel">浏览(_R)...</s:String>
     <s:String x:Key="BrowseGameFolderMessage">请选择扫雷历史记录存放的文件夹。</s:String>
     <s:String x:Key="InvalidHeightMessage">高度应当介于9至24之间。</s:String>
     <s:String x:Key="InvalidWidthMessage">宽度应当介于9到30之间。</s:String>
@@ -122,11 +122,11 @@
 
     <!-- Exception Dialog -->
     <s:String x:Key="ExceptionBoxTitle">扫雷 - 异常</s:String>
-    <s:String x:Key="IgnoreExceptionButtonLabel">忽略</s:String>
+    <s:String x:Key="IgnoreExceptionButtonLabel">忽略(_I)</s:String>
     <s:String x:Key="IgnoreExceptionButtonToolTip">您可以选择忽略此异常，但是程序可能无法继续正常运行。</s:String>
-    <s:String x:Key="ShutdownButtonLabel">退出游戏</s:String>
+    <s:String x:Key="ShutdownButtonLabel">退出游戏(_X)</s:String>
     <s:String x:Key="ExceptionBoxExpanderLabel">显示详情</s:String>
-    <s:String x:Key="SendExceptionReportLabel">发送异常报告</s:String>
+    <s:String x:Key="SendExceptionReportLabel">发送异常报告(_S)</s:String>
     <s:String x:Key="ExceptionReportTitle">扫雷异常报告</s:String>
 
     <!-- Trace Log and Exception Messages -->
@@ -141,4 +141,8 @@
     <s:String x:Key="ScreenShotSavedTo">截图保存到了 {0}</s:String>
     <s:String x:Key="CannotFindHelpFile">无法找到帮助文档文件：{0}</s:String>
     <s:String x:Key="InvalidHelpFileType">无法打开帮助文档 {0}， 因为这不是一个CHM文件。</s:String>
+    <s:String x:Key="MinesGridOverflow">雷区大小不足。请先给MinesGrid控件设置足够的大小。</s:String>
+    <s:String x:Key="InvalidUpdateGameType">新值应该是 {0} 类型。</s:String>
+    <s:String x:Key="InvalidTargetCellState">无法将格子的状态设置为 {0}。</s:String>
+    <s:String x:Key="FocusChangedMessage">焦点移动到 {0}。</s:String>
 </ResourceDictionary>

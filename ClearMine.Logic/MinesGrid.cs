@@ -10,6 +10,7 @@
 
     using ClearMine.Common.ComponentModel;
     using ClearMine.Common.Logic;
+    using ClearMine.Localization;
 
     [Serializable]
     [TypeConverter(typeof(MinesGridConverter))]
@@ -43,7 +44,7 @@
         {
             if (index >= Size.Width * Size.Height)
             {
-                throw new InvalidOperationException("No slot available for more mine cells. Please change the size of the mines grid first.");
+                throw new InvalidOperationException(LocalizationHelper.FindText("MinesGridOverflow"));
             }
 
             base.InsertItem(index, item);
@@ -159,7 +160,8 @@
                 yield return current;
                 if (current.MinesNearby == 0)
                 {
-                    foreach (var nearCell in GetCellsAround(current, cell => cell.State == CellState.Normal || cell.State == CellState.Question))
+                    foreach (var nearCell in GetCellsAround(current, cell =>
+                        cell.State == CellState.Normal || cell.State == CellState.Question))
                     {
                         // Though we get cells that only Normal or Question.
                         // We still need to check it. 

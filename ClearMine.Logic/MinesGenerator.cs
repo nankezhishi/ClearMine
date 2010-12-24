@@ -10,12 +10,12 @@
 
         public void Fill(MinesGrid grid, int mines)
         {
-            if (mines > grid.Size.Height * grid.Size.Width)
-            {
-                throw new ArgumentOutOfRangeException("mines", "Too many mines to generate.");
-            }
-
             int total = (int)(grid.Size.Width * grid.Size.Height);
+
+            if (mines > total)
+            {
+                mines = total;
+            }
 
             // Choose different algorithm according to the mines to fill.
             // While, 0.5 is a guess.

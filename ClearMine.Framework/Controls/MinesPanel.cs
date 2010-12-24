@@ -158,7 +158,7 @@
 
         protected override Size ArrangeOverride(Size arrangeSize)
         {
-            Trace.TraceInformation(LocalizationHelper.FindText("TraceMinesPanelArranged", DateTime.Now.ToString()));
+            Trace.TraceInformation(LocalizationHelper.FindText("TraceMinesPanelArranged", DateTime.Now));
 
             if (this.Columns == 0 || this.Rows == 0)
             {

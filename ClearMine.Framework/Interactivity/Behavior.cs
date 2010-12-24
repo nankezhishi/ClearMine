@@ -18,7 +18,7 @@
             if (AttatchedObject != null)
             {
                 Detatch();
-                Trace.TraceWarning(LocalizationHelper.FindText("TraceReplaceBehaviorTarget", this.ToString()));
+                Trace.TraceWarning(LocalizationHelper.FindText("TraceReplaceBehaviorTarget", this));
             }
 
             AttatchedObject = attatchedObject;

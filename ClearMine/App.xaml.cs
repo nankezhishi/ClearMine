@@ -1,10 +1,13 @@
 ﻿namespace ClearMine
 {
+    using System.Diagnostics;
     using System.Windows;
+    using System.Windows.Input;
     using System.Windows.Media;
 
     using ClearMine.Common.Properties;
     using ClearMine.Framework.Dialogs;
+    using ClearMine.Localization;
     using ClearMine.VM;
 
     /// <summary>
@@ -16,9 +19,10 @@
 
         public App()
         {
-            DispatcherUnhandledException += (sender, e) => e.Handled = ExceptionBox.Show(e.Exception).Value;
             Settings.Default.PropertyChanged += (sender, e) => IsSettingsDirty = true;
             Settings.Default.SettingsSaving += (sender, e) => IsSettingsDirty = e.Cancel;
+            DispatcherUnhandledException += (sender, e) => e.Handled = ExceptionBox.Show(e.Exception).Value;
+            EventManager.RegisterClassHandler(typeof(Window), FocusManager.GotFocusEvent, new RoutedEventHandler(OnGotFocus));
         }
 
         private void OnAppStartup(object sender, StartupEventArgs e)
@@ -27,14 +31,20 @@
             {
                 Width = 480,
                 Height = 480,
+                UseLayoutRounding = true,
                 Background = Brushes.Silver,
+                DataContext = new ClearMineViewModel(),
                 WindowStartupLocation = WindowStartupLocation.CenterScreen,
             };
             TextOptions.SetTextFormattingMode(mainWindow, TextFormattingMode.Display);
             mainWindow.SetResourceReference(Window.TitleProperty, "ApplicationTitle");
             mainWindow.SetBinding(Window.ContentProperty, ".");
             mainWindow.Show();
-            mainWindow.DataContext = new ClearMineViewModel();
+        }
+
+        private void OnGotFocus(object sender, RoutedEventArgs e)
+        {
+            Trace.TraceInformation(LocalizationHelper.FindText("FocusChangedMessage", e.OriginalSource));
         }
 
         private void OnApplicationExit(object sender, ExitEventArgs e)

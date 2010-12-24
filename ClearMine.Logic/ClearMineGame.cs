@@ -13,6 +13,7 @@
 
     using ClearMine.Common.ComponentModel;
     using ClearMine.Common.Logic;
+    using ClearMine.Localization;
 
     [Serializable]
     [XmlRoot("savedGame")]
@@ -218,7 +219,7 @@
 
             if (game == null)
             {
-                throw new ArgumentException("The new value should be of ClearMineGame type.", "newValue");
+                throw new ArgumentException(LocalizationHelper.FindText("InvalidUpdateGameType", GetType().Name), "newValue");
             }
 
             int index = 0;
@@ -279,7 +280,7 @@
             VerifyStateIs(GameState.Initialized, GameState.Started);
             if (!new[] { CellState.MarkAsMine, CellState.Normal, CellState.Question }.Contains(newState))
             {
-                throw new InvalidOperationException(String.Format(CultureInfo.InvariantCulture, "Cannot set cell state to {0}.", newState));
+                throw new InvalidOperationException(LocalizationHelper.FindText("InvalidTargetCellState", newState));
             }
 
             cell.State = newState;

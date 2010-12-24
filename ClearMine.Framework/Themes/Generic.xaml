@@ -185,6 +185,8 @@
                 Value="Center" />
         <Setter Property="HorizontalContentAlignment"
                 Value="Center" />
+        <Setter Property="Focusable"
+                Value="False" />
         <!--Keep the default template simple. -->
         <Setter Property="Template">
             <Setter.Value>
@@ -233,6 +235,8 @@
     <Style TargetType="{x:Type con:NumberPresenter}">
         <Setter Property="Background"
                 Value="Black" />
+        <Setter Property="Focusable"
+                Value="False" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type con:NumberPresenter}">
@@ -280,13 +284,16 @@
     </Style>
 
     <Style TargetType="{x:Type con:ElectronicNumber}">
+        <Setter Property="Focusable"
+                Value="False" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type con:ElectronicNumber}">
                     <Border Background="{TemplateBinding Background}"
                             BorderBrush="{TemplateBinding BorderBrush}"
                             BorderThickness="{TemplateBinding BorderThickness}">
-                        <ItemsControl ItemsSource="{TemplateBinding Numbers}">
+                        <ItemsControl Focusable="False"
+                                      ItemsSource="{TemplateBinding Numbers}">
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
                                     <con:NumberPresenter Number="{Binding Number}"

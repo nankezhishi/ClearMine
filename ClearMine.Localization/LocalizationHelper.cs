@@ -11,7 +11,7 @@
             return Application.Current.FindResource(key) as string;
         }
 
-        public static string FindText(object key, params string[] args)
+        public static string FindText(object key, params object[] args)
         {
             return String.Format(CultureInfo.InvariantCulture, FindText(key), args);
         }

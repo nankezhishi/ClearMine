@@ -161,6 +161,14 @@
                       Color="#FFE5E5E5" />
     </LinearGradientBrush>
 
+    <Style x:Key="EmptyFocusVisual">
+        <Setter Property="Control.Template">
+            <Setter.Value>
+                <ControlTemplate />
+            </Setter.Value>
+        </Setter>
+    </Style>
+
     <Style x:Key="ButtonFocusVisual">
         <Setter Property="Control.Template">
             <Setter.Value>
@@ -182,6 +190,38 @@
                 Value="Center" />
         <Setter Property="FocusVisualStyle"
                 Value="{StaticResource ButtonFocusVisual}" />
+    </Style>
+
+    <Style x:Key="CheckBoxFocusVisual">
+        <Setter Property="Control.Template">
+            <Setter.Value>
+                <ControlTemplate>
+                    <Rectangle StrokeThickness="1"
+                               Margin="14,0,-1,-1"
+                               Stroke="{StaticResource DashFocusBrush}" />
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
+    <Style TargetType="{x:Type CheckBox}">
+        <Style.Triggers>
+            <Trigger Property="HasContent"
+                     Value="True">
+                <Setter Property="FocusVisualStyle"
+                        Value="{StaticResource CheckBoxFocusVisual}" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style TargetType="{x:Type RadioButton}">
+        <Style.Triggers>
+            <Trigger Property="HasContent"
+                     Value="True">
+                <Setter Property="FocusVisualStyle"
+                        Value="{StaticResource CheckBoxFocusVisual}" />
+            </Trigger>
+        </Style.Triggers>
     </Style>
 
     <Style TargetType="{x:Type Label}">

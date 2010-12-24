@@ -15,22 +15,10 @@
     <Window.Resources>
         <c:DifficultyToBooleanConverter x:Key="DifficultyToBooleanConverter" />
     </Window.Resources>
-    <DockPanel Margin="12">
-        <DockPanel LastChildFill="False"
-                   DockPanel.Dock="Bottom">
-            <Button Content="{DynamicResource CancelButtonLabel}"
-                    IsCancel="True"
-                    Command="Close"
-                    DockPanel.Dock="Right" />
-            <Button Content="{DynamicResource OKButtonLabel}"
-                    IsDefault="True"
-                    Command="Save"
-                    DockPanel.Dock="Right"
-                    Margin="0,0,7,0" />
-        </DockPanel>
+    <!-- Pay attention to the focus sequence when update xaml. -->
+    <StackPanel Margin="12">
         <GroupBox Header="{DynamicResource DifficultySettingsGroupLabel}"
-                  Style="{StaticResource SeparatorGroupBoxStyle}"
-                  DockPanel.Dock="Top">
+                  Style="{StaticResource SeparatorGroupBoxStyle}">
             <DockPanel>
                 <StackPanel Orientation="Horizontal"
                             Margin="0,0,0,7"
@@ -98,7 +86,6 @@
             </DockPanel>
         </GroupBox>
         <GroupBox Header="{DynamicResource GameEffectGroupLabel}"
-                  DockPanel.Dock="Top"
                   Style="{StaticResource SeparatorGroupBoxStyle}">
             <WrapPanel>
                 <CheckBox Content="{DynamicResource PlaySoundLabel}"
@@ -112,7 +99,6 @@
             </WrapPanel>
         </GroupBox>
         <GroupBox Header="{DynamicResource GameControlGroupLabel}"
-                  DockPanel.Dock="Top"
                   Style="{StaticResource SeparatorGroupBoxStyle}">
             <StackPanel>
                 <CheckBox Content="{DynamicResource ShowQuestionMarkLabel}"
@@ -130,23 +116,41 @@
         </GroupBox>
         <GroupBox Header="{DynamicResource GameHistoryGroupLabel}"
                   Margin="0,0,0,12"
-                  DockPanel.Dock="Top"
                   Style="{StaticResource SeparatorGroupBoxStyle}">
-            <StackPanel>
-                <DockPanel Margin="0,0,12,0">
-                    <CheckBox Content="{DynamicResource SaveGameHistoryLabel}"
-                              DockPanel.Dock="Top"
-                              Margin="0,0,0,5"
-                              IsChecked="{Binding SaveGame}" />
-                    <Button Content="{DynamicResource BrowseGameHistoryLabel}"
-                            Margin="5,0,0,0"
-                            DockPanel.Dock="Right"
-                            Command="{x:Static h:OptionsCommands.BrowseHistory}" />
-                    <TextBox Margin="18,0,0,0" MinWidth="150"
-                             Text="{Binding GameHistoryFolder, ValidatesOnDataErrors=True, ValidatesOnExceptions=True, NotifyOnValidationError=True}"
-                             IsEnabled="{Binding SaveGame}" />
-                </DockPanel>
-            </StackPanel>
+            <Grid Margin="0,0,12,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <CheckBox Content="{DynamicResource SaveGameHistoryLabel}"
+                          Margin="0,0,0,5"
+                          Grid.ColumnSpan="2"
+                          IsChecked="{Binding SaveGame}" />
+                <TextBox Margin="18,0,0,0"
+                         MinWidth="150"
+                         Grid.Row="1"
+                         Text="{Binding GameHistoryFolder, ValidatesOnDataErrors=True, ValidatesOnExceptions=True, NotifyOnValidationError=True}"
+                         IsEnabled="{Binding SaveGame}" />
+                <Button Content="{DynamicResource BrowseGameHistoryLabel}"
+                        Margin="5,0,0,0"
+                        Grid.Column="1"
+                        Grid.Row="1"
+                        Command="{x:Static h:OptionsCommands.BrowseHistory}" />
+            </Grid>
         </GroupBox>
-    </DockPanel>
+        <StackPanel Orientation="Horizontal"
+                    HorizontalAlignment="Right">
+            <Button Content="{DynamicResource OKButtonLabel}"
+                    IsDefault="True"
+                    Command="Save"
+                    Margin="0,0,7,0" />
+            <Button Content="{DynamicResource CancelButtonLabel}"
+                    IsCancel="True"
+                    Command="Close" />
+        </StackPanel>
+    </StackPanel>
 </Window>
