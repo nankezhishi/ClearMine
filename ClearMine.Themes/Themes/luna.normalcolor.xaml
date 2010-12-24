@@ -616,6 +616,11 @@
                         <MenuItem Header="{DynamicResource CustomThemeMenuHeader}" />
                     </MenuItem>
                     <MenuItem Header="{DynamicResource LanguageMenuHeader}">
+                        <Interaction.Behaviors>
+                            <BehaviorCollection>
+                                <AutoCheckMenuItemsBehavior />
+                            </BehaviorCollection>
+                        </Interaction.Behaviors>
                         <MenuItem Header="{DynamicResource EnglishMenuItemHeader}"
                                   Command="{x:Static h:GameCommands.SwitchLanguage}"
                                   CommandParameter="en-US" />
