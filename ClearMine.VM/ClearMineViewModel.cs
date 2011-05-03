@@ -88,11 +88,12 @@
 
         private static void OnOptionExecuted(object sender, ExecutedRoutedEventArgs e)
         {
-            var viewModel =  e.ExtractDataContext<ClearMineViewModel>();
+            var viewModel = e.ExtractDataContext<ClearMineViewModel>();
             bool shouldResume = false;
             if (viewModel.game.GameState == GameState.Started)
             {
                 shouldResume = true;
+
                 // Pause the game may takes long time. Needn't wait that finish; 
                 Application.Current.Dispatcher.BeginInvoke(new Action(viewModel.game.PauseGame), DispatcherPriority.Background);
             }
@@ -132,7 +133,7 @@
         private static void OnSaveAsCanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
             e.CanExecute = e.ExtractDataContext<ClearMineViewModel>().game.GameState == GameState.Started;
-        } 
+        }
         #endregion
         #region OpenCommand
         private static CommandBinding openBinding = new CommandBinding(ApplicationCommands.Open,
@@ -256,6 +257,7 @@
                         Initialize();
                         RefreshUI();
                     }
+
                     UpdateStatistics();
                     game.StartNew();
                 }
@@ -270,6 +272,7 @@
                 {
                     Initialize();
                 }
+
                 game.StartNew();
             }
         }
@@ -329,6 +332,7 @@
                 {
                     // Do nothing.
                 }
+
                 TriggerPropertyChanged("RemainedMines");
             }
         }
@@ -359,7 +363,7 @@
 
         public override IEnumerable<CommandBinding> GetCommandBindings()
         {
-            //Arrange in alphabetical order.
+            // Arrange in alphabetical order.
 
             yield return NewGameBinding;
             yield return OpenBinding;
@@ -390,6 +394,7 @@
                 Settings.Default.Mines = 10;
                 Settings.Default.Difficulty = Difficulty.Beginner;
                 Settings.Default.Save();
+
                 // Try again.
                 InitialPlayground();
             }
@@ -544,6 +549,7 @@
                     history.IncreaseUndone();
                 }
             }
+
             Settings.Default.Save();
         }
 
@@ -603,6 +609,7 @@
             {
                 newgame = (IClearMine)gameLoader.Deserialize(file);
             }
+
             if (newgame.CheckHash())
             {
                 HookupToGame(newgame);

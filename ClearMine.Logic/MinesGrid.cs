@@ -34,20 +34,11 @@
                     var cell = GetCell(column, row);
                     strBuilder.Append(cell.HasMine ? '*' : cell.MinesNearby);
                 }
+
                 strBuilder.Append(Environment.NewLine);
             }
 
             return strBuilder.ToString();
-        }
-
-        protected override void InsertItem(int index, MineCell item)
-        {
-            if (index >= Size.Width * Size.Height)
-            {
-                throw new InvalidOperationException(LocalizationHelper.FindText("MinesGridOverflow"));
-            }
-
-            base.InsertItem(index, item);
         }
 
         internal IEnumerable<MineCell> SetSize(Size newSize)
@@ -63,6 +54,7 @@
                     for (int column = 0; column < newSize.Width; ++column)
                     {
                         var newCell = new MineCell(column, row);
+
                         // if call base.InsertItem directly, C# compiler will unable to generate a valid assembly!
                         // Woops.
                         this.InsertItem(index++, newCell);
@@ -291,6 +283,16 @@
         internal int GetMinesCountNearBy(MineCell cell)
         {
             return GetCellsAround(cell, c => c.HasMine).Count();
+        }
+
+        protected override void InsertItem(int index, MineCell item)
+        {
+            if (index >= Size.Width * Size.Height)
+            {
+                throw new InvalidOperationException(LocalizationHelper.FindText("MinesGridOverflow"));
+            }
+
+            base.InsertItem(index, item);
         }
 
         private bool ContainsWrongMark(IEnumerable<MineCell> cells)

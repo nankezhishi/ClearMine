@@ -33,7 +33,7 @@
     public abstract class RecordItem : IGamePlayer
     {
         /// <summary>
-        /// The time the current record happens since the game starts. in ms.
+        /// Gets or sets the time the current record happens since the game starts. in ms.
         /// </summary>
         [XmlAttribute("time")]
         public int TimeStamp { get; set; }
@@ -101,7 +101,6 @@
 
     public class WmvGameRecorder : IDisposable, IGameRecorder
     {
-
         public void Dispose()
         {
             throw new NotImplementedException();
@@ -121,7 +120,6 @@
         {
             throw new NotImplementedException();
         }
-
     }
 
     public class XmlGameRecorder : IDisposable, IGameRecorder
@@ -151,6 +149,7 @@
                     panel.MouseMove += new MouseEventHandler(OnMouseMove);
                     game.CellStateChanged -= new EventHandler<CellStateChangedEventArgs>(OnCellStateChanged);
                 }
+
                 isEnabled = value;
             }
         }
@@ -171,6 +170,7 @@
             {
                 gameSaver.Serialize(file, game);
             }
+
             records.Clear();
             IsEnabled = shouldStart;
         }

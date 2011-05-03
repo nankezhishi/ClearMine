@@ -104,6 +104,7 @@
     <Compile Include="Logic\ExpandFailedException.cs" />
     <Compile Include="Logic\GameState.cs" />
     <Compile Include="Logic\IClearMine.cs" />
+    <Compile Include="Logic\IMinesGenerator.cs" />
     <Compile Include="Logic\MineCell.cs" />
     <Compile Include="Logic\PressState.cs" />
     <Compile Include="Utilities\RedirectorTraceListener.cs" />

@@ -7,7 +7,7 @@
     /// <summary>
     /// 
     /// </summary>
-    /// <typeparam name="T"></typeparam>
+    /// <typeparam name="T">Element type.</typeparam>
     internal class CachedObservableCollection<T> : ObservableCollection<T>
         where T : class, ICachable<T>
     {
@@ -61,6 +61,7 @@
                 item.CachingState = CachingState.InUse;
                 base.InsertItem(index, item);
             }
+
             ++countInUse;
         }
 

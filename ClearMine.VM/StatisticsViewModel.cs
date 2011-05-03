@@ -44,6 +44,7 @@
                 {
                     history.Reset();
                 }
+
                 Settings.Default.Save();
             }
         }

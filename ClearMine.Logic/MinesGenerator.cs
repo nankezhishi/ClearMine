@@ -1,16 +1,20 @@
 ﻿namespace ClearMine.Logic
 {
     using System;
+    using System.Collections.Generic;
+    using System.ComponentModel.Composition;
+    using System.Windows;
 
     using ClearMine.Common.Logic;
 
-    internal class MinesGenerator
+    [Export(typeof(IMinesGenerator))]
+    internal class MinesGenerator : IMinesGenerator
     {
         private Random random = new Random();
 
-        public void Fill(MinesGrid grid, int mines)
+        public void Fill(Size size, IList<MineCell> grid, int mines)
         {
-            int total = (int)(grid.Size.Width * grid.Size.Height);
+            int total = (int)(size.Width * size.Height);
 
             if (mines > total)
             {
@@ -19,7 +23,7 @@
 
             // Choose different algorithm according to the mines to fill.
             // While, 0.5 is a guess.
-            if (mines > grid.Size.Height * grid.Size.Width * 0.5)
+            if (mines > total * 0.5)
             {
                 #region A MUTATION of Reservoir Sampling Algorithm
                 ///////////////////////////////////////////////////////////////////////////////

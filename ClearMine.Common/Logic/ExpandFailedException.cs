@@ -19,13 +19,11 @@
         public ExpandFailedException(string message, Exception innerException)
             : base(message, innerException)
         {
-
         }
 
         public ExpandFailedException(SerializationInfo serializationInfo, StreamingContext context)
             : base(serializationInfo, context)
         {
-
         }
     }
 }

@@ -16,7 +16,7 @@
     public class HistoryRecord 
     {
         /// <summary>
-        /// The time used in seconds.
+        /// Gets or sets the time used in seconds.
         /// </summary>
         [XmlAttribute("score")]
         public double Score { get; set; }
@@ -120,6 +120,7 @@
             {
                 CurrentStatus = 1;
             }
+
             if (CurrentStatus > LongestWinning)
             {
                 LongestWinning = CurrentStatus;
@@ -147,6 +148,7 @@
             {
                 CurrentStatus = -1;
             }
+
             if (-CurrentStatus > LongestLosing)
             {
                 LongestLosing = -CurrentStatus;

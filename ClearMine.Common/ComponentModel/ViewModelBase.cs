@@ -1,7 +1,7 @@
 ﻿namespace ClearMine.Common.ComponentModel
 {
-    using System.Windows.Input;
     using System.Collections.Generic;
+    using System.Windows.Input;
 
     internal abstract class ViewModelBase : BindableObject
     {

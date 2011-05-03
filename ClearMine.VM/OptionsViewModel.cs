@@ -44,7 +44,7 @@
         private static void OnCloseCanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
             e.CanExecute = true;
-        } 
+        }
         #endregion
 
         #region Save Command
@@ -73,7 +73,7 @@
         private static void OnSaveCanExecuted(object sender, CanExecuteRoutedEventArgs e)
         {
             e.CanExecute = String.IsNullOrWhiteSpace(e.ExtractDataContext<OptionsViewModel>().Error);
-        } 
+        }
         #endregion
 
         #region BrowseHistory Command
@@ -101,13 +101,12 @@
         {
             e.CanExecute = Settings.Default.SaveGame;
         }
-        
+
         #endregion
 
         public OptionsViewModel()
         {
             Settings.Default.PropertyChanged += new PropertyChangedEventHandler(OnSettingsChanged);
-            //Settings.Default.Reload();
         }
 
         public Difficulty? Difficulty
@@ -259,7 +258,7 @@
                         Error = null;
                     }
                 }
-                else if("Mines".Equals(propertyName, StringComparison.Ordinal))
+                else if ("Mines".Equals(propertyName, StringComparison.Ordinal))
                 {
                     if (Mines < 10 || Mines > Rows * Columns)
                     {

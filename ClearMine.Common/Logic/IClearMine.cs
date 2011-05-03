@@ -7,6 +7,12 @@
 
     public interface IClearMine : IUpdatable<IClearMine>
     {
+        event EventHandler StateChanged;
+
+        event EventHandler TimeChanged;
+
+        event EventHandler<CellStateChangedEventArgs> CellStateChanged;
+
         void Initialize(Size size, int mines);
 
         void Restart();
@@ -43,11 +49,5 @@
         IEnumerable<MineCell> Cells { get; }
 
         GameState GameState { get; }
-
-        event EventHandler StateChanged;
-
-        event EventHandler TimeChanged;
-
-        event EventHandler<CellStateChangedEventArgs> CellStateChanged;
     }
 }

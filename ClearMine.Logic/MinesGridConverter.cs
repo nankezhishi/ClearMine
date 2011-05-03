@@ -38,7 +38,7 @@
 
             int rowNum = 0;
             int columnNum = 0;
-            foreach(var rowStr in rows)
+            foreach (var rowStr in rows)
             {
                 columnNum = 0;
                 var cells = rowStr.Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
@@ -54,6 +54,7 @@
                     {
                         cell.State = CellState.Normal;
                     }
+
                     cell.HasMine = cellstr[1] == 'T' ? true : false;
                     grid.Add(cell);
 

@@ -14,11 +14,6 @@
     {
         private HeroHistory history;
 
-        public override IEnumerable<CommandBinding> GetCommandBindings()
-        {
-            throw new NotImplementedException();
-        }
-
         public GameWonDetailsViewModel()
         {
             Debug.Assert(Settings.Default.Difficulty != Difficulty.Custom);
@@ -43,6 +38,11 @@
         public double WonRate
         {
             get { return history.GameWonPercentage; }
+        }
+
+        public override IEnumerable<CommandBinding> GetCommandBindings()
+        {
+            throw new NotImplementedException();
         }
     }
 }

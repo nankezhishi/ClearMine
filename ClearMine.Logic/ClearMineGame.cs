@@ -4,8 +4,6 @@
     using System.Collections.Generic;
     using System.ComponentModel;
     using System.ComponentModel.Composition;
-    using System.Diagnostics;
-    using System.Globalization;
     using System.Linq;
     using System.Windows;
     using System.Windows.Threading;
@@ -13,6 +11,7 @@
 
     using ClearMine.Common.ComponentModel;
     using ClearMine.Common.Logic;
+    using ClearMine.Common.Utilities;
     using ClearMine.Localization;
 
     [Serializable]
@@ -29,18 +28,18 @@
         private DispatcherTimer timer;
         private MinesGrid cells = new MinesGrid();
 
+        public ClearMineGame()
+        {
+            timer = new DispatcherTimer() { Interval = new TimeSpan(0, 0, 0, 0, 100) };
+            timer.Tick += new EventHandler(OnTick);
+        }
+
         [field: NonSerialized]
         public event EventHandler StateChanged;
         [field: NonSerialized]
         public event EventHandler TimeChanged;
         [field: NonSerialized]
         public event EventHandler<CellStateChangedEventArgs> CellStateChanged;
-
-        public ClearMineGame()
-        {
-            timer = new DispatcherTimer() { Interval = new TimeSpan(0, 0, 0, 0, 100) };
-            timer.Tick += new EventHandler(OnTick);
-        }
 
         [XmlAttribute("timeUsed")]
         public int UsedTime
@@ -56,6 +55,7 @@
                     return usedTime;
                 }
             }
+
             // setter is a must for XML Serialization.
             set { PersistantUsedTime(value); }
         }
@@ -199,7 +199,15 @@
         {
             Restart();
             this.cells.ClearMines();
-            new MinesGenerator().Fill(this.cells, totalMines);
+            var generator = Infrastructure.Container.GetExportedValue<IMinesGenerator>();
+            if (generator != null)
+            {
+                generator.Fill(this.cells.Size, this.cells, totalMines);
+            }
+            else
+            {
+                throw new InvalidOperationException("Cannot find a proper mines generator.");
+            }
             this.cells.CalculateMinesCount();
         }
 
@@ -223,7 +231,7 @@
             }
 
             int index = 0;
-            
+
             this.cells.Clear();
             this.cells.Size = game.cells.Size;
             foreach (var cell in game.Cells)

@@ -13,7 +13,6 @@ using System.Windows;
 [assembly: AssemblyTrademark("Hugo Gu")]
 [assembly: AssemblyCulture("")]
 [assembly: ComVisible(false)]
-//[assembly: NeutralResourcesLanguage("en-US", UltimateResourceFallbackLocation.Satellite)]
 [assembly: ThemeInfo(ResourceDictionaryLocation.None, ResourceDictionaryLocation.None)]
 [assembly: AssemblyVersion("1.0.0.0")]
 [assembly: AssemblyFileVersion("1.0.0.0")]
