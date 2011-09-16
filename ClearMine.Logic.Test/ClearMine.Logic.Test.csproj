@@ -33,11 +33,19 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
     <CodeAnalysisDependentAssemblyPaths Condition=" '$(VS100COMNTOOLS)' != '' " Include="$(VS100COMNTOOLS)..\IDE\PrivateAssemblies">
@@ -45,9 +53,19 @@
     </CodeAnalysisDependentAssemblyPaths>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BindableObjectTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SampleObject.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ClearMine.Common\ClearMine.Common.csproj">
+      <Project>{A2631FA1-E4A4-41AC-8E8E-5C8AEB63C83E}</Project>
+      <Name>ClearMine.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ClearMine.Localization\ClearMine.Localization.csproj">
+      <Project>{71C67E90-41FD-457E-B155-1EBE7396024A}</Project>
+      <Name>ClearMine.Localization</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ClearMine.Logic\ClearMine.Logic.csproj">
       <Project>{EEB5C47E-76B0-472B-9991-0F2D9A861A62}</Project>
       <Name>ClearMine.Logic</Name>

@@ -67,6 +67,9 @@
   <ItemGroup>
     <Effect Include="ShaderSource\Mono.fx" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="ReadMe.txt" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EffectCompile" Condition="'@(Effect)' != '' ">
     <PixelShaderCompile Sources="@(Effect)">
