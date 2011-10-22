@@ -195,7 +195,7 @@
                     }
                     else
                     {
-                        Numbers.Add(new SingleNumber(newNumber[current]));
+                        Numbers.Insert(0, new SingleNumber(newNumber[current]));
                     }
 
                     current--;
@@ -204,8 +204,15 @@
 
                 while (updateIndex >= 0)
                 {
-                    Numbers[updateIndex].IsPoint = false;
-                    Numbers[updateIndex].Number = 0;
+                    if (Numbers.Count > MinLength)
+                    {
+                        Numbers.RemoveAt(updateIndex);
+                    }
+                    else
+                    {
+                        Numbers[updateIndex].IsPoint = false;
+                        Numbers[updateIndex].Number = 0;
+                    }
                     updateIndex--;
                 }
             }
