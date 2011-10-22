@@ -23,6 +23,7 @@
             set
             {
                 // Here is the correct way to use the expression version of Property Setter.
+                // Its performance should be equal to the one using string property name in general.
                 SetProperty(ref property, value, propertyName ?? (propertyName = () => Property));
             }
         }

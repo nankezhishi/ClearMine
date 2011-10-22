@@ -1,6 +1,7 @@
 ﻿namespace ClearMine.Common.Utilities
 {
     using System;
+    using System.Collections.Generic;
     using System.Diagnostics;
     using System.Linq.Expressions;
     using System.Reflection;
@@ -19,6 +20,33 @@
         public static bool IsPropertySetter(this MethodBase method)
         {
             return method.IsSpecialName && method.Name.StartsWith(propertySetterPrefix, StringComparison.Ordinal);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="element"></param>
+        /// <returns></returns>
+        public static IEnumerable<T> FindChildren<T>(this DependencyObject element, Predicate<T> condition = null)
+            where T : DependencyObject
+        {
+            int count = VisualTreeHelper.GetChildrenCount(element);
+            for (int i = 0; i < count; i++)
+            {
+                var child = VisualTreeHelper.GetChild(element, i);
+                if (child is T && condition(child as T))
+                {
+                    yield return child as T;
+                }
+                else
+                {
+                    foreach (var subChild in FindChildren<T>(child, condition))
+                    {
+                        yield return subChild;
+                    }
+                }
+            }
         }
 
         public static T FindAncestor<T>(this DependencyObject element, Predicate<T> condition = null)

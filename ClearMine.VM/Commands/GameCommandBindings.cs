@@ -31,7 +31,7 @@
         private static void OnStatisticsExecuted(object sender, ExecutedRoutedEventArgs e)
         {
             var statisticsWindow = new StatisticsWindow();
-            statisticsWindow.Owner = Application.Current.MainWindow;
+            statisticsWindow.Owner = Window.GetWindow(e.OriginalSource as DependencyObject);
             statisticsWindow.DataContext = new StatisticsViewModel()
             {
                 SelectedLevel = Settings.Default.Difficulty != Difficulty.Custom ? Settings.Default.Difficulty : Difficulty.Beginner
@@ -77,7 +77,7 @@
         private static void OnAboutExecuted(object sender, ExecutedRoutedEventArgs e)
         {
             var about = new AboutDialog();
-            about.Owner = Application.Current.MainWindow;
+            about.Owner = Window.GetWindow(e.OriginalSource as DependencyObject);
             about.ShowDialog();
         }
 
@@ -154,7 +154,7 @@
         private static void OnShowLogExecuted(object sender, ExecutedRoutedEventArgs e)
         {
             var outputWindow = new OutputWindow();
-            outputWindow.Owner = Application.Current.MainWindow;
+            outputWindow.Owner = Window.GetWindow(e.OriginalSource as DependencyObject);
             outputWindow.Show();
         }
 

@@ -4,8 +4,11 @@
     using System.ComponentModel;
     using System.Windows;
     using System.Windows.Controls;
+    using System.Windows.Data;
     using System.Windows.Documents;
+    using System.Windows.Threading;
 
+    using ClearMine.Common.Utilities;
     using ClearMine.Framework.Controls;
 
     public class SortInfo
@@ -74,6 +77,7 @@
             if ((bool)e.NewValue)
             {
                 listView.AddHandler(GridViewColumnHeader.ClickEvent, new RoutedEventHandler(OnListViewHeaderClick));
+                listView.Dispatcher.BeginInvoke(DispatcherPriority.Loaded, new Action(() => InitializeSortDirection(listView)));
             }
             else
             {
@@ -115,6 +119,36 @@
                 PropertyName = header.Column.GetValue(SortFieldProperty) as string ?? header.Column.Header as string
             };
             listView.Items.SortDescriptions.Add(sortDescriptioin);
+        }
+
+        private static void InitializeSortDirection(ListView listView)
+        {
+            #region Guards
+            var dataSource = listView.ItemsSource;
+            if (dataSource == null)
+                return;
+
+            var dataview = CollectionViewSource.GetDefaultView(dataSource);
+            if (dataview == null || dataview.SortDescriptions.Count == 0)
+                return;
+
+            SortInfo sortInfo = listView.GetValue(SortInfoProperty.DependencyProperty) as SortInfo;
+            if (sortInfo != null)
+                return;
+            #endregion
+
+            foreach (var columnHeader in listView.FindChildren<GridViewColumnHeader>(h => h.Role != GridViewColumnHeaderRole.Padding))
+            {
+                if (GetSortField(columnHeader.Column).Equals(dataview.SortDescriptions[0].PropertyName))
+                {
+                    sortInfo = new SortInfo();
+                    sortInfo.LastSortColumn = columnHeader;
+                    sortInfo.CurrentAdorner = new VisualAdorner(columnHeader, new ListSortDecorator());
+                    AdornerLayer.GetAdornerLayer(columnHeader).Add(sortInfo.CurrentAdorner);
+                    listView.SetValue(SortInfoProperty, sortInfo);
+                    break;
+                }
+            }
         }
     }
 }

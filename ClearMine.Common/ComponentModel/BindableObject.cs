@@ -38,7 +38,7 @@
             }
             else
             {
-                throw new InvalidProgramException("expression参数只能是成功访问表达式。");
+                throw new InvalidProgramException("expression参数只能是成员访问表达式。");
             }
         }
 

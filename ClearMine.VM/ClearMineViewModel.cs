@@ -99,7 +99,7 @@
             }
 
             var optionsWindow = new OptionsDialog();
-            optionsWindow.Owner = Application.Current.MainWindow;
+            optionsWindow.Owner = Window.GetWindow(e.OriginalSource as DependencyObject);
             optionsWindow.DataContext = new OptionsViewModel();
             if (optionsWindow.ShowDialog().Value)
             {
