@@ -4,10 +4,25 @@
     using System.Linq;
     using System.Windows;
     using System.Windows.Controls;
+
     using ClearMine.Framework.Interactivity;
 
     public class AutoCheckMenuItemsBehavior : Behavior<MenuItem>
     {
+        private MenuItem previousCheckedItem;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void UndoMenuItemCheck()
+        {
+            if (previousCheckedItem != null)
+            {
+                ResetMenuState(previousCheckedItem);
+                previousCheckedItem = null;
+            }
+        }
+
         protected override void OnAttatched()
         {
             AttatchedObject.Click += new RoutedEventHandler(OnMenuItemClick);
@@ -47,14 +62,21 @@
 
         private void ResetMenuState(MenuItem menuToCheck)
         {
-            foreach (MenuItem child in AttatchedObject.Items.Cast<UIElement>().Where(m => m is MenuItem))
+            var parent = menuToCheck.Parent as ItemsControl;
+
+            foreach (MenuItem child in parent.Items.Cast<UIElement>().Where(m => m is MenuItem))
             {
                 if (child.IsCheckable)
                 {
                     Trace.TraceWarning("AutoCheckMenuItemsBehavior may not be able to work with a checkable menu item correctly.");
                 }
 
-                child.IsChecked = false;
+                if (child.IsChecked)
+                {
+                    previousCheckedItem = child;
+                    child.IsChecked = false;
+                    break;
+                }
             }
 
             menuToCheck.IsChecked = true;

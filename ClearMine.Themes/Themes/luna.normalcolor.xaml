@@ -623,7 +623,7 @@
                         </Interaction.Behaviors>
                         <MenuItem Header="{DynamicResource EnglishMenuItemHeader}"
                                   Command="{x:Static h:GameCommands.SwitchLanguage}"
-                                  CommandParameter="en-US" />
+                                  CommandParameter="en-US" IsChecked="True" />
                         <MenuItem Header="{DynamicResource ChineseMenuItemHeader}"
                                   Command="{x:Static h:GameCommands.SwitchLanguage}"
                                   CommandParameter="zh-CN" />
@@ -652,6 +652,7 @@
                        HorizontalAlignment="Center"
                        UseLayoutRounding="True">
                 <ElectronicNumber LengthAfterPoint="1"
+                                  MinLength="4"
                                   DisplayNumber="{Binding Time}" />
                 <Button Command="New"
                         Margin="18,0,18,0"

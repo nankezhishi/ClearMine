@@ -12,7 +12,9 @@
     using ClearMine.Common;
     using ClearMine.Common.Properties;
     using ClearMine.Common.Utilities;
+    using ClearMine.Framework.Behaviors;
     using ClearMine.Framework.Commands;
+    using ClearMine.Framework.Interactivity;
     using ClearMine.Localization;
     using ClearMine.UI.Dialogs;
     using Microsoft.Win32;
@@ -194,6 +196,7 @@
                 }
                 else
                 {
+                    Interaction.FindBehavior<AutoCheckMenuItemsBehavior>(e.OriginalSource as DependencyObject, b => b.UndoMenuItemCheck());
                     return;
                 }
             }
@@ -219,6 +222,7 @@
             {
                 var message = String.Format(CultureInfo.InvariantCulture, 
                     LocalizationHelper.FindText("LanguageResourceParseError"), ex.Message);
+                Interaction.FindBehavior<AutoCheckMenuItemsBehavior>(e.OriginalSource as DependencyObject, b => b.UndoMenuItemCheck());
                 MessageBox.Show(message, LocalizationHelper.FindText("ApplicationTitle"), MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }

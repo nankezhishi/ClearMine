@@ -1,10 +1,37 @@
 ﻿namespace ClearMine.Framework.Interactivity
 {
+    using System;
     using System.Windows;
-    using System.Collections;
+    using System.Windows.Media;
 
-    public class Interaction
+    public static class Interaction
     {
+        public static T FindBehavior<T>(this DependencyObject element, Action<T> action = null)
+            where T : Behavior
+        {
+            var current = element;
+            while (current != null)
+            {
+                var behaviors = GetBehaviors(current);
+                foreach (var behavior in behaviors)
+                {
+                    if (behavior is T)
+                    {
+                        if (action != null)
+                        {
+                            action(behavior as T);
+                        }
+
+                        return behavior as T;
+                    }
+                }
+
+                current = VisualTreeHelper.GetParent(current) ?? ((dynamic)current).Parent ?? ((dynamic)current).TemplatedParent;
+            }
+
+            return null;
+        }
+
         public static BehaviorCollection GetBehaviors(DependencyObject obj)
         {
             var result = obj.GetValue(BehaviorsProperty) as BehaviorCollection;
