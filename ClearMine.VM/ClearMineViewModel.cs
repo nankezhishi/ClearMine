@@ -18,11 +18,12 @@
     using ClearMine.Common;
     using ClearMine.Common.ComponentModel;
     using ClearMine.Common.Logic;
+    using ClearMine.Common.Messaging;
     using ClearMine.Common.Properties;
     using ClearMine.Common.Utilities;
+    using ClearMine.Framework.Dialogs;
     using ClearMine.Framework.Media;
     using ClearMine.Localization;
-    using ClearMine.UI.Dialogs;
     using ClearMine.VM.Commands;
     using Microsoft.Win32;
 
@@ -98,10 +99,16 @@
                 Application.Current.Dispatcher.BeginInvoke(new Action(viewModel.game.PauseGame), DispatcherPriority.Background);
             }
 
-            var optionsWindow = new OptionsDialog();
-            optionsWindow.Owner = Window.GetWindow(e.OriginalSource as DependencyObject);
-            optionsWindow.DataContext = new OptionsViewModel();
-            if (optionsWindow.ShowDialog().Value)
+            var message = new ShowDialogMessage()
+            {
+                Source = e.OriginalSource,
+                DialogType = Type.GetType("ClearMine.UI.Dialogs.OptionsDialog, ClearMine.Dialogs", true),
+                Data = new OptionsViewModel(),
+            };
+
+            MessageManager.GetMessageAggregator<ShowDialogMessage>().SendMessage(message);
+
+            if (((bool?)message.HandlingResult).Value)
             {
                 viewModel.StartNewGame();
             }
@@ -250,7 +257,7 @@
             if (game.GameState == GameState.Started || game.GameState == GameState.Paused)
             {
                 if (Settings.Default.AlwaysNewGame ||
-                    new ConfirmNewGameWindow() { Owner = Application.Current.MainWindow }.ShowDialog().Value)
+                    ShowDialog("ClearMine.UI.Dialogs.ConfirmNewGameWindow, ClearMine.Dialogs"))
                 {
                     if (pandingInitialize)
                     {
@@ -504,9 +511,7 @@
 
         private void ShowLostWindow()
         {
-            var lostWindow = new GameLostWindow();
-            lostWindow.Owner = Application.Current.MainWindow;
-            if ((bool)lostWindow.ShowDialog())
+            if (ShowDialog("ClearMine.UI.Dialogs.GameLostWindow, ClearMine.Dialogs"))
             {
                 ThreadPool.QueueUserWorkItem(a => game.StartNew());
             }
@@ -518,10 +523,7 @@
 
         private void ShowWonWindow()
         {
-            var wonWindow = new GameWonWindow();
-            wonWindow.DataContext = new GameWonViewModel(game.UsedTime, DateTime.Now);
-            wonWindow.Owner = Application.Current.MainWindow;
-            if ((bool)wonWindow.ShowDialog())
+            if (ShowDialog("ClearMine.UI.Dialogs.GameWonWindow, ClearMine.Dialogs", new GameWonViewModel(game.UsedTime, DateTime.Now)))
             {
                 Application.Current.Shutdown();
             }
@@ -529,6 +531,18 @@
             {
                 ThreadPool.QueueUserWorkItem(a => game.StartNew());
             }
+        }
+
+        private bool ShowDialog(string type, object data = null)
+        {
+            var message = new ShowDialogMessage()
+            {
+                DialogType = Type.GetType(type),
+                Data = data,
+            };
+            MessageManager.GetMessageAggregator<ShowDialogMessage>().SendMessage(message);
+
+            return (bool)message.HandlingResult;
         }
 
         private void UpdateStatistics()

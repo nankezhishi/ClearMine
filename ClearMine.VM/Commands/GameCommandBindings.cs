@@ -10,13 +10,14 @@
     using System.Windows.Markup;
 
     using ClearMine.Common;
+    using ClearMine.Common.Messaging;
     using ClearMine.Common.Properties;
     using ClearMine.Common.Utilities;
     using ClearMine.Framework.Behaviors;
     using ClearMine.Framework.Commands;
+    using ClearMine.Framework.Dialogs;
     using ClearMine.Framework.Interactivity;
     using ClearMine.Localization;
-    using ClearMine.UI.Dialogs;
     using Microsoft.Win32;
 
     public static class GameCommandBindings
@@ -32,13 +33,15 @@
 
         private static void OnStatisticsExecuted(object sender, ExecutedRoutedEventArgs e)
         {
-            var statisticsWindow = new StatisticsWindow();
-            statisticsWindow.Owner = Window.GetWindow(e.OriginalSource as DependencyObject);
-            statisticsWindow.DataContext = new StatisticsViewModel()
+            MessageManager.GetMessageAggregator<ShowDialogMessage>().SendMessage(new ShowDialogMessage()
             {
-                SelectedLevel = Settings.Default.Difficulty != Difficulty.Custom ? Settings.Default.Difficulty : Difficulty.Beginner
-            };
-            statisticsWindow.ShowDialog();
+                Source = e.OriginalSource,
+                DialogType = Type.GetType("ClearMine.UI.Dialogs.StatisticsWindow, ClearMine.Dialogs"),
+                Data =  new StatisticsViewModel()
+                {
+                    SelectedLevel = Settings.Default.Difficulty != Difficulty.Custom ? Settings.Default.Difficulty : Difficulty.Beginner
+                }
+            });
         }
 
         private static void OnStaisticsCanExecute(object sender, CanExecuteRoutedEventArgs e)
@@ -78,9 +81,11 @@
 
         private static void OnAboutExecuted(object sender, ExecutedRoutedEventArgs e)
         {
-            var about = new AboutDialog();
-            about.Owner = Window.GetWindow(e.OriginalSource as DependencyObject);
-            about.ShowDialog();
+            MessageManager.GetMessageAggregator<ShowDialogMessage>().SendMessage(new ShowDialogMessage()
+            {
+                Source = e.OriginalSource,
+                DialogType = Type.GetType("ClearMine.UI.Dialogs.AboutDialog, ClearMine.Dialogs")
+            });
         }
 
         private static void OnAboutCanExecute(object sender, CanExecuteRoutedEventArgs e)
@@ -155,9 +160,11 @@
 
         private static void OnShowLogExecuted(object sender, ExecutedRoutedEventArgs e)
         {
-            var outputWindow = new OutputWindow();
-            outputWindow.Owner = Window.GetWindow(e.OriginalSource as DependencyObject);
-            outputWindow.Show();
+            MessageManager.GetMessageAggregator<ShowDialogMessage>().SendMessage(new ShowDialogMessage()
+            {
+                Source = e.OriginalSource,
+                DialogType = Type.GetType("ClearMine.UI.Dialogs.OutputWindow, ClearMine.Dialogs")
+            });
         }
 
         private static void OnShowLogCanExecute(object sender, CanExecuteRoutedEventArgs e)

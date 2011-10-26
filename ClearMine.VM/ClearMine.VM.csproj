@@ -47,6 +47,7 @@
     <Compile Include="Behaviors\MainInteractionBehavior.cs" />
     <Compile Include="ClearMineViewModel.cs" />
     <Compile Include="Commands\GameCommandBindings.cs" />
+    <Compile Include="Processors\DialogMessageProcessor.cs" />
     <Compile Include="GameWonDetailsViewModel.cs" />
     <Compile Include="GameWonViewModel.cs" />
     <Compile Include="OptionsViewModel.cs" />
@@ -58,10 +59,6 @@
     <ProjectReference Include="..\ClearMine.Common\ClearMine.Common.csproj">
       <Project>{A2631FA1-E4A4-41AC-8E8E-5C8AEB63C83E}</Project>
       <Name>ClearMine.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ClearMine.Dialogs\ClearMine.Dialogs.csproj">
-      <Project>{FFB181E2-DF4F-4332-8AE9-3BE561C26CA5}</Project>
-      <Name>ClearMine.Dialogs</Name>
     </ProjectReference>
     <ProjectReference Include="..\ClearMine.Framework\ClearMine.Framework.csproj">
       <Project>{730AFF67-B857-42CD-9DAF-E94FC79BA721}</Project>

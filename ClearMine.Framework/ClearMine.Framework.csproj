@@ -118,6 +118,7 @@
       <DependentUpon>ExceptionBox.xaml</DependentUpon>
     </Compile>
     <Compile Include="Dialogs\OptionDialog.cs" />
+    <Compile Include="Dialogs\ShowDialogMessage.cs" />
     <Compile Include="Interactivity\Behavior.cs" />
     <Compile Include="Interactivity\BehaviorCollection.cs" />
     <Compile Include="Interactivity\Interaction.cs" />
