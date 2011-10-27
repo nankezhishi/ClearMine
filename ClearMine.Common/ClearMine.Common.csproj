@@ -110,6 +110,8 @@
     <Compile Include="Messaging\MessageAggregator.cs" />
     <Compile Include="Messaging\MessageBase.cs" />
     <Compile Include="Messaging\MessageManager.cs" />
+    <Compile Include="Modularity\IModule.cs" />
+    <Compile Include="Modularity\ModuleManager.cs" />
     <Compile Include="Utilities\RedirectorTraceListener.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">

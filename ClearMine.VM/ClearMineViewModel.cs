@@ -108,7 +108,7 @@
 
             MessageManager.GetMessageAggregator<ShowDialogMessage>().SendMessage(message);
 
-            if (((bool?)message.HandlingResult).Value)
+            if (message.HandlingResult != null && ((bool?)message.HandlingResult).Value)
             {
                 viewModel.StartNewGame();
             }

@@ -47,7 +47,6 @@
     <Compile Include="Behaviors\MainInteractionBehavior.cs" />
     <Compile Include="ClearMineViewModel.cs" />
     <Compile Include="Commands\GameCommandBindings.cs" />
-    <Compile Include="Processors\DialogMessageProcessor.cs" />
     <Compile Include="GameWonDetailsViewModel.cs" />
     <Compile Include="GameWonViewModel.cs" />
     <Compile Include="OptionsViewModel.cs" />
@@ -69,6 +68,7 @@
       <Name>ClearMine.Localization</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

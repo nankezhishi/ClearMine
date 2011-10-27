@@ -1,4 +1,4 @@
-﻿namespace ClearMine.VM.Processors
+﻿namespace ClearMine.Dialogs
 {
     using System;
     using System.Windows;

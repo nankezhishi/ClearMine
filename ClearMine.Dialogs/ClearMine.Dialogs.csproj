@@ -65,6 +65,8 @@
     <Compile Include="ConfirmNewGameWindow.xaml.cs">
       <DependentUpon>ConfirmNewGameWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="DialogMessageProcessor.cs" />
+    <Compile Include="DialogModule.cs" />
     <Compile Include="GameLostWindow.xaml.cs">
       <DependentUpon>GameLostWindow.xaml</DependentUpon>
     </Compile>

@@ -5,12 +5,11 @@
     using System.Windows.Input;
     using System.Windows.Media;
 
-    using ClearMine.Common.Messaging;
+    using ClearMine.Common.Modularity;
     using ClearMine.Common.Properties;
     using ClearMine.Framework.Dialogs;
     using ClearMine.Localization;
     using ClearMine.VM;
-    using ClearMine.VM.Processors;
 
     /// <summary>
     /// Interaction logic for App.xaml
@@ -21,16 +20,11 @@
 
         public App()
         {
-            BuildUpMessageHandlingRelationships();
+            DispatcherUnhandledException += (sender, e) => e.Handled = ExceptionBox.Show(e.Exception).Value;
+            ModuleManager.LoadModules();
             Settings.Default.PropertyChanged += (sender, e) => IsSettingsDirty = true;
             Settings.Default.SettingsSaving += (sender, e) => IsSettingsDirty = e.Cancel;
-            DispatcherUnhandledException += (sender, e) => e.Handled = ExceptionBox.Show(e.Exception).Value;
             EventManager.RegisterClassHandler(typeof(Window), FocusManager.GotFocusEvent, new RoutedEventHandler(OnGotFocus));
-        }
-
-        private void BuildUpMessageHandlingRelationships()
-        {
-            MessageManager.GetMessageAggregator<ShowDialogMessage>().Subscribe(new DialogMessageProcessor().HandleMessage);
         }
 
         private void OnAppStartup(object sender, StartupEventArgs e)
