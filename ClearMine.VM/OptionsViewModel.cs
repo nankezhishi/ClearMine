@@ -10,10 +10,10 @@
 
     using ClearMine.Common;
     using ClearMine.Common.ComponentModel;
+    using ClearMine.Common.Localization;
     using ClearMine.Common.Properties;
     using ClearMine.Common.Utilities;
     using ClearMine.Framework.Commands;
-    using ClearMine.Localization;
 
     internal sealed class OptionsViewModel : ViewModelBase, IDataErrorInfo
     {

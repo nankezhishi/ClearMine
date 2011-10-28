@@ -7,7 +7,7 @@
     using ClearMine.Common;
     using ClearMine.Common.ComponentModel;
     using ClearMine.Common.Properties;
-    using ClearMine.Localization;
+    using ClearMine.Common.Localization;
     using ClearMine.VM.Commands;
 
     internal class GameWonViewModel : ViewModelBase

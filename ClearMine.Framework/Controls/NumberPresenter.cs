@@ -5,7 +5,7 @@
     using System.Globalization;
     using System.Windows;
     using System.Windows.Controls;
-    using ClearMine.Localization;
+    using ClearMine.Common.Localization;
 
     [Flags]
     public enum LightUps

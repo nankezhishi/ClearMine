@@ -3,17 +3,16 @@
     using System.Collections;
     using System.Collections.Generic;
     using System.ComponentModel;
-    using System.Diagnostics;
     using System.Windows;
     using System.Windows.Data;
     using System.Windows.Input;
 
     using ClearMine.Common;
     using ClearMine.Common.ComponentModel;
+    using ClearMine.Common.Localization;
     using ClearMine.Common.Properties;
     using ClearMine.Common.Utilities;
     using ClearMine.Framework.Commands;
-    using ClearMine.Localization;
 
     internal class StatisticsViewModel : ViewModelBase
     {

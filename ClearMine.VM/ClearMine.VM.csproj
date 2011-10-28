@@ -63,10 +63,6 @@
       <Project>{730AFF67-B857-42CD-9DAF-E94FC79BA721}</Project>
       <Name>ClearMine.Framework</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ClearMine.Localization\ClearMine.Localization.csproj">
-      <Project>{71C67E90-41FD-457E-B155-1EBE7396024A}</Project>
-      <Name>ClearMine.Localization</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

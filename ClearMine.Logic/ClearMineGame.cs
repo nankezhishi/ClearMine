@@ -10,9 +10,9 @@
     using System.Xml.Serialization;
 
     using ClearMine.Common.ComponentModel;
+    using ClearMine.Common.Localization;
     using ClearMine.Common.Logic;
     using ClearMine.Common.Utilities;
-    using ClearMine.Localization;
 
     [Serializable]
     [XmlRoot("savedGame")]

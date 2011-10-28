@@ -99,6 +99,7 @@
     <Compile Include="ComponentModel\ViewModelBase.cs" />
     <Compile Include="Difficulty.cs" />
     <Compile Include="HeroHistory.cs" />
+    <Compile Include="Localization\LocalizationHelper.cs" />
     <Compile Include="Logic\CellState.cs" />
     <Compile Include="Logic\CellStateChangedEventArgs.cs" />
     <Compile Include="Logic\ExpandFailedException.cs" />
@@ -131,13 +132,6 @@
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\ClearMine.Localization\ClearMine.Localization.csproj">
-      <Project>{71C67E90-41FD-457E-B155-1EBE7396024A}</Project>
-      <Name>ClearMine.Localization</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

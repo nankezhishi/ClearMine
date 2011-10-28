@@ -10,6 +10,7 @@
     using System.Windows.Markup;
 
     using ClearMine.Common;
+    using ClearMine.Common.Localization;
     using ClearMine.Common.Messaging;
     using ClearMine.Common.Properties;
     using ClearMine.Common.Utilities;
@@ -17,7 +18,6 @@
     using ClearMine.Framework.Commands;
     using ClearMine.Framework.Dialogs;
     using ClearMine.Framework.Interactivity;
-    using ClearMine.Localization;
     using Microsoft.Win32;
 
     public static class GameCommandBindings

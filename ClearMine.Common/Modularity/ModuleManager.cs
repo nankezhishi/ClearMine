@@ -24,7 +24,7 @@
                 var assembly = Assembly.LoadFile(Path.GetFullPath(dll));
                 foreach (var type in assembly.GetTypes())
                 {
-                    if (type.GetInterface(typeof(IModule).Name) != null
+                    if (type.GetInterface(typeof(IModule).FullName) != null
                         && loadedModules.All(m => m.GetType() != type))
                     {
                         var module = Activator.CreateInstance(type) as IModule;

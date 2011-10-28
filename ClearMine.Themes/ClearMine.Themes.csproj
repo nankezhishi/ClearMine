@@ -49,6 +49,7 @@
       <SubType>Code</SubType>
     </Compile>
     <AppDesigner Include="Properties\" />
+    <Compile Include="ThemeModule.cs" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="Themes\generic.xaml">

@@ -4,13 +4,4 @@
              Startup="OnAppStartup"
              Exit="OnApplicationExit"
              ShutdownMode="OnMainWindowClose">
-    <Application.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/ClearMine.Localization;component/en-US/Overall.xaml" />
-                <ResourceDictionary Source="/ClearMine.Themes;component/Themes/Generic.xaml" />
-                <ResourceDictionary Source="/ClearMine.Themes;component/Themes/luna.normalcolor.xaml" />
-            </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
-    </Application.Resources>
 </Application>

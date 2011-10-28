@@ -6,7 +6,7 @@
     using System.Windows.Controls;
     using System.Windows.Controls.Primitives;
     using System.Windows.Media;
-    using ClearMine.Localization;
+    using ClearMine.Common.Localization;
 
     /// <summary>
     /// This panel make sure the width and height are equal.

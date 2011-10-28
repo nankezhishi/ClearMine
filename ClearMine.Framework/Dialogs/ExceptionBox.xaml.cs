@@ -4,7 +4,7 @@
     using System.Windows;
     using ClearMine.Common.Properties;
     using ClearMine.Common.Utilities;
-    using ClearMine.Localization;
+    using ClearMine.Common.Localization;
 
     /// <summary>
     /// Interaction logic for ExceptionBox.xaml

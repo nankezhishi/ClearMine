@@ -9,8 +9,8 @@
     using System.Windows;
 
     using ClearMine.Common.ComponentModel;
+    using ClearMine.Common.Localization;
     using ClearMine.Common.Logic;
-    using ClearMine.Localization;
 
     [Serializable]
     [TypeConverter(typeof(MinesGridConverter))]

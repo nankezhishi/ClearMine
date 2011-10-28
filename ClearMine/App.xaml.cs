@@ -5,10 +5,10 @@
     using System.Windows.Input;
     using System.Windows.Media;
 
+    using ClearMine.Common.Localization;
     using ClearMine.Common.Modularity;
     using ClearMine.Common.Properties;
     using ClearMine.Framework.Dialogs;
-    using ClearMine.Localization;
     using ClearMine.VM;
 
     /// <summary>
