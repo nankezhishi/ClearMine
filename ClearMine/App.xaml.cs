@@ -1,11 +1,9 @@
 ﻿namespace ClearMine
 {
-    using System.Diagnostics;
     using System.Windows;
-    using System.Windows.Input;
     using System.Windows.Media;
 
-    using ClearMine.Common.Localization;
+    using ClearMine.Common.Messaging;
     using ClearMine.Common.Modularity;
     using ClearMine.Common.Properties;
     using ClearMine.Framework.Dialogs;
@@ -20,11 +18,15 @@
 
         public App()
         {
-            DispatcherUnhandledException += (sender, e) => e.Handled = ExceptionBox.Show(e.Exception).Value;
+            DispatcherUnhandledException += (sender, e) =>
+            {
+                var message = new ExceptionMessage(e.Exception);
+                MessageManager.GetMessageAggregator<ExceptionMessage>().SendMessage(message);
+                e.Handled = (bool)message.HandlingResult;
+            };
             ModuleManager.LoadModules();
             Settings.Default.PropertyChanged += (sender, e) => IsSettingsDirty = true;
             Settings.Default.SettingsSaving += (sender, e) => IsSettingsDirty = e.Cancel;
-            EventManager.RegisterClassHandler(typeof(Window), FocusManager.GotFocusEvent, new RoutedEventHandler(OnGotFocus));
         }
 
         private void OnAppStartup(object sender, StartupEventArgs e)
@@ -42,11 +44,6 @@
             mainWindow.SetResourceReference(Window.TitleProperty, "ApplicationTitle");
             mainWindow.SetBinding(Window.ContentProperty, ".");
             mainWindow.Show();
-        }
-
-        private void OnGotFocus(object sender, RoutedEventArgs e)
-        {
-            Trace.TraceInformation(LocalizationHelper.FindText("FocusChangedMessage", e.OriginalSource));
         }
 
         private void OnApplicationExit(object sender, ExitEventArgs e)

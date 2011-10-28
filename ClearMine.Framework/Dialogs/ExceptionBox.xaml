@@ -1,4 +1,4 @@
-﻿<d:OptionDialog x:Class="ClearMine.Framework.Dialogs.ExceptionBox"
+﻿<d:OptionDialog x:Class="ClearMine.Framework.Dialogs.ExceptionBox" x:ClassModifier="internal"
                 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                 xmlns:d="clr-namespace:ClearMine.Framework.Dialogs"

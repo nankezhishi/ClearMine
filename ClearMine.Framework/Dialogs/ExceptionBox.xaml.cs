@@ -2,14 +2,14 @@
 {
     using System;
     using System.Windows;
+    using ClearMine.Common.Localization;
     using ClearMine.Common.Properties;
     using ClearMine.Common.Utilities;
-    using ClearMine.Common.Localization;
 
     /// <summary>
     /// Interaction logic for ExceptionBox.xaml
     /// </summary>
-    public partial class ExceptionBox : OptionDialog
+    internal partial class ExceptionBox : OptionDialog
     {
         private Exception exception;
 

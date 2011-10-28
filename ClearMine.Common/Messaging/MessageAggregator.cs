@@ -27,12 +27,14 @@
             });
         }
 
-        public void SendMessage(T message)
+        public T SendMessage(T message)
         {
             if (message != null)
             {
                 EnumerateAliveProcessors(r => (r as Action<T>)(message));
             }
+
+            return message;
         }
 
         private void EnumerateAliveProcessors(Action<Action<T>> action)

@@ -14,7 +14,14 @@
             {
                 window.DataContext = message.Data;
             }
-            message.HandlingResult = window.ShowDialog();
+            if (message.ModuleDialog)
+            {
+                message.HandlingResult = window.ShowDialog();
+            }
+            else
+            {
+                window.Show();
+            }
         }
     }
 }

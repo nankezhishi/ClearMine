@@ -163,7 +163,8 @@
             MessageManager.GetMessageAggregator<ShowDialogMessage>().SendMessage(new ShowDialogMessage()
             {
                 Source = e.OriginalSource,
-                DialogType = Type.GetType("ClearMine.UI.Dialogs.OutputWindow, ClearMine.Dialogs")
+                DialogType = Type.GetType("ClearMine.UI.Dialogs.OutputWindow, ClearMine.Dialogs"),
+                ModuleDialog = false
             });
         }
 
