@@ -9,7 +9,7 @@ namespace ClearMine.UI.Dialogs
     /// <summary>
     /// Interaction logic for OutputWindow.xaml
     /// </summary>
-    public partial class OutputWindow : Window
+    internal partial class OutputWindow : Window
     {
         public OutputWindow()
         {

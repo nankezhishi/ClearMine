@@ -2,7 +2,7 @@
 {
     using System;
     using System.Windows;
-    using ClearMine.Framework.Dialogs;
+    using ClearMine.Framework.Messages;
 
     public class DialogMessageProcessor
     {

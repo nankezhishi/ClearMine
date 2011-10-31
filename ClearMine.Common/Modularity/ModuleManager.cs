@@ -18,7 +18,7 @@
         /// </summary>
         public static void LoadModules()
         {
-            var dlls = Directory.EnumerateFiles(".", "*.dll", SearchOption.AllDirectories);
+            var dlls = Directory.EnumerateFiles(".", "*.dll", SearchOption.AllDirectories).Concat(Directory.EnumerateFiles(".", "*.exe", SearchOption.AllDirectories));
             foreach(var dll in dlls)
             {
                 var assembly = Assembly.LoadFile(Path.GetFullPath(dll));

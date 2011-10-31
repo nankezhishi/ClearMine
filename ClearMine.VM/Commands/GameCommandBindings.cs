@@ -16,8 +16,8 @@
     using ClearMine.Common.Utilities;
     using ClearMine.Framework.Behaviors;
     using ClearMine.Framework.Commands;
-    using ClearMine.Framework.Dialogs;
     using ClearMine.Framework.Interactivity;
+    using ClearMine.Framework.Messages;
     using Microsoft.Win32;
 
     public static class GameCommandBindings

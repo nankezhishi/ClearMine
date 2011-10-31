@@ -1,7 +1,8 @@
-﻿namespace ClearMine.Framework.Dialogs
+﻿namespace ClearMine.Framework.Messages
 {
-    using System.Windows;
     using System.Diagnostics;
+    using System.Windows;
+    using ClearMine.Framework.Dialogs;
 
     public class ExceptionMessageProcessor
     {

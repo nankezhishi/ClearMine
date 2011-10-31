@@ -1,4 +1,4 @@
-﻿namespace ClearMine.Framework.Dialogs
+﻿namespace ClearMine.Framework.Messages
 {
     using System;
     using ClearMine.Common.Messaging;

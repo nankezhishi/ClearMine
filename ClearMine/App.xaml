@@ -1,7 +1,2 @@
-﻿<Application x:Class="ClearMine.App"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             Startup="OnAppStartup"
-             Exit="OnApplicationExit"
-             ShutdownMode="OnMainWindowClose">
-</Application>
+﻿<Application xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" x:Class="ClearMine.App"/>

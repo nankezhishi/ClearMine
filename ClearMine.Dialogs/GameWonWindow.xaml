@@ -1,5 +1,4 @@
-﻿<OptionDialog x:Class="ClearMine.UI.Dialogs.GameWonWindow"
-              x:ClassModifier="internal"
+﻿<OptionDialog x:Class="ClearMine.UI.Dialogs.GameWonWindow" x:ClassModifier="internal"
               xmlns:h="clr-namespace:ClearMine.Framework.Commands;assembly=ClearMine.Framework"
               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"

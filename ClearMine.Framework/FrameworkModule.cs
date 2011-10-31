@@ -2,7 +2,7 @@
 {
     using ClearMine.Common.Messaging;
     using ClearMine.Common.Modularity;
-    using ClearMine.Framework.Dialogs;
+    using ClearMine.Framework.Messages;
 
     public class FrameworkModule : IModule
     {
