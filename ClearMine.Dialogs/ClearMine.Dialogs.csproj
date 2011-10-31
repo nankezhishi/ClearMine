@@ -45,6 +45,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
     <PlatformTarget>AnyCPU</PlatformTarget>
     <OutputPath>..\bin\Release\</OutputPath>
+    <BaseAddress>25165824</BaseAddress>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
