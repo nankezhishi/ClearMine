@@ -5,16 +5,13 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{1A571635-C086-40A8-9D2C-2E4BB74BD549}</ProjectGuid>
-    <OutputType>library</OutputType>
+    <ProjectGuid>{04D44DD3-3819-4496-8A4C-03298742EA5D}</ProjectGuid>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ClearMine.Themes</RootNamespace>
-    <AssemblyName>ClearMine.Themes</AssemblyName>
+    <RootNamespace>ClearMine.GameDefinition</RootNamespace>
+    <AssemblyName>ClearMine.GameDefinition</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
-    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -34,53 +31,32 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="System" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Xaml">
-      <RequiredTargetFramework>4.0</RequiredTargetFramework>
-    </Reference>
-    <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Properties\AssemblyInfo.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <AppDesigner Include="Properties\" />
-    <Compile Include="ThemeModule.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Page Include="Themes\generic.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Themes\luna.normalcolor.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
+    <Compile Include="CellState.cs" />
+    <Compile Include="CellStateChangedEventArgs.cs" />
+    <Compile Include="ExpandFailedException.cs" />
+    <Compile Include="GameState.cs" />
+    <Compile Include="IClearMine.cs" />
+    <Compile Include="IMinesGenerator.cs" />
+    <Compile Include="MineCell.cs" />
+    <Compile Include="PressState.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ClearMine.Common\ClearMine.Common.csproj">
       <Project>{A2631FA1-E4A4-41AC-8E8E-5C8AEB63C83E}</Project>
       <Name>ClearMine.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ClearMine.Effects\ClearMine.Effects.csproj">
-      <Project>{1FD89229-5F29-4093-9B7F-6F8E09BADF7C}</Project>
-      <Name>ClearMine.Effects</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ClearMine.Framework\ClearMine.Framework.csproj">
-      <Project>{730AFF67-B857-42CD-9DAF-E94FC79BA721}</Project>
-      <Name>ClearMine.Framework</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ClearMine.GameDefinition\ClearMine.GameDefinition.csproj">
-      <Project>{04D44DD3-3819-4496-8A4C-03298742EA5D}</Project>
-      <Name>ClearMine.GameDefinition</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ClearMine.VM\ClearMine.VM.csproj">
-      <Project>{3D129E1B-FED1-4C73-99B7-8E497CCA19A0}</Project>
-      <Name>ClearMine.VM</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

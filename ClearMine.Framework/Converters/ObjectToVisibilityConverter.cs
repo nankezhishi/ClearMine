@@ -11,7 +11,7 @@
     /// </summary>
     [SuppressMessage("Microsoft.Performance", "CA1812", Justification = "Used in Xaml.")]
     [ValueConversion(typeof(object), typeof(Visibility))]
-    internal class ObjectToVisibilityConverter : IValueConverter
+    public class ObjectToVisibilityConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {

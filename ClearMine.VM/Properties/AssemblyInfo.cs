@@ -5,19 +5,15 @@ using System.Runtime.InteropServices;
 using System.Windows.Markup;
 
 [assembly: AssemblyTitle("ClearMine.VM")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Contains ViewModels in the whole application.")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("Poleaf")]
 [assembly: AssemblyProduct("ClearMine.VM")]
-[assembly: AssemblyCopyright("Copyright ©  2010")]
-[assembly: AssemblyTrademark("")]
+[assembly: AssemblyCopyright("Copyright Hugo Gu © 2010")]
+[assembly: AssemblyTrademark("Poleaf")]
 [assembly: AssemblyCulture("")]
 [assembly: ComVisible(false)]
-
-// The following GUID is for the ID of the typelib if this project is exposed to COM
 [assembly: Guid("0a320a58-78bd-4f1e-946a-96cb4f5b27ed")]
-
-// [assembly: AssemblyVersion("1.0.*")]
 [assembly: AssemblyVersion("1.0.0.0")]
 [assembly: AssemblyFileVersion("1.0.0.0")]
 [assembly: InternalsVisibleTo("ClearMine")]

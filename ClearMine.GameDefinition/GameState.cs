@@ -1,4 +1,4 @@
-﻿namespace ClearMine.Common.Logic
+﻿namespace ClearMine.GameDefinition
 {
     public enum GameState
     {

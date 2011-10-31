@@ -4,10 +4,11 @@
     using System.ComponentModel;
     using System.Windows;
     using System.Windows.Input;
-    using ClearMine.Common.Logic;
+
     using ClearMine.Common.Utilities;
     using ClearMine.Framework.Controls;
     using ClearMine.Framework.Interactivity;
+    using ClearMine.GameDefinition;
 
     public class MainInteractionBehavior : UIElementBehavior<FrameworkElement>
     {

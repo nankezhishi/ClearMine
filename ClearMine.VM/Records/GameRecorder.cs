@@ -11,8 +11,8 @@
     using System.Xml.Serialization;
 
     using ClearMine.Common.ComponentModel;
-    using ClearMine.Common.Logic;
     using ClearMine.Common.Utilities;
+    using ClearMine.GameDefinition;
 
     public interface IGamePlayer
     {

@@ -4,12 +4,12 @@ using System.Runtime.InteropServices;
 using System.Windows;
 
 [assembly: AssemblyTitle("ClearMine.Dialogs")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Popups used in the game")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("Poleaf")]
 [assembly: AssemblyProduct("ClearMine.Dialogs")]
-[assembly: AssemblyCopyright("Copyright ©  2010")]
-[assembly: AssemblyTrademark("")]
+[assembly: AssemblyCopyright("Copyright Hugo Gu © 2010")]
+[assembly: AssemblyTrademark("Poleaf")]
 [assembly: AssemblyCulture("")]
 [assembly: ComVisible(false)]
 [assembly: ThemeInfo(ResourceDictionaryLocation.None, ResourceDictionaryLocation.None)]

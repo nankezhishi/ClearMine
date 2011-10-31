@@ -3,12 +3,12 @@ using System.Runtime.InteropServices;
 using System.Windows;
 
 [assembly: AssemblyTitle("ClearMine.Themes")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Visual Styles definition for the game")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("Poleaf")]
 [assembly: AssemblyProduct("ClearMine.Themes")]
-[assembly: AssemblyCopyright("Copyright ©  2010")]
-[assembly: AssemblyTrademark("")]
+[assembly: AssemblyCopyright("Copyright Hugo Gu © 2010")]
+[assembly: AssemblyTrademark("Poleaf")]
 [assembly: AssemblyCulture("")]
 [assembly: ComVisible(false)]
 [assembly: ThemeInfo( ResourceDictionaryLocation.SourceAssembly, ResourceDictionaryLocation.SourceAssembly)]

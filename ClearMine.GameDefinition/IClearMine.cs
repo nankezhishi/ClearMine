@@ -1,4 +1,4 @@
-﻿namespace ClearMine.Common.Logic
+﻿namespace ClearMine.GameDefinition
 {
     using System;
     using System.Collections.Generic;

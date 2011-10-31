@@ -5,7 +5,7 @@
     using System.ComponentModel.Composition;
     using System.Windows;
 
-    using ClearMine.Common.Logic;
+    using ClearMine.GameDefinition;
 
     [Export(typeof(IMinesGenerator))]
     internal class MinesGenerator : IMinesGenerator

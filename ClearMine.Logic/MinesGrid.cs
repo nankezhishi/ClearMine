@@ -10,7 +10,7 @@
 
     using ClearMine.Common.ComponentModel;
     using ClearMine.Common.Localization;
-    using ClearMine.Common.Logic;
+    using ClearMine.GameDefinition;
 
     [Serializable]
     [TypeConverter(typeof(MinesGridConverter))]

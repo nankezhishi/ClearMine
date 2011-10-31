@@ -1,9 +1,9 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:v="clr-namespace:ClearMine.VM;assembly=ClearMine.VM"
-                    xmlns:logic="clr-namespace:ClearMine.Common.Logic;assembly=ClearMine.Common"
                     xmlns:m="clr-namespace:ClearMine.Framework.Commands;assembly=ClearMine.Framework"
-                    xmlns:b="clr-namespace:ClearMine.Framework.Behaviors;assembly=ClearMine.Framework">
+                    xmlns:b="clr-namespace:ClearMine.Framework.Behaviors;assembly=ClearMine.Framework"
+                    xmlns:logic="clr-namespace:ClearMine.GameDefinition;assembly=ClearMine.GameDefinition">
     <SolidColorBrush x:Key="DialogBackground" Color="#F0F0F0" />
     <PlaygroundBorderThicknessConverter x:Key="PlaygroundBorderThicknessConverter" />
     <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />

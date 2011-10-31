@@ -8,7 +8,7 @@
     /// 
     /// </summary>
     /// <typeparam name="T">Element type.</typeparam>
-    internal class CachedObservableCollection<T> : ObservableCollection<T>
+    public class CachedObservableCollection<T> : ObservableCollection<T>
         where T : class, ICachable<T>
     {
         private int countInUse = 0;

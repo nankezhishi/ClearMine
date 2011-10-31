@@ -3,7 +3,7 @@
     using System.Collections.Generic;
     using System.Windows.Input;
 
-    internal abstract class ViewModelBase : BindableObject
+    public abstract class ViewModelBase : BindableObject
     {
         public abstract IEnumerable<CommandBinding> GetCommandBindings();
 

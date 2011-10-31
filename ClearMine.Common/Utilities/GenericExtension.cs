@@ -8,7 +8,7 @@
     using System.Windows;
     using System.Windows.Media;
 
-    internal static class GenericExtension
+    public static class GenericExtension
     {
         private const string propertySetterPrefix = "set_";
 

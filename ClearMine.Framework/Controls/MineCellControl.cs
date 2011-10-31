@@ -4,7 +4,7 @@
     using System.Windows.Controls;
     using System.Windows.Media;
 
-    internal class MineCellControl : Control
+    public class MineCellControl : Control
     {
         static MineCellControl()
         {

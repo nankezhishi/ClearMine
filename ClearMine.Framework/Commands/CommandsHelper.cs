@@ -5,7 +5,7 @@
     using System.Windows;
     using ClearMine.Common.ComponentModel;
 
-    internal class CommandsHelper
+    public class CommandsHelper
     {
         public static bool GetLoadBindingsFromVM(DependencyObject obj)
         {

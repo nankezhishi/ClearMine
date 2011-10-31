@@ -1,9 +1,8 @@
-﻿namespace ClearMine.Common.Logic
+﻿namespace ClearMine.GameDefinition
 {
     using System;
     using System.ComponentModel;
     using System.Globalization;
-    using System.Threading;
     using ClearMine.Common.ComponentModel;
 
     public class MineCell : BindableObject, ICachable<MineCell>
@@ -16,7 +15,7 @@
         private bool hasMine;
         private bool isTerminator;
 
-        internal MineCell(int column, int row)
+        public MineCell(int column, int row)
         {
             UpdatePosition(column, row);
             State = CellState.Normal;
@@ -126,12 +125,6 @@
             return String.Format(CultureInfo.CurrentCulture, "({0}, {1}) {3} : {2}", Column, Row, MinesNearby, HasMine);
         }
 
-        internal void UpdatePosition(int column, int row)
-        {
-            Row = row;
-            Column = column;
-        }
-
         public void Update(MineCell newValue)
         {
             Row = newValue.Row;
@@ -144,9 +137,15 @@
             }
         }
 
-        internal bool Near(MineCell other)
+        public bool Near(MineCell other)
         {
             return Math.Abs(Column - other.Column) <= 1 && Math.Abs(Row - other.Row) <= 1;
+        }
+
+        internal void UpdatePosition(int column, int row)
+        {
+            Row = row;
+            Column = column;
         }
     }
 }

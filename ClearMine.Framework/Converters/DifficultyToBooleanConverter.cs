@@ -8,7 +8,7 @@
 
     [SuppressMessage("Microsoft.Performance", "CA1812", Justification = "Used in Xaml.")]
     [ValueConversion(typeof(Difficulty?), typeof(bool))]
-    internal class DifficultyToBooleanConverter : IValueConverter
+    public class DifficultyToBooleanConverter : IValueConverter
     {
         /// <summary>
         /// 

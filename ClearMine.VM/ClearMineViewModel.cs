@@ -18,12 +18,12 @@
     using ClearMine.Common;
     using ClearMine.Common.ComponentModel;
     using ClearMine.Common.Localization;
-    using ClearMine.Common.Logic;
     using ClearMine.Common.Messaging;
     using ClearMine.Common.Properties;
     using ClearMine.Common.Utilities;
     using ClearMine.Framework.Dialogs;
     using ClearMine.Framework.Media;
+    using ClearMine.GameDefinition;
     using ClearMine.VM.Commands;
     using Microsoft.Win32;
 

@@ -63,6 +63,10 @@
       <Project>{730AFF67-B857-42CD-9DAF-E94FC79BA721}</Project>
       <Name>ClearMine.Framework</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ClearMine.GameDefinition\ClearMine.GameDefinition.csproj">
+      <Project>{04D44DD3-3819-4496-8A4C-03298742EA5D}</Project>
+      <Name>ClearMine.GameDefinition</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

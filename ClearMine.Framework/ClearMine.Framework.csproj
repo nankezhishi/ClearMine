@@ -117,10 +117,10 @@
     <Compile Include="Dialogs\ExceptionBox.xaml.cs">
       <DependentUpon>ExceptionBox.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Dialogs\ExceptionMessage.cs" />
-    <Compile Include="Dialogs\ExceptionMessageProcessor.cs" />
+    <Compile Include="Messages\ExceptionMessage.cs" />
+    <Compile Include="Messages\ExceptionMessageProcessor.cs" />
     <Compile Include="Dialogs\OptionDialog.cs" />
-    <Compile Include="Dialogs\ShowDialogMessage.cs" />
+    <Compile Include="Messages\ShowDialogMessage.cs" />
     <Compile Include="FrameworkModule.cs" />
     <Compile Include="Interactivity\Behavior.cs" />
     <Compile Include="Interactivity\BehaviorCollection.cs" />

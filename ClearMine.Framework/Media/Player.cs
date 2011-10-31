@@ -8,7 +8,7 @@
     /// <summary>
     /// 
     /// </summary>
-    internal class Player
+    public class Player
     {
         /// <summary>
         /// 

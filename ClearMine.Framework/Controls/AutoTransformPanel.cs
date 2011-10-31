@@ -6,7 +6,7 @@
     using System.Windows.Controls;
     using System.Windows.Media;
 
-    internal class AutoTransformPanel : Panel
+    public class AutoTransformPanel : Panel
     {
         private double maxWidth = -1;
         private double maxHeight = -1;
