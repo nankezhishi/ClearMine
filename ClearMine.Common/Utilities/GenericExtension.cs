@@ -31,22 +31,15 @@
         public static IEnumerable<T> FindChildren<T>(this DependencyObject element, Predicate<T> condition = null)
             where T : DependencyObject
         {
+            var children = new List<T>();
             int count = VisualTreeHelper.GetChildrenCount(element);
             for (int i = 0; i < count; i++)
             {
                 var child = VisualTreeHelper.GetChild(element, i);
-                if (child is T && condition(child as T))
-                {
-                    yield return child as T;
-                }
-                else
-                {
-                    foreach (var subChild in FindChildren<T>(child, condition))
-                    {
-                        yield return subChild;
-                    }
-                }
+                children.AddRange((child is T && condition(child as T)) ? new[] { child as T } : FindChildren<T>(child, condition));
             }
+
+            return children;
         }
 
         public static T FindAncestor<T>(this DependencyObject element, Predicate<T> condition = null)

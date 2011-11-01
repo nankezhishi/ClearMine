@@ -334,36 +334,37 @@
 
         public static IEnumerable<CommandBinding> GetGameWonCommandBindings()
         {
-            yield return statisticsBinding;
+            return new[] { statisticsBinding };
         }
 
         public static IEnumerable<CommandBinding> GetStatisticsCommandBindings()
         {
-            yield return resetBinding;
+            return new[] { resetBinding };
         }
 
         public static IEnumerable<CommandBinding> GetOptionCommandBindings()
         {
-            yield return browseHistoryBinding;
-            yield return optionCloseBinding;
-            yield return saveBinding;
+            return new[] { browseHistoryBinding, optionCloseBinding, saveBinding };
         }
 
         public static IEnumerable<CommandBinding> GetGameCommandBindings()
         {
             // Arrange in alphabetical order.
-            yield return aboutBinding;
-            yield return closeBinding;
-            yield return feedbackBinding;
-            yield return newGameBinding;
-            yield return openBinding;
-            yield return optionBinding;
-            yield return refreshBinding;
-            yield return saveAsBinding;
-            yield return showLogBinding;
-            yield return statisticsBinding;
-            yield return switchLanguageBinding;
-            yield return viewHelpBinding;
+            return new[]
+            {
+                aboutBinding,
+                closeBinding,
+                feedbackBinding,
+                newGameBinding,
+                openBinding,
+                optionBinding,
+                refreshBinding,
+                saveAsBinding,
+                showLogBinding,
+                statisticsBinding,
+                switchLanguageBinding,
+                viewHelpBinding,
+            };
         }
 
         private static bool VerifyLanguageResourceFile(ResourceDictionary existing, ResourceDictionary newResource)
