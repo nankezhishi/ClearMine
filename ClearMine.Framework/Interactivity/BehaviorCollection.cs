@@ -5,7 +5,7 @@
     using System.Diagnostics;
     using System.Linq;
     using System.Windows;
-    using ClearMine.Common.Localization;
+    using ClearMine.Common.Utilities;
 
     public class BehaviorCollection : ObservableCollection<Behavior>
     {

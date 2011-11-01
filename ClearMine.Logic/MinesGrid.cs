@@ -9,7 +9,7 @@
     using System.Windows;
 
     using ClearMine.Common.ComponentModel;
-    using ClearMine.Common.Localization;
+    using ClearMine.Common.Utilities;
     using ClearMine.GameDefinition;
 
     [Serializable]

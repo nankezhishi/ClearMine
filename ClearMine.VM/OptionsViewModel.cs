@@ -4,109 +4,21 @@
     using System.Collections.Generic;
     using System.ComponentModel;
     using System.IO;
-    using System.Windows;
-    using System.Windows.Forms;
     using System.Windows.Input;
 
     using ClearMine.Common;
     using ClearMine.Common.ComponentModel;
-    using ClearMine.Common.Localization;
     using ClearMine.Common.Properties;
     using ClearMine.Common.Utilities;
-    using ClearMine.Framework.Commands;
+    using ClearMine.VM.Commands;
 
     internal sealed class OptionsViewModel : ViewModelBase, IDataErrorInfo
     {
         private string error;
 
-        #region Close Command
-        private static CommandBinding closeBinding = new CommandBinding(ApplicationCommands.Close,
-            new ExecutedRoutedEventHandler(OnCloseExecuted), new CanExecuteRoutedEventHandler(OnCloseCanExecute));
-        public static CommandBinding CloseBinding
-        {
-            get { return closeBinding; }
-        }
-
-        private static void OnCloseExecuted(object sender, ExecutedRoutedEventArgs e)
-        {
-            e.ExtractDataContext<OptionsViewModel>(vm =>
-            {
-                vm.Cancel();
-                var window = Window.GetWindow(sender as DependencyObject);
-                if (window != null)
-                {
-                    window.DialogResult = false;
-                    window.Close();
-                }
-            });
-        }
-
-        private static void OnCloseCanExecute(object sender, CanExecuteRoutedEventArgs e)
-        {
-            e.CanExecute = true;
-        }
-        #endregion
-
-        #region Save Command
-        private static CommandBinding saveBinding = new CommandBinding(ApplicationCommands.Save,
-            new ExecutedRoutedEventHandler(OnSaveExecuted), new CanExecuteRoutedEventHandler(OnSaveCanExecuted));
-
-        public static CommandBinding SaveBinding
-        {
-            get { return saveBinding; }
-        }
-
-        private static void OnSaveExecuted(object sender, ExecutedRoutedEventArgs e)
-        {
-            e.ExtractDataContext<OptionsViewModel>(vm =>
-            {
-                vm.Save();
-                var window = Window.GetWindow(sender as DependencyObject);
-                if (window != null)
-                {
-                    window.DialogResult = true;
-                    window.Close();
-                }
-            });
-        }
-
-        private static void OnSaveCanExecuted(object sender, CanExecuteRoutedEventArgs e)
-        {
-            e.CanExecute = String.IsNullOrWhiteSpace(e.ExtractDataContext<OptionsViewModel>().Error);
-        }
-        #endregion
-
-        #region BrowseHistory Command
-        private static CommandBinding browseHistoryBinding = new CommandBinding(OptionsCommands.BrowseHistory,
-            new ExecutedRoutedEventHandler(OnBrowseHistoryExecuted), new CanExecuteRoutedEventHandler(OnBrowseHistoryCanExecute));
-
-        public static CommandBinding BrowseHistoryBinding
-        {
-            get { return browseHistoryBinding; }
-        }
-
-        private static void OnBrowseHistoryExecuted(object sender, ExecutedRoutedEventArgs e)
-        {
-            var folderBrowser = new FolderBrowserDialog();
-            folderBrowser.ShowNewFolderButton = true;
-            folderBrowser.Description = LocalizationHelper.FindText("BrowseGameFolderMessage");
-            folderBrowser.SelectedPath = Path.GetFullPath(Settings.Default.GameHistoryFolder);
-            if (folderBrowser.ShowDialog() == DialogResult.OK)
-            {
-                Settings.Default.GameHistoryFolder = folderBrowser.SelectedPath;
-            }
-        }
-
-        private static void OnBrowseHistoryCanExecute(object sender, CanExecuteRoutedEventArgs e)
-        {
-            e.CanExecute = Settings.Default.SaveGame;
-        }
-
-        #endregion
-
         public OptionsViewModel()
         {
-            Settings.Default.PropertyChanged += new PropertyChangedEventHandler(OnSettingsChanged);
+            Settings.Default.PropertyChanged += OnSettingsChanged;
         }
 
         public Difficulty? Difficulty
@@ -291,9 +203,7 @@
 
         public override IEnumerable<CommandBinding> GetCommandBindings()
         {
-            yield return SaveBinding;
-            yield return CloseBinding;
-            yield return BrowseHistoryBinding;
+            return GameCommandBindings.GetOptionCommandBindings();
         }
 
         private void OnSettingsChanged(object sender, PropertyChangedEventArgs e)

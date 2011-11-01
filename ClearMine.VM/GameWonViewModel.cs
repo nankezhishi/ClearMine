@@ -7,7 +7,7 @@
     using ClearMine.Common;
     using ClearMine.Common.ComponentModel;
     using ClearMine.Common.Properties;
-    using ClearMine.Common.Localization;
+    using ClearMine.Common.Utilities;
     using ClearMine.VM.Commands;
 
     internal class GameWonViewModel : ViewModelBase
@@ -24,14 +24,14 @@
                 if (usedTime == Details.BestTime)
                 {
                     // Tell created a record.
-                    Message += "";
+                    Message += String.Empty;
                 }
             }
         }
 
         public override IEnumerable<CommandBinding> GetCommandBindings()
         {
-            yield return GameCommandBindings.StatisticsBinding;
+            return GameCommandBindings.GetGameWonCommandBindings();
         }
 
         public string Message { get; private set; }

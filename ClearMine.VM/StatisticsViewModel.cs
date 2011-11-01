@@ -1,18 +1,15 @@
 ﻿namespace ClearMine.VM
 {
-    using System.Collections;
     using System.Collections.Generic;
     using System.ComponentModel;
-    using System.Windows;
     using System.Windows.Data;
     using System.Windows.Input;
 
     using ClearMine.Common;
     using ClearMine.Common.ComponentModel;
-    using ClearMine.Common.Localization;
     using ClearMine.Common.Properties;
     using ClearMine.Common.Utilities;
-    using ClearMine.Framework.Commands;
+    using ClearMine.VM.Commands;
 
     internal class StatisticsViewModel : ViewModelBase
     {
@@ -23,36 +20,6 @@
         {
             defaultSortColumn = GenericExtension.GetMemberName<HistoryRecord>(r => r.Score);
         }
-
-        #region Reset Command
-
-        private static CommandBinding resetBinding = new CommandBinding(StatisticsCommands.Reset,
-            new ExecutedRoutedEventHandler(OnResetExecuted), new CanExecuteRoutedEventHandler(OnResetCanExecute));
-
-        public static CommandBinding ResetBinding
-        {
-            get { return resetBinding; }
-        }
-
-        private static void OnResetExecuted(object sender, ExecutedRoutedEventArgs e)
-        {
-            if (MessageBox.Show(LocalizationHelper.FindText("ResetHistoryMessage"), LocalizationHelper.FindText("ResetHistoryTitle"),
-                MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No) == MessageBoxResult.Yes)
-            {
-                foreach (HeroHistory history in e.Parameter as IEnumerable)
-                {
-                    history.Reset();
-                }
-
-                Settings.Default.Save();
-            }
-        }
-
-        private static void OnResetCanExecute(object sender, CanExecuteRoutedEventArgs e)
-        {
-            e.CanExecute = true;
-        }
-        #endregion
 
         public IEnumerable<HeroHistory> HistoryList
         {
@@ -78,7 +45,7 @@
 
         public override IEnumerable<CommandBinding> GetCommandBindings()
         {
-            yield return ResetBinding;
+            return GameCommandBindings.GetStatisticsCommandBindings();
         }
     }
 }

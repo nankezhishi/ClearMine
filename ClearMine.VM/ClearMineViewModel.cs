@@ -17,11 +17,9 @@
 
     using ClearMine.Common;
     using ClearMine.Common.ComponentModel;
-    using ClearMine.Common.Localization;
     using ClearMine.Common.Messaging;
     using ClearMine.Common.Properties;
     using ClearMine.Common.Utilities;
-    using ClearMine.Framework.Media;
     using ClearMine.Framework.Messages;
     using ClearMine.GameDefinition;
     using ClearMine.VM.Commands;
@@ -34,144 +32,10 @@
         private bool isMousePressed = false;
         private double itemSize;
 
-        #region NewGame Command
-        private static CommandBinding newGameBinding = new CommandBinding(ApplicationCommands.New,
-            new ExecutedRoutedEventHandler(OnNewGameExecuted), new CanExecuteRoutedEventHandler(OnNewGameCanExecuted));
-
-        public static CommandBinding NewGameBinding
-        {
-            get { return newGameBinding; }
-        }
-
-        private static void OnNewGameExecuted(object sender, ExecutedRoutedEventArgs e)
-        {
-            e.ExtractDataContext<ClearMineViewModel>().StartNewGame();
-        }
-
-        private static void OnNewGameCanExecuted(object sender, CanExecuteRoutedEventArgs e)
-        {
-            e.CanExecute = true;
-        }
-        #endregion
-        #region Refresh Binding
-        private static CommandBinding refreshBinding = new CommandBinding(NavigationCommands.Refresh,
-            new ExecutedRoutedEventHandler(OnRefreshExecuted), new CanExecuteRoutedEventHandler(OnRefreshCanExecute));
-
-        public static CommandBinding RefreshBinding
-        {
-            get { return refreshBinding; }
-        }
-
-        private static void OnRefreshExecuted(object sender, ExecutedRoutedEventArgs e)
-        {
-            e.ExtractDataContext<ClearMineViewModel>().game.Restart();
-        }
-
-        private static void OnRefreshCanExecute(object sender, CanExecuteRoutedEventArgs e)
-        {
-            e.CanExecute = true;
-        }
-        #endregion
-        #region Option Command
-        private static ICommand option = new RoutedUICommand("Option", "Option",
-            typeof(ClearMineViewModel), new InputGestureCollection() { new KeyGesture(Key.O, ModifierKeys.Control) });
-        private static CommandBinding optionBinding = new CommandBinding(Option,
-            new ExecutedRoutedEventHandler(OnOptionExecuted), new CanExecuteRoutedEventHandler(OnOptionCanExecute));
-        public static ICommand Option
-        {
-            get { return option; }
-        }
-
-        public static CommandBinding OptionBinding
-        {
-            get { return optionBinding; }
-        }
-
-        private static void OnOptionExecuted(object sender, ExecutedRoutedEventArgs e)
-        {
-            var viewModel = e.ExtractDataContext<ClearMineViewModel>();
-            bool shouldResume = false;
-            if (viewModel.game.GameState == GameState.Started)
-            {
-                shouldResume = true;
-
-                // Pause the game may takes long time. Needn't wait that finish; 
-                Application.Current.Dispatcher.BeginInvoke(new Action(viewModel.game.PauseGame), DispatcherPriority.Background);
-            }
-
-            var message = new ShowDialogMessage()
-            {
-                Source = e.OriginalSource,
-                DialogType = Type.GetType("ClearMine.UI.Dialogs.OptionsDialog, ClearMine.Dialogs", true),
-                Data = new OptionsViewModel(),
-            };
-
-            MessageManager.GetMessageAggregator<ShowDialogMessage>().SendMessage(message);
-
-            if (message.HandlingResult != null && ((bool?)message.HandlingResult).Value)
-            {
-                viewModel.StartNewGame();
-            }
-            else if (shouldResume)
-            {
-                viewModel.game.ResumeGame();
-            }
-        }
-
-        private static void OnOptionCanExecute(object sender, CanExecuteRoutedEventArgs e)
-        {
-            e.CanExecute = true;
-        }
-        #endregion
-        #region SaveAsCommand
-        private static CommandBinding saveAsBinding = new CommandBinding(ApplicationCommands.SaveAs,
-            new ExecutedRoutedEventHandler(OnSaveAsExecuted), new CanExecuteRoutedEventHandler(OnSaveAsCanExecute));
-
-        public static CommandBinding SaveAsBinding
-        {
-            get { return saveAsBinding; }
-        }
-
-        private static void OnSaveAsExecuted(object sender, ExecutedRoutedEventArgs e)
-        {
-            e.ExtractDataContext<ClearMineViewModel>().SaveCurrentGame();
-        }
-
-        private static void OnSaveAsCanExecute(object sender, CanExecuteRoutedEventArgs e)
-        {
-            e.CanExecute = e.ExtractDataContext<ClearMineViewModel>().game.GameState == GameState.Started;
-        }
-        #endregion
-        #region OpenCommand
-        private static CommandBinding openBinding = new CommandBinding(ApplicationCommands.Open,
-            new ExecutedRoutedEventHandler(OnOpenExecuted), new CanExecuteRoutedEventHandler(OnOpenCanExecute));
-
-        public static CommandBinding OpenBinding
-        {
-            get { return openBinding; }
-        }
-
-        private static void OnOpenExecuted(object sender, ExecutedRoutedEventArgs e)
-        {
-            var openFileDialog = new OpenFileDialog();
-            openFileDialog.DefaultExt = Settings.Default.SavedGameExt;
-            openFileDialog.Filter = LocalizationHelper.FindText("SavedGameFilter", Settings.Default.SavedGameExt);
-            if (openFileDialog.ShowDialog() == true)
-            {
-                e.ExtractDataContext<ClearMineViewModel>().LoadSavedGame(openFileDialog.FileName);
-            }
-        }
-
-        private static void OnOpenCanExecute(object sender, CanExecuteRoutedEventArgs e)
-        {
-            e.CanExecute = true;
-        }
-        #endregion
-
         public ClearMineViewModel()
         {
             HookupToGame(Infrastructure.Container.GetExportedValue<IClearMine>());
-            Settings.Default.PropertyChanged += new PropertyChangedEventHandler(OnSettingsChanged);
+            Settings.Default.PropertyChanged += OnSettingsChanged;
         }
 
         [ReadOnly(true)]
@@ -195,13 +59,13 @@
         [ReadOnly(true)]
         public string Time
         {
-            get { return ((double)game.UsedTime / 1000).ToString(CultureInfo.InvariantCulture); }
+            get { return Convert.ToString(game.UsedTime / 1000d, CultureInfo.InvariantCulture); }
         }
 
         [ReadOnly(true)]
         public string RemainedMines
         {
-            get { return game.RemainedMines.ToString(CultureInfo.InvariantCulture); }
+            get { return Convert.ToString(game.RemainedMines, CultureInfo.InvariantCulture); }
         }
 
         public bool IsMousePressed
@@ -250,6 +114,11 @@
         public IEnumerable<MineCell> Cells
         {
             get { return game.Cells; }
+        }
+
+        internal IClearMine Game
+        {
+            get { return game; }
         }
 
         public void StartNewGame()
@@ -370,20 +239,59 @@
 
         public override IEnumerable<CommandBinding> GetCommandBindings()
         {
-            // Arrange in alphabetical order.
+            return GameCommandBindings.GetGameCommandBindings();
+        }
 
-            yield return NewGameBinding;
-            yield return OpenBinding;
-            yield return OptionBinding;
-            yield return RefreshBinding;
-            yield return SaveAsBinding;
-            yield return GameCommandBindings.AboutBinding;
-            yield return GameCommandBindings.CloseBinding;
-            yield return GameCommandBindings.FeedbackBinding;
-            yield return GameCommandBindings.ShowLogBinding;
-            yield return GameCommandBindings.StatisticsBinding;
-            yield return GameCommandBindings.SwitchLanguageBinding;
-            yield return GameCommandBindings.ViewHelpBinding;
+        internal void SaveCurrentGame(string path = null)
+        {
+            if (String.IsNullOrWhiteSpace(path))
+            {
+                var savePathDialog = new SaveFileDialog();
+                savePathDialog.DefaultExt = Settings.Default.SavedGameExt;
+                savePathDialog.Filter = LocalizationHelper.FindText("SavedGameFilter", Settings.Default.SavedGameExt);
+                if (savePathDialog.ShowDialog() == true)
+                {
+                    path = savePathDialog.FileName;
+                }
+                else
+                {
+                    return;
+                }
+            }
+
+            // Pause game to make sure the timestamp correct.
+            game.PauseGame();
+            var gameSaver = new XmlSerializer(game.GetType());
+            using (var file = File.Open(path, FileMode.Create, FileAccess.Write))
+            {
+                gameSaver.Serialize(file, game);
+            }
+        }
+
+        internal void LoadSavedGame(string path)
+        {
+            if (!File.Exists(path))
+            {
+                throw new FileNotFoundException("The path to saved game cannot be found.", path);
+            }
+
+            IClearMine newgame = null;
+            var gameLoader = new XmlSerializer(game.GetType());
+            using (var file = File.Open(path, FileMode.Open, FileAccess.Read))
+            {
+                newgame = (IClearMine)gameLoader.Deserialize(file);
+            }
+
+            if (newgame.CheckHash())
+            {
+                HookupToGame(newgame);
+                RefreshUI();
+                game.ResumeGame();
+            }
+            else
+            {
+                MessageBox.Show(LocalizationHelper.FindText("CorruptedSavedGameMessage"), LocalizationHelper.FindText("CorruptedSavedGameTitle"));
+            }
         }
 
         private void Initialize()
@@ -499,7 +407,7 @@
             fileName = Path.Combine(folder, fileName);
 
             // save file to disk
-            using (FileStream fs = File.Open(fileName, FileMode.OpenOrCreate))
+            using (var fs = File.Open(fileName, FileMode.OpenOrCreate))
             {
                 encoder.Save(fs);
             }
@@ -547,7 +455,7 @@
 
         private void UpdateStatistics()
         {
-            HeroHistory history = Settings.Default.HeroList.GetByLevel(Settings.Default.Difficulty);
+            var history = Settings.Default.HeroList.GetByLevel(Settings.Default.Difficulty);
             if (history != null)
             {
                 if (game.GameState == GameState.Success)
@@ -584,67 +492,15 @@
             }
         }
 
-        private void SaveCurrentGame(string path = null)
-        {
-            if (String.IsNullOrWhiteSpace(path))
-            {
-                var savePathDialog = new SaveFileDialog();
-                savePathDialog.DefaultExt = Settings.Default.SavedGameExt;
-                savePathDialog.Filter = LocalizationHelper.FindText("SavedGameFilter", Settings.Default.SavedGameExt);
-                if (savePathDialog.ShowDialog() == true)
-                {
-                    path = savePathDialog.FileName;
-                }
-                else
-                {
-                    return;
-                }
-            }
-
-            // Pause game to make sure the timestamp currect.
-            game.PauseGame();
-            var gameSaver = new XmlSerializer(game.GetType());
-            using (var file = File.Open(path, FileMode.Create, FileAccess.Write))
-            {
-                gameSaver.Serialize(file, game);
-            }
-        }
-
-        private void LoadSavedGame(string path)
-        {
-            if (!File.Exists(path))
-            {
-                throw new FileNotFoundException("The path to saved game cannot be found.", path);
-            }
-
-            IClearMine newgame = null;
-            var gameLoader = new XmlSerializer(game.GetType());
-            using (var file = File.Open(path, FileMode.Open, FileAccess.Read))
-            {
-                newgame = (IClearMine)gameLoader.Deserialize(file);
-            }
-
-            if (newgame.CheckHash())
-            {
-                HookupToGame(newgame);
-                RefreshUI();
-                game.ResumeGame();
-            }
-            else
-            {
-                MessageBox.Show(LocalizationHelper.FindText("CorruptedSavedGameMessage"), LocalizationHelper.FindText("CorruptedSavedGameTitle"));
-            }
-        }
-
         private void HookupToGame(IClearMine newgame)
         {
             if (game == null)
             {
                 game = newgame;
 
-                game.StateChanged += new EventHandler(OnGameStateChanged);
-                game.TimeChanged += new EventHandler(OnGameTimeChanged);
-                game.CellStateChanged += new EventHandler<CellStateChangedEventArgs>(OnCellStateChanged);
+                game.StateChanged += OnGameStateChanged;
+                game.TimeChanged += OnGameTimeChanged;
+                game.CellStateChanged += OnCellStateChanged;
             }
             else
             {

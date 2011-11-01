@@ -10,7 +10,6 @@
     using System.Xml.Serialization;
 
     using ClearMine.Common.ComponentModel;
-    using ClearMine.Common.Localization;
     using ClearMine.Common.Utilities;
     using ClearMine.GameDefinition;
 

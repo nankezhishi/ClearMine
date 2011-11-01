@@ -6,7 +6,7 @@
     using System.Windows;
     using System.Windows.Media;
     using System.Windows.Media.Effects;
-    using ClearMine.Common.Localization;
+    using ClearMine.Common.Utilities;
 
     public class MonoEffect : ShaderEffect
     {

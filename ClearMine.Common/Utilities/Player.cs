@@ -1,4 +1,4 @@
-﻿namespace ClearMine.Framework.Media
+﻿namespace ClearMine.Common.Utilities
 {
     using System;
     using System.Threading;

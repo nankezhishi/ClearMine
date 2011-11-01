@@ -9,7 +9,6 @@
 
     using ClearMine.Common.ComponentModel;
     using ClearMine.Common.Utilities;
-    using ClearMine.Common.Localization;
 
     [Serializable]
     [XmlRoot("record")]

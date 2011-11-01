@@ -10,7 +10,7 @@
     using System.Windows.Media.Animation;
 
     using ClearMine.Common.Properties;
-    using ClearMine.Common.Localization;
+    using ClearMine.Common.Utilities;
 
     public static class AnimateEffectBehavior
     {

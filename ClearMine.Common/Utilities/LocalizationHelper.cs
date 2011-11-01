@@ -1,4 +1,4 @@
-﻿namespace ClearMine.Common.Localization
+﻿namespace ClearMine.Common.Utilities
 {
     using System;
     using System.Globalization;

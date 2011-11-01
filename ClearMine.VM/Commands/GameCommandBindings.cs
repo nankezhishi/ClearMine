@@ -1,6 +1,8 @@
 ﻿namespace ClearMine.VM.Commands
 {
     using System;
+    using System.Collections;
+    using System.Collections.Generic;
     using System.Diagnostics;
     using System.Globalization;
     using System.IO;
@@ -8,9 +10,9 @@
     using System.Windows;
     using System.Windows.Input;
     using System.Windows.Markup;
+    using System.Windows.Threading;
 
     using ClearMine.Common;
-    using ClearMine.Common.Localization;
     using ClearMine.Common.Messaging;
     using ClearMine.Common.Properties;
     using ClearMine.Common.Utilities;
@@ -18,18 +20,99 @@
     using ClearMine.Framework.Commands;
     using ClearMine.Framework.Interactivity;
     using ClearMine.Framework.Messages;
+    using ClearMine.GameDefinition;
     using Microsoft.Win32;
+    using DialogResult = System.Windows.Forms.DialogResult;
+    using FolderBrowserDialog = System.Windows.Forms.FolderBrowserDialog;
 
     public static class GameCommandBindings
     {
-        #region Show Statistics Command
-        private static CommandBinding statisticsBinding = new CommandBinding(GameCommands.ShowStatistics,
-            new ExecutedRoutedEventHandler(OnStatisticsExecuted), new CanExecuteRoutedEventHandler(OnStaisticsCanExecute));
-
-        public static CommandBinding StatisticsBinding
+        #region Option Command
+        private static ICommand option = new RoutedUICommand("Option", "Option",
+            typeof(ClearMineViewModel), new InputGestureCollection() { new KeyGesture(Key.O, ModifierKeys.Control) });
+        private static CommandBinding optionBinding = new CommandBinding(Option, OnOptionExecuted);
+        public static ICommand Option
         {
-            get { return statisticsBinding; }
+            get { return option; }
         }
+
+        private static void OnOptionExecuted(object sender, ExecutedRoutedEventArgs e)
+        {
+            var viewModel = e.ExtractDataContext<ClearMineViewModel>();
+            bool shouldResume = false;
+            if (viewModel.Game.GameState == GameState.Started)
+            {
+                shouldResume = true;
+
+                // Pause the game may takes long time. Needn't wait that finish; 
+                Application.Current.Dispatcher.BeginInvoke(new Action(viewModel.Game.PauseGame), DispatcherPriority.Background);
+            }
+
+            var message = new ShowDialogMessage()
+            {
+                Source = e.OriginalSource,
+                DialogType = Type.GetType("ClearMine.UI.Dialogs.OptionsDialog, ClearMine.Dialogs", true),
+                Data = new OptionsViewModel(),
+            };
+
+            MessageManager.GetMessageAggregator<ShowDialogMessage>().SendMessage(message);
+
+            if (message.HandlingResult != null && ((bool?)message.HandlingResult).Value)
+            {
+                viewModel.StartNewGame();
+            }
+            else if (shouldResume)
+            {
+                viewModel.Game.ResumeGame();
+            }
+        }
+        #endregion
+        #region SaveAsCommand
+        private static CommandBinding saveAsBinding = new CommandBinding(ApplicationCommands.SaveAs, OnSaveAsExecuted, OnSaveAsCanExecute);
+
+        private static void OnSaveAsExecuted(object sender, ExecutedRoutedEventArgs e)
+        {
+            e.ExtractDataContext<ClearMineViewModel>().SaveCurrentGame();
+        }
+
+        private static void OnSaveAsCanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = e.ExtractDataContext<ClearMineViewModel>().Game.GameState == GameState.Started;
+        }
+        #endregion
+        #region OpenCommand
+        private static CommandBinding openBinding = new CommandBinding(ApplicationCommands.Open, OnOpenExecuted);
+
+        private static void OnOpenExecuted(object sender, ExecutedRoutedEventArgs e)
+        {
+            var openFileDialog = new OpenFileDialog();
+            openFileDialog.DefaultExt = Settings.Default.SavedGameExt;
+            openFileDialog.Filter = LocalizationHelper.FindText("SavedGameFilter", Settings.Default.SavedGameExt);
+            if (openFileDialog.ShowDialog() == true)
+            {
+                e.ExtractDataContext<ClearMineViewModel>().LoadSavedGame(openFileDialog.FileName);
+            }
+        }
+        #endregion
+        #region NewGame Command
+        private static CommandBinding newGameBinding = new CommandBinding(ApplicationCommands.New, OnNewGameExecuted);
+
+        private static void OnNewGameExecuted(object sender, ExecutedRoutedEventArgs e)
+        {
+            e.ExtractDataContext<ClearMineViewModel>().StartNewGame();
+        }
+        #endregion
+        #region Refresh Binding
+        private static CommandBinding refreshBinding = new CommandBinding(NavigationCommands.Refresh, OnRefreshExecuted);
+
+        private static void OnRefreshExecuted(object sender, ExecutedRoutedEventArgs e)
+        {
+            e.ExtractDataContext<ClearMineViewModel>().Game.Restart();
+        }
+        #endregion
+
+        #region Show Statistics Command
+        private static CommandBinding statisticsBinding = new CommandBinding(GameCommands.ShowStatistics, OnStatisticsExecuted);
 
         private static void OnStatisticsExecuted(object sender, ExecutedRoutedEventArgs e)
         {
@@ -43,41 +126,19 @@
                 }
             });
         }
-
-        private static void OnStaisticsCanExecute(object sender, CanExecuteRoutedEventArgs e)
-        {
-            e.CanExecute = true;
-        }
         #endregion
 
         #region Close Command
-        private static CommandBinding closeBinding = new CommandBinding(ApplicationCommands.Close,
-            new ExecutedRoutedEventHandler(OnCloseExecuted), new CanExecuteRoutedEventHandler(OnCloseCanExecuted));
-
-        public static CommandBinding CloseBinding
-        {
-            get { return closeBinding; }
-        }
+        private static CommandBinding closeBinding = new CommandBinding(ApplicationCommands.Close, OnCloseExecuted);
 
         private static void OnCloseExecuted(object sender, ExecutedRoutedEventArgs e)
         {
             Application.Current.MainWindow.Close();
         }
-
-        private static void OnCloseCanExecuted(object sender, CanExecuteRoutedEventArgs e)
-        {
-            e.CanExecute = true;
-        }
         #endregion
 
         #region About Command
-        private static CommandBinding aboutBinding = new CommandBinding(GameCommands.About,
-            new ExecutedRoutedEventHandler(OnAboutExecuted), new CanExecuteRoutedEventHandler(OnAboutCanExecute));
-
-        public static CommandBinding AboutBinding
-        {
-            get { return aboutBinding; }
-        }
+        private static CommandBinding aboutBinding = new CommandBinding(GameCommands.About, OnAboutExecuted);
 
         private static void OnAboutExecuted(object sender, ExecutedRoutedEventArgs e)
         {
@@ -87,20 +148,9 @@
                 DialogType = Type.GetType("ClearMine.UI.Dialogs.AboutDialog, ClearMine.Dialogs")
             });
         }
-
-        private static void OnAboutCanExecute(object sender, CanExecuteRoutedEventArgs e)
-        {
-            e.CanExecute = true;
-        }
         #endregion
 
-        private static CommandBinding viewHelpBinding = new CommandBinding(ApplicationCommands.Help,
-            new ExecutedRoutedEventHandler(OnHelpExecuted), new CanExecuteRoutedEventHandler(OnHelpCanExecute));
-
-        public static CommandBinding ViewHelpBinding
-        {
-            get { return viewHelpBinding; }
-        }
+        private static CommandBinding viewHelpBinding = new CommandBinding(ApplicationCommands.Help, OnHelpExecuted);
 
         private static void OnHelpExecuted(object sender, ExecutedRoutedEventArgs e)
         {
@@ -123,40 +173,18 @@
             }
         }
 
-        private static void OnHelpCanExecute(object sender, CanExecuteRoutedEventArgs e)
-        {
-            e.CanExecute = true;
-        } 
-
         #region Feeback Command
-        private static CommandBinding feedbackBinding = new CommandBinding(GameCommands.Feedback,
-            new ExecutedRoutedEventHandler(OnFeedbackExecuted), new CanExecuteRoutedEventHandler(OnFeedbackCanExecute));
-
-        public static CommandBinding FeedbackBinding
-        {
-            get { return feedbackBinding; }
-        }
+        private static CommandBinding feedbackBinding = new CommandBinding(GameCommands.Feedback, OnFeedbackExecuted);
 
         private static void OnFeedbackExecuted(object sender, ExecutedRoutedEventArgs e)
         {
             EmailHelper.Send(LocalizationHelper.FindText("ClearMineFeedbackContent"),
                 LocalizationHelper.FindText("ClearMineFeedbackTitle"), Settings.Default.FeedBackEmail);
         }
-
-        private static void OnFeedbackCanExecute(object sender, CanExecuteRoutedEventArgs e)
-        {
-            e.CanExecute = true;
-        }
         #endregion
 
         #region ShowLogCommand
-        private static CommandBinding showLogBinding = new CommandBinding(GameCommands.ShowLog,
-            new ExecutedRoutedEventHandler(OnShowLogExecuted), new CanExecuteRoutedEventHandler(OnShowLogCanExecute));
-
-        public static CommandBinding ShowLogBinding
-        {
-            get { return showLogBinding; }
-        }
+        private static CommandBinding showLogBinding = new CommandBinding(GameCommands.ShowLog, OnShowLogExecuted);
 
         private static void OnShowLogExecuted(object sender, ExecutedRoutedEventArgs e)
         {
@@ -167,23 +195,10 @@
                 ModuleDialog = false
             });
         }
-
-        private static void OnShowLogCanExecute(object sender, CanExecuteRoutedEventArgs e)
-        {
-            e.CanExecute = true;
-        }
         #endregion
 
         #region Switch Language Command
-
-        private static CommandBinding switchLanguageBinding = new CommandBinding(GameCommands.SwitchLanguage,
-            new ExecutedRoutedEventHandler(OnSwitchLanguageExecuted),
-            new CanExecuteRoutedEventHandler(OnSwitchLanguageCanExecute));
-
-        public static CommandBinding SwitchLanguageBinding
-        {
-            get { return switchLanguageBinding; }
-        }
+        private static CommandBinding switchLanguageBinding = new CommandBinding(GameCommands.SwitchLanguage, OnSwitchLanguageExecuted);
 
         private static void OnSwitchLanguageExecuted(object sender, ExecutedRoutedEventArgs e)
         {
@@ -234,13 +249,122 @@
                 MessageBox.Show(message, LocalizationHelper.FindText("ApplicationTitle"), MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
+        #endregion
 
-        private static void OnSwitchLanguageCanExecute(object sender, CanExecuteRoutedEventArgs e)
+        #region Close Command
+        private static CommandBinding optionCloseBinding = new CommandBinding(ApplicationCommands.Close, OnOptionCloseExecuted);
+
+        private static void OnOptionCloseExecuted(object sender, ExecutedRoutedEventArgs e)
         {
-            e.CanExecute = true;
+            e.ExtractDataContext<OptionsViewModel>(vm =>
+            {
+                vm.Cancel();
+                var window = Window.GetWindow(sender as DependencyObject);
+                if (window != null)
+                {
+                    window.DialogResult = false;
+                    window.Close();
+                }
+            });
+        }
+        #endregion
+
+        #region Save Command
+        private static CommandBinding saveBinding = new CommandBinding(ApplicationCommands.Save, OnSaveExecuted, OnSaveCanExecuted);
+
+        private static void OnSaveExecuted(object sender, ExecutedRoutedEventArgs e)
+        {
+            e.ExtractDataContext<OptionsViewModel>(vm =>
+            {
+                vm.Save();
+                var window = Window.GetWindow(sender as DependencyObject);
+                if (window != null)
+                {
+                    window.DialogResult = true;
+                    window.Close();
+                }
+            });
         }
 
+        private static void OnSaveCanExecuted(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = String.IsNullOrWhiteSpace(e.ExtractDataContext<OptionsViewModel>().Error);
+        }
         #endregion
+
+        #region BrowseHistory Command
+        private static CommandBinding browseHistoryBinding = new CommandBinding(OptionsCommands.BrowseHistory, OnBrowseHistoryExecuted, OnBrowseHistoryCanExecute);
+
+        private static void OnBrowseHistoryExecuted(object sender, ExecutedRoutedEventArgs e)
+        {
+            var folderBrowser = new FolderBrowserDialog();
+            folderBrowser.ShowNewFolderButton = true;
+            folderBrowser.Description = LocalizationHelper.FindText("BrowseGameFolderMessage");
+            folderBrowser.SelectedPath = Path.GetFullPath(Settings.Default.GameHistoryFolder);
+            if (folderBrowser.ShowDialog() == DialogResult.OK)
+            {
+                Settings.Default.GameHistoryFolder = folderBrowser.SelectedPath;
+            }
+        }
+
+        private static void OnBrowseHistoryCanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = Settings.Default.SaveGame;
+        }
+        #endregion
+
+        #region Reset Command
+
+        private static CommandBinding resetBinding = new CommandBinding(StatisticsCommands.Reset, OnResetExecuted);
+
+        private static void OnResetExecuted(object sender, ExecutedRoutedEventArgs e)
+        {
+            if (MessageBox.Show(LocalizationHelper.FindText("ResetHistoryMessage"), LocalizationHelper.FindText("ResetHistoryTitle"),
+                MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No) == MessageBoxResult.Yes)
+            {
+                foreach (HeroHistory history in e.Parameter as IEnumerable)
+                {
+                    history.Reset();
+                }
+
+                Settings.Default.Save();
+            }
+        }
+        #endregion
+
+        public static IEnumerable<CommandBinding> GetGameWonCommandBindings()
+        {
+            yield return statisticsBinding;
+        }
+
+        public static IEnumerable<CommandBinding> GetStatisticsCommandBindings()
+        {
+            yield return resetBinding;
+        }
+
+        public static IEnumerable<CommandBinding> GetOptionCommandBindings()
+        {
+            yield return browseHistoryBinding;
+            yield return optionCloseBinding;
+            yield return saveBinding;
+        }
+
+        public static IEnumerable<CommandBinding> GetGameCommandBindings()
+        {
+            // Arrange in alphabetical order.
+            yield return aboutBinding;
+            yield return closeBinding;
+            yield return feedbackBinding;
+            yield return newGameBinding;
+            yield return openBinding;
+            yield return optionBinding;
+            yield return refreshBinding;
+            yield return saveAsBinding;
+            yield return showLogBinding;
+            yield return statisticsBinding;
+            yield return switchLanguageBinding;
+            yield return viewHelpBinding;
+        }
 
         private static bool VerifyLanguageResourceFile(ResourceDictionary existing, ResourceDictionary newResource)
         {
@@ -258,13 +382,9 @@
 
             foreach (var existingKey in existing.Keys)
             {
-                if (newKeys.Contains(existingKey))
+                if (!newKeys.Contains(existingKey))
                 {
-                    continue;
-                }
-                else
-                {
-                    string message = String.Format(CultureInfo.InvariantCulture,
+                    var message = String.Format(CultureInfo.InvariantCulture,
                         LocalizationHelper.FindText("MissingLanguageResourceKey"), existingKey);
                     MessageBox.Show(message, LocalizationHelper.FindText("ApplicationTitle"), MessageBoxButton.OK, MessageBoxImage.Error);
                     return false;

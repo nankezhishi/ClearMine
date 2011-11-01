@@ -121,12 +121,12 @@
     <Compile Include="Messages\ExceptionMessage.cs" />
     <Compile Include="Messages\ExceptionMessageProcessor.cs" />
     <Compile Include="Dialogs\OptionDialog.cs" />
+    <Compile Include="Messages\GameStatusMessage.cs" />
     <Compile Include="Messages\ShowDialogMessage.cs" />
     <Compile Include="FrameworkModule.cs" />
     <Compile Include="Interactivity\Behavior.cs" />
     <Compile Include="Interactivity\BehaviorCollection.cs" />
     <Compile Include="Interactivity\Interaction.cs" />
-    <Compile Include="Media\Player.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -146,6 +146,10 @@
     <ProjectReference Include="..\ClearMine.Common\ClearMine.Common.csproj">
       <Project>{A2631FA1-E4A4-41AC-8E8E-5C8AEB63C83E}</Project>
       <Name>ClearMine.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ClearMine.GameDefinition\ClearMine.GameDefinition.csproj">
+      <Project>{04D44DD3-3819-4496-8A4C-03298742EA5D}</Project>
+      <Name>ClearMine.GameDefinition</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

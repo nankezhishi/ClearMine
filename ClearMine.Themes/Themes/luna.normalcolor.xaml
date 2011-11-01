@@ -634,7 +634,7 @@
                     </MenuItem>
                     <Separator />
                     <MenuItem Header="{DynamicResource OptionsMenuItemHeader}"
-                              Command="{x:Static vm:ClearMineViewModel.Option}" />
+                              Command="{x:Static m:GameCommandBindings.Option}" />
                 </MenuItem>
                 <MenuItem Header="{DynamicResource HelpMenuItemHeader}">
                     <MenuItem Header="{DynamicResource ViewHelpMenuItemHeader}"

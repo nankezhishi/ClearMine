@@ -4,7 +4,7 @@
     using System.Diagnostics;
     using System.Globalization;
     using System.Windows;
-    using ClearMine.Common.Localization;
+    using ClearMine.Common.Utilities;
 
     public abstract class Behavior : DependencyObject
     {

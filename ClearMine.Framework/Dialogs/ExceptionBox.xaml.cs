@@ -2,7 +2,6 @@
 {
     using System;
     using System.Windows;
-    using ClearMine.Common.Localization;
     using ClearMine.Common.Properties;
     using ClearMine.Common.Utilities;
 
