@@ -2,12 +2,13 @@
 {
     using System.Windows;
     using System.Windows.Media;
+
     using ClearMine.Common.Messaging;
     using ClearMine.Common.Modularity;
     using ClearMine.Framework.Messages;
     using ClearMine.VM;
 
-    public class MainModule : IModule
+    internal class MainModule : IModule
     {
         public void InitializeModule()
         {

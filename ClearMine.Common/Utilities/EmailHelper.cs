@@ -4,6 +4,10 @@
     using System.Diagnostics;
     using System.Globalization;
 
+    /// <summary>
+    /// Send email via mailto URL schema introduced in the RFC2368.
+    /// For more information, please refer to http://tools.ietf.org/html/rfc2368
+    /// </summary>
     public static class EmailHelper
     {
         public static void Send(string message, string title, string to)
