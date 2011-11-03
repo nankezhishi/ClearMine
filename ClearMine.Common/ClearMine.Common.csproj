@@ -101,6 +101,7 @@
     <Compile Include="ComponentModel\ViewModelBase.cs" />
     <Compile Include="Difficulty.cs" />
     <Compile Include="HeroHistory.cs" />
+    <Compile Include="Utilities\IVisualShoot.cs" />
     <Compile Include="Utilities\LocalizationHelper.cs" />
     <Compile Include="Messaging\MessageAggregator.cs" />
     <Compile Include="Messaging\MessageBase.cs" />

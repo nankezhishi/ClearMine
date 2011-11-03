@@ -50,6 +50,7 @@
     <Compile Include="ExpandFailedException.cs" />
     <Compile Include="GameState.cs" />
     <Compile Include="IClearMine.cs" />
+    <Compile Include="IGameSerializer.cs" />
     <Compile Include="IMinesGenerator.cs" />
     <Compile Include="MineCell.cs" />
     <Compile Include="PressState.cs" />

@@ -3,17 +3,13 @@
     using System;
     using System.Collections.Generic;
     using System.ComponentModel;
-    using System.Diagnostics;
     using System.Globalization;
-    using System.IO;
     using System.Linq;
     using System.Threading;
     using System.Windows;
     using System.Windows.Input;
     using System.Windows.Media;
-    using System.Windows.Media.Imaging;
     using System.Windows.Threading;
-    using System.Xml.Serialization;
 
     using ClearMine.Common;
     using ClearMine.Common.ComponentModel;
@@ -23,7 +19,6 @@
     using ClearMine.Framework.Messages;
     using ClearMine.GameDefinition;
     using ClearMine.VM.Commands;
-    using Microsoft.Win32;
 
     internal sealed class ClearMineViewModel : ViewModelBase
     {
@@ -34,8 +29,9 @@
 
         public ClearMineViewModel()
         {
-            HookupToGame(Infrastructure.Container.GetExportedValue<IClearMine>());
             Settings.Default.PropertyChanged += OnSettingsChanged;
+            MessageManager.GetMessageAggregator<GameLoadMessage>().Subscribe(OnGameLoaded);
+            OnGameLoaded(new GameLoadMessage() { NewGame = Infrastructure.Container.GetExportedValue<IClearMine>() });
         }
 
         [ReadOnly(true)]
@@ -134,7 +130,7 @@
                         RefreshUI();
                     }
 
-                    UpdateStatistics();
+                    UpdateStatistics(game.GameState);
                     game.StartNew();
                 }
                 else
@@ -159,10 +155,11 @@
             {
                 if (Settings.Default.SaveOnExit)
                 {
-                    SaveCurrentGame(Settings.Default.UnfinishedGameFileName);
+                    Infrastructure.Container.GetExportedValue<IGameSerializer>().SaveGame(game, Settings.Default.UnfinishedGameFileName);
                 }
                 else
                 {
+                    // Game shouldn't be paused here
                     var result = MessageBox.Show(LocalizationHelper.FindText("AskingSaveGameMessage"), LocalizationHelper.FindText("AskingSaveGameTitle"),
                         MessageBoxButton.YesNoCancel, MessageBoxImage.Question);
                     if (result == MessageBoxResult.Cancel)
@@ -171,11 +168,11 @@
                     }
                     else if (result == MessageBoxResult.Yes)
                     {
-                        SaveCurrentGame(Settings.Default.UnfinishedGameFileName);
+                        Infrastructure.Container.GetExportedValue<IGameSerializer>().SaveGame(game, Settings.Default.UnfinishedGameFileName);
                     }
                     else
                     {
-                        UpdateStatistics();
+                        UpdateStatistics(game.GameState);
                     }
                 }
             }
@@ -240,58 +237,6 @@
         public override IEnumerable<CommandBinding> GetCommandBindings()
         {
             return GameCommandBindings.GetGameCommandBindings();
-        }
-
-        internal void SaveCurrentGame(string path = null)
-        {
-            if (String.IsNullOrWhiteSpace(path))
-            {
-                var savePathDialog = new SaveFileDialog();
-                savePathDialog.DefaultExt = Settings.Default.SavedGameExt;
-                savePathDialog.Filter = LocalizationHelper.FindText("SavedGameFilter", Settings.Default.SavedGameExt);
-                if (savePathDialog.ShowDialog() == true)
-                {
-                    path = savePathDialog.FileName;
-                }
-                else
-                {
-                    return;
-                }
-            }
-
-            // Pause game to make sure the timestamp correct.
-            game.PauseGame();
-            var gameSaver = new XmlSerializer(game.GetType());
-            using (var file = File.Open(path, FileMode.Create, FileAccess.Write))
-            {
-                gameSaver.Serialize(file, game);
-            }
-        }
-
-        internal void LoadSavedGame(string path)
-        {
-            if (!File.Exists(path))
-            {
-                throw new FileNotFoundException("The path to saved game cannot be found.", path);
-            }
-
-            IClearMine newgame = null;
-            var gameLoader = new XmlSerializer(game.GetType());
-            using (var file = File.Open(path, FileMode.Open, FileAccess.Read))
-            {
-                newgame = (IClearMine)gameLoader.Deserialize(file);
-            }
-
-            if (newgame.CheckHash())
-            {
-                HookupToGame(newgame);
-                RefreshUI();
-                game.ResumeGame();
-            }
-            else
-            {
-                MessageBox.Show(LocalizationHelper.FindText("CorruptedSavedGameMessage"), LocalizationHelper.FindText("CorruptedSavedGameTitle"));
-            }
         }
 
         private void Initialize()
@@ -367,7 +312,7 @@
                 Player.Play(Settings.Default.SoundLose);
                 Application.Current.Dispatcher.BeginInvoke(new Action(() =>
                 {
-                    UpdateStatistics();
+                    UpdateStatistics(game.GameState);
                     ShowLostWindow();
                 }));
             }
@@ -377,7 +322,7 @@
                 Player.Play(Settings.Default.SoundWin);
                 Application.Current.Dispatcher.BeginInvoke(new Action(() =>
                 {
-                    UpdateStatistics();
+                    UpdateStatistics(game.GameState);
                     ShowWonWindow();
                 }), DispatcherPriority.Input);
             }
@@ -385,36 +330,6 @@
             {
                 Player.Play(Settings.Default.SoundStart);
             }
-        }
-
-        private static string TakeScreenShoot()
-        {
-            var target = VisualTreeHelper.GetChild(Application.Current.MainWindow, 0) as FrameworkElement;
-            var targetBitmap = new RenderTargetBitmap((int)target.ActualWidth, (int)target.ActualHeight, 96d, 96d, PixelFormats.Default);
-            targetBitmap.Render(target);
-
-            var encoder = new PngBitmapEncoder();
-            encoder.Frames.Add(BitmapFrame.Create(targetBitmap));
-
-            string fileName = DateTime.Now.ToString(Settings.Default.ScreenShotFileTimeFormat, CultureInfo.InvariantCulture) + ".png";
-            string folder = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + Settings.Default.ScreenShotFolder;
-
-            if (!Directory.Exists(folder))
-            {
-                Directory.CreateDirectory(folder);
-            }
-
-            fileName = Path.Combine(folder, fileName);
-
-            // save file to disk
-            using (var fs = File.Open(fileName, FileMode.OpenOrCreate))
-            {
-                encoder.Save(fs);
-            }
-
-            Trace.TraceInformation(LocalizationHelper.FindText("ScreenShotSavedTo"), fileName);
-
-            return fileName;
         }
 
         private void ShowLostWindow()
@@ -453,16 +368,19 @@
             return (bool)message.HandlingResult;
         }
 
-        private void UpdateStatistics()
+        private void UpdateStatistics(GameState state)
         {
             var history = Settings.Default.HeroList.GetByLevel(Settings.Default.Difficulty);
             if (history != null)
             {
-                if (game.GameState == GameState.Success)
+                if (state == GameState.Success)
                 {
-                    history.IncreaseWon(game.UsedTime / 1000.0, DateTime.Now, TakeScreenShoot());
+                    var target = VisualTreeHelper.GetChild(Application.Current.MainWindow, 0) as FrameworkElement;
+                    var filePath = Infrastructure.Container.GetExportedValue<IVisualShoot>().SaveSnapShoot(target);
+
+                    history.IncreaseWon(game.UsedTime / 1000.0, DateTime.Now, filePath);
                 }
-                else if (game.GameState == GameState.Failed)
+                else if (state == GameState.Failed)
                 {
                     history.IncreaseLost();
                 }
@@ -492,19 +410,24 @@
             }
         }
 
-        private void HookupToGame(IClearMine newgame)
+        private void OnGameLoaded(GameLoadMessage message)
         {
-            if (game == null)
+            if (message.NewGame != null)
             {
-                game = newgame;
+                if (game == null)
+                {
+                    game = message.NewGame;
 
-                game.StateChanged += OnGameStateChanged;
-                game.TimeChanged += OnGameTimeChanged;
-                game.CellStateChanged += OnCellStateChanged;
-            }
-            else
-            {
-                game.Update(newgame);
+                    game.StateChanged += OnGameStateChanged;
+                    game.TimeChanged += OnGameTimeChanged;
+                    game.CellStateChanged += OnCellStateChanged;
+                }
+                else
+                {
+                    game.Update(message.NewGame);
+                }
+
+                RefreshUI();
             }
         }
     }

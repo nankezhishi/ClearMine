@@ -72,7 +72,7 @@
 
         private static void OnSaveAsExecuted(object sender, ExecutedRoutedEventArgs e)
         {
-            e.ExtractDataContext<ClearMineViewModel>().SaveCurrentGame();
+            Infrastructure.Container.GetExportedValue<IGameSerializer>().SaveGame(e.ExtractDataContext<ClearMineViewModel>().Game);
         }
 
         private static void OnSaveAsCanExecute(object sender, CanExecuteRoutedEventArgs e)
@@ -90,7 +90,8 @@
             openFileDialog.Filter = LocalizationHelper.FindText("SavedGameFilter", Settings.Default.SavedGameExt);
             if (openFileDialog.ShowDialog() == true)
             {
-                e.ExtractDataContext<ClearMineViewModel>().LoadSavedGame(openFileDialog.FileName);
+                Infrastructure.Container.GetExportedValue<IGameSerializer>().LoadGame(openFileDialog.FileName,
+                    e.ExtractDataContext<ClearMineViewModel>().Game.GetType());
             }
         }
         #endregion

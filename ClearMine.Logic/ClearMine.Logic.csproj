@@ -86,6 +86,7 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Xml" />
@@ -93,6 +94,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ClearMineGame.cs" />
+    <Compile Include="GameSerializer.cs" />
     <Compile Include="MinesGenerator.cs" />
     <Compile Include="MinesGrid.cs" />
     <Compile Include="MinesGridConverter.cs" />
@@ -102,6 +104,10 @@
     <ProjectReference Include="..\ClearMine.Common\ClearMine.Common.csproj">
       <Project>{A2631FA1-E4A4-41AC-8E8E-5C8AEB63C83E}</Project>
       <Name>ClearMine.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ClearMine.Framework\ClearMine.Framework.csproj">
+      <Project>{730AFF67-B857-42CD-9DAF-E94FC79BA721}</Project>
+      <Name>ClearMine.Framework</Name>
     </ProjectReference>
     <ProjectReference Include="..\ClearMine.GameDefinition\ClearMine.GameDefinition.csproj">
       <Project>{04D44DD3-3819-4496-8A4C-03298742EA5D}</Project>
