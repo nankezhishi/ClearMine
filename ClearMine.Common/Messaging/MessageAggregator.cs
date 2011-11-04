@@ -4,7 +4,7 @@
     using System.Collections.Generic;
     using System.Linq;
 
-    public class MessageAggregator<T> where T : MessageBase
+    internal class MessageAggregator<T> where T : MessageBase
     {
         private ICollection<Action<T>> processors = new List<Action<T>>();
 

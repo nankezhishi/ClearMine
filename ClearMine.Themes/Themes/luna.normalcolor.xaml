@@ -619,11 +619,12 @@
                         <Interaction.Behaviors>
                             <BehaviorCollection>
                                 <AutoCheckMenuItemsBehavior />
+                                <SelectCurrentUICultureBehavior />
                             </BehaviorCollection>
                         </Interaction.Behaviors>
                         <MenuItem Header="{DynamicResource EnglishMenuItemHeader}"
                                   Command="{x:Static h:GameCommands.SwitchLanguage}"
-                                  CommandParameter="en-US" IsChecked="True" />
+                                  CommandParameter="en-US" />
                         <MenuItem Header="{DynamicResource ChineseMenuItemHeader}"
                                   Command="{x:Static h:GameCommands.SwitchLanguage}"
                                   CommandParameter="zh-CN" />

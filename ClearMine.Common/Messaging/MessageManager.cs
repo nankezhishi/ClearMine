@@ -7,23 +7,6 @@
     {
         private static IList<object> aggregators = new List<object>();
 
-        public static MessageAggregator<T> GetMessageAggregator<T>()
-            where T : MessageBase
-        {
-            foreach (var aggregator in aggregators)
-            {
-                if (aggregator is MessageAggregator<T>)
-                {
-                    return aggregator as MessageAggregator<T>;
-                }
-            }
-
-            var newOne = Activator.CreateInstance<MessageAggregator<T>>();
-            aggregators.Add(newOne);
-
-            return newOne;
-        }
-
         /// <summary>
         /// 
         /// </summary>
@@ -48,6 +31,23 @@
                 .GetMessageAggregator<T>()
                 .SendMessage(Activator.CreateInstance(typeof(T), args) as T)
                 .HandlingResult;
+        }
+
+        internal static MessageAggregator<T> GetMessageAggregator<T>()
+            where T : MessageBase
+        {
+            foreach (var aggregator in aggregators)
+            {
+                if (aggregator is MessageAggregator<T>)
+                {
+                    return aggregator as MessageAggregator<T>;
+                }
+            }
+
+            var newOne = Activator.CreateInstance<MessageAggregator<T>>();
+            aggregators.Add(newOne);
+
+            return newOne;
         }
     }
 }
