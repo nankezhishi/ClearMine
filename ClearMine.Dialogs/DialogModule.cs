@@ -11,7 +11,7 @@
     {
         public void InitializeModule()
         {
-            MessageManager.GetMessageAggregator<ShowDialogMessage>().Subscribe(new DialogMessageProcessor().HandleMessage);
+            MessageManager.SubscribeMessage<ShowDialogMessage>(new DialogMessageProcessor().HandleMessage);
         }
     }
 }

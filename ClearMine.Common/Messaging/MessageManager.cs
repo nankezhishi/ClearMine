@@ -23,5 +23,31 @@
 
             return newOne;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="handler"></param>
+        public static void SubscribeMessage<T>(Action<T> handler)
+            where T : MessageBase
+        {
+            GetMessageAggregator<T>().Subscribe(handler);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="args"></param>
+        /// <returns></returns>
+        public static object SendMessage<T>(params object[] args)
+            where T : MessageBase
+        {
+            return MessageManager
+                .GetMessageAggregator<T>()
+                .SendMessage(Activator.CreateInstance(typeof(T), args) as T)
+                .HandlingResult;
+        }
     }
 }

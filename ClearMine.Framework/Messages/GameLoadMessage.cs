@@ -8,6 +8,11 @@
     /// </summary>
     public class GameLoadMessage : MessageBase
     {
+        public GameLoadMessage(IClearMine game)
+        {
+            NewGame = game;
+        }
+
         public IClearMine NewGame { get; set; }
     }
 }

@@ -18,6 +18,7 @@
     using ClearMine.Common.Utilities;
     using ClearMine.Framework.Messages;
     using ClearMine.GameDefinition;
+    using ClearMine.GameDefinition.Utilities;
     using ClearMine.VM.Commands;
 
     internal sealed class ClearMineViewModel : ViewModelBase
@@ -30,8 +31,8 @@
         public ClearMineViewModel()
         {
             Settings.Default.PropertyChanged += OnSettingsChanged;
-            MessageManager.GetMessageAggregator<GameLoadMessage>().Subscribe(OnGameLoaded);
-            OnGameLoaded(new GameLoadMessage() { NewGame = Infrastructure.Container.GetExportedValue<IClearMine>() });
+            MessageManager.SubscribeMessage<GameLoadMessage>(OnGameLoaded);
+            OnGameLoaded(new GameLoadMessage(Infrastructure.Container.GetExportedValue<IClearMine>()));
         }
 
         [ReadOnly(true)]
@@ -130,7 +131,7 @@
                         RefreshUI();
                     }
 
-                    UpdateStatistics(game.GameState);
+                    game.UpdateStatistics();
                     game.StartNew();
                 }
                 else
@@ -146,83 +147,6 @@
                 }
 
                 game.StartNew();
-            }
-        }
-
-        public void RequestToClose(CancelEventArgs e)
-        {
-            if (game.GameState == GameState.Started)
-            {
-                if (Settings.Default.SaveOnExit)
-                {
-                    Infrastructure.Container.GetExportedValue<IGameSerializer>().SaveGame(game, Settings.Default.UnfinishedGameFileName);
-                }
-                else
-                {
-                    // Game shouldn't be paused here
-                    var result = MessageBox.Show(LocalizationHelper.FindText("AskingSaveGameMessage"), LocalizationHelper.FindText("AskingSaveGameTitle"),
-                        MessageBoxButton.YesNoCancel, MessageBoxImage.Question);
-                    if (result == MessageBoxResult.Cancel)
-                    {
-                        e.Cancel = true;
-                    }
-                    else if (result == MessageBoxResult.Yes)
-                    {
-                        Infrastructure.Container.GetExportedValue<IGameSerializer>().SaveGame(game, Settings.Default.UnfinishedGameFileName);
-                    }
-                    else
-                    {
-                        UpdateStatistics(game.GameState);
-                    }
-                }
-            }
-        }
-
-        public void MarkAt(MineCell cell)
-        {
-            if (cell != null && (game.GameState == GameState.Initialized || game.GameState == GameState.Started))
-            {
-                if (cell.State == CellState.Normal)
-                {
-                    game.TryMarkAt(cell, CellState.MarkAsMine);
-                }
-                else if (cell.State == CellState.MarkAsMine)
-                {
-                    if (Settings.Default.ShowQuestionMark)
-                    {
-                        game.TryMarkAt(cell, CellState.Question);
-                    }
-                    else
-                    {
-                        game.TryMarkAt(cell, CellState.Normal);
-                    }
-                }
-                else if (cell.State == CellState.Question)
-                {
-                    game.TryMarkAt(cell, CellState.Normal);
-                }
-                else
-                {
-                    // Do nothing.
-                }
-
-                TriggerPropertyChanged("RemainedMines");
-            }
-        }
-
-        public void DigAt(MineCell cell)
-        {
-            if (cell != null && (game.GameState == GameState.Initialized || game.GameState == GameState.Started))
-            {
-                ThreadPool.QueueUserWorkItem(o => HandleExpandedCells(game.TryDigAt(cell)));
-            }
-        }
-
-        public void TryExpand(MineCell cell)
-        {
-            if (cell != null && (game.GameState == GameState.Initialized || game.GameState == GameState.Started))
-            {
-                ThreadPool.QueueUserWorkItem(o => HandleExpandedCells(game.TryExpandAt(cell)));
             }
         }
 
@@ -312,7 +236,7 @@
                 Player.Play(Settings.Default.SoundLose);
                 Application.Current.Dispatcher.BeginInvoke(new Action(() =>
                 {
-                    UpdateStatistics(game.GameState);
+                    game.UpdateStatistics();
                     ShowLostWindow();
                 }));
             }
@@ -322,7 +246,7 @@
                 Player.Play(Settings.Default.SoundWin);
                 Application.Current.Dispatcher.BeginInvoke(new Action(() =>
                 {
-                    UpdateStatistics(game.GameState);
+                    game.UpdateStatistics();
                     ShowWonWindow();
                 }), DispatcherPriority.Input);
             }
@@ -358,56 +282,7 @@
 
         private bool ShowDialog(string type, object data = null)
         {
-            var message = new ShowDialogMessage()
-            {
-                DialogType = Type.GetType(type),
-                Data = data,
-            };
-            MessageManager.GetMessageAggregator<ShowDialogMessage>().SendMessage(message);
-
-            return (bool)message.HandlingResult;
-        }
-
-        private void UpdateStatistics(GameState state)
-        {
-            var history = Settings.Default.HeroList.GetByLevel(Settings.Default.Difficulty);
-            if (history != null)
-            {
-                if (state == GameState.Success)
-                {
-                    var target = VisualTreeHelper.GetChild(Application.Current.MainWindow, 0) as FrameworkElement;
-                    var filePath = Infrastructure.Container.GetExportedValue<IVisualShoot>().SaveSnapShoot(target);
-
-                    history.IncreaseWon(game.UsedTime / 1000.0, DateTime.Now, filePath);
-                }
-                else if (state == GameState.Failed)
-                {
-                    history.IncreaseLost();
-                }
-                else
-                {
-                    history.IncreaseUndone();
-                }
-            }
-
-            Settings.Default.Save();
-        }
-
-        private static void HandleExpandedCells(IEnumerable<MineCell> cells)
-        {
-            int emptyCellExpanded = cells.Count(c => c.MinesNearby == 0);
-            if (emptyCellExpanded == 0)
-            {
-                // Do nothing.
-            }
-            else if (emptyCellExpanded > 1)
-            {
-                Player.Play(Settings.Default.SoundTileMultiple);
-            }
-            else
-            {
-                Player.Play(Settings.Default.SoundTileSingle);
-            }
+            return (bool)MessageManager.SendMessage<ShowDialogMessage>(Type.GetType(type), data);
         }
 
         private void OnGameLoaded(GameLoadMessage message)

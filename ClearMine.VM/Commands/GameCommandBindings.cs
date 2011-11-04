@@ -48,16 +48,10 @@
                 Application.Current.Dispatcher.BeginInvoke(new Action(viewModel.Game.PauseGame), DispatcherPriority.Background);
             }
 
-            var message = new ShowDialogMessage()
-            {
-                Source = e.OriginalSource,
-                DialogType = Type.GetType("ClearMine.UI.Dialogs.OptionsDialog, ClearMine.Dialogs", true),
-                Data = new OptionsViewModel(),
-            };
+            var result = MessageManager.SendMessage<ShowDialogMessage>(e.OriginalSource,
+                Type.GetType("ClearMine.UI.Dialogs.OptionsDialog, ClearMine.Dialogs", true), new OptionsViewModel());
 
-            MessageManager.GetMessageAggregator<ShowDialogMessage>().SendMessage(message);
-
-            if (message.HandlingResult != null && ((bool?)message.HandlingResult).Value)
+            if ((bool)result)
             {
                 viewModel.StartNewGame();
             }
@@ -117,15 +111,11 @@
 
         private static void OnStatisticsExecuted(object sender, ExecutedRoutedEventArgs e)
         {
-            MessageManager.GetMessageAggregator<ShowDialogMessage>().SendMessage(new ShowDialogMessage()
-            {
-                Source = e.OriginalSource,
-                DialogType = Type.GetType("ClearMine.UI.Dialogs.StatisticsWindow, ClearMine.Dialogs"),
-                Data =  new StatisticsViewModel()
-                {
+            MessageManager.SendMessage<ShowDialogMessage>(e.OriginalSource,
+                Type.GetType("ClearMine.UI.Dialogs.StatisticsWindow, ClearMine.Dialogs"),
+                new StatisticsViewModel() {
                     SelectedLevel = Settings.Default.Difficulty != Difficulty.Custom ? Settings.Default.Difficulty : Difficulty.Beginner
-                }
-            });
+                });
         }
         #endregion
 
@@ -143,11 +133,7 @@
 
         private static void OnAboutExecuted(object sender, ExecutedRoutedEventArgs e)
         {
-            MessageManager.GetMessageAggregator<ShowDialogMessage>().SendMessage(new ShowDialogMessage()
-            {
-                Source = e.OriginalSource,
-                DialogType = Type.GetType("ClearMine.UI.Dialogs.AboutDialog, ClearMine.Dialogs")
-            });
+            MessageManager.SendMessage<ShowDialogMessage>(e.OriginalSource, Type.GetType("ClearMine.UI.Dialogs.AboutDialog, ClearMine.Dialogs"));
         }
         #endregion
 
@@ -189,12 +175,8 @@
 
         private static void OnShowLogExecuted(object sender, ExecutedRoutedEventArgs e)
         {
-            MessageManager.GetMessageAggregator<ShowDialogMessage>().SendMessage(new ShowDialogMessage()
-            {
-                Source = e.OriginalSource,
-                DialogType = Type.GetType("ClearMine.UI.Dialogs.OutputWindow, ClearMine.Dialogs"),
-                ModuleDialog = false
-            });
+            MessageManager.SendMessage<ShowDialogMessage>(e.OriginalSource,
+                Type.GetType("ClearMine.UI.Dialogs.OutputWindow, ClearMine.Dialogs"), false);
         }
         #endregion
 
@@ -244,7 +226,7 @@
             }
             catch (XamlParseException ex)
             {
-                var message = String.Format(CultureInfo.InvariantCulture, 
+                var message = String.Format(CultureInfo.InvariantCulture,
                     LocalizationHelper.FindText("LanguageResourceParseError"), ex.Message);
                 Interaction.FindBehavior<AutoCheckMenuItemsBehavior>(e.OriginalSource as DependencyObject, b => b.UndoMenuItemCheck());
                 MessageBox.Show(message, LocalizationHelper.FindText("ApplicationTitle"), MessageBoxButton.OK, MessageBoxImage.Error);

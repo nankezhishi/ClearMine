@@ -14,9 +14,7 @@
         {
             Application.Current.DispatcherUnhandledException += (sender, e) =>
             {
-                var message = new ExceptionMessage(e.Exception);
-                MessageManager.GetMessageAggregator<ExceptionMessage>().SendMessage(message);
-                e.Handled = (bool)message.HandlingResult;
+                e.Handled = (bool)MessageManager.SendMessage<ExceptionMessage>(e.Exception);
             };
 
             Application.Current.Startup += new StartupEventHandler(OnApplicationStartup);

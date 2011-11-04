@@ -8,7 +8,7 @@
     {
         public void InitializeModule()
         {
-            MessageManager.GetMessageAggregator<ExceptionMessage>().Subscribe(new ExceptionMessageProcessor().HandleMessage);
+            MessageManager.SubscribeMessage<ExceptionMessage>(new ExceptionMessageProcessor().HandleMessage);
         }
     }
 }

@@ -1,15 +1,23 @@
 ﻿namespace ClearMine.VM.Behaviors
 {
     using System;
+    using System.Collections.Generic;
     using System.ComponentModel;
+    using System.Linq;
+    using System.Threading;
     using System.Windows;
     using System.Windows.Input;
 
+    using ClearMine.Common.Properties;
     using ClearMine.Common.Utilities;
     using ClearMine.Framework.Controls;
     using ClearMine.Framework.Interactivity;
     using ClearMine.GameDefinition;
+    using ClearMine.GameDefinition.Utilities;
 
+    /// <summary>
+    /// 
+    /// </summary>
     public class MainInteractionBehavior : UIElementBehavior<FrameworkElement>
     {
         private bool expanding = false;
@@ -54,7 +62,10 @@
             if (Mouse.LeftButton == MouseButtonState.Pressed &&
                 Mouse.RightButton == MouseButtonState.Pressed)
             {
-                vm.TryExpand(cell);
+                if (cell != null && (vm.Game.GameState == GameState.Initialized || vm.Game.GameState == GameState.Started))
+                {
+                    ThreadPool.QueueUserWorkItem(o => HandleExpandedCells(vm.Game.TryExpandAt(cell)));
+                }
                 expanding = true;
             }
 
@@ -85,7 +96,10 @@
                 Mouse.RightButton == MouseButtonState.Released)
             {
                 expanding = false;
-                vm.DigAt(cell);
+                if (cell != null && (vm.Game.GameState == GameState.Initialized || vm.Game.GameState == GameState.Started))
+                {
+                    ThreadPool.QueueUserWorkItem(o => HandleExpandedCells(vm.Game.TryDigAt(cell)));
+                }
             }
             else if (e.ChangedButton == MouseButton.Right &&
                 Mouse.LeftButton == MouseButtonState.Released)
@@ -96,7 +110,10 @@
                 }
                 else
                 {
-                    vm.MarkAt(cell);
+                    if (vm.Game.MarkAt(cell))
+                    {
+                        vm.TriggerPropertyChanged("RemainedMines");
+                    }
                 }
             }
 
@@ -178,9 +195,51 @@
             vm.RefreshUI();
         }
 
+        private static void HandleExpandedCells(IEnumerable<MineCell> cells)
+        {
+            int emptyCellExpanded = cells.Count(c => c.MinesNearby == 0);
+            if (emptyCellExpanded == 0)
+            {
+                // Do nothing.
+            }
+            else if (emptyCellExpanded > 1)
+            {
+                Player.Play(Settings.Default.SoundTileMultiple);
+            }
+            else
+            {
+                Player.Play(Settings.Default.SoundTileSingle);
+            }
+        }
+
         private void OnMainWindowClosing(object sender, CancelEventArgs e)
         {
-            vm.RequestToClose(e);
+            var game = vm.Game;
+            if (game.GameState == GameState.Started)
+            {
+                if (Settings.Default.SaveOnExit)
+                {
+                    Infrastructure.Container.GetExportedValue<IGameSerializer>().SaveGame(game, Settings.Default.UnfinishedGameFileName);
+                }
+                else
+                {
+                    // Game shouldn't be paused here
+                    var result = MessageBox.Show(LocalizationHelper.FindText("AskingSaveGameMessage"), LocalizationHelper.FindText("AskingSaveGameTitle"),
+                        MessageBoxButton.YesNoCancel, MessageBoxImage.Question);
+                    if (result == MessageBoxResult.Cancel)
+                    {
+                        e.Cancel = true;
+                    }
+                    else if (result == MessageBoxResult.Yes)
+                    {
+                        Infrastructure.Container.GetExportedValue<IGameSerializer>().SaveGame(game, Settings.Default.UnfinishedGameFileName);
+                    }
+                    else
+                    {
+                        game.UpdateStatistics();
+                    }
+                }
+            }
         }
     }
 }

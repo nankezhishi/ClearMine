@@ -69,7 +69,7 @@
 
             if (newgame.CheckHash())
             {
-                MessageManager.GetMessageAggregator<GameLoadMessage>().SendMessage(new GameLoadMessage() { NewGame = newgame });
+                MessageManager.SendMessage<GameLoadMessage>(newgame);
                 newgame.ResumeGame();
             }
             else
