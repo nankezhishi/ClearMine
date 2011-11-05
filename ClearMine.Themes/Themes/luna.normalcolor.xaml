@@ -2,6 +2,7 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:vm="clr-namespace:ClearMine.VM;assembly=ClearMine.VM"
                     xmlns:m="clr-namespace:ClearMine.VM.Commands;assembly=ClearMine.VM"
+                    xmlns:s="clr-namespace:ClearMine.Common.Messaging;assembly=ClearMine.Common"
                     xmlns:c="clr-namespace:ClearMine.Framework.Controls;assembly=ClearMine.Framework"
                     xmlns:h="clr-namespace:ClearMine.Framework.Commands;assembly=ClearMine.Framework"
                     xmlns:b="clr-namespace:ClearMine.Framework.Behaviors;assembly=ClearMine.Framework"
@@ -631,7 +632,7 @@
                         <Separator />
                         <MenuItem Header="{DynamicResource CustomLanguageMenuItemHeader}"
                                   Command="{x:Static h:GameCommands.SwitchLanguage}"
-                                  CommandParameter="{x:Static h:GameCommands.CustomLanguageKey}" />
+                                  CommandParameter="{x:Static s:SwitchLanguageMessage.CustomLanguageKey}" />
                     </MenuItem>
                     <Separator />
                     <MenuItem Header="{DynamicResource OptionsMenuItemHeader}"

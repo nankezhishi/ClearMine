@@ -4,12 +4,9 @@
     using System.Collections;
     using System.Collections.Generic;
     using System.Diagnostics;
-    using System.Globalization;
     using System.IO;
-    using System.Linq;
     using System.Windows;
     using System.Windows.Input;
-    using System.Windows.Markup;
     using System.Windows.Threading;
 
     using ClearMine.Common;
@@ -185,51 +182,9 @@
 
         private static void OnSwitchLanguageExecuted(object sender, ExecutedRoutedEventArgs e)
         {
-            var path = String.Empty;
-
-            if (GameCommands.CustomLanguageKey.Equals(e.Parameter.ToString(), StringComparison.Ordinal))
+            if ((bool)MessageManager.SendMessage<SwitchLanguageMessage>(e.Parameter, e.OriginalSource))
             {
-                var openFileDialog = new OpenFileDialog()
-                {
-                    DefaultExt = ".xaml",
-                    CheckFileExists = true,
-                    Multiselect = false,
-                    Filter = LocalizationHelper.FindText("LanguageFileFilter"),
-                };
-                if (openFileDialog.ShowDialog() == true)
-                {
-                    path = openFileDialog.FileName;
-                }
-                else
-                {
-                    Interaction.FindBehavior<AutoCheckMenuItemsBehavior>(e.OriginalSource as DependencyObject, b => b.UndoMenuItemCheck());
-                    return;
-                }
-            }
-            else
-            {
-                path = String.Format(CultureInfo.InvariantCulture,
-                    "/ClearMine.Localization;component/{0}/Overall.xaml", e.Parameter.ToString());
-            }
-
-            try
-            {
-                ResourceDictionary languageDictionary = new ResourceDictionary()
-                {
-                    Source = new Uri(path, UriKind.RelativeOrAbsolute)
-                };
-
-                if (VerifyLanguageResourceFile(Application.Current.Resources.MergedDictionaries[0], languageDictionary))
-                {
-                    Application.Current.Resources.MergedDictionaries[0] = languageDictionary;
-                }
-            }
-            catch (XamlParseException ex)
-            {
-                var message = String.Format(CultureInfo.InvariantCulture,
-                    LocalizationHelper.FindText("LanguageResourceParseError"), ex.Message);
                 Interaction.FindBehavior<AutoCheckMenuItemsBehavior>(e.OriginalSource as DependencyObject, b => b.UndoMenuItemCheck());
-                MessageBox.Show(message, LocalizationHelper.FindText("ApplicationTitle"), MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
         #endregion
@@ -348,34 +303,6 @@
                 switchLanguageBinding,
                 viewHelpBinding,
             };
-        }
-
-        private static bool VerifyLanguageResourceFile(ResourceDictionary existing, ResourceDictionary newResource)
-        {
-            foreach (var resource in newResource.Values)
-            {
-                if (!(resource is string))
-                {
-                    MessageBox.Show(LocalizationHelper.FindText("InvalidLanguageResourceType"),
-                        LocalizationHelper.FindText("ApplicationTitle"), MessageBoxButton.OK, MessageBoxImage.Error);
-                    return false;
-                }
-            }
-
-            var newKeys = newResource.Keys.Cast<string>();
-
-            foreach (var existingKey in existing.Keys)
-            {
-                if (!newKeys.Contains(existingKey))
-                {
-                    var message = String.Format(CultureInfo.InvariantCulture,
-                        LocalizationHelper.FindText("MissingLanguageResourceKey"), existingKey);
-                    MessageBox.Show(message, LocalizationHelper.FindText("ApplicationTitle"), MessageBoxButton.OK, MessageBoxImage.Error);
-                    return false;
-                }
-            }
-
-            return true;
         }
     }
 }
