@@ -4,7 +4,7 @@
     using System.Windows;
     using ClearMine.Framework.Dialogs;
 
-    public class ExceptionMessageProcessor
+    internal class ExceptionMessageProcessor
     {
         public void HandleMessage(ExceptionMessage message)
         {

@@ -9,6 +9,7 @@
         public void InitializeModule()
         {
             MessageManager.SubscribeMessage<ExceptionMessage>(new ExceptionMessageProcessor().HandleMessage);
+            MessageManager.SubscribeMessage<HelpRequestedMessage>(new HelpRequestedMessageProcessor().HandleMessage);
         }
     }
 }

@@ -125,6 +125,8 @@
     <Compile Include="Dialogs\OptionDialog.cs" />
     <Compile Include="Messages\GameLoadMessage.cs" />
     <Compile Include="Messages\GameStatusMessage.cs" />
+    <Compile Include="Messages\HelpRequestedMessage.cs" />
+    <Compile Include="Messages\HelpRequestedMessageProcessor.cs" />
     <Compile Include="Messages\ShowDialogMessage.cs" />
     <Compile Include="FrameworkModule.cs" />
     <Compile Include="Interactivity\Behavior.cs" />

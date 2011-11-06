@@ -3,7 +3,6 @@
     using System;
     using System.Collections;
     using System.Collections.Generic;
-    using System.Diagnostics;
     using System.IO;
     using System.Windows;
     using System.Windows.Input;
@@ -138,23 +137,7 @@
 
         private static void OnHelpExecuted(object sender, ExecutedRoutedEventArgs e)
         {
-            var helpName = Settings.Default.HelpDocumentName;
-
-            if (!String.IsNullOrWhiteSpace(helpName) && helpName.EndsWith("chm"))
-            {
-                try
-                {
-                    Process.Start(helpName);
-                }
-                catch (FileNotFoundException)
-                {
-                    Trace.TraceError(LocalizationHelper.FindText("CannotFindHelpFile", helpName));
-                }
-            }
-            else
-            {
-                Trace.TraceError(LocalizationHelper.FindText("InvalidHelpFileType", helpName));
-            }
+            MessageManager.SendMessage<HelpRequestedMessage>();
         }
 
         #region Feeback Command
