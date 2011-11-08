@@ -145,4 +145,16 @@
     <s:String x:Key="InvalidUpdateGameType">新值应该是 {0} 类型。</s:String>
     <s:String x:Key="InvalidTargetCellState">无法将格子的状态设置为 {0}。</s:String>
     <s:String x:Key="FocusChangedMessage">焦点移动到 {0}。</s:String>
+    <s:String x:Key="SavedGamePathNotFound">指向存档文件的路径不存在。</s:String>
+    <s:String x:Key="InvalidClearMineGameType">类型：{0} 没有实现IClearMine接口。</s:String>
+    <s:String x:Key="InvalidExpressType">GetMemberName方法不支持{0}类型的表达式。</s:String>
+    <s:String x:Key="UseWindowToGetWindow">使用Window.GetWindow去获取指定控件所在的Window实例。</s:String>
+    <s:String x:Key="TargetAlreadyExists">目标文件{0}已经存在。</s:String>
+    <s:String x:Key="LoadBindingsFromVMReqireWindow">LoadBindingsFromVM 属性只能被应用在Window上。</s:String>
+    <s:String x:Key="CannotFindVM">无法从{0}中解析出VM。</s:String>
+    <s:String x:Key="InvalidHeaderSortHost">HeaderSort属性只能被应用在ListView上。</s:String>
+    <s:String x:Key="MinLengthMustPositive">最小长度必须大于0。</s:String>
+    <s:String x:Key="RequiresTwoValues">values参数必须包含两个元素。</s:String>
+    <s:String x:Key="ExpressionMustBeMember">expression参数只能是成员访问表达式。</s:String>
+    <s:String x:Key="PerformanceIssueMoving">在缓存数组中移动元素会严重影响性能。</s:String>
 </ResourceDictionary>

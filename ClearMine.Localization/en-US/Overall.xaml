@@ -145,4 +145,16 @@
     <s:String x:Key="InvalidUpdateGameType">The new value should be of {0} type.</s:String>
     <s:String x:Key="InvalidTargetCellState">Cannot set cell state to {0}.</s:String>
     <s:String x:Key="FocusChangedMessage">Focus moved to {0}.</s:String>
+    <s:String x:Key="SavedGamePathNotFound">The path to saved game cannot be found.</s:String>
+    <s:String x:Key="InvalidClearMineGameType">The given type {0} is not an implmentation of IClearMine interface.</s:String>
+    <s:String x:Key="InvalidExpressType">Expression of type {0} is not supported by the GetMemberName method.</s:String>
+    <s:String x:Key="UseWindowToGetWindow">Use Window.GetWindow method to find the ancestor window of a control.</s:String>
+    <s:String x:Key="TargetAlreadyExists">The target file {0} already exists.</s:String>
+    <s:String x:Key="LoadBindingsFromVMReqireWindow">LoadBindingsFromVM property requires a window to apply on.</s:String>
+    <s:String x:Key="CannotFindVM">Cannot find a VM from {0}</s:String>
+    <s:String x:Key="InvalidHeaderSortHost">HeaderSort Property can only be set on a ListView</s:String>
+    <s:String x:Key="MinLengthMustPositive">The MinLength must bigger than 0.</s:String>
+    <s:String x:Key="RequiresTwoValues">values must contains at least two element.</s:String>
+    <s:String x:Key="ExpressionMustBeMember">parameter expression can only be member access expression.</s:String>
+    <s:String x:Key="PerformanceIssueMoving">Item moving in cached collection. This is harmful to performance.</s:String>
 </ResourceDictionary>

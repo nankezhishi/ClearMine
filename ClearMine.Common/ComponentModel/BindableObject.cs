@@ -5,6 +5,8 @@
     using System.Diagnostics.CodeAnalysis;
     using System.Linq.Expressions;
 
+    using ClearMine.Common.Utilities;
+
     public class BindableObject : INotifyPropertyChanged
     {
         [field: NonSerialized]
@@ -38,7 +40,7 @@
             }
             else
             {
-                throw new InvalidProgramException("expression参数只能是成员访问表达式。");
+                throw new InvalidProgramException(LocalizationHelper.FindText("ExpressionMustBeMember"));
             }
         }
 

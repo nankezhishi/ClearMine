@@ -117,7 +117,7 @@
             }
             if (memberExpression == null)
             {
-                throw new ArgumentException(String.Format("Expression of type {0} is not supported by the GetMemberName method.", expression.Body.Type));
+                throw new ArgumentException(LocalizationHelper.FindText("InvalidExpressType", expression.Body.Type));
             }
 
             return memberExpression.Member.Name;
@@ -129,7 +129,7 @@
         {
             if (typeof(T).IsSubclassOf(typeof(Window)))
             {
-                throw new InvalidProgramException("Use Window.GetWindow method to find the ancestor window of a control.");
+                throw new InvalidProgramException(LocalizationHelper.FindText("UseWindowToGetWindow"));
             }
         }
     }

@@ -72,7 +72,7 @@
         {
             ListView listView = sender as ListView;
             if (listView == null)
-                throw new InvalidOperationException("HeaderSort Property can only be set on a ListView");
+                throw new InvalidOperationException(LocalizationHelper.FindText("InvalidHeaderSortHost"));
 
             if ((bool)e.NewValue)
             {

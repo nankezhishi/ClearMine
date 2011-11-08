@@ -5,6 +5,8 @@
     using System.Windows;
     using System.Windows.Data;
 
+    using ClearMine.Common.Utilities;
+
     public class PlaygroundBorderThicknessConverter : IMultiValueConverter
     {
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
@@ -16,7 +18,7 @@
 
             if (values == null || values.Length < 2)
             {
-                throw new ArgumentException("values must contains at least two element.", "values");
+                throw new ArgumentException(LocalizationHelper.FindText("RequiresTwoValues"), "values");
             }
 
             double width = (double)values[0];

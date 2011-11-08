@@ -4,6 +4,7 @@
     using System.Diagnostics;
     using System.Windows;
     using ClearMine.Common.ComponentModel;
+    using ClearMine.Common.Utilities;
 
     public class CommandsHelper
     {
@@ -26,7 +27,7 @@
             var host = sender as Window ?? Window.GetWindow(sender as DependencyObject);
             if (host == null)
             {
-                throw new InvalidOperationException("LoadBindingsFromVM property requires a window to apply on.");
+                throw new InvalidOperationException(LocalizationHelper.FindText("LoadBindingsFromVMReqireWindow"));
             }
 
             if ((bool)e.NewValue)
@@ -64,7 +65,7 @@
             }
             else
             {
-                Trace.TraceError("Cannot find a VM from {0}", host);
+                Trace.TraceError(LocalizationHelper.FindText("CannotFindVM", host));
             }
         }
     }

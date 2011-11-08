@@ -52,12 +52,12 @@
         {
             if (!File.Exists(path))
             {
-                throw new FileNotFoundException("The path to saved game cannot be found.", path);
+                throw new FileNotFoundException(LocalizationHelper.FindText("SavedGamePathNotFound"), path);
             }
 
             if (gameType.GetInterface(typeof(IClearMine).FullName) == null)
             {
-                throw new InvalidOperationException(String.Format("The given type {0} is not an implmentation of IClearMine interface.", gameType.FullName));
+                throw new InvalidOperationException(LocalizationHelper.FindText("InvalidClearMineGameType", gameType.FullName));
             }
 
             IClearMine newgame = null;

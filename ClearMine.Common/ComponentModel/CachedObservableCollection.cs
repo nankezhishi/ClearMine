@@ -3,6 +3,7 @@
     using System;
     using System.Collections.ObjectModel;
     using System.Diagnostics;
+    using ClearMine.Common.Utilities;
 
     /// <summary>
     /// 
@@ -47,7 +48,7 @@
             {
                 if (index < countInUse)
                 {
-                    Trace.TraceWarning("Item moving in cached collection. This is harmful to performance.");
+                    Trace.TraceWarning(LocalizationHelper.FindText("PerformanceIssueMoving"));
 
                     MoveItem(countInUse, index);
                 }

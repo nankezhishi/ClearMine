@@ -27,7 +27,7 @@
         {
             if (File.Exists(imageFilePath))
             {
-                throw new InvalidOperationException(String.Format("目标文件{0}已经存在。", imageFilePath));
+                throw new InvalidOperationException(LocalizationHelper.FindText("TargetAlreadyExists", imageFilePath));
             }
 
             var targetBitmap = new RenderTargetBitmap((int)element.ActualWidth, (int)element.ActualHeight, 96d, 96d, PixelFormats.Default);

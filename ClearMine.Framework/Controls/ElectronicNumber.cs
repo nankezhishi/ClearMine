@@ -7,6 +7,7 @@
     using System.Windows.Controls;
 
     using ClearMine.Common.ComponentModel;
+    using ClearMine.Common.Utilities;
 
     public class SingleNumber : BindableObject, IComparable
     {
@@ -97,7 +98,7 @@
         {
             if ((int)e.NewValue < 1)
             {
-                throw new InvalidOperationException("The MinLength must bigger than 0.");
+                throw new InvalidOperationException(LocalizationHelper.FindText("MinLengthMustPositive"));
             }
 
             InitializeNumbersCollection();
