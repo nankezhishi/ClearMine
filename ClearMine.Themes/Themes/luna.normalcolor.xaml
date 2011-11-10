@@ -228,6 +228,23 @@
         </DrawingBrush.Drawing>
     </DrawingBrush>
 
+    <DrawingBrush x:Key="TooManyFlagsBrush"
+                  Stretch="Uniform" Viewbox="-0.1,-0.1 1.25,1.25">
+        <DrawingBrush.Drawing>
+            <GeometryDrawing>
+                <GeometryDrawing.Pen>
+                    <Pen Brush="#99FFFF00"
+                         Thickness="1" />
+                </GeometryDrawing.Pen>
+                <GeometryDrawing.Geometry>
+                    <EllipseGeometry Center="6,6"
+                                     RadiusX="6"
+                                     RadiusY="6" />
+                </GeometryDrawing.Geometry>
+            </GeometryDrawing>
+        </DrawingBrush.Drawing>
+    </DrawingBrush>
+
     <DrawingBrush x:Key="MineBrush"
                   Stretch="Uniform"
                   Viewbox="{StaticResource FaceViewbox}">
@@ -543,6 +560,10 @@
                 <Setter Property="Foreground"
                         Value="Transparent" />
             </DataTrigger>
+            <DataTrigger Binding="{Binding TooManyFlagsAround}"
+                         Value="True">
+                <Setter Property="Mark" Value="{DynamicResource TooManyFlagsBrush}" />
+            </DataTrigger>
             <!-- Shows a un-marked mine. -->
             <MultiDataTrigger>
                 <MultiDataTrigger.Conditions>
@@ -611,8 +632,8 @@
                 </MenuItem>
                 <MenuItem Header="{DynamicResource ToolsMenuHeader}">
                     <MenuItem Header="{DynamicResource ThemeMenuHeader}">
-                        <MenuItem Header="Mine" />
-                        <MenuItem Header="Flower" />
+                        <MenuItem Header="_Windows Classic" IsChecked="True" />
+                        <MenuItem Header="Linu_x" />
                         <Separator />
                         <MenuItem Header="{DynamicResource CustomThemeMenuHeader}" />
                     </MenuItem>
@@ -660,7 +681,7 @@
                         Margin="18,0,18,0"
                         Style="{StaticResource NewGameButtonStyle}">
                     <Border x:Name="newGameIcon"
-                            Background="{Binding NewGameIcon}" />
+                            Background="{DynamicResource NormalFaceBrush}" />
                 </Button>
                 <ElectronicNumber DisplayNumber="{Binding RemainedMines}" />
             </DockPanel>
@@ -727,6 +748,24 @@
                 <DataTrigger.ExitActions>
                     <StopStoryboard BeginStoryboardName="blurStoryboard" />
                 </DataTrigger.ExitActions>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding State}" Value="{x:Static logic:GameState.Success}">
+                <Setter Property="Background"
+                        TargetName="newGameIcon"
+                        Value="{DynamicResource WinFaceBrush}">
+                </Setter>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding State}" Value="{x:Static logic:GameState.Failed}">
+                <Setter Property="Background"
+                        TargetName="newGameIcon"
+                        Value="{DynamicResource LosingFaceBrush}">
+                </Setter>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding IsMousePressed}" Value="True">
+                <Setter Property="Background"
+                        TargetName="newGameIcon"
+                        Value="{DynamicResource TryFaceBrush}">
+                </Setter>
             </DataTrigger>
         </DataTemplate.Triggers>
     </DataTemplate>

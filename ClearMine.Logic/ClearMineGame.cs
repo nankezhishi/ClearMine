@@ -372,6 +372,11 @@
                 {
                     temp(this, e);
                 }
+
+                if (GameState == GameState.Started)
+                {
+                    cells.CalculateFlagsCount();
+                }
             }
         }
 

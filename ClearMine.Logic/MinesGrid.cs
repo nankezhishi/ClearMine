@@ -125,7 +125,17 @@
                 cells = GetCellsAround(null, c => !c.HasMine);
             }
 
-            Parallel.ForEach(cells, c => c.MinesNearby = GetMinesCountNearBy(c));
+            Parallel.ForEach(cells, c => c.MinesNearby = GetCellsAround(c, s => s.HasMine).Count());
+        }
+
+        internal void CalculateFlagsCount(IEnumerable<MineCell> cells = null)
+        {
+            if (cells == null)
+            {
+                cells = GetCellsAround(null, c => c.State == CellState.Shown);
+            }
+
+            Parallel.ForEach(cells, c => c.FlagsNearBy = GetCellsAround(c, s => s.State == CellState.MarkAsMine).Count());
         }
 
         internal MineCell GetCell(int column, int row)
@@ -278,11 +288,6 @@
             {
                 cell.PressState = PressState.Pressed;
             }
-        }
-
-        internal int GetMinesCountNearBy(MineCell cell)
-        {
-            return GetCellsAround(cell, c => c.HasMine).Count();
         }
 
         protected override void InsertItem(int index, MineCell item)

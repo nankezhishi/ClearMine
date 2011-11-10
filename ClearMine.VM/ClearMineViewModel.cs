@@ -8,7 +8,6 @@
     using System.Threading;
     using System.Windows;
     using System.Windows.Input;
-    using System.Windows.Media;
     using System.Windows.Threading;
 
     using ClearMine.Common;
@@ -73,7 +72,7 @@
                 if (isMousePressed != value)
                 {
                     isMousePressed = value;
-                    TriggerPropertyChanged("NewGameIcon");
+                    TriggerPropertyChanged("IsMousePressed");
                 }
             }
         }
@@ -84,28 +83,10 @@
             get { return game.GameState == GameState.Paused; }
         }
 
-        public Brush NewGameIcon
+        [ReadOnly(true)]
+        public GameState State
         {
-            get
-            {
-                if (IsMousePressed)
-                {
-                    return Application.Current.FindResource("TryFaceBrush") as Brush;
-                }
-
-                if (game.GameState == GameState.Success)
-                {
-                    return Application.Current.FindResource("WinFaceBrush") as Brush;
-                }
-                else if (game.GameState == GameState.Failed)
-                {
-                    return Application.Current.FindResource("LosingFaceBrush") as Brush;
-                }
-                else
-                {
-                    return Application.Current.FindResource("NormalFaceBrush") as Brush;
-                }
-            }
+            get { return game.GameState; }
         }
 
         public IEnumerable<MineCell> Cells
@@ -229,7 +210,7 @@
         {
             TriggerPropertyChanged("IsPaused");
             TriggerPropertyChanged("RemainedMines");
-            TriggerPropertyChanged("NewGameIcon");
+            TriggerPropertyChanged("State");
             if (game.GameState == GameState.Failed)
             {
                 IsMousePressed = false;

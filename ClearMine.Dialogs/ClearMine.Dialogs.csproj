@@ -74,6 +74,9 @@
     <Compile Include="GameWonWindow.xaml.cs">
       <DependentUpon>GameWonWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="HelpDialog.xaml.cs">
+      <DependentUpon>HelpDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="OptionsDialog.xaml.cs">
       <DependentUpon>OptionsDialog.xaml</DependentUpon>
     </Compile>
@@ -104,6 +107,10 @@
     <Page Include="GameWonWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="HelpDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="OptionsDialog.xaml">
       <Generator>MSBuild:Compile</Generator>

@@ -11,6 +11,7 @@
         private CellState state;
         private PressState pressState;
         private int minesNearBy;
+        private int flagsNearBy;
         private bool showResult;
         private bool hasMine;
         private bool isTerminator;
@@ -63,6 +64,13 @@
             get { return pressState != PressState.Released; }
         }
 
+        [ReadOnly(true)]
+        [Bindable(true)]
+        public bool TooManyFlagsAround
+        {
+            get { return flagsNearBy > minesNearBy && minesNearBy > 0; }
+        }
+
         public PressState PressState
         {
             get { return pressState; }
@@ -91,6 +99,18 @@
                 // Because during the initalization of the Game.
                 // This property will be set many many times.
                 SetProperty(ref minesNearBy, value, "MinesNearby");
+                TriggerPropertyChanged("TooManyFlagsAround");
+            }
+        }
+
+        [Bindable(true)]
+        public int FlagsNearBy
+        {
+            get { return flagsNearBy; }
+            set
+            {
+                SetProperty(ref flagsNearBy, value, "FlagsNearBy");
+                TriggerPropertyChanged("TooManyFlagsAround");
             }
         }
 
