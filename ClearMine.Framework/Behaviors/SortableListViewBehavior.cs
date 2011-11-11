@@ -139,7 +139,8 @@
 
             foreach (var columnHeader in listView.FindChildren<GridViewColumnHeader>(h => h.Role != GridViewColumnHeaderRole.Padding))
             {
-                if (GetSortField(columnHeader.Column).Equals(dataview.SortDescriptions[0].PropertyName))
+                if (columnHeader.Column != null && dataview.SortDescriptions.Count > 0 &&
+                    dataview.SortDescriptions[0].PropertyName.Equals(GetSortField(columnHeader.Column)))
                 {
                     sortInfo = new SortInfo();
                     sortInfo.LastSortColumn = columnHeader;

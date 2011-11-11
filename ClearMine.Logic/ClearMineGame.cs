@@ -167,6 +167,7 @@
                     var gridConverter = TypeDescriptor.GetConverter(typeof(MinesGrid));
                     cells = (MinesGrid)gridConverter.ConvertFromInvariantString(value);
                     cells.CalculateMinesCount();
+                    cells.CalculateFlagsCount(cells);
                     totalMines = cells.Where(c => c.HasMine).Count();
                     gameState = GameState.Started;
                 }
@@ -208,6 +209,7 @@
                 throw new InvalidOperationException("Cannot find a proper mines generator.");
             }
             this.cells.CalculateMinesCount();
+            this.cells.CalculateFlagsCount(this.cells);
         }
 
         public bool CheckHash()

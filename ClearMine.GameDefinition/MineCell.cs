@@ -98,8 +98,12 @@
                 // Otherwise it cause series performance issue. 
                 // Because during the initalization of the Game.
                 // This property will be set many many times.
+                var previous = TooManyFlagsAround;
                 SetProperty(ref minesNearBy, value, "MinesNearby");
-                TriggerPropertyChanged("TooManyFlagsAround");
+                if (previous ^ TooManyFlagsAround)
+                {
+                    TriggerPropertyChanged("TooManyFlagsAround");
+                }
             }
         }
 
@@ -109,8 +113,14 @@
             get { return flagsNearBy; }
             set
             {
+                var previous = TooManyFlagsAround;
                 SetProperty(ref flagsNearBy, value, "FlagsNearBy");
-                TriggerPropertyChanged("TooManyFlagsAround");
+                // Only trigger property changed when the property value really changed.
+                // Otherwise there will be performance issues.
+                if (previous ^ TooManyFlagsAround)
+                {
+                    TriggerPropertyChanged("TooManyFlagsAround");
+                }
             }
         }
 
