@@ -42,7 +42,10 @@
             for (int i = 0; i < count; i++)
             {
                 var child = VisualTreeHelper.GetChild(element, i) as T;
-                children.AddRange((child != null && (condition ?? ((T c) => true))(child)) ? new[] { child } : FindChildren<T>(child, condition));
+                if (child != null)
+                {
+                    children.AddRange((condition ?? ((T c) => true))(child) ? new[] { child } : FindChildren<T>(child, condition));
+                }
             }
 
             return children;
