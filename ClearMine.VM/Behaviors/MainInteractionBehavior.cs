@@ -24,31 +24,31 @@
         private ClearMineViewModel vm;
         private DateTime? lastStateChangedTime;
 
-        protected override void OnAttatched()
+        protected override void OnAttached()
         {
-            AutoDetatch = true;
-            vm = AttatchedObject.DataContext as ClearMineViewModel;
-            AttatchedObject.Loaded += new RoutedEventHandler(OnAttatchedObjectLoaded);
-            AttatchedObject.MouseUp += new MouseButtonEventHandler(OnMineGroudMouseUp);
-            AttatchedObject.MouseDown += new MouseButtonEventHandler(OnMineGroudMouseDown);
-            AttatchedObject.MouseLeave += new MouseEventHandler(OnMineGroudMouseLeave);
-            AttatchedObject.MouseEnter += new MouseEventHandler(OnMineGroudMouseEnter);
-            Window.GetWindow(AttatchedObject).Closing += new CancelEventHandler(OnMainWindowClosing);
-            Window.GetWindow(AttatchedObject).StateChanged += new EventHandler(OnMainWindowStateChanged);
+            AutoDetach = true;
+            vm = AttachedObject.DataContext as ClearMineViewModel;
+            AttachedObject.Loaded += new RoutedEventHandler(OnAttatchedObjectLoaded);
+            AttachedObject.MouseUp += new MouseButtonEventHandler(OnMineGroudMouseUp);
+            AttachedObject.MouseDown += new MouseButtonEventHandler(OnMineGroudMouseDown);
+            AttachedObject.MouseLeave += new MouseEventHandler(OnMineGroudMouseLeave);
+            AttachedObject.MouseEnter += new MouseEventHandler(OnMineGroudMouseEnter);
+            Window.GetWindow(AttachedObject).Closing += new CancelEventHandler(OnMainWindowClosing);
+            Window.GetWindow(AttachedObject).StateChanged += new EventHandler(OnMainWindowStateChanged);
 
             EventManager.RegisterClassHandler(typeof(MineCellControl), UIElement.MouseLeaveEvent, new MouseEventHandler(OnCellMouseLeave));
             EventManager.RegisterClassHandler(typeof(MineCellControl), UIElement.MouseEnterEvent, new MouseEventHandler(OnCellMouseEnter));
         }
 
-        protected override void OnDetatching()
+        protected override void OnDetaching()
         {
-            AttatchedObject.Loaded -= new RoutedEventHandler(OnAttatchedObjectLoaded);
-            AttatchedObject.MouseUp -= new MouseButtonEventHandler(OnMineGroudMouseUp);
-            AttatchedObject.MouseDown -= new MouseButtonEventHandler(OnMineGroudMouseDown);
-            AttatchedObject.MouseLeave -= new MouseEventHandler(OnMineGroudMouseLeave);
-            AttatchedObject.MouseEnter -= new MouseEventHandler(OnMineGroudMouseEnter);
-            Window.GetWindow(AttatchedObject).Closing -= new CancelEventHandler(OnMainWindowClosing);
-            Window.GetWindow(AttatchedObject).StateChanged -= new EventHandler(OnMainWindowStateChanged);
+            AttachedObject.Loaded -= new RoutedEventHandler(OnAttatchedObjectLoaded);
+            AttachedObject.MouseUp -= new MouseButtonEventHandler(OnMineGroudMouseUp);
+            AttachedObject.MouseDown -= new MouseButtonEventHandler(OnMineGroudMouseDown);
+            AttachedObject.MouseLeave -= new MouseEventHandler(OnMineGroudMouseLeave);
+            AttachedObject.MouseEnter -= new MouseEventHandler(OnMineGroudMouseEnter);
+            Window.GetWindow(AttachedObject).Closing -= new CancelEventHandler(OnMainWindowClosing);
+            Window.GetWindow(AttachedObject).StateChanged -= new EventHandler(OnMainWindowStateChanged);
         }
 
         private void OnMineGroudMouseDown(object sender, MouseButtonEventArgs e)
@@ -81,7 +81,7 @@
         {
             // Maximim the window trigger a mouse up within the playground.
             // We need to block it here.
-            if (lastStateChangedTime.HasValue && (DateTime.Now - lastStateChangedTime.Value).TotalMilliseconds < Math.Min(WindowsApi.GetDoubleClickInterval(), 300))
+            if (lastStateChangedTime.HasValue && (DateTime.Now - lastStateChangedTime.Value).TotalMilliseconds < Math.Min(NativeMethods.DoubleClickInterval, 300))
             {
                 return;
             }
@@ -183,7 +183,7 @@
 
         private void OnMainWindowStateChanged(object sender, EventArgs e)
         {
-            if (Window.GetWindow(AttatchedObject).WindowState == WindowState.Maximized)
+            if (Window.GetWindow(AttachedObject).WindowState == WindowState.Maximized)
             {
                 lastStateChangedTime = DateTime.Now;
             }

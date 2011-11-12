@@ -83,7 +83,7 @@
                 var cultureName = Thread.CurrentThread.CurrentUICulture.Name;
                 Application.Current.Resources.MergedDictionaries.Add(new ResourceDictionary()
                 {
-                    Source = new Uri(String.Format("/ClearMine.Localization;component/{0}/Overall.xaml", cultureName), UriKind.RelativeOrAbsolute),
+                    Source = new Uri(String.Format(CultureInfo.InvariantCulture, "/ClearMine.Localization;component/{0}/Overall.xaml", cultureName), UriKind.RelativeOrAbsolute),
                 });
             }
             catch (Exception)

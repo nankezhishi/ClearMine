@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using System;
+using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Markup;
@@ -13,7 +14,7 @@ using System.Windows.Markup;
 [assembly: AssemblyCulture("")]
 
 [assembly: ComVisible(false)]
-
+[assembly: CLSCompliant(true)]
 //[assembly: NeutralResourcesLanguage("en-US", UltimateResourceFallbackLocation.Satellite)]
 [assembly: ThemeInfo(ResourceDictionaryLocation.None, ResourceDictionaryLocation.SourceAssembly)]
 

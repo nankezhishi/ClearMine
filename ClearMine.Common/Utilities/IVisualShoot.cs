@@ -7,8 +7,8 @@
     /// </summary>
     public interface IVisualShoot
     {
-        void SaveSnapShoot(FrameworkElement element, string imageFilePath);
+        void SaveSnapshoot(FrameworkElement element, string imageFilePath);
 
-        string SaveSnapShoot(FrameworkElement element);
+        string SaveSnapshoot(FrameworkElement element);
     }
 }

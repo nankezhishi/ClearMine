@@ -138,11 +138,11 @@
 
             if (Settings.Default.ShowTooManyFlagsWarning)
             {
-                Parallel.ForEach(cells, c => c.FlagsNearBy = GetCellsAround(c, s => s.State == CellState.MarkAsMine).Count());
+                Parallel.ForEach(cells, c => c.FlagsNearby = GetCellsAround(c, s => s.State == CellState.MarkAsMine).Count());
             }
             else
             {
-                Parallel.ForEach(cells, c => c.FlagsNearBy = 0);
+                Parallel.ForEach(cells, c => c.FlagsNearby = 0);
             }
         }
 

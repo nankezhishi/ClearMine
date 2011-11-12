@@ -1,4 +1,5 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
@@ -13,6 +14,7 @@ using System.Windows.Markup;
 [assembly: AssemblyTrademark("Poleaf")]
 [assembly: AssemblyCulture("")]
 [assembly: ComVisible(false)]
+[assembly: CLSCompliant(true)]
 [assembly: Guid("0a320a58-78bd-4f1e-946a-96cb4f5b27ed")]
 [assembly: AssemblyVersion("1.0.0.0")]
 [assembly: AssemblyFileVersion("1.0.0.0")]

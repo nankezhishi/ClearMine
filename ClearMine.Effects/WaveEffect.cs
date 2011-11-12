@@ -3,6 +3,7 @@
     using System;
     using System.ComponentModel;
     using System.Diagnostics;
+    using System.Diagnostics.CodeAnalysis;
     using System.Windows;
     using System.Windows.Media;
     using System.Windows.Media.Effects;
@@ -50,6 +51,7 @@
         /// <summary>
         /// Creates a PixelShader by loading the bytecode.
         /// </summary>
+        [SuppressMessage("Microsoft.Performance", "CA1810:InitializeReferenceTypeStaticFieldsInline")]
         static WaveEffect()
         {
             pixelShader = new PixelShader();

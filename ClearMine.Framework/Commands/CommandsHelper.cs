@@ -2,19 +2,26 @@
 {
     using System;
     using System.Diagnostics;
+    using System.Linq;
     using System.Windows;
     using ClearMine.Common.ComponentModel;
     using ClearMine.Common.Utilities;
 
-    public class CommandsHelper
+    public static class CommandsHelper
     {
         public static bool GetLoadBindingsFromVM(DependencyObject obj)
         {
+            if (obj == null)
+                throw new ArgumentNullException("obj");
+
             return (bool)obj.GetValue(LoadBindingsFromVMProperty);
         }
 
         public static void SetLoadBindingsFromVM(DependencyObject obj, bool value)
         {
+            if (obj == null)
+                throw new ArgumentNullException("obj");
+
             obj.SetValue(LoadBindingsFromVMProperty, value);
         }
 
@@ -55,13 +62,10 @@
 
         private static void LoadBindings(FrameworkElement host)
         {
-            ViewModelBase vm = host.DataContext as ViewModelBase;
+            var vm = host.DataContext as ViewModelBase;
             if (vm != null)
             {
-                foreach (var binding in vm.GetCommandBindings())
-                {
-                    host.CommandBindings.Add(binding);
-                }
+                host.CommandBindings.AddRange(vm.CommandBindings.ToList());
             }
             else
             {

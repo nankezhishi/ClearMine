@@ -5,13 +5,13 @@
     <Setting Name="Difficulty" Type="ClearMine.Common.Difficulty" Scope="User">
       <Value Profile="(Default)">Beginner</Value>
     </Setting>
-    <Setting Name="Rows" Type="System.UInt32" Scope="User">
+    <Setting Name="Rows" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">9</Value>
     </Setting>
-    <Setting Name="Columns" Type="System.UInt32" Scope="User">
+    <Setting Name="Columns" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">9</Value>
     </Setting>
-    <Setting Name="Mines" Type="System.UInt32" Scope="User">
+    <Setting Name="Mines" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">10</Value>
     </Setting>
     <Setting Name="HeroList" Type="ClearMine.Common.HeroHistoryList" Scope="User">

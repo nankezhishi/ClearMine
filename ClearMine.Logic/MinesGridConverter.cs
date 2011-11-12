@@ -32,7 +32,7 @@
                 return null;
             }
 
-            var str = value as string;
+            var str = Convert.ToString(value);
             var grid = new MinesGrid();
             var rows = str.Split(new[] { '\n' }, StringSplitOptions.RemoveEmptyEntries);
 

@@ -32,8 +32,14 @@
         /// If you can use it properly, the formance is almost the same as the string version.
         /// Tips: Cache the expression.
         /// </summary>
-        public bool SetProperty<T>(ref T property, T newValue, Expression<Func<T>> expression)
+        [SuppressMessage("Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#")]
+        public bool SetProperty<T>(ref T property, T newValue, LambdaExpression expression)
         {
+            if (expression == null)
+            {
+                throw new ArgumentNullException("expression");
+            }
+
             if (expression.Body is MemberExpression)
             {
                 return SetProperty<T>(ref property, newValue, (expression.Body as MemberExpression).Member.Name);
@@ -44,7 +50,7 @@
             }
         }
 
-        public virtual void TriggerPropertyChanged(string propertyName)
+        public void TriggerPropertyChanged(string propertyName)
         {
             var temp = PropertyChanged;
             if (temp != null)

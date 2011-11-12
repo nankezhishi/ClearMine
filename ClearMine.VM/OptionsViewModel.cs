@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.ComponentModel;
+    using System.Diagnostics.CodeAnalysis;
     using System.IO;
     using System.Windows.Input;
 
@@ -56,89 +57,104 @@
             }
         }
 
-        public uint Rows
+        [SuppressMessage("Microsoft.Performance", "CA1822:MarkMembersAsStatic")]
+        public int Rows
         {
             get { return Settings.Default.Rows; }
             set { Settings.Default.Rows = value; }
         }
 
-        public uint Columns
+        [SuppressMessage("Microsoft.Performance", "CA1822:MarkMembersAsStatic")]
+        public int Columns
         {
             get { return Settings.Default.Columns; }
             set { Settings.Default.Columns = value; }
         }
 
-        public uint Mines
+        [SuppressMessage("Microsoft.Performance", "CA1822:MarkMembersAsStatic")]
+        public int Mines
         {
             get { return Settings.Default.Mines; }
             set { Settings.Default.Mines = value; }
         }
 
+        [SuppressMessage("Microsoft.Performance", "CA1822:MarkMembersAsStatic")]
         public bool PlaySound
         {
             get { return Settings.Default.PlaySound; }
             set { Settings.Default.PlaySound = value; }
         }
 
+        [SuppressMessage("Microsoft.Performance", "CA1822:MarkMembersAsStatic")]
         public bool PlayAnimation
         {
             get { return Settings.Default.PlayAnimation; }
             set { Settings.Default.PlayAnimation = value; }
         }
 
+        [SuppressMessage("Microsoft.Performance", "CA1822:MarkMembersAsStatic")]
         public bool WavingFlag
         {
             get { return Settings.Default.WavingFlag; }
             set { Settings.Default.WavingFlag = value; }
         }
 
+        [SuppressMessage("Microsoft.Performance", "CA1822:MarkMembersAsStatic")]
         public bool ShowQuestionMark
         {
             get { return Settings.Default.ShowQuestionMark; }
             set { Settings.Default.ShowQuestionMark = value; }
         }
 
+        [SuppressMessage("Microsoft.Performance", "CA1822:MarkMembersAsStatic")]
         public bool ShowTooManyFlagsWarning
         {
             get { return Settings.Default.ShowTooManyFlagsWarning; }
             set { Settings.Default.ShowTooManyFlagsWarning = value; }
         }
 
+        [SuppressMessage("Microsoft.Performance", "CA1822:MarkMembersAsStatic")]
         public bool SaveOnExit
         {
             get { return Settings.Default.SaveOnExit; }
             set { Settings.Default.SaveOnExit = value; }
         }
 
+        [SuppressMessage("Microsoft.Performance", "CA1822:MarkMembersAsStatic")]
         public bool AutoContinueSaved
         {
             get { return Settings.Default.AutoContinueSaved; }
             set { Settings.Default.AutoContinueSaved = value; }
         }
 
+        [SuppressMessage("Microsoft.Performance", "CA1822:MarkMembersAsStatic")]
         public bool AlwaysNewGame
         {
             get { return Settings.Default.AlwaysNewGame; }
             set { Settings.Default.AlwaysNewGame = value; }
         }
 
+        [SuppressMessage("Microsoft.Performance", "CA1822:MarkMembersAsStatic")]
         public bool SaveGame
         {
             get { return Settings.Default.SaveGame; }
             set { Settings.Default.SaveGame = value; }
         }
 
+        [SuppressMessage("Microsoft.Performance", "CA1822:MarkMembersAsStatic")]
         public string GameHistoryFolder
         {
             get { return Settings.Default.GameHistoryFolder; }
             set { Settings.Default.GameHistoryFolder = value; }
         }
 
+        [SuppressMessage("Microsoft.Performance", "CA1822:MarkMembersAsStatic")]
         public void Save()
         {
             Settings.Default.Save();
         }
 
+        [SuppressMessage("Microsoft.Performance", "CA1822:MarkMembersAsStatic")]
         public void Cancel()
         {
             Settings.Default.Reload();
@@ -207,9 +223,9 @@
             }
         }
 
-        public override IEnumerable<CommandBinding> GetCommandBindings()
+        public override IEnumerable<CommandBinding> CommandBindings
         {
-            return GameCommandBindings.GetOptionCommandBindings();
+            get { return GameCommandBindings.OptionCommandBindings; }
         }
 
         private void OnSettingsChanged(object sender, PropertyChangedEventArgs e)

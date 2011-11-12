@@ -2,6 +2,7 @@
 {
     using System;
     using System.Diagnostics;
+    using System.Diagnostics.CodeAnalysis;
     using System.Globalization;
     using System.Windows;
     using System.Windows.Controls;
@@ -31,6 +32,7 @@
 
     public class NumberPresenter : Control
     {
+        [SuppressMessage("Microsoft.Performance", "CA1810:InitializeReferenceTypeStaticFieldsInline")]
         static NumberPresenter()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(NumberPresenter), new FrameworkPropertyMetadata(typeof(NumberPresenter)));
@@ -45,6 +47,7 @@
         /// <summary>
         /// Gets the LightUpStrokes property of current instance of NumberPresenter
         /// </summary>
+        [SuppressMessage("Microsoft.Naming", "CA1702:CompoundWordsShouldBeCasedCorrectly", MessageId = "UpStrokes")]
         public LightUps LightUpStrokes
         {
             get { return (LightUps)GetValue(LightUpStrokesPropertyKey.DependencyProperty); }
@@ -55,6 +58,7 @@
         private static readonly DependencyPropertyKey LightUpStrokesPropertyKey =
             DependencyProperty.RegisterReadOnly("LightUpStrokes", typeof(LightUps), typeof(NumberPresenter), new UIPropertyMetadata(null));
 
+        [SuppressMessage("Microsoft.Naming", "CA1702:CompoundWordsShouldBeCasedCorrectly", MessageId = "UpStrokes")]
         public static readonly DependencyProperty LightUpStrokesProperty = LightUpStrokesPropertyKey.DependencyProperty;
         #endregion
 

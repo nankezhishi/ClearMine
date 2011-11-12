@@ -1,6 +1,7 @@
 ﻿namespace ClearMine.Framework.Behaviors
 {
     using System;
+    using System.Globalization;
     using System.Threading;
     using System.Windows;
     using System.Windows.Controls;
@@ -12,19 +13,19 @@
     /// </summary>
     public class SelectCurrentUICultureBehavior : Behavior<MenuItem>
     {
-        protected override void OnAttatched()
+        protected override void OnAttached()
         {
-            AttatchedObject.Loaded += new RoutedEventHandler(OnMenuLoaded);
+            AttachedObject.Loaded += new RoutedEventHandler(OnMenuLoaded);
         }
 
         private void OnMenuLoaded(object sender, RoutedEventArgs e)
         {
-            AttatchedObject.Loaded -= new RoutedEventHandler(OnMenuLoaded);
+            AttachedObject.Loaded -= new RoutedEventHandler(OnMenuLoaded);
             var currentCultureName = Thread.CurrentThread.CurrentUICulture.Name;
 
-            foreach (MenuItem item in AttatchedObject.Items)
+            foreach (MenuItem item in AttachedObject.Items)
             {
-                if (currentCultureName.Equals(Convert.ToString(item.CommandParameter)))
+                if (currentCultureName.Equals(Convert.ToString(item.CommandParameter, CultureInfo.InvariantCulture)))
                 {
                     item.IsChecked = true;
                     break;
@@ -32,9 +33,9 @@
             }
         }
 
-        protected override void OnDetatching()
+        protected override void OnDetaching()
         {
-            AttatchedObject.Loaded -= new RoutedEventHandler(OnMenuLoaded);
+            AttachedObject.Loaded -= new RoutedEventHandler(OnMenuLoaded);
         }
     }
 }

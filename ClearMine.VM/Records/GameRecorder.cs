@@ -36,7 +36,7 @@
         /// Gets or sets the time the current record happens since the game starts. in ms.
         /// </summary>
         [XmlAttribute("time")]
-        public int TimeStamp { get; set; }
+        public int Timestamp { get; set; }
 
         public abstract void Play(IClearMine game, FrameworkElement panel);
     }
@@ -51,7 +51,7 @@
         {
             var absolutePosition = panel.PointToScreen(Position);
 
-            if (!WindowsApi.MoveMouseTo((int)absolutePosition.X, (int)absolutePosition.Y))
+            if (!NativeMethods.MoveMouseTo((int)absolutePosition.X, (int)absolutePosition.Y))
             {
                 Trace.TraceError("Cannot move mouse to {0}.", absolutePosition);
             }
@@ -72,6 +72,9 @@
 
         public override void Play(IClearMine game, FrameworkElement panel)
         {
+            if (game == null)
+                throw new ArgumentNullException("game");
+
             game.GetCell(Column, Row).State = NewState;
         }
     }
@@ -87,38 +90,18 @@
         /// <param name="panel"></param>
         public void Play(IClearMine game, FrameworkElement panel)
         {
-            foreach (var record in this.OrderBy(item => item.TimeStamp))
+            if (game == null)
+                throw new ArgumentNullException("game");
+
+            foreach (var record in this.OrderBy(item => item.Timestamp))
             {
-                if (game.UsedTime < record.TimeStamp)
+                if (game.UsedTime < record.Timestamp)
                 {
-                    Thread.Sleep(record.TimeStamp - game.UsedTime);
+                    Thread.Sleep(record.Timestamp - game.UsedTime);
                 }
 
                 record.Play(game, panel);
             }
-        }
-    }
-
-    public class WmvGameRecorder : IDisposable, IGameRecorder
-    {
-        public void Dispose()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Record(IClearMine game, FrameworkElement panel)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void SaveTo(string path)
-        {
-            throw new NotImplementedException();
-        }
-
-        public string GetSupportedFileExtension()
-        {
-            throw new NotImplementedException();
         }
     }
 
@@ -154,10 +137,10 @@
             }
         }
 
-        public void Record(IClearMine game, FrameworkElement panel)
+        public void Record(IClearMine gameToRecord, FrameworkElement panelToWatch)
         {
-            this.game = game;
-            this.panel = panel;
+            this.game = gameToRecord;
+            this.panel = panelToWatch;
             this.IsEnabled = true;
         }
 
@@ -197,7 +180,7 @@
                     Row = e.Cell.Row,
                     Column = e.Cell.Column,
                     NewState = e.Cell.State,
-                    TimeStamp = this.game.UsedTime,
+                    Timestamp = this.game.UsedTime,
                 });
             }
             else
@@ -210,7 +193,7 @@
         {
             records.Add(new MouseMoveRecord()
             {
-                TimeStamp = this.game.UsedTime,
+                Timestamp = this.game.UsedTime,
                 Position = e.MouseDevice.GetPosition(this.panel)
             });
         }

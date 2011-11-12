@@ -3,7 +3,7 @@
     using System;
     using System.Collections.Generic;
 
-    public class MessageManager
+    public static class MessageManager
     {
         private static IList<object> aggregators = new List<object>();
 

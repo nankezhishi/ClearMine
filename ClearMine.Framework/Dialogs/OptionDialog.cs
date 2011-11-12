@@ -1,13 +1,13 @@
 ﻿namespace ClearMine.Framework.Dialogs
 {
-    using System;
     using System.Collections;
+    using System.Diagnostics.CodeAnalysis;
     using System.Windows;
     using System.Windows.Media;
-    using System.Windows.Media.Animation;
 
     public class OptionDialog : Window
     {
+        [SuppressMessage("Microsoft.Performance", "CA1810:InitializeReferenceTypeStaticFieldsInline")]
         static OptionDialog()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(OptionDialog), new FrameworkPropertyMetadata(typeof(OptionDialog)));

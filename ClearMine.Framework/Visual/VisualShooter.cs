@@ -5,6 +5,7 @@
     using System.Diagnostics;
     using System.Globalization;
     using System.IO;
+    using System.Security;
     using System.Windows;
     using System.Windows.Media;
     using System.Windows.Media.Imaging;
@@ -23,8 +24,12 @@
         /// </summary>
         /// <param name="element"></param>
         /// <param name="imageFilePath"></param>
-        public void SaveSnapShoot(FrameworkElement element, string imageFilePath)
+        [SecurityCritical]
+        public void SaveSnapshoot(FrameworkElement element, string imageFilePath)
         {
+            if (element == null)
+                throw new ArgumentNullException("element");
+
             if (File.Exists(imageFilePath))
             {
                 throw new InvalidOperationException(LocalizationHelper.FindText("TargetAlreadyExists", imageFilePath));
@@ -55,13 +60,13 @@
         /// </summary>
         /// <param name="element"></param>
         /// <returns></returns>
-        public string SaveSnapShoot(FrameworkElement element)
+        public string SaveSnapshoot(FrameworkElement element)
         {
             var fileName = DateTime.Now.ToString(Settings.Default.ScreenShotFileTimeFormat, CultureInfo.InvariantCulture) + ".png";
             var folder = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + Settings.Default.ScreenShotFolder;
             fileName = Path.Combine(folder, fileName);
 
-            SaveSnapShoot(element, fileName);
+            SaveSnapshoot(element, fileName);
 
             return fileName;
         }

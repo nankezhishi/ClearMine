@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.ObjectModel;
+    using System.Diagnostics.CodeAnalysis;
     using System.Globalization;
     using System.Windows;
     using System.Windows.Controls;
@@ -31,6 +32,16 @@
             number = value;
         }
 
+        public override bool Equals(object obj)
+        {
+            return this.CompareTo(obj) == 0;
+        }
+
+        public override int GetHashCode()
+        {
+            return number.GetHashCode();
+        }
+
         public int CompareTo(object obj)
         {
             if (obj is SingleNumber)
@@ -50,6 +61,7 @@
 
     public class ElectronicNumber : Control
     {
+        [SuppressMessage("Microsoft.Performance", "CA1810:InitializeReferenceTypeStaticFieldsInline")]
         static ElectronicNumber()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(ElectronicNumber), new FrameworkPropertyMetadata(typeof(ElectronicNumber)));
@@ -170,11 +182,11 @@
 
                 if (LengthAfterPoint > 0)
                 {
-                    newNumber = Double.Parse(newNumber).ToString("0." + new String('0', LengthAfterPoint), CultureInfo.InvariantCulture);
+                    newNumber = Double.Parse(newNumber, CultureInfo.InvariantCulture).ToString("0." + new String('0', LengthAfterPoint), CultureInfo.InvariantCulture);
                 }
                 else
                 {
-                    newNumber = ((int)Double.Parse(newNumber)).ToString(CultureInfo.InvariantCulture);
+                    newNumber = ((int)Double.Parse(newNumber, CultureInfo.InvariantCulture)).ToString(CultureInfo.InvariantCulture);
                 }
 
                 int current = newNumber.Length - 1;

@@ -8,71 +8,71 @@
 
     public abstract class Behavior : DependencyObject
     {
-        protected abstract void OnAttatched();
-        protected abstract void OnDetatching();
+        protected abstract void OnAttached();
+        protected abstract void OnDetaching();
 
-        public DependencyObject AttatchedObject { get; protected set; }
+        public DependencyObject AttachedObject { get; protected set; }
 
-        internal void AttatchTo(DependencyObject attatchedObject)
+        internal void AttatchTo(DependencyObject attachedObject)
         {
-            if (AttatchedObject != null)
+            if (AttachedObject != null)
             {
                 Detatch();
                 Trace.TraceWarning(LocalizationHelper.FindText("TraceReplaceBehaviorTarget", this));
             }
 
-            AttatchedObject = attatchedObject;
-            OnAttatched();
+            AttachedObject = attachedObject;
+            OnAttached();
         }
 
         internal void Detatch()
         {
-            OnDetatching();
+            OnDetaching();
         }
     }
 
     public abstract class Behavior<T> : Behavior
         where T : DependencyObject
     {
-        public new T AttatchedObject
+        public new T AttachedObject
         {
-            get { return base.AttatchedObject as T; }
+            get { return base.AttachedObject as T; }
         }
     }
 
     public abstract class UIElementBehavior<T> : Behavior<T>
         where T : FrameworkElement
     {
-        private bool autoDetatch = false;
+        private bool autoDetach = false;
 
-        public bool AutoDetatch
+        public bool AutoDetach
         {
-            get { return autoDetatch; }
+            get { return autoDetach; }
             set
             {
-                if (AttatchedObject == null)
+                if (AttachedObject == null)
                 {
                     throw new InvalidOperationException(LocalizationHelper.FindText("DetatchingUnattachedBehavior"));
                 }
 
-                if (autoDetatch != value)
+                if (autoDetach != value)
                 {
                     if (value)
                     {
-                        AttatchedObject.Unloaded += new RoutedEventHandler(OnAttatchedObjectUnloaded);
+                        AttachedObject.Unloaded += new RoutedEventHandler(OnAttachedObjectUnloaded);
                     }
                     else
                     {
-                        AttatchedObject.Unloaded -= new RoutedEventHandler(OnAttatchedObjectUnloaded);
+                        AttachedObject.Unloaded -= new RoutedEventHandler(OnAttachedObjectUnloaded);
                     }
                 }
             }
         }
 
-        private void OnAttatchedObjectUnloaded(object sender, RoutedEventArgs e)
+        private void OnAttachedObjectUnloaded(object sender, RoutedEventArgs e)
         {
-            Debug.Assert(AutoDetatch);
-            AutoDetatch = false;
+            Debug.Assert(AutoDetach);
+            AutoDetach = false;
             Detatch();
         }
     }

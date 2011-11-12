@@ -29,9 +29,9 @@
             }
         }
 
-        public override IEnumerable<CommandBinding> GetCommandBindings()
+        public override IEnumerable<CommandBinding> CommandBindings
         {
-            return GameCommandBindings.GetGameWonCommandBindings();
+            get { return GameCommandBindings.GameWonCommandBindings; }
         }
 
         public string Message { get; private set; }

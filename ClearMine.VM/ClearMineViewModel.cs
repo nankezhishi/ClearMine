@@ -35,6 +35,12 @@
         }
 
         [ReadOnly(true)]
+        public override IEnumerable<CommandBinding> CommandBindings
+        {
+            get { return GameCommandBindings.MainCommandBindings; }
+        }
+
+        [ReadOnly(true)]
         public int Columns
         {
             get { return (int)game.Size.Width; }
@@ -137,11 +143,6 @@
             TriggerPropertyChanged("Rows");
             TriggerPropertyChanged("RemainedMines");
             TriggerPropertyChanged("Time");
-        }
-
-        public override IEnumerable<CommandBinding> GetCommandBindings()
-        {
-            return GameCommandBindings.GetGameCommandBindings();
         }
 
         private void Initialize()
@@ -248,7 +249,7 @@
             }
         }
 
-        private bool ShowDialog(string type, object data = null)
+        private static bool ShowDialog(string type, object data = null)
         {
             return (bool)MessageManager.SendMessage<ShowDialogMessage>(Type.GetType(type), data);
         }

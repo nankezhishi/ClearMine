@@ -288,6 +288,9 @@
 
         public void TryMarkAt(MineCell cell, CellState newState)
         {
+            if (cell == null)
+                throw new ArgumentNullException("cell");
+
             VerifyStateIs(GameState.Initialized, GameState.Started);
             if (!new[] { CellState.MarkAsMine, CellState.Normal, CellState.Question }.Contains(newState))
             {
@@ -303,6 +306,9 @@
 
         public IEnumerable<MineCell> TryDigAt(MineCell cell)
         {
+            if (cell == null)
+                throw new ArgumentNullException("cell");
+
             VerifyStateIs(GameState.Initialized, GameState.Started);
 
             var result = new List<MineCell>();

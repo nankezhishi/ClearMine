@@ -4,7 +4,7 @@
     using System.Runtime.Serialization;
 
     [Serializable]
-    public class ExpandFailedException : ApplicationException
+    public class ExpandFailedException : Exception
     {
         public ExpandFailedException()
             : base()
@@ -21,7 +21,7 @@
         {
         }
 
-        public ExpandFailedException(SerializationInfo serializationInfo, StreamingContext context)
+        protected ExpandFailedException(SerializationInfo serializationInfo, StreamingContext context)
             : base(serializationInfo, context)
         {
         }

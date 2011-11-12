@@ -5,7 +5,7 @@
     /// </summary>
     public class SwitchLanguageMessage : MessageBase
     {
-        private static readonly string customLanguageKey = "Custom";
+        private const string customLanguageKey = "Custom";
 
         public static string CustomLanguageKey
         {

@@ -40,16 +40,25 @@
 
         public static bool GetHeaderSort(DependencyObject obj)
         {
+            if (obj == null)
+                throw new ArgumentNullException("obj");
+
             return (bool)obj.GetValue(HeaderSortProperty);
         }
 
         public static void SetHeaderSort(DependencyObject obj, bool value)
         {
+            if (obj == null)
+                throw new ArgumentNullException("obj");
+
             obj.SetValue(HeaderSortProperty, value);
         }
 
         public static SortInfo GetSortInfo(DependencyObject obj)
         {
+            if (obj == null)
+                throw new ArgumentNullException("obj");
+
             return (SortInfo)obj.GetValue(SortInfoProperty.DependencyProperty);
         }
 
@@ -60,11 +69,17 @@
 
         public static string GetSortField(DependencyObject obj)
         {
+            if (obj == null)
+                throw new ArgumentNullException("obj");
+
             return (string)obj.GetValue(SortFieldProperty);
         }
 
         public static void SetSortField(DependencyObject obj, string value)
         {
+            if (obj == null)
+                throw new ArgumentNullException("obj");
+
             obj.SetValue(SortFieldProperty, value);
         }
 

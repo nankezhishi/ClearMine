@@ -17,13 +17,16 @@
         /// <param name="game"></param>
         public static void UpdateStatistics(this IClearMine game)
         {
+            if (game == null)
+                throw new ArgumentNullException("game");
+
             var history = Settings.Default.HeroList.GetByLevel(Settings.Default.Difficulty);
             if (history != null)
             {
                 if (game.GameState == GameState.Success)
                 {
                     var target = VisualTreeHelper.GetChild(Application.Current.MainWindow, 0) as FrameworkElement;
-                    var filePath = Infrastructure.Container.GetExportedValue<IVisualShoot>().SaveSnapShoot(target);
+                    var filePath = Infrastructure.Container.GetExportedValue<IVisualShoot>().SaveSnapshoot(target);
 
                     history.IncreaseWon(game.UsedTime / 1000.0, DateTime.Now, filePath);
                 }
@@ -48,7 +51,13 @@
         /// <returns></returns>
         public static bool MarkAt(this IClearMine game, MineCell cell)
         {
-            if (cell != null && (game.GameState == GameState.Initialized || game.GameState == GameState.Started))
+            if (game == null)
+                throw new ArgumentNullException("game");
+
+            if (cell == null)
+                throw new ArgumentNullException("cell");
+
+            if (game.GameState == GameState.Initialized || game.GameState == GameState.Started)
             {
                 if (cell.State == CellState.Normal)
                 {

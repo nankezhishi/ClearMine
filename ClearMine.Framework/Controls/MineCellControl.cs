@@ -1,11 +1,13 @@
 ﻿namespace ClearMine.Framework.Controls
 {
+    using System.Diagnostics.CodeAnalysis;
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Media;
 
     public class MineCellControl : Control
     {
+        [SuppressMessage("Microsoft.Performance", "CA1810:InitializeReferenceTypeStaticFieldsInline")]
         static MineCellControl()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(MineCellControl), new FrameworkPropertyMetadata(typeof(MineCellControl)));

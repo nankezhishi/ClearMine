@@ -5,6 +5,7 @@
     using System.Collections.Generic;
     using System.ComponentModel;
     using System.Diagnostics;
+    using System.Diagnostics.CodeAnalysis;
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Media.Animation;
@@ -16,6 +17,7 @@
     {
         private static IList<Storyboard> animations = new List<Storyboard>();
 
+        [SuppressMessage("Microsoft.Performance", "CA1810:InitializeReferenceTypeStaticFieldsInline")]
         static AnimateEffectBehavior()
         {
             Settings.Default.PropertyChanged += new PropertyChangedEventHandler(OnSettingsChanged);
@@ -44,11 +46,17 @@
 
         public static bool GetWaving(DependencyObject obj)
         {
+            if (obj == null)
+                throw new ArgumentNullException("obj");
+
             return (bool)obj.GetValue(WavingProperty);
         }
 
         public static void SetWaving(DependencyObject obj, bool value)
         {
+            if (obj == null)
+                throw new ArgumentNullException("obj");
+
             obj.SetValue(WavingProperty, value);
         }
 
@@ -88,11 +96,17 @@
 
         public static string GetAnimationName(DependencyObject obj)
         {
+            if (obj == null)
+                throw new ArgumentNullException("obj");
+
             return (string)obj.GetValue(AnimationNameProperty);
         }
 
         public static void SetAnimationName(DependencyObject obj, string value)
         {
+            if (obj == null)
+                throw new ArgumentNullException("obj");
+
             obj.SetValue(AnimationNameProperty, value);
         }
 

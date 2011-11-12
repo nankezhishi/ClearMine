@@ -23,21 +23,21 @@
             }
         }
 
-        protected override void OnAttatched()
+        protected override void OnAttached()
         {
-            AttatchedObject.Click += new RoutedEventHandler(OnMenuItemClick);
+            AttachedObject.Click += new RoutedEventHandler(OnMenuItemClick);
         }
 
-        protected override void OnDetatching()
+        protected override void OnDetaching()
         {
-            AttatchedObject.Click -= new RoutedEventHandler(OnMenuItemClick);
+            AttachedObject.Click -= new RoutedEventHandler(OnMenuItemClick);
         }
 
         private void OnMenuItemClick(object sender, RoutedEventArgs e)
         {
             #region Guards
             // Ignore click on itself.
-            if (e.OriginalSource == AttatchedObject)
+            if (e.OriginalSource == AttachedObject)
             {
                 return;
             }
@@ -51,7 +51,7 @@
 
             // Ingore sub menu of sub menu.
             var parent = (menuItem.Parent as MenuItem);
-            if (parent != AttatchedObject)
+            if (parent != AttachedObject)
             {
                 return;
             }

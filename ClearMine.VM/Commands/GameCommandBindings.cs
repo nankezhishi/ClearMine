@@ -218,13 +218,15 @@
 
         private static void OnBrowseHistoryExecuted(object sender, ExecutedRoutedEventArgs e)
         {
-            var folderBrowser = new FolderBrowserDialog();
-            folderBrowser.ShowNewFolderButton = true;
-            folderBrowser.Description = LocalizationHelper.FindText("BrowseGameFolderMessage");
-            folderBrowser.SelectedPath = Path.GetFullPath(Settings.Default.GameHistoryFolder);
-            if (folderBrowser.ShowDialog() == DialogResult.OK)
+            using (var folderBrowser = new FolderBrowserDialog())
             {
-                Settings.Default.GameHistoryFolder = folderBrowser.SelectedPath;
+                folderBrowser.ShowNewFolderButton = true;
+                folderBrowser.Description = LocalizationHelper.FindText("BrowseGameFolderMessage");
+                folderBrowser.SelectedPath = Path.GetFullPath(Settings.Default.GameHistoryFolder);
+                if (folderBrowser.ShowDialog() == DialogResult.OK)
+                {
+                    Settings.Default.GameHistoryFolder = folderBrowser.SelectedPath;
+                }
             }
         }
 
@@ -253,39 +255,42 @@
         }
         #endregion
 
-        public static IEnumerable<CommandBinding> GetGameWonCommandBindings()
+        public static IEnumerable<CommandBinding> GameWonCommandBindings
         {
-            return new[] { statisticsBinding };
+            get { return new[] { statisticsBinding }; }
         }
 
-        public static IEnumerable<CommandBinding> GetStatisticsCommandBindings()
+        public static IEnumerable<CommandBinding> StatisticsCommandBindings
         {
-            return new[] { resetBinding };
+            get { return new[] { resetBinding }; }
         }
 
-        public static IEnumerable<CommandBinding> GetOptionCommandBindings()
+        public static IEnumerable<CommandBinding> OptionCommandBindings
         {
-            return new[] { browseHistoryBinding, optionCloseBinding, saveBinding };
+            get { return new[] { browseHistoryBinding, optionCloseBinding, saveBinding }; }
         }
 
-        public static IEnumerable<CommandBinding> GetGameCommandBindings()
+        public static IEnumerable<CommandBinding> MainCommandBindings
         {
-            // Arrange in alphabetical order.
-            return new[]
+            get
             {
-                aboutBinding,
-                closeBinding,
-                feedbackBinding,
-                newGameBinding,
-                openBinding,
-                optionBinding,
-                refreshBinding,
-                saveAsBinding,
-                showLogBinding,
-                statisticsBinding,
-                switchLanguageBinding,
-                viewHelpBinding,
-            };
+                // Arrange in alphabetical order.
+                return new[]
+                {
+                    aboutBinding,
+                    closeBinding,
+                    feedbackBinding,
+                    newGameBinding,
+                    openBinding,
+                    optionBinding,
+                    refreshBinding,
+                    saveAsBinding,
+                    showLogBinding,
+                    statisticsBinding,
+                    switchLanguageBinding,
+                    viewHelpBinding,
+                };
+            }
         }
     }
 }

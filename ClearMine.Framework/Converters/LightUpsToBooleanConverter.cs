@@ -10,6 +10,9 @@
     {
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
+            if (values == null || values.Length != 2)
+                return false;
+
             LightUps target = (LightUps)values[1];
             LightUps flags = (LightUps)values[0];
             return (flags & target) == target;

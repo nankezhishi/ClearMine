@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using System.ComponentModel;
+    using System.Diagnostics.CodeAnalysis;
     using System.Windows.Data;
     using System.Windows.Input;
 
@@ -16,11 +17,13 @@
         private static string defaultSortColumn;
         private Difficulty selectedLevel;
 
+        [SuppressMessage("Microsoft.Performance", "CA1810:InitializeReferenceTypeStaticFieldsInline")]
         static StatisticsViewModel()
         {
             defaultSortColumn = GenericExtension.GetMemberName<HistoryRecord>(r => r.Score);
         }
 
+        [SuppressMessage("Microsoft.Performance", "CA1822:MarkMembersAsStatic")]
         public IEnumerable<HeroHistory> HistoryList
         {
             get { return Settings.Default.HeroList.Heroes; }
@@ -43,9 +46,9 @@
             }
         }
 
-        public override IEnumerable<CommandBinding> GetCommandBindings()
+        public override IEnumerable<CommandBinding> CommandBindings
         {
-            return GameCommandBindings.GetStatisticsCommandBindings();
+            get { return GameCommandBindings.StatisticsCommandBindings; }
         }
     }
 }

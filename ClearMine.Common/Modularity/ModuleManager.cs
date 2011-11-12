@@ -9,7 +9,7 @@
     /// <summary>
     /// 
     /// </summary>
-    public class ModuleManager
+    public static class ModuleManager
     {
         private static IList<IModule> loadedModules = new List<IModule>();
 

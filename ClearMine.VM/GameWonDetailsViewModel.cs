@@ -40,9 +40,9 @@
             get { return history.GameWonPercentage; }
         }
 
-        public override IEnumerable<CommandBinding> GetCommandBindings()
+        public override IEnumerable<CommandBinding> CommandBindings
         {
-            throw new NotImplementedException();
+            get { throw new NotImplementedException(); }
         }
     }
 }

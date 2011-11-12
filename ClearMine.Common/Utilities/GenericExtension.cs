@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Diagnostics;
+    using System.Diagnostics.CodeAnalysis;
     using System.Linq.Expressions;
     using System.Reflection;
     using System.Windows;
@@ -19,6 +20,11 @@
         /// <returns></returns>
         public static bool IsPropertySetter(this MethodBase method)
         {
+            if (method == null)
+            {
+                throw new InvalidProgramException();
+            }
+
             return method.IsSpecialName && method.Name.StartsWith(propertySetterPrefix, StringComparison.Ordinal);
         }
 
@@ -35,8 +41,8 @@
             int count = VisualTreeHelper.GetChildrenCount(element);
             for (int i = 0; i < count; i++)
             {
-                var child = VisualTreeHelper.GetChild(element, i);
-                children.AddRange((child is T && condition(child as T)) ? new[] { child as T } : FindChildren<T>(child, condition));
+                var child = VisualTreeHelper.GetChild(element, i) as T;
+                children.AddRange((child != null && (condition ?? ((T c) => true))(child)) ? new[] { child } : FindChildren<T>(child, condition));
             }
 
             return children;
@@ -92,7 +98,8 @@
         /// <summary>
         /// This method is rather heavy. it will takes 5K ticks, about 2ms on a 2.5G CPU.
         /// </summary>
-        public static string GetMemberName<T>(this T obj, Expression<Func<object>> expression)
+        [SuppressMessage("Microsoft.Design", "CA1011:ConsiderPassingBaseTypesAsParameters")]
+        public static string GetMemberName<T>(Expression<Func<object>> expression)
         {
             return GetMemberName(expression);
         }
@@ -100,6 +107,7 @@
         /// <summary>
         /// This method is rather heavy. it will takes 5K ticks, about 2ms on a 2.5G CPU.
         /// </summary>
+        [SuppressMessage("Microsoft.Design", "CA1011:ConsiderPassingBaseTypesAsParameters")]
         public static string GetMemberName<T>(Expression<Func<T, object>> expression)
         {
             return GetMemberName(expression as LambdaExpression);

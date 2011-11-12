@@ -2,6 +2,7 @@
 {
     using System;
     using System.Diagnostics;
+    using System.Diagnostics.CodeAnalysis;
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Controls.Primitives;
@@ -15,6 +16,7 @@
     {
         private Size measuredResult;
 
+        [SuppressMessage("Microsoft.Performance", "CA1810:InitializeReferenceTypeStaticFieldsInline")]
         static MinesPanel()
         {
             Grid.ShowGridLinesProperty.AddOwner(typeof(MinesPanel));
@@ -108,7 +110,7 @@
 
         protected override void OnRender(DrawingContext dc)
         {
-            if (ShowGridLines)
+            if (dc != null && ShowGridLines)
             {
                 var pen = new Pen(GridLineBrush, GridLineThickness);
 

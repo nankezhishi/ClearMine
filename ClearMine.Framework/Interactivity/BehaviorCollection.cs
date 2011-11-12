@@ -9,34 +9,34 @@
 
     public class BehaviorCollection : ObservableCollection<Behavior>
     {
-        public DependencyObject AttatchedObject { get; internal set; }
+        public DependencyObject AttachedObject { get; internal set; }
 
-        public void AttatchTo(DependencyObject attachedObject)
+        public void AttachTo(DependencyObject attachedObject)
         {
             if (attachedObject == null)
             {
                 throw new ArgumentNullException("attachedObject");
             }
 
-            if (AttatchedObject != null && attachedObject != AttatchedObject)
+            if (AttachedObject != null && attachedObject != AttachedObject)
             {
                 Trace.TraceWarning(LocalizationHelper.FindText("TraceReplaceBehaviorCollectionTarget"));
             }
 
-            if (attachedObject != AttatchedObject)
+            if (attachedObject != AttachedObject)
             {
-                AttatchedObject = attachedObject;
-                DetatchAll();
-                foreach (var behavior in this.Where(b => b.AttatchedObject != attachedObject))
+                AttachedObject = attachedObject;
+                DetachAll();
+                foreach (var behavior in this.Where(b => b.AttachedObject != attachedObject))
                 {
                     behavior.AttatchTo(attachedObject);
                 }
             }
         }
 
-        public void DetatchAll()
+        public void DetachAll()
         {
-            foreach (var behavior in this.Where(b => b.AttatchedObject != null))
+            foreach (var behavior in this.Where(b => b.AttachedObject != null))
             {
                 behavior.Detatch();
             }
@@ -44,9 +44,9 @@
 
         protected override void InsertItem(int index, Behavior item)
         {
-            if (AttatchedObject != null)
+            if (AttachedObject != null && item != null)
             {
-                item.AttatchTo(AttatchedObject);
+                item.AttatchTo(AttachedObject);
             }
 
             base.InsertItem(index, item);
@@ -54,14 +54,14 @@
 
         protected override void ClearItems()
         {
-            DetatchAll();
+            DetachAll();
 
             base.ClearItems();
         }
 
         protected override void RemoveItem(int index)
         {
-            if (this[index].AttatchedObject != null)
+            if (this[index].AttachedObject != null)
             {
                 this[index].Detatch();
             }
@@ -71,14 +71,14 @@
 
         protected override void SetItem(int index, Behavior item)
         {
-            if (this[index].AttatchedObject != null)
+            if (this[index].AttachedObject != null)
             {
                 this[index].Detatch();
             }
 
-            if (AttatchedObject != null)
+            if (AttachedObject != null && item != null)
             {
-                item.AttatchTo(AttatchedObject);
+                item.AttatchTo(AttachedObject);
             }
 
             base.SetItem(index, item);

@@ -10,8 +10,8 @@
         private CachingState cachingState;
         private CellState state;
         private PressState pressState;
-        private int minesNearBy;
-        private int flagsNearBy;
+        private int minesNearby;
+        private int flagsNearby;
         private bool showResult;
         private bool hasMine;
         private bool isTerminator;
@@ -68,7 +68,7 @@
         [Bindable(true)]
         public bool TooManyFlagsAround
         {
-            get { return flagsNearBy > minesNearBy && minesNearBy > 0; }
+            get { return flagsNearby > minesNearby && minesNearby > 0; }
         }
 
         public PressState PressState
@@ -91,7 +91,7 @@
         [Bindable(true)]
         public int MinesNearby
         {
-            get { return minesNearBy; }
+            get { return minesNearby; }
             set
             {
                 // Must provide propertyName here, 
@@ -99,7 +99,7 @@
                 // Because during the initalization of the Game.
                 // This property will be set many many times.
                 var previous = TooManyFlagsAround;
-                SetProperty(ref minesNearBy, value, "MinesNearby");
+                SetProperty(ref minesNearby, value, "MinesNearby");
                 if (previous ^ TooManyFlagsAround)
                 {
                     TriggerPropertyChanged("TooManyFlagsAround");
@@ -108,13 +108,13 @@
         }
 
         [Bindable(true)]
-        public int FlagsNearBy
+        public int FlagsNearby
         {
-            get { return flagsNearBy; }
+            get { return flagsNearby; }
             set
             {
                 var previous = TooManyFlagsAround;
-                SetProperty(ref flagsNearBy, value, "FlagsNearBy");
+                SetProperty(ref flagsNearby, value, "FlagsNearby");
                 // Only trigger property changed when the property value really changed.
                 // Otherwise there will be performance issues.
                 if (previous ^ TooManyFlagsAround)
@@ -157,6 +157,9 @@
 
         public void Update(MineCell newValue)
         {
+            if (newValue == null)
+                throw new ArgumentNullException("newValue");
+
             Row = newValue.Row;
             Column = newValue.Column;
             State = newValue.State;
@@ -169,6 +172,9 @@
 
         public bool Near(MineCell other)
         {
+            if (other == null)
+                return false;
+
             return Math.Abs(Column - other.Column) <= 1 && Math.Abs(Row - other.Row) <= 1;
         }
 

@@ -38,9 +38,9 @@ namespace ClearMine.Common.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("9")]
-        public uint Rows {
+        public int Rows {
             get {
-                return ((uint)(this["Rows"]));
+                return ((int)(this["Rows"]));
             }
             set {
                 this["Rows"] = value;
@@ -50,9 +50,9 @@ namespace ClearMine.Common.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("9")]
-        public uint Columns {
+        public int Columns {
             get {
-                return ((uint)(this["Columns"]));
+                return ((int)(this["Columns"]));
             }
             set {
                 this["Columns"] = value;
@@ -62,9 +62,9 @@ namespace ClearMine.Common.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("10")]
-        public uint Mines {
+        public int Mines {
             get {
-                return ((uint)(this["Mines"]));
+                return ((int)(this["Mines"]));
             }
             set {
                 this["Mines"] = value;

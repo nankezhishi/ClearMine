@@ -15,14 +15,15 @@
                 var behaviors = GetBehaviors(current);
                 foreach (var behavior in behaviors)
                 {
-                    if (behavior is T)
+                    var typedBehavior = behavior as T;
+                    if (typedBehavior != null)
                     {
                         if (action != null)
                         {
-                            action(behavior as T);
+                            action(typedBehavior);
                         }
 
-                        return behavior as T;
+                        return typedBehavior;
                     }
                 }
 
@@ -34,17 +35,24 @@
 
         public static BehaviorCollection GetBehaviors(DependencyObject obj)
         {
+            if (obj == null)
+                return null;
+
             var result = obj.GetValue(BehaviorsProperty) as BehaviorCollection;
             if (result == null)
             {
                 result = new BehaviorCollection();
                 obj.SetValue(BehaviorsProperty, result);
             }
+
             return result;
         }
 
         public static void SetBehaviors(DependencyObject obj, BehaviorCollection value)
         {
+            if (obj == null)
+                throw new ArgumentNullException("obj");
+
             obj.SetValue(BehaviorsProperty, value);
         }
 
@@ -56,12 +64,12 @@
         {
             if (e.OldValue != null)
             {
-                (e.OldValue as BehaviorCollection).DetatchAll();
+                (e.OldValue as BehaviorCollection).DetachAll();
             }
 
             if (e.NewValue != null)
             {
-                (e.NewValue as BehaviorCollection).AttatchTo(sender);
+                (e.NewValue as BehaviorCollection).AttachTo(sender);
             }
         }
     }

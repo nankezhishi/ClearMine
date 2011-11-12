@@ -8,6 +8,9 @@
     {
         public void HandleMessage(ExceptionMessage message)
         {
+            if (message == null)
+                return;
+
             if (message.Exception != null)
             {
                 Trace.Write(message.Exception);

@@ -120,7 +120,7 @@
     <Compile Include="Utilities\EmailHelper.cs" />
     <Compile Include="Utilities\GenericExtension.cs" />
     <Compile Include="Utilities\Infrastructure.cs" />
-    <Compile Include="Utilities\WindowsApi.cs" />
+    <Compile Include="Utilities\NativeMethods.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

@@ -21,6 +21,9 @@
     {
         public string SaveGame(IClearMine game, string path = null)
         {
+            if (game == null)
+                throw new ArgumentNullException("game");
+
             if (String.IsNullOrWhiteSpace(path))
             {
                 var savePathDialog = new SaveFileDialog();
@@ -55,7 +58,7 @@
                 throw new FileNotFoundException(LocalizationHelper.FindText("SavedGamePathNotFound"), path);
             }
 
-            if (gameType.GetInterface(typeof(IClearMine).FullName) == null)
+            if (gameType == null || gameType.GetInterface(typeof(IClearMine).FullName) == null)
             {
                 throw new InvalidOperationException(LocalizationHelper.FindText("InvalidClearMineGameType", gameType.FullName));
             }

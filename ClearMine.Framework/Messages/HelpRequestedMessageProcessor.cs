@@ -2,6 +2,7 @@
 {
     using System;
     using System.Diagnostics;
+    using System.Globalization;
     using System.IO;
 
     using ClearMine.Common.Properties;
@@ -11,9 +12,12 @@
     {
         public void HandleMessage(HelpRequestedMessage message)
         {
+            if (message == null)
+                return;
+
             var helpName = Settings.Default.HelpDocumentName;
 
-            if (!String.IsNullOrWhiteSpace(helpName) && helpName.EndsWith("chm"))
+            if (!String.IsNullOrWhiteSpace(helpName) && helpName.EndsWith("chm", true, CultureInfo.InvariantCulture))
             {
                 try
                 {

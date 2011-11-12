@@ -8,6 +8,9 @@
     {
         public void HandleMessage(ShowDialogMessage message)
         {
+            if (message == null)
+                return;
+
             var window = Activator.CreateInstance(message.DialogType) as Window;
             window.Owner = Window.GetWindow(message.Source as DependencyObject ?? Application.Current.MainWindow);
             if (message.Data != null)
