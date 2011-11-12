@@ -89,5 +89,8 @@
     <Setting Name="HelpDocumentName" Type="System.String" Scope="Application">
       <Value Profile="(Default)">ClearMineHelp.chm</Value>
     </Setting>
+    <Setting Name="ShowTooManyFlagsWarning" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

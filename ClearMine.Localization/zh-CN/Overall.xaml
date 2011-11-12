@@ -108,6 +108,7 @@
     <s:String x:Key="WavingFlagEffect">红旗飘飘(_F)</s:String>
     <s:String x:Key="GameControlGroupLabel">控制设置</s:String>
     <s:String x:Key="ShowQuestionMarkLabel">两次反键显示不确定记号(?)(_Q)</s:String>
+    <s:String x:Key="ShowTooManyFlagsWarning">红旗标多时显示警告(_G)</s:String>
     <s:String x:Key="AlwaysNewGameLabel">总是开始新的游戏(_D)</s:String>
     <s:String x:Key="AlwaysSaveGameLabel">退出时总是保存未完全的游戏(_X)</s:String>
     <s:String x:Key="AlwaysContinueGameLabel">总是继续上次退出时保存的游戏(_Y)</s:String>

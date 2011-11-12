@@ -108,6 +108,7 @@
     <s:String x:Key="WavingFlagEffect">Wave _Flag</s:String>
     <s:String x:Key="GameControlGroupLabel">Control settings</s:String>
     <s:String x:Key="ShowQuestionMarkLabel">Show _question(?) mark</s:String>
+    <s:String x:Key="ShowTooManyFlagsWarning">Show too many fla_gs warning</s:String>
     <s:String x:Key="AlwaysNewGameLabel">Always _disgards current game when new game</s:String>
     <s:String x:Key="AlwaysSaveGameLabel">Always save game on e_xit</s:String>
     <s:String x:Key="AlwaysContinueGameLabel">Alwa_ys continue saved game</s:String>

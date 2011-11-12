@@ -111,7 +111,10 @@
                           IsChecked="{Binding SaveOnExit}"
                           Margin="0,0,0,5" />
                 <CheckBox Content="{DynamicResource AlwaysContinueGameLabel}"
-                          IsChecked="{Binding AutoContinueSaved}" />
+                          IsChecked="{Binding AutoContinueSaved}"
+                          Margin="0,0,0,5" />
+                <CheckBox Content="{DynamicResource ShowTooManyFlagsWarning}"
+                          IsChecked="{Binding ShowTooManyFlagsWarning}" />
             </StackPanel>
         </GroupBox>
         <GroupBox Header="{DynamicResource GameHistoryGroupLabel}"

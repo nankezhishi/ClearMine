@@ -170,11 +170,6 @@
             game.Initialize(new Size(Settings.Default.Columns, Settings.Default.Rows), (int)Settings.Default.Mines);
         }
 
-        private void OnGameTimeChanged(object sender, EventArgs e)
-        {
-            TriggerPropertyChanged("Time");
-        }
-
         private void OnSettingsChanged(object sender, PropertyChangedEventArgs e)
         {
             if (new[] { "Rows", "Columns", "Mines" }.Contains(e.PropertyName))
@@ -197,12 +192,9 @@
 
         private void OnCellStateChanged(object sender, CellStateChangedEventArgs e)
         {
-            if (Settings.Default.PlayAnimation)
+            if (Settings.Default.PlayAnimation && e.Cell.State == CellState.Shown)
             {
-                if (e.Cell.State == CellState.Shown)
-                {
-                    Thread.Sleep(1);
-                }
+                Thread.Sleep(1);
             }
         }
 
@@ -237,16 +229,11 @@
             }
         }
 
-        private void ShowLostWindow()
+        private bool ShowLostWindow()
         {
-            if (ShowDialog("ClearMine.UI.Dialogs.GameLostWindow, ClearMine.Dialogs"))
-            {
-                ThreadPool.QueueUserWorkItem(a => game.StartNew());
-            }
-            else
-            {
-                ThreadPool.QueueUserWorkItem(a => game.Restart());
-            }
+            return ShowDialog("ClearMine.UI.Dialogs.GameLostWindow, ClearMine.Dialogs") ?
+                   ThreadPool.QueueUserWorkItem(a => game.StartNew()) :
+                   ThreadPool.QueueUserWorkItem(a => game.Restart());
         }
 
         private void ShowWonWindow()
@@ -275,7 +262,7 @@
                     game = message.NewGame;
 
                     game.StateChanged += OnGameStateChanged;
-                    game.TimeChanged += OnGameTimeChanged;
+                    game.TimeChanged += (sender, e) => TriggerPropertyChanged("Time");
                     game.CellStateChanged += OnCellStateChanged;
                 }
                 else

@@ -98,6 +98,12 @@
             set { Settings.Default.ShowQuestionMark = value; }
         }
 
+        public bool ShowTooManyFlagsWarning
+        {
+            get { return Settings.Default.ShowTooManyFlagsWarning; }
+            set { Settings.Default.ShowTooManyFlagsWarning = value; }
+        }
+
         public bool SaveOnExit
         {
             get { return Settings.Default.SaveOnExit; }

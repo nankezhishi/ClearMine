@@ -9,6 +9,7 @@
     using System.Windows;
 
     using ClearMine.Common.ComponentModel;
+    using ClearMine.Common.Properties;
     using ClearMine.Common.Utilities;
     using ClearMine.GameDefinition;
 
@@ -135,7 +136,14 @@
                 cells = GetCellsAround(null, c => c.State == CellState.Shown);
             }
 
-            Parallel.ForEach(cells, c => c.FlagsNearBy = GetCellsAround(c, s => s.State == CellState.MarkAsMine).Count());
+            if (Settings.Default.ShowTooManyFlagsWarning)
+            {
+                Parallel.ForEach(cells, c => c.FlagsNearBy = GetCellsAround(c, s => s.State == CellState.MarkAsMine).Count());
+            }
+            else
+            {
+                Parallel.ForEach(cells, c => c.FlagsNearBy = 0);
+            }
         }
 
         internal MineCell GetCell(int column, int row)

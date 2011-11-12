@@ -301,5 +301,17 @@ namespace ClearMine.Common.Properties {
                 return ((string)(this["HelpDocumentName"]));
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool ShowTooManyFlagsWarning {
+            get {
+                return ((bool)(this["ShowTooManyFlagsWarning"]));
+            }
+            set {
+                this["ShowTooManyFlagsWarning"] = value;
+            }
+        }
     }
 }
