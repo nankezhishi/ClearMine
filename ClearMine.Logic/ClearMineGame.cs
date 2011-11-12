@@ -10,6 +10,7 @@
     using System.Xml.Serialization;
 
     using ClearMine.Common.ComponentModel;
+    using ClearMine.Common.Properties;
     using ClearMine.Common.Utilities;
     using ClearMine.GameDefinition;
 
@@ -31,6 +32,7 @@
         {
             timer = new DispatcherTimer() { Interval = new TimeSpan(0, 0, 0, 0, 100) };
             timer.Tick += new EventHandler(OnTick);
+            Settings.Default.PropertyChanged += new PropertyChangedEventHandler(OnSettingsChanged);
         }
 
         [field: NonSerialized]
@@ -379,6 +381,14 @@
                 {
                     cells.CalculateFlagsCount();
                 }
+            }
+        }
+
+        private void OnSettingsChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if ("ShowTooManyFlagsWarning".Equals(e.PropertyName))
+            {
+                cells.CalculateFlagsCount();
             }
         }
 

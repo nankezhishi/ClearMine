@@ -1,3 +1,7 @@
+1. Too Many Flags Warning Status.
+2. Playing Status
+
+
 1.0 功能
 1. 双键效果
 2. 暂停效果

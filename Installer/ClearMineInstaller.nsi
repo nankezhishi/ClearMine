@@ -32,7 +32,6 @@ SectionEnd
     WriteUninstaller $INSTDIR\Uninstaller.exe
 	File ..\Bin\Release\*.dll
 	File ..\Bin\Release\*.exe
-	File ..\Bin\Release\*.pdb
 	File ..\Bin\Release\ClearMineHelp.chm
 	SetOutPath $INSTDIR\Sound
 	File ..\Bin\Release\Sound\*.wma
