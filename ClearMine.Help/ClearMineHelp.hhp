@@ -3,9 +3,10 @@ Compatibility=1.1 or later
 Compiled file=ClearMineHelp.chm
 Contents file=HelpContents.hhc
 Default Font=Calibri,10,0
+Default topic=html/ClearMine - How to play - zh-cn.html
 Display compile progress=No
 Index file=Index.hhk
-Language=0x409 英语(美国)
+Language=0x804 汉语(中国)
 Title=Clear Mine Help
 
 

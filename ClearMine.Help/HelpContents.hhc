@@ -9,13 +9,13 @@
 </OBJECT>
 <UL>
 	<LI> <OBJECT type="text/sitemap">
-		<param name="Name" value="Clear Mine">
+		<param name="Name" value="ÈçºÎÍæ">
+		<param name="Local" value="html\ClearMine - How to play - zh-cn.html">
+		<param name="URL" value="html\ClearMine - How to play - zh-cn.html">
 		</OBJECT>
-	<UL>
-		<LI> <OBJECT type="text/sitemap">
-			<param name="Name" value="How to play">
-			<param name="Local" value="html\ClearMine - How to play.html">
-			</OBJECT>
-	</UL>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="How to play">
+		<param name="Local" value="html\ClearMine - How to play - en-us.html">
+		</OBJECT>
 </UL>
 </BODY></HTML>
