@@ -18,7 +18,7 @@
 
             if (values == null || values.Length < 2)
             {
-                throw new ArgumentException(LocalizationHelper.FindText("RequiresTwoValues"), "values");
+                throw new ArgumentException(ResourceHelper.FindText("RequiresTwoValues"), "values");
             }
 
             double width = (double)values[0];

@@ -48,7 +48,7 @@
             {
                 if (index < countInUse)
                 {
-                    Trace.TraceWarning(LocalizationHelper.FindText("PerformanceIssueMoving"));
+                    Trace.TraceWarning(ResourceHelper.FindText("PerformanceIssueMoving"));
 
                     MoveItem(countInUse, index);
                 }

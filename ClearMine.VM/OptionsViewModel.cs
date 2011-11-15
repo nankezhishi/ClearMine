@@ -174,7 +174,7 @@
                 {
                     if (Rows < 9 || Rows > 24)
                     {
-                        Error = LocalizationHelper.FindText("InvalidHeightMessage");
+                        Error = ResourceHelper.FindText("InvalidHeightMessage");
                     }
                     else
                     {
@@ -185,7 +185,7 @@
                 {
                     if (Columns < 9 || Columns > 30)
                     {
-                        Error = LocalizationHelper.FindText("InvalidWidthMessage");
+                        Error = ResourceHelper.FindText("InvalidWidthMessage");
                     }
                     else
                     {
@@ -196,7 +196,7 @@
                 {
                     if (Mines < 10 || Mines > Rows * Columns)
                     {
-                        Error = LocalizationHelper.FindText("InvalidMinesMessage");
+                        Error = ResourceHelper.FindText("InvalidMinesMessage");
                     }
                     else
                     {
@@ -211,7 +211,7 @@
                     }
                     else
                     {
-                        Error = LocalizationHelper.FindText("HistoryNotExistMessage");
+                        Error = ResourceHelper.FindText("HistoryNotExistMessage");
                     }
                 }
                 else

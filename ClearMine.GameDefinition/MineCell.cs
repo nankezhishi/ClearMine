@@ -2,8 +2,8 @@
 {
     using System;
     using System.ComponentModel;
-    using System.Globalization;
     using ClearMine.Common.ComponentModel;
+    using ClearMine.Common.Utilities;
 
     public class MineCell : BindableObject, ICachable<MineCell>
     {
@@ -152,7 +152,7 @@
 
         public override string ToString()
         {
-            return String.Format(CultureInfo.CurrentCulture, "({0}, {1}) {3} : {2}", Column, Row, MinesNearby, HasMine);
+            return "({0}, {1}) {3} : {2}".InvariantFormat(Column, Row, MinesNearby, HasMine);
         }
 
         public void Update(MineCell newValue)

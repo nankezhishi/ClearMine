@@ -87,7 +87,7 @@
         {
             ListView listView = sender as ListView;
             if (listView == null)
-                throw new InvalidOperationException(LocalizationHelper.FindText("InvalidHeaderSortHost"));
+                throw new InvalidOperationException(ResourceHelper.FindText("InvalidHeaderSortHost"));
 
             if ((bool)e.NewValue)
             {

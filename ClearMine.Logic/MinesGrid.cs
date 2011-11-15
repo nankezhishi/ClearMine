@@ -302,7 +302,7 @@
         {
             if (index >= Size.Width * Size.Height)
             {
-                throw new InvalidOperationException(LocalizationHelper.FindText("MinesGridOverflow"));
+                throw new InvalidOperationException(ResourceHelper.FindText("MinesGridOverflow"));
             }
 
             base.InsertItem(index, item);

@@ -46,7 +46,7 @@
             }
             else
             {
-                throw new InvalidProgramException(LocalizationHelper.FindText("ExpressionMustBeMember"));
+                throw new InvalidProgramException(ResourceHelper.FindText("ExpressionMustBeMember"));
             }
         }
 

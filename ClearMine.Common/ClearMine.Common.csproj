@@ -102,8 +102,9 @@
     <Compile Include="Difficulty.cs" />
     <Compile Include="HeroHistory.cs" />
     <Compile Include="Messaging\SwitchLanguageMessage.cs" />
+    <Compile Include="Messaging\SwitchThemeMessage.cs" />
     <Compile Include="Utilities\IVisualShoot.cs" />
-    <Compile Include="Utilities\LocalizationHelper.cs" />
+    <Compile Include="Utilities\ResourceHelper.cs" />
     <Compile Include="Messaging\MessageAggregator.cs" />
     <Compile Include="Messaging\MessageBase.cs" />
     <Compile Include="Messaging\MessageManager.cs" />

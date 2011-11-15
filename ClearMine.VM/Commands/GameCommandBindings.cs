@@ -77,7 +77,7 @@
         {
             var openFileDialog = new OpenFileDialog();
             openFileDialog.DefaultExt = Settings.Default.SavedGameExt;
-            openFileDialog.Filter = LocalizationHelper.FindText("SavedGameFilter", Settings.Default.SavedGameExt);
+            openFileDialog.Filter = ResourceHelper.FindText("SavedGameFilter", Settings.Default.SavedGameExt);
             if (openFileDialog.ShowDialog() == true)
             {
                 Infrastructure.Container.GetExportedValue<IGameSerializer>().LoadGame(openFileDialog.FileName,
@@ -145,8 +145,8 @@
 
         private static void OnFeedbackExecuted(object sender, ExecutedRoutedEventArgs e)
         {
-            EmailHelper.Send(LocalizationHelper.FindText("ClearMineFeedbackContent"),
-                LocalizationHelper.FindText("ClearMineFeedbackTitle"), Settings.Default.FeedBackEmail);
+            EmailHelper.Send(ResourceHelper.FindText("ClearMineFeedbackContent"),
+                ResourceHelper.FindText("ClearMineFeedbackTitle"), Settings.Default.FeedBackEmail);
         }
         #endregion
 
@@ -170,6 +170,18 @@
                 Interaction.FindBehavior<AutoCheckMenuItemsBehavior>(e.OriginalSource as DependencyObject, b => b.UndoMenuItemCheck());
             }
         }
+        #endregion
+
+        #region Switch Theme Command
+        private static CommandBinding switchThemeBinding = new CommandBinding(GameCommands.SwitchTheme, OnSwitchThemeExecuted);
+
+        private static void OnSwitchThemeExecuted(object sender, ExecutedRoutedEventArgs e)
+        {
+            if ((bool)MessageManager.SendMessage<SwitchThemeMessage>(e.Parameter, e.OriginalSource))
+            {
+                Interaction.FindBehavior<AutoCheckMenuItemsBehavior>(e.OriginalSource as DependencyObject, b => b.UndoMenuItemCheck());
+            }
+        } 
         #endregion
 
         #region Close Command
@@ -221,7 +233,7 @@
             using (var folderBrowser = new FolderBrowserDialog())
             {
                 folderBrowser.ShowNewFolderButton = true;
-                folderBrowser.Description = LocalizationHelper.FindText("BrowseGameFolderMessage");
+                folderBrowser.Description = ResourceHelper.FindText("BrowseGameFolderMessage");
                 folderBrowser.SelectedPath = Path.GetFullPath(Settings.Default.GameHistoryFolder);
                 if (folderBrowser.ShowDialog() == DialogResult.OK)
                 {
@@ -242,7 +254,7 @@
 
         private static void OnResetExecuted(object sender, ExecutedRoutedEventArgs e)
         {
-            if (MessageBox.Show(LocalizationHelper.FindText("ResetHistoryMessage"), LocalizationHelper.FindText("ResetHistoryTitle"),
+            if (MessageBox.Show(ResourceHelper.FindText("ResetHistoryMessage"), ResourceHelper.FindText("ResetHistoryTitle"),
                 MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No) == MessageBoxResult.Yes)
             {
                 foreach (HeroHistory history in e.Parameter as IEnumerable)
@@ -288,6 +300,7 @@
                     showLogBinding,
                     statisticsBinding,
                     switchLanguageBinding,
+                    switchThemeBinding,
                     viewHelpBinding,
                 };
             }

@@ -70,7 +70,7 @@
             UpdateShaderValue(OffsetProperty);
             UpdateShaderValue(InputProperty);
 
-            Trace.TraceInformation(LocalizationHelper.FindText("NewWavingEffectCreated"));
+            Trace.TraceInformation(ResourceHelper.FindText("NewWavingEffectCreated"));
         }
 
         #endregion

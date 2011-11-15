@@ -46,7 +46,7 @@
 
             UpdateShaderValue(InputProperty);
 
-            Trace.TraceInformation(LocalizationHelper.FindText("NewMonoEffectCreated"));
+            Trace.TraceInformation(ResourceHelper.FindText("NewMonoEffectCreated"));
         }
 
         #endregion

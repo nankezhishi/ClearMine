@@ -25,12 +25,12 @@
                 }
                 catch (FileNotFoundException)
                 {
-                    Trace.TraceError(LocalizationHelper.FindText("CannotFindHelpFile", helpName));
+                    Trace.TraceError(ResourceHelper.FindText("CannotFindHelpFile", helpName));
                 }
             }
             else
             {
-                Trace.TraceError(LocalizationHelper.FindText("InvalidHelpFileType", helpName));
+                Trace.TraceError(ResourceHelper.FindText("InvalidHelpFileType", helpName));
             }
         }
     }

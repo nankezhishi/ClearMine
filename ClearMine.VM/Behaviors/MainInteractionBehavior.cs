@@ -224,7 +224,7 @@
                 else
                 {
                     // Game shouldn't be paused here
-                    var result = MessageBox.Show(LocalizationHelper.FindText("AskingSaveGameMessage"), LocalizationHelper.FindText("AskingSaveGameTitle"),
+                    var result = MessageBox.Show(ResourceHelper.FindText("AskingSaveGameMessage"), ResourceHelper.FindText("AskingSaveGameTitle"),
                         MessageBoxButton.YesNoCancel, MessageBoxImage.Question);
                     if (result == MessageBoxResult.Cancel)
                     {

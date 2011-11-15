@@ -32,7 +32,7 @@
 
             if (File.Exists(imageFilePath))
             {
-                throw new InvalidOperationException(LocalizationHelper.FindText("TargetAlreadyExists", imageFilePath));
+                throw new InvalidOperationException(ResourceHelper.FindText("TargetAlreadyExists", imageFilePath));
             }
 
             var targetBitmap = new RenderTargetBitmap((int)element.ActualWidth, (int)element.ActualHeight, 96d, 96d, PixelFormats.Default);
@@ -52,7 +52,7 @@
                 encoder.Save(fs);
             }
 
-            Trace.TraceInformation(LocalizationHelper.FindText("ScreenShotSavedTo"), imageFilePath);
+            Trace.TraceInformation(ResourceHelper.FindText("ScreenShotSavedTo"), imageFilePath);
         }
 
         /// <summary>

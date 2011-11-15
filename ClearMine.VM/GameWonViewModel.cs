@@ -16,7 +16,7 @@
         {
             Time = time;
             TimeUsed = usedTime;
-            Message = LocalizationHelper.FindText("GameWonMessage");
+            Message = ResourceHelper.FindText("GameWonMessage");
 
             if (Settings.Default.Difficulty != Difficulty.Custom)
             {

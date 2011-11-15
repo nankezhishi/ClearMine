@@ -86,7 +86,7 @@
                 animations.Add(story);
                 story.Begin();
 
-                Trace.TraceInformation(LocalizationHelper.FindText("NewWavingAnimationCreated"));
+                Trace.TraceInformation(ResourceHelper.FindText("NewWavingAnimationCreated"));
                 if (!Settings.Default.WavingFlag)
                 {
                     story.Pause();

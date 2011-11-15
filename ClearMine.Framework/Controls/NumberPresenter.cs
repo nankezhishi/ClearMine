@@ -40,7 +40,7 @@
 
         public NumberPresenter()
         {
-            Trace.TraceInformation(LocalizationHelper.FindText("NewNumberPresenterCreated"));
+            Trace.TraceInformation(ResourceHelper.FindText("NewNumberPresenterCreated"));
         }
 
         #region LightUpStrokes Property - ReadOnly

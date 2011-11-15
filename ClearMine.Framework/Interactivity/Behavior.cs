@@ -18,7 +18,7 @@
             if (AttachedObject != null)
             {
                 Detatch();
-                Trace.TraceWarning(LocalizationHelper.FindText("TraceReplaceBehaviorTarget", this));
+                Trace.TraceWarning(ResourceHelper.FindText("TraceReplaceBehaviorTarget", this));
             }
 
             AttachedObject = attachedObject;
@@ -52,7 +52,7 @@
             {
                 if (AttachedObject == null)
                 {
-                    throw new InvalidOperationException(LocalizationHelper.FindText("DetatchingUnattachedBehavior"));
+                    throw new InvalidOperationException(ResourceHelper.FindText("DetatchingUnattachedBehavior"));
                 }
 
                 if (autoDetach != value)

@@ -20,7 +20,7 @@
 
             if (AttachedObject != null && attachedObject != AttachedObject)
             {
-                Trace.TraceWarning(LocalizationHelper.FindText("TraceReplaceBehaviorCollectionTarget"));
+                Trace.TraceWarning(ResourceHelper.FindText("TraceReplaceBehaviorCollectionTarget"));
             }
 
             if (attachedObject != AttachedObject)

@@ -67,7 +67,7 @@
 
         private void OnReportButtonClick(object sender, RoutedEventArgs e)
         {
-            EmailHelper.Send(exception.ToString(), LocalizationHelper.FindText("ExceptionReportTitle"), Settings.Default.FeedBackEmail);
+            EmailHelper.Send(exception.ToString(), ResourceHelper.FindText("ExceptionReportTitle"), Settings.Default.FeedBackEmail);
         }
     }
 }

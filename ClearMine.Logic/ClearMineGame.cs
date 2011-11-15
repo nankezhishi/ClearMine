@@ -230,7 +230,7 @@
 
             if (game == null)
             {
-                throw new ArgumentException(LocalizationHelper.FindText("InvalidUpdateGameType", GetType().Name), "newValue");
+                throw new ArgumentException(ResourceHelper.FindText("InvalidUpdateGameType", GetType().Name), "newValue");
             }
 
             int index = 0;
@@ -294,7 +294,7 @@
             VerifyStateIs(GameState.Initialized, GameState.Started);
             if (!new[] { CellState.MarkAsMine, CellState.Normal, CellState.Question }.Contains(newState))
             {
-                throw new InvalidOperationException(LocalizationHelper.FindText("InvalidTargetCellState", newState));
+                throw new InvalidOperationException(ResourceHelper.FindText("InvalidTargetCellState", newState));
             }
 
             cell.State = newState;

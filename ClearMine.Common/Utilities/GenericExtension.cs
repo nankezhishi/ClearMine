@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Diagnostics;
     using System.Diagnostics.CodeAnalysis;
+    using System.Globalization;
     using System.Linq.Expressions;
     using System.Reflection;
     using System.Windows;
@@ -117,6 +118,36 @@
         }
 
         /// <summary>
+        /// Format a string in a culture invariant way.
+        /// </summary>
+        /// <param name="format">The string to format</param>
+        /// <param name="args"></param>
+        /// <returns>The formated string</returns>
+        public static string InvariantFormat(this string format, params object[] args)
+        {
+            return String.Format(CultureInfo.InvariantCulture, format, args);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="type"></param>
+        /// <param name="types"></param>
+        /// <returns></returns>
+        public static bool IsAssignableToAny(this Type type, params Type[] types)
+        {
+            foreach (var t in types)
+            {
+                if (t.IsAssignableFrom(type))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        /// <summary>
         /// This method takes 18 CPU ticks.
         /// </summary>
         private static string GetMemberName(LambdaExpression expression)
@@ -128,7 +159,7 @@
             }
             if (memberExpression == null)
             {
-                throw new ArgumentException(LocalizationHelper.FindText("InvalidExpressType", expression.Body.Type));
+                throw new ArgumentException(ResourceHelper.FindText("InvalidExpressType", expression.Body.Type));
             }
 
             return memberExpression.Member.Name;
@@ -140,7 +171,7 @@
         {
             if (typeof(T).IsSubclassOf(typeof(Window)))
             {
-                throw new InvalidProgramException(LocalizationHelper.FindText("UseWindowToGetWindow"));
+                throw new InvalidProgramException(ResourceHelper.FindText("UseWindowToGetWindow"));
             }
         }
     }

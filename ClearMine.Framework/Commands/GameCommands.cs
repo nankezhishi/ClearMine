@@ -41,5 +41,12 @@
         {
             get { return switchLanguage; }
         }
+
+        private static ICommand switchTheme = new RoutedUICommand("Change Theme", "ChangeTheme", typeof(GameCommands));
+
+        public static ICommand SwitchTheme
+        {
+            get { return switchTheme; }
+        }
     }
 }

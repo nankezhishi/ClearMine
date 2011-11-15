@@ -110,7 +110,7 @@
         {
             if ((int)e.NewValue < 1)
             {
-                throw new InvalidOperationException(LocalizationHelper.FindText("MinLengthMustPositive"));
+                throw new InvalidOperationException(ResourceHelper.FindText("MinLengthMustPositive"));
             }
 
             InitializeNumbersCollection();

@@ -11,12 +11,13 @@
     <s:String x:Key="GameVersion">Version 1.0</s:String>
     <s:String x:Key="GameCopyRight">Hugo Gu © All Rights Reserved 2010</s:String>
     <s:String x:Key="SavedGameFilter">ClearMine Saved Game File (*{0})|*{0}</s:String>
+    <s:String x:Key="ThemeFileFilter">Theme Resource File (*.xaml; *.xml)|*.xaml;*.xml</s:String>
     <s:String x:Key="LanguageFileFilter">Language Resource File (*.xaml; *.xml)|*.xaml;*.xml</s:String>
     <s:String x:Key="InvalidLanguageResourceType">A Language Resource File should only contains string resources.</s:String>
     <s:String x:Key="MissingLanguageResourceKey">A resource named ‘{0}’ is missing in the Language Resource File.</s:String>
-    <s:String x:Key="LanguageResourceParseError"
+    <s:String x:Key="ResourceParseError"
               xml:space="preserve">Failed to parse the resource file, error message is: &#13;&#10; {0}</s:String>
-    
+
     <!-- Difficulties -->
     <s:String x:Key="Beginner">Beginner</s:String>
     <s:String x:Key="Intermediate">Intermediate</s:String>

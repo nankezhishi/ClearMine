@@ -44,7 +44,7 @@
         [XmlIgnore]
         public string LevelForDisplay
         {
-            get { return LocalizationHelper.FindText(Level.ToString()); }
+            get { return ResourceHelper.FindText(Level.ToString()); }
         }
 
         [XmlAttribute("played")]

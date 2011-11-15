@@ -34,7 +34,7 @@
             var host = sender as Window ?? Window.GetWindow(sender as DependencyObject);
             if (host == null)
             {
-                throw new InvalidOperationException(LocalizationHelper.FindText("LoadBindingsFromVMReqireWindow"));
+                throw new InvalidOperationException(ResourceHelper.FindText("LoadBindingsFromVMReqireWindow"));
             }
 
             if ((bool)e.NewValue)
@@ -69,7 +69,7 @@
             }
             else
             {
-                Trace.TraceError(LocalizationHelper.FindText("CannotFindVM", host));
+                Trace.TraceError(ResourceHelper.FindText("CannotFindVM", host));
             }
         }
     }

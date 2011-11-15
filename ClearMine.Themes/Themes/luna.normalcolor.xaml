@@ -177,7 +177,8 @@
                   Viewbox="{StaticResource FaceViewbox}">
         <VisualBrush.Visual>
             <Grid>
-                <Path Name="flag" Data="M0,2.5 L5,0 L5,5 L4,5 Z"
+                <!-- Name cannot be used in resources. -->
+                <Path Data="M0,2.5 L5,0 L5,5 L4,5 Z"
                       Effect="{StaticResource waveEffect}"
                       b:AnimateEffectBehavior.Waving="True"
                       Fill="Red">
@@ -632,10 +633,21 @@
                 </MenuItem>
                 <MenuItem Header="{DynamicResource ToolsMenuHeader}">
                     <MenuItem Header="{DynamicResource ThemeMenuHeader}">
-                        <MenuItem Header="_Windows Classic" IsChecked="True" />
-                        <MenuItem Header="Linu_x" />
+                        <Interaction.Behaviors>
+                            <BehaviorCollection>
+                                <AutoCheckMenuItemsBehavior />
+                            </BehaviorCollection>
+                        </Interaction.Behaviors>
+                        <MenuItem Header="_Windows Classic" IsChecked="True"
+                                  Command="{x:Static h:GameCommands.SwitchTheme}"
+                                  CommandParameter="luna.normalcolor" />
+                        <MenuItem Header="Linu_x"
+                                  Command="{x:Static h:GameCommands.SwitchTheme}"
+                                  CommandParameter="linux.ubuntu" />
                         <Separator />
-                        <MenuItem Header="{DynamicResource CustomThemeMenuHeader}" />
+                        <MenuItem Header="{DynamicResource CustomThemeMenuHeader}"
+                                  Command="{x:Static h:GameCommands.SwitchTheme}"
+                                  CommandParameter="{x:Static s:SwitchThemeMessage.CustomThemeKey}"/>
                     </MenuItem>
                     <MenuItem Header="{DynamicResource LanguageMenuHeader}">
                         <Interaction.Behaviors>

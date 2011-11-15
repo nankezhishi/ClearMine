@@ -28,7 +28,7 @@
             {
                 var savePathDialog = new SaveFileDialog();
                 savePathDialog.DefaultExt = Settings.Default.SavedGameExt;
-                savePathDialog.Filter = LocalizationHelper.FindText("SavedGameFilter", Settings.Default.SavedGameExt);
+                savePathDialog.Filter = ResourceHelper.FindText("SavedGameFilter", Settings.Default.SavedGameExt);
                 if (savePathDialog.ShowDialog() == true)
                 {
                     path = savePathDialog.FileName;
@@ -55,12 +55,12 @@
         {
             if (!File.Exists(path))
             {
-                throw new FileNotFoundException(LocalizationHelper.FindText("SavedGamePathNotFound"), path);
+                throw new FileNotFoundException(ResourceHelper.FindText("SavedGamePathNotFound"), path);
             }
 
             if (gameType == null || gameType.GetInterface(typeof(IClearMine).FullName) == null)
             {
-                throw new InvalidOperationException(LocalizationHelper.FindText("InvalidClearMineGameType", gameType.FullName));
+                throw new InvalidOperationException(ResourceHelper.FindText("InvalidClearMineGameType", gameType.FullName));
             }
 
             IClearMine newgame = null;
@@ -77,7 +77,7 @@
             }
             else
             {
-                MessageBox.Show(LocalizationHelper.FindText("CorruptedSavedGameMessage"), LocalizationHelper.FindText("CorruptedSavedGameTitle"));
+                MessageBox.Show(ResourceHelper.FindText("CorruptedSavedGameMessage"), ResourceHelper.FindText("CorruptedSavedGameTitle"));
             }
 
             return newgame;
