@@ -1,7 +1,6 @@
 ﻿namespace ClearMine
 {
     using System.Windows;
-    using System.Windows.Media;
 
     using ClearMine.Common.Messaging;
     using ClearMine.Common.Modularity;
@@ -24,19 +23,13 @@
         {
             Application.Current.Startup -= new StartupEventHandler(OnApplicationStartup);
 
-            var mainWindow = new Window()
+            new Window()
             {
                 Width = 480,
                 Height = 480,
-                UseLayoutRounding = true,
-                Background = Brushes.Silver,
                 DataContext = new ClearMineViewModel(),
-                WindowStartupLocation = WindowStartupLocation.CenterScreen,
-            };
-            TextOptions.SetTextFormattingMode(mainWindow, TextFormattingMode.Display);
-            mainWindow.SetResourceReference(Window.TitleProperty, "ApplicationTitle");
-            mainWindow.SetBinding(Window.ContentProperty, ".");
-            mainWindow.Show();
+                WindowStartupLocation = WindowStartupLocation.CenterScreen
+            }.Show();
         }
     }
 }

@@ -487,4 +487,11 @@
         <Setter Property="ItemContainerStyle"
                 Value="{StaticResource {x:Static GridView.GridViewItemContainerStyleKey}}" />
     </Style>
+    <Style TargetType="{x:Type Window}">
+        <Setter Property="Background" Value="Silver" />
+        <Setter Property="UseLayoutRounding" Value="True" />
+        <Setter Property="TextOptions.TextFormattingMode" Value="Display" />
+        <Setter Property="Content" Value="{Binding}" />
+        <Setter Property="Title" Value="{DynamicResource ApplicationTitle}" />
+    </Style>
 </ResourceDictionary>
