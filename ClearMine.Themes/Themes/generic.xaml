@@ -487,6 +487,7 @@
         <Setter Property="ItemContainerStyle"
                 Value="{StaticResource {x:Static GridView.GridViewItemContainerStyleKey}}" />
     </Style>
+
     <Style TargetType="{x:Type Window}">
         <Setter Property="Background" Value="Silver" />
         <Setter Property="UseLayoutRounding" Value="True" />

@@ -11,6 +11,8 @@
     <Rect x:Key="MarkViewbox">-0.25,-0.2 1.45,1.5</Rect>
     <Rect x:Key="FaceViewbox">-0.2,-0.2 1.4,1.4</Rect>
 
+    <SolidColorBrush x:Key="PreparedFaceBrush" Color="Transparent" />
+
     <DrawingBrush x:Key="NormalFaceBrush"
                   Stretch="Uniform"
                   Viewbox="{StaticResource FaceViewbox}">
@@ -284,6 +286,8 @@
         </DrawingBrush.Drawing>
     </DrawingBrush>
 
+    <SolidColorBrush x:Key="BomMineBrush" Color="Transparent" />
+
     <DrawingBrush x:Key="WrongMineMark"
                   Stretch="Uniform"
                   Viewbox="{StaticResource FaceViewbox}">
@@ -320,6 +324,8 @@
             </DrawingGroup>
         </DrawingBrush.Drawing>
     </DrawingBrush>
+
+    <SolidColorBrush x:Key="NewGameButtonFocusedBackground" Color="Transparent" />
 
     <DrawingBrush x:Key="NewGameButtonPressedBackground">
         <DrawingBrush.Drawing>
@@ -691,7 +697,7 @@
                                   DisplayNumber="{Binding Time}" />
                 <Button Command="New"
                         Margin="18,0,18,0"
-                        Style="{StaticResource NewGameButtonStyle}">
+                        Style="{DynamicResource NewGameButtonStyle}">
                     <Border x:Name="newGameIcon"
                             Background="{DynamicResource NormalFaceBrush}" />
                 </Button>

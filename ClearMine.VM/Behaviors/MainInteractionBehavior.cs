@@ -23,6 +23,13 @@
         private bool expanding = false;
         private ClearMineViewModel vm;
         private DateTime? lastStateChangedTime;
+        private Window attachedWindow;
+
+        static MainInteractionBehavior()
+        {
+            EventManager.RegisterClassHandler(typeof(MineCellControl), UIElement.MouseLeaveEvent, new MouseEventHandler(OnCellMouseLeave));
+            EventManager.RegisterClassHandler(typeof(MineCellControl), UIElement.MouseEnterEvent, new MouseEventHandler(OnCellMouseEnter));
+        }
 
         protected override void OnAttached()
         {
@@ -33,11 +40,12 @@
             AttachedObject.MouseDown += new MouseButtonEventHandler(OnMineGroudMouseDown);
             AttachedObject.MouseLeave += new MouseEventHandler(OnMineGroudMouseLeave);
             AttachedObject.MouseEnter += new MouseEventHandler(OnMineGroudMouseEnter);
-            Window.GetWindow(AttachedObject).Closing += new CancelEventHandler(OnMainWindowClosing);
-            Window.GetWindow(AttachedObject).StateChanged += new EventHandler(OnMainWindowStateChanged);
-
-            EventManager.RegisterClassHandler(typeof(MineCellControl), UIElement.MouseLeaveEvent, new MouseEventHandler(OnCellMouseLeave));
-            EventManager.RegisterClassHandler(typeof(MineCellControl), UIElement.MouseEnterEvent, new MouseEventHandler(OnCellMouseEnter));
+            attachedWindow = Window.GetWindow(AttachedObject);
+            if (attachedWindow != null)
+            {
+                attachedWindow.Closing += new CancelEventHandler(OnMainWindowClosing);
+                attachedWindow.StateChanged += new EventHandler(OnMainWindowStateChanged);
+            }
         }
 
         protected override void OnDetaching()
@@ -47,8 +55,11 @@
             AttachedObject.MouseDown -= new MouseButtonEventHandler(OnMineGroudMouseDown);
             AttachedObject.MouseLeave -= new MouseEventHandler(OnMineGroudMouseLeave);
             AttachedObject.MouseEnter -= new MouseEventHandler(OnMineGroudMouseEnter);
-            Window.GetWindow(AttachedObject).Closing -= new CancelEventHandler(OnMainWindowClosing);
-            Window.GetWindow(AttachedObject).StateChanged -= new EventHandler(OnMainWindowStateChanged);
+            if (attachedWindow != null)
+            {
+                attachedWindow.Closing -= new CancelEventHandler(OnMainWindowClosing);
+                attachedWindow.StateChanged -= new EventHandler(OnMainWindowStateChanged);
+            }
         }
 
         private void OnMineGroudMouseDown(object sender, MouseButtonEventArgs e)
@@ -113,6 +124,7 @@
                     if (vm.Game.MarkAt(cell))
                     {
                         vm.TriggerPropertyChanged("RemainedMines");
+                        vm.TriggerPropertyChanged("Flags");
                     }
                 }
             }

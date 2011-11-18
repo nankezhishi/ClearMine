@@ -65,9 +65,27 @@
         }
 
         [ReadOnly(true)]
+        public TimeSpan DigitalTime
+        {
+            get { return new TimeSpan(0, 0, 0, 0, game.UsedTime); }
+        }
+
+        [ReadOnly(true)]
         public string RemainedMines
         {
             get { return Convert.ToString(game.RemainedMines, CultureInfo.InvariantCulture); }
+        }
+
+        [ReadOnly(true)]
+        public int TotalMines
+        {
+            get { return game.TotalMines; }
+        }
+
+        [ReadOnly(true)]
+        public string Flags
+        {
+            get { return Convert.ToString(game.Cells.Where(c => c.State == CellState.MarkAsMine).Count(), CultureInfo.InvariantCulture); }
         }
 
         public bool IsMousePressed
@@ -140,6 +158,8 @@
         public void RefreshUI()
         {
             TriggerPropertyChanged("Columns");
+            TriggerPropertyChanged("DigitalTime");
+            TriggerPropertyChanged("Flags");
             TriggerPropertyChanged("Rows");
             TriggerPropertyChanged("RemainedMines");
             TriggerPropertyChanged("Time");
@@ -203,6 +223,7 @@
         {
             TriggerPropertyChanged("IsPaused");
             TriggerPropertyChanged("RemainedMines");
+            TriggerPropertyChanged("Flags");
             TriggerPropertyChanged("State");
             if (game.GameState == GameState.Failed)
             {
@@ -263,7 +284,11 @@
                     game = message.NewGame;
 
                     game.StateChanged += OnGameStateChanged;
-                    game.TimeChanged += (sender, e) => TriggerPropertyChanged("Time");
+                    game.TimeChanged += (sender, e) =>
+                    {
+                        TriggerPropertyChanged("Time");
+                        TriggerPropertyChanged("DigitalTime");
+                    };
                     game.CellStateChanged += OnCellStateChanged;
                 }
                 else

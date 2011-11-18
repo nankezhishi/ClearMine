@@ -159,4 +159,5 @@
     <s:String x:Key="RequiresTwoValues">values must contains at least two element.</s:String>
     <s:String x:Key="ExpressionMustBeMember">parameter expression can only be member access expression.</s:String>
     <s:String x:Key="PerformanceIssueMoving">Item moving in cached collection. This is harmful to performance.</s:String>
+    <s:String x:Key="CompareSingleNumberFailed">Compare SingleNumber: {0} and {1} failed.</s:String>
 </ResourceDictionary>

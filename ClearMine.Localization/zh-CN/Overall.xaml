@@ -159,4 +159,5 @@
     <s:String x:Key="RequiresTwoValues">values参数必须包含两个元素。</s:String>
     <s:String x:Key="ExpressionMustBeMember">expression参数只能是成员访问表达式。</s:String>
     <s:String x:Key="PerformanceIssueMoving">在缓存数组中移动元素会严重影响性能。</s:String>
+    <s:String x:Key="CompareSingleNumberFailed">比较SingleNumber：{0}和{1}失败</s:String>
 </ResourceDictionary>

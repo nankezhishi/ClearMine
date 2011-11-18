@@ -71,7 +71,6 @@
 
         private void OnAttachedObjectUnloaded(object sender, RoutedEventArgs e)
         {
-            Debug.Assert(AutoDetach);
             AutoDetach = false;
             Detatch();
         }

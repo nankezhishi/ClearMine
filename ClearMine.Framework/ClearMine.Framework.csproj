@@ -111,6 +111,7 @@
     <Compile Include="Controls\MineCellControl.cs" />
     <Compile Include="Controls\MinesPanel.cs" />
     <Compile Include="Controls\NumberPresenter.cs" />
+    <Compile Include="Controls\SingleNumber.cs" />
     <Compile Include="Controls\VisualAdorner.cs" />
     <Compile Include="Converters\CacheStateToVisibilityConverter.cs" />
     <Compile Include="Converters\DifficultyToBooleanConverter.cs" />

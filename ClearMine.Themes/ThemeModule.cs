@@ -62,6 +62,11 @@
                 {
                     Resources[themeResourceIndex] = themeDictionary;
                 }
+
+                // Force update datatemplate. Is there any better way?
+                var data = Application.Current.MainWindow.DataContext;
+                Application.Current.MainWindow.DataContext = null;
+                Application.Current.MainWindow.DataContext = data;
             }
             catch (XamlParseException ex)
             {
