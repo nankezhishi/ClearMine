@@ -121,6 +121,7 @@
     <s:String x:Key="InvalidWidthMessage">Width should less than 30 and greater than 9.</s:String>
     <s:String x:Key="InvalidMinesMessage">Mines amount should less than the size of the area and greater than 10.</s:String>
     <s:String x:Key="HistoryNotExistMessage">The game history folder doesn't exists.</s:String>
+    <s:String x:Key="ShowAccurateTime">Show accurate gaming time.</s:String>
     
     <!-- Exception Dialog -->
     <s:String x:Key="ExceptionBoxTitle">Clear Mine - Exception</s:String>

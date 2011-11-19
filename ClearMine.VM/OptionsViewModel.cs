@@ -149,6 +149,13 @@
         }
 
         [SuppressMessage("Microsoft.Performance", "CA1822:MarkMembersAsStatic")]
+        public bool AccurateTime
+        {
+            get { return Settings.Default.AccurateTime; }
+            set { Settings.Default.AccurateTime = value; }
+        }
+
+        [SuppressMessage("Microsoft.Performance", "CA1822:MarkMembersAsStatic")]
         public void Save()
         {
             Settings.Default.Save();

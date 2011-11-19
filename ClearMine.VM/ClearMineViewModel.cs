@@ -115,6 +115,12 @@
             get { return game.GameState; }
         }
 
+        [ReadOnly(true)]
+        public int TimeAccuracy
+        {
+            get { return Settings.Default.AccurateTime ? 1 : 0; }
+        }
+
         public IEnumerable<MineCell> Cells
         {
             get { return game.Cells; }
@@ -236,6 +242,10 @@
                 {
                     pandingInitialize = true;
                 }
+            }
+            else if ("AccurateTime".Equals(e.PropertyName, StringComparison.Ordinal))
+            {
+                TriggerPropertyChanged("TimeAccuracy");
             }
             else
             {

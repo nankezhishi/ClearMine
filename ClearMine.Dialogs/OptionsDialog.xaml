@@ -87,16 +87,28 @@
         </GroupBox>
         <GroupBox Header="{DynamicResource GameEffectGroupLabel}"
                   Style="{StaticResource SeparatorGroupBoxStyle}">
-            <WrapPanel>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="5" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
                 <CheckBox Content="{DynamicResource PlaySoundLabel}"
-                          Margin="0,0,12,0"
                           IsChecked="{Binding PlaySound}" />
                 <CheckBox Content="{DynamicResource PlayAnimationLabel}"
-                          Margin="0,0,12,0"
+                          Grid.Column="1"
                           IsChecked="{Binding PlayAnimation}" />
                 <CheckBox Content="{DynamicResource WavingFlagEffect}"
+                          Grid.Row="2"
                           IsChecked="{Binding WavingFlag}" />
-            </WrapPanel>
+                <CheckBox Content="{DynamicResource ShowAccurateTime}"
+                          Grid.Row="2" Grid.Column="1"
+                          IsChecked="{Binding AccurateTime}" />
+            </Grid>
         </GroupBox>
         <GroupBox Header="{DynamicResource GameControlGroupLabel}"
                   Style="{StaticResource SeparatorGroupBoxStyle}">

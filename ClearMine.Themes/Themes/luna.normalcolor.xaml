@@ -691,8 +691,8 @@
                        Grid.ColumnSpan="3"
                        HorizontalAlignment="Center"
                        UseLayoutRounding="True">
-                <ElectronicNumber LengthAfterPoint="1"
-                                  MinLength="4"
+                <ElectronicNumber LengthAfterPoint="{Binding TimeAccuracy}"
+                                  MinLength="2"
                                   DisplayNumber="{Binding Time}" />
                 <Button Command="New"
                         Margin="18,0,18,0"

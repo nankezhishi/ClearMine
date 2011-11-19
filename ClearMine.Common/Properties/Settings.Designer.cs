@@ -313,5 +313,17 @@ namespace ClearMine.Common.Properties {
                 this["ShowTooManyFlagsWarning"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool AccurateTime {
+            get {
+                return ((bool)(this["AccurateTime"]));
+            }
+            set {
+                this["AccurateTime"] = value;
+            }
+        }
     }
 }

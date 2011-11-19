@@ -170,7 +170,7 @@
 
                 while (updateIndex >= 0)
                 {
-                    if (Numbers.Count > MinLength)
+                    if (Numbers.Count > TotalLength)
                     {
                         Numbers.RemoveAt(updateIndex);
                     }
@@ -196,16 +196,20 @@
                 Numbers = new ObservableCollection<SingleNumber>();
             }
 
-            int targetLength = LengthAfterPoint > 0 ? MinLength + LengthAfterPoint + 1 : MinLength;
-            while (Numbers.Count > targetLength)
+            while (Numbers.Count > TotalLength)
             {
                 Numbers.RemoveAt(0);
             }
 
-            while (Numbers.Count < targetLength)
+            while (Numbers.Count < TotalLength)
             {
                 Numbers.Add(new SingleNumber(0));
             }
+        }
+
+        private int TotalLength
+        {
+            get { return LengthAfterPoint > 0 ? MinLength + LengthAfterPoint + 1 : MinLength; }
         }
     }
 }
