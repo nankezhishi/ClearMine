@@ -274,7 +274,7 @@ namespace ClearMine.Common.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("nankezhishi@hotmail.com")]
+        [global::System.Configuration.DefaultSettingValueAttribute("fadefy@gmail.com")]
         public string FeedBackEmail {
             get {
                 return ((string)(this["FeedBackEmail"]));
