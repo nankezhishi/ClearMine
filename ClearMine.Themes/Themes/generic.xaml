@@ -494,5 +494,7 @@
         <Setter Property="TextOptions.TextFormattingMode" Value="Display" />
         <Setter Property="Content" Value="{Binding}" />
         <Setter Property="Title" Value="{DynamicResource ApplicationTitle}" />
+        <!-- ContentTemplate is applied in a static way by default. -->
+        <Setter Property="ContentTemplate" Value="{DynamicResource {x:Type v:ClearMineViewModel}}" />
     </Style>
 </ResourceDictionary>

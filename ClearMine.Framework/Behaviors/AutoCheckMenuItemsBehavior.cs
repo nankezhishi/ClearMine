@@ -1,10 +1,12 @@
 ﻿namespace ClearMine.Framework.Behaviors
 {
+    using System;
     using System.Diagnostics;
     using System.Linq;
     using System.Windows;
     using System.Windows.Controls;
 
+    using ClearMine.Common.Utilities;
     using ClearMine.Framework.Interactivity;
 
     public class AutoCheckMenuItemsBehavior : Behavior<MenuItem>
@@ -23,14 +25,26 @@
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        public string CurrentValueStoragePropertyName { get; set; }
+
         protected override void OnAttached()
         {
             AttachedObject.Click += new RoutedEventHandler(OnMenuItemClick);
+            AttachedObject.Initialized += new EventHandler(OnMenuItemInitialized);
         }
 
         protected override void OnDetaching()
         {
             AttachedObject.Click -= new RoutedEventHandler(OnMenuItemClick);
+            AttachedObject.Initialized -= new EventHandler(OnMenuItemInitialized);
+        }
+
+        private void OnMenuItemInitialized(object sender, EventArgs e)
+        {
+            SelectItemFromViewModel();
         }
 
         private void OnMenuItemClick(object sender, RoutedEventArgs e)
@@ -68,7 +82,7 @@
             {
                 if (child.IsCheckable)
                 {
-                    Trace.TraceWarning("AutoCheckMenuItemsBehavior may not be able to work with a checkable menu item correctly.");
+                    Trace.TraceWarning(ResourceHelper.FindText("AutoCheckIncompatibleMessage"));
                 }
 
                 if (child.IsChecked)
@@ -80,6 +94,30 @@
             }
 
             menuToCheck.IsChecked = true;
+            if (AttachedObject.DataContext != null)
+            {
+                AttachedObject.DataContext.SetValue(CurrentValueStoragePropertyName, menuToCheck.CommandParameter);
+            }
+            else
+            {
+                Trace.TraceWarning(ResourceHelper.FindText("AutoCheckCannotStoreSelection"));
+            }
+        }
+
+        private void SelectItemFromViewModel()
+        {
+            if (AttachedObject.DataContext != null)
+            {
+                var currentValue = AttachedObject.DataContext.GetValue<string>(CurrentValueStoragePropertyName);
+                foreach (var item in AttachedObject.Items)
+                {
+                    var menuItem = item as MenuItem;
+                    if (menuItem != null)
+                    {
+                        menuItem.IsChecked = String.CompareOrdinal(menuItem.CommandParameter as string, currentValue) == 0;
+                    }
+                }
+            }
         }
     }
 }

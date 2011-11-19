@@ -203,8 +203,12 @@
 
         private void OnAttatchedObjectLoaded(object sender, RoutedEventArgs e)
         {
-            vm.StartNewGame();
-            vm.RefreshUI();
+            // Swith theme also trigger this load event, but we don't want to start a new game here.
+            if (vm.State == GameState.Initialized)
+            {
+                vm.StartNewGame();
+                vm.RefreshUI();
+            }
         }
 
         private static void HandleExpandedCells(IEnumerable<MineCell> cells)

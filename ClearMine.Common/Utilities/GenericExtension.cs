@@ -33,6 +33,36 @@
         /// 
         /// </summary>
         /// <typeparam name="T"></typeparam>
+        /// <param name="instance"></param>
+        /// <param name="memberName"></param>
+        /// <returns></returns>
+        public static T GetValue<T>(this object instance, string memberName)
+        {
+            var member = instance.GetType().GetProperty(memberName);
+            if (member == null)
+                throw new ArgumentException(String.Format("无法在类型{0}中找到属性{1}", instance.GetType().FullName, memberName));
+            else
+                return (T)member.GetValue(instance, null);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="instance"></param>
+        /// <param name="memberName"></param>
+        public static void SetValue(this object instance, string memberName, object value)
+        {
+            var member = instance.GetType().GetProperty(memberName);
+            if (member == null)
+                throw new ArgumentException(String.Format("无法在类型{0}中找到属性{1}", instance.GetType().FullName, memberName));
+            else
+                member.SetValue(instance, value, null);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
         /// <param name="element"></param>
         /// <returns></returns>
         public static IEnumerable<T> FindChildren<T>(this DependencyObject element, Predicate<T> condition = null)

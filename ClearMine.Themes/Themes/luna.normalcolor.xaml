@@ -603,7 +603,7 @@
         </Style.Triggers>
     </Style>
 
-    <DataTemplate DataType="{x:Type vm:ClearMineViewModel}">
+    <DataTemplate x:Key="{x:Type vm:ClearMineViewModel}" DataType="{x:Type vm:ClearMineViewModel}">
         <Grid h:CommandsHelper.LoadBindingsFromVM="True">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
@@ -641,10 +641,10 @@
                     <MenuItem Header="{DynamicResource ThemeMenuHeader}">
                         <Interaction.Behaviors>
                             <BehaviorCollection>
-                                <AutoCheckMenuItemsBehavior />
+                                <AutoCheckMenuItemsBehavior CurrentValueStoragePropertyName="CurrentTheme" />
                             </BehaviorCollection>
                         </Interaction.Behaviors>
-                        <MenuItem Header="_Windows Classic" IsChecked="True"
+                        <MenuItem Header="_Windows Classic"
                                   Command="{x:Static h:GameCommands.SwitchTheme}"
                                   CommandParameter="luna.normalcolor" />
                         <MenuItem Header="Linu_x"
@@ -658,8 +658,7 @@
                     <MenuItem Header="{DynamicResource LanguageMenuHeader}">
                         <Interaction.Behaviors>
                             <BehaviorCollection>
-                                <AutoCheckMenuItemsBehavior />
-                                <SelectCurrentUICultureBehavior />
+                                <AutoCheckMenuItemsBehavior CurrentValueStoragePropertyName="CurrentLanguage" />
                             </BehaviorCollection>
                         </Interaction.Behaviors>
                         <MenuItem Header="{DynamicResource EnglishMenuItemHeader}"

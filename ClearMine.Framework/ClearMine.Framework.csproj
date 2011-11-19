@@ -99,7 +99,6 @@
   <ItemGroup>
     <Compile Include="Behaviors\AnimateEffectBehavior.cs" />
     <Compile Include="Behaviors\AutoCheckMenuItemsBehavior.cs" />
-    <Compile Include="Behaviors\SelectCurrentUICultureBehavior.cs" />
     <Compile Include="Behaviors\SortableListViewBehavior.cs" />
     <Compile Include="Commands\CommandsHelper.cs" />
     <Compile Include="Commands\GameCommands.cs" />

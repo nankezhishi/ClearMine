@@ -13,7 +13,7 @@
     using ClearMine.Common.Utilities;
     using ClearMine.VM.Commands;
 
-    internal sealed class OptionsViewModel : ViewModelBase, IDataErrorInfo
+    public sealed class OptionsViewModel : ViewModelBase, IDataErrorInfo
     {
         private string error;
 

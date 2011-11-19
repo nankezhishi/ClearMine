@@ -12,7 +12,7 @@
     using ClearMine.Common.Utilities;
     using ClearMine.VM.Commands;
 
-    internal class StatisticsViewModel : ViewModelBase
+    public class StatisticsViewModel : ViewModelBase
     {
         private static string defaultSortColumn;
         private Difficulty selectedLevel;

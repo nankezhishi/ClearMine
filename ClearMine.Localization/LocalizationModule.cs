@@ -65,8 +65,12 @@
                 {
                     Resources[languageResourceIndex] = languageDictionary;
                 }
+                else
+                {
+                    message.HandlingResult = true;
+                }
             }
-            catch (XamlParseException ex)
+            catch (Exception ex)
             {
                 var msg = ResourceHelper.FindText("ResourceParseError", ex.Message);
                 message.HandlingResult = true;

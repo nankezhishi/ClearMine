@@ -79,7 +79,9 @@
         <DrawingBrush.Drawing>
             <GeometryDrawing Geometry="M0,0 L15,15 M15,0 L 0,15">
                 <GeometryDrawing.Pen>
-                    <Pen Brush="Red"
+                    <Pen Brush="Black"
+					     EndLineCap="Round"
+					     StartLineCap="Round"
                          Thickness="1" />
                 </GeometryDrawing.Pen>
             </GeometryDrawing>
@@ -404,6 +406,8 @@
                                Value="True" />
                     <Condition Binding="{Binding HasMine}"
                                Value="True" />
+                    <Condition Binding="{Binding State}"
+                               Value="{x:Static logic:CellState.Normal}" />
                 </MultiDataTrigger.Conditions>
                 <Setter Property="Foreground"
                         Value="{DynamicResource MineBrush}" />
@@ -422,7 +426,7 @@
                                Value="False" />
                 </MultiDataTrigger.Conditions>
                 <Setter Property="Foreground"
-                        Value="{DynamicResource MineBrush}" />
+                        Value="{DynamicResource FlagBrush}" />
                 <Setter Property="Mark"
                         Value="{DynamicResource WrongMineMark}" />
             </MultiDataTrigger>
@@ -434,9 +438,9 @@
         </Style.Triggers>
     </Style>
 
-    <DataTemplate DataType="{x:Type vm:ClearMineViewModel}">
+    <DataTemplate x:Key="{x:Type vm:ClearMineViewModel}" DataType="{x:Type vm:ClearMineViewModel}">
         <Grid h:CommandsHelper.LoadBindingsFromVM="True"
-              Background="#FFF2F1F0">
+              Background="#FFF2F1F0" x:Name="root">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="5" />
@@ -474,10 +478,10 @@
                     <MenuItem Header="{DynamicResource ThemeMenuHeader}">
                         <Interaction.Behaviors>
                             <BehaviorCollection>
-                                <AutoCheckMenuItemsBehavior />
+                                <AutoCheckMenuItemsBehavior CurrentValueStoragePropertyName="CurrentTheme" />
                             </BehaviorCollection>
                         </Interaction.Behaviors>
-                        <MenuItem Header="_Windows Classic" IsChecked="True"
+                        <MenuItem Header="_Windows Classic"
                                   Command="{x:Static h:GameCommands.SwitchTheme}"
                                   CommandParameter="luna.normalcolor" />
                         <MenuItem Header="Linu_x"
@@ -491,8 +495,7 @@
                     <MenuItem Header="{DynamicResource LanguageMenuHeader}">
                         <Interaction.Behaviors>
                             <BehaviorCollection>
-                                <AutoCheckMenuItemsBehavior />
-                                <SelectCurrentUICultureBehavior />
+                                <AutoCheckMenuItemsBehavior CurrentValueStoragePropertyName="CurrentLanguage" />
                             </BehaviorCollection>
                         </Interaction.Behaviors>
                         <MenuItem Header="{DynamicResource EnglishMenuItemHeader}"

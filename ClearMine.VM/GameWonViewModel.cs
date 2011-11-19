@@ -10,7 +10,7 @@
     using ClearMine.Common.Utilities;
     using ClearMine.VM.Commands;
 
-    internal class GameWonViewModel : ViewModelBase
+    public class GameWonViewModel : ViewModelBase
     {
         public GameWonViewModel(double usedTime, DateTime time)
         {

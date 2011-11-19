@@ -1,10 +1,10 @@
 ﻿namespace ClearMine.Themes
 {
+    using System;
     using System.Collections.ObjectModel;
     using System.Windows;
     using System.Windows.Media;
     using System.Windows.Media.Effects;
-    using System.Xaml;
 
     using ClearMine.Common.Messaging;
     using ClearMine.Common.Modularity;
@@ -62,13 +62,12 @@
                 {
                     Resources[themeResourceIndex] = themeDictionary;
                 }
-
-                // Force update datatemplate. Is there any better way?
-                var data = Application.Current.MainWindow.DataContext;
-                Application.Current.MainWindow.DataContext = null;
-                Application.Current.MainWindow.DataContext = data;
+                else
+                {
+                    message.HandlingResult = true;
+                }
             }
-            catch (XamlParseException ex)
+            catch (Exception ex)
             {
                 var msg = ResourceHelper.FindText("ResourceParseError", ex.Message);
                 message.HandlingResult = true;

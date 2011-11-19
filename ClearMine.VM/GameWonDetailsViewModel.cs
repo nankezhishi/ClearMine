@@ -10,7 +10,7 @@
     using ClearMine.Common.ComponentModel;
     using ClearMine.Common.Properties;
 
-    internal class GameWonDetailsViewModel : ViewModelBase
+    public class GameWonDetailsViewModel : ViewModelBase
     {
         private HeroHistory history;
 
