@@ -181,6 +181,17 @@
         </Setter>
     </Style>
 
+    <Style x:Key="ItemFocusVisual">
+        <Setter Property="Control.Template">
+            <Setter.Value>
+                <ControlTemplate>
+                    <Rectangle StrokeThickness="1"
+                               Stroke="{StaticResource DashFocusBrush}" />
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
     <Style TargetType="{x:Type Button}">
         <Setter Property="Padding"
                 Value="10,2" />
@@ -258,6 +269,8 @@
                 Value="Transparent" />
         <Setter Property="TextDecorations"
                 Value="{x:Null}" />
+        <Setter Property="FocusVisualStyle"
+                Value="{StaticResource ItemFocusVisual}" />
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
                 <Setter Property="Foreground"
@@ -303,6 +316,8 @@
                 Value="Transparent" />
         <Setter Property="Background"
                 Value="Transparent" />
+        <Setter Property="FocusVisualStyle"
+                Value="{StaticResource ItemFocusVisual}" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type ListBoxItem}">

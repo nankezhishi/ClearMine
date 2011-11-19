@@ -84,9 +84,9 @@
                            BasedOn="{StaticResource {x:Static GridView.GridViewItemContainerStyleKey}}">
                         <Setter Property="ToolTip">
                             <Setter.Value>
-                                <ToolTip MaxHeight="175" MaxWidth="175">
+                                <ToolTip MaxHeight="175" MaxWidth="300">
                                     <Image Source="{Binding ScreenShootUri}"
-                                           Margin="7" Stretch="UniformToFill" />
+                                           Margin="7" Stretch="Uniform" />
                                 </ToolTip>
                             </Setter.Value>
                         </Setter>

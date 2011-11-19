@@ -711,7 +711,7 @@
                     <Border.BorderThickness>
                         <MultiBinding Converter="{StaticResource PlaygroundBorderThicknessConverter}"
                                       ConverterParameter="0.2">
-                            <Binding Path="ActualWidth"
+                            <Binding Path="ActualHeight"
                                      ElementName="playground" />
                             <Binding Path="Columns" />
                         </MultiBinding>
