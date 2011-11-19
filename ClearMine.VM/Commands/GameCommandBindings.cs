@@ -145,7 +145,7 @@
 
         private static void OnFeedbackExecuted(object sender, ExecutedRoutedEventArgs e)
         {
-            EmailHelper.Send(ResourceHelper.FindText("ClearMineFeedbackContent"),
+            WebTools.SendEmail(ResourceHelper.FindText("ClearMineFeedbackContent"),
                 ResourceHelper.FindText("ClearMineFeedbackTitle"), Settings.Default.FeedBackEmail);
         }
         #endregion
