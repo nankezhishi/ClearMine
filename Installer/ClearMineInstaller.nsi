@@ -1,7 +1,7 @@
 !include "MUI2.nsh"
 !include "uninstallfromlog.nsh"
 
-Name "Sample Application"
+Name "Clear Mine"
 OutFile "ClearMineInstall.exe"
 InstallDir "C:\Program Files\Poleaf Software\ClearMine"
 RequestExecutionLevel user
@@ -30,11 +30,16 @@ SectionEnd
  Section "install"
     SetOutPath $INSTDIR
     WriteUninstaller $INSTDIR\Uninstaller.exe
-	File ..\Bin\Release\*.dll
-	File ..\Bin\Release\*.exe
-	File ..\Bin\Release\ClearMineHelp.chm
-	SetOutPath $INSTDIR\Sound
-	File ..\Bin\Release\Sound\*.wma
+    File ..\Bin\Release\*.dll
+    File ..\Bin\Release\ClearMine.exe
+    File ..\Bin\Release\ClearMine.exe.config
+    File ..\Bin\Release\ClearMineHelp.chm
+    SetOutPath $INSTDIR\Localization\zh-CN
+    File ..\ClearMine.Localization\zh-CN\Overall.xaml
+    SetOutPath $INSTDIR\Themes
+    File ..\ClearMine.Themes\Themes\luna.normalcolor.xaml
+    SetOutPath $INSTDIR\Sound
+    File ..\Bin\Release\Sound\*.wma
 SectionEnd
 
 Section Uninstall

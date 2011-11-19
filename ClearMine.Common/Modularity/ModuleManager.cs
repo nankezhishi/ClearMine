@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Diagnostics;
     using System.IO;
     using System.Linq;
     using System.Reflection;
@@ -21,16 +22,25 @@
             var dlls = Directory.EnumerateFiles(".", "*.dll", SearchOption.AllDirectories).Concat(Directory.EnumerateFiles(".", "*.exe", SearchOption.AllDirectories));
             foreach(var dll in dlls)
             {
-                var assembly = Assembly.LoadFile(Path.GetFullPath(dll));
-                foreach (var type in assembly.GetTypes())
+                try
                 {
-                    if (type.GetInterface(typeof(IModule).FullName) != null
-                        && loadedModules.All(m => m.GetType() != type))
+                    var assembly = Assembly.LoadFile(Path.GetFullPath(dll));
+                    foreach (var type in assembly.GetTypes())
                     {
-                        var module = Activator.CreateInstance(type) as IModule;
-                        module.InitializeModule();
-                        loadedModules.Add(module);
+                        if (type.GetInterface(typeof(IModule).FullName) != null
+                            && loadedModules.All(m => m.GetType() != type))
+                        {
+                            var module = Activator.CreateInstance(type) as IModule;
+                            module.InitializeModule();
+                            loadedModules.Add(module);
+                            // One dll should only contains one module class.
+                            break;
+                        }
                     }
+                }
+                catch (Exception e)
+                {
+                    Trace.TraceError(e.ToString());
                 }
             }
         }
