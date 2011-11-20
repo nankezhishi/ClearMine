@@ -19,11 +19,18 @@
                     Cursor="Hand"
                     Click="OnDonateButtonClick">
                 <Button.Style>
-                    <Style TargetType="{x:Type Button}">
+                    <Style TargetType="{x:Type Button}"
+                           BasedOn="{StaticResource {x:Type Button}}">
                         <Setter Property="Template">
                             <Setter.Value>
                                 <ControlTemplate TargetType="{x:Type Button}">
-                                    <ContentPresenter />
+                                    <Grid>
+                                        <TextBlock Margin="5,2,0,2"
+                                                   VerticalAlignment="Bottom">
+                                            <Hyperlink Focusable="False"><Run Text="{DynamicResource DonateLinkText}"/></Hyperlink>
+                                        </TextBlock>
+                                        <ContentPresenter />
+                                    </Grid>
                                 </ControlTemplate>
                             </Setter.Value>
                         </Setter>

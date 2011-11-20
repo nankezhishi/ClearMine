@@ -53,6 +53,7 @@
 
     <!-- About Dialog -->
     <s:String x:Key="AboutDialogTitle">关于扫雷</s:String>
+    <s:String x:Key="DonateLinkText">捐赠</s:String>
     <ImageSource x:Key="DonateImage">https://www.paypal.com/zh_CN/i/btn/btn_donate_LG.gif</ImageSource>
 
     <!-- Output Dialog -->
