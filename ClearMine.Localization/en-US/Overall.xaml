@@ -53,6 +53,7 @@
 
     <!-- About Dialog -->
     <s:String x:Key="AboutDialogTitle">About ClearMine</s:String>
+    <ImageSource x:Key="DonateImage">https://www.paypal.com/en_US/i/btn/btn_donate_LG.gif</ImageSource>
     
     <!-- Output Dialog -->
     <s:String x:Key="OutputDialogTitle">Clear Mine - Log</s:String>

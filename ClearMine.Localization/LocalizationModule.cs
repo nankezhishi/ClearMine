@@ -4,7 +4,7 @@
     using System.Collections.ObjectModel;
     using System.Threading;
     using System.Windows;
-    using System.Xaml;
+    using System.Windows.Media;
 
     using ClearMine.Common.Messaging;
     using ClearMine.Common.Modularity;
@@ -61,7 +61,7 @@
             try
             {
                 var languageDictionary = path.MakeResDic();
-                if (Resources[languageResourceIndex].VerifyResources(languageDictionary, typeof(string)))
+                if (Resources[languageResourceIndex].VerifyResources(languageDictionary, typeof(string), typeof(ImageSource)))
                 {
                     Resources[languageResourceIndex] = languageDictionary;
                 }
