@@ -1,18 +1,24 @@
-﻿namespace ClearMine.Framework.Messages
+﻿namespace ClearMine.GameDefinition.Messages
 {
     using ClearMine.Common.Messaging;
-    using ClearMine.GameDefinition;
 
     /// <summary>
     /// 
     /// </summary>
     public class GameLoadMessage : MessageBase
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="game"></param>
         public GameLoadMessage(IClearMine game)
         {
             NewGame = game;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public IClearMine NewGame { get; set; }
     }
 }

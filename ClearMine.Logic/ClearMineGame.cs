@@ -10,9 +10,11 @@
     using System.Xml.Serialization;
 
     using ClearMine.Common.ComponentModel;
+    using ClearMine.Common.Messaging;
     using ClearMine.Common.Properties;
     using ClearMine.Common.Utilities;
     using ClearMine.GameDefinition;
+    using ClearMine.GameDefinition.Messages;
 
     [Serializable]
     [XmlRoot("savedGame")]
@@ -33,14 +35,11 @@
             timer = new DispatcherTimer() { Interval = new TimeSpan(0, 0, 0, 0, 100) };
             timer.Tick += new EventHandler(OnTick);
             Settings.Default.PropertyChanged += new PropertyChangedEventHandler(OnSettingsChanged);
+            MessageManager.SubscribeMessage<CellStatusMessage>(OnCellStatusChanged);
         }
 
         [field: NonSerialized]
-        public event EventHandler StateChanged;
-        [field: NonSerialized]
         public event EventHandler TimeChanged;
-        [field: NonSerialized]
-        public event EventHandler<CellStateChangedEventArgs> CellStateChanged;
 
         [XmlAttribute("timeUsed")]
         public int UsedTime
@@ -120,10 +119,7 @@
                         throw new NotImplementedException();
                     }
 
-                    if (StateChanged != null)
-                    {
-                        StateChanged.Invoke(this, EventArgs.Empty);
-                    }
+                    MessageManager.SendMessage<GameStatusMessage>(this);
                 }
             }
         }
@@ -185,10 +181,7 @@
         public void Initialize(Size size, int mines)
         {
             this.totalMines = mines;
-            foreach (var newCell in this.cells.SetSize(size))
-            {
-                newCell.StateChanged += new EventHandler<CellStateChangedEventArgs>(OnCellStateChanged);
-            }
+            this.cells.SetSize(size);
         }
 
         public void Restart()
@@ -240,10 +233,6 @@
             foreach (var cell in game.Cells)
             {
                 this.cells.Insert(index++, cell);
-                if (cell.CachingState == CachingState.InUse)
-                {
-                    cell.StateChanged += new EventHandler<CellStateChangedEventArgs>(OnCellStateChanged);
-                }
             }
 
             totalMines = game.totalMines;
@@ -276,6 +265,7 @@
                 {
                     GameState = GameState.Success;
                 }
+                MessageManager.SendMessage<UserOperationMessage>(this, GameOperation.Expand, result);
 
                 return result;
             }
@@ -302,6 +292,8 @@
             {
                 GameState = GameState.Success;
             }
+
+            MessageManager.SendMessage<UserOperationMessage>(this, GameOperation.MarkAs, new[] { cell });
         }
 
         public IEnumerable<MineCell> TryDigAt(MineCell cell)
@@ -329,6 +321,7 @@
                 }
                 else
                 {
+                    // Acturally, the dig operation doesn't really performed, so no need to send dig message here.
                     return result;
                 }
             }
@@ -352,6 +345,7 @@
                     GameState = GameState.Started;
                 }
             }
+            MessageManager.SendMessage<UserOperationMessage>(this, GameOperation.Dig, result);
 
             return result;
         }
@@ -372,21 +366,12 @@
             }
         }
 
-        private void OnCellStateChanged(object sender, CellStateChangedEventArgs e)
+        private void OnCellStatusChanged(CellStatusMessage message)
         {
-            var cell = sender as MineCell;
-            if (cell != null && cell.CachingState == CachingState.InUse)
+            if (message.Cell.CachingState == CachingState.InUse &&
+                GameState == GameState.Started)
             {
-                var temp = CellStateChanged;
-                if (temp != null)
-                {
-                    temp(this, e);
-                }
-
-                if (GameState == GameState.Started)
-                {
-                    cells.CalculateFlagsCount();
-                }
+                cells.CalculateFlagsCount();
             }
         }
 

@@ -7,7 +7,7 @@
     {
         public App()
         {
-            ClearMine.Common.Modularity.ModuleManager.LoadModules();
+            ClearMine.Common.Modularity.ModularityManager.LoadModules();
         }
     }
 }

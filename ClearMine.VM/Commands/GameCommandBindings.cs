@@ -25,7 +25,7 @@
     {
         #region Option Command
         private static ICommand option = new RoutedUICommand("Option", "Option",
-            typeof(ClearMineViewModel), new InputGestureCollection() { new KeyGesture(Key.O, ModifierKeys.Control) });
+            typeof(ClearMineViewModel), new InputGestureCollection() { new KeyGesture(Key.P, ModifierKeys.Control) });
         private static CommandBinding optionBinding = new CommandBinding(Option, OnOptionExecuted);
         public static ICommand Option
         {

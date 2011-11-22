@@ -10,9 +10,10 @@
     /// <summary>
     /// 
     /// </summary>
-    public static class ModuleManager
+    public static class ModularityManager
     {
         private static IList<IModule> loadedModules = new List<IModule>();
+        private static IList<IPlugin> loadedPlugins = new List<IPlugin>();
 
         /// <summary>
         /// 
@@ -33,8 +34,17 @@
                             var module = Activator.CreateInstance(type) as IModule;
                             module.InitializeModule();
                             loadedModules.Add(module);
-                            // One dll should only contains one module class.
-                            break;
+                        }
+                        else if (type.GetInterface(typeof(IPlugin).FullName) != null
+                            && loadedPlugins.All(m => m.GetType() != type))
+                        {
+                            var plugin = Activator.CreateInstance(type) as IPlugin;
+                            plugin.Initialize();
+                            loadedPlugins.Add(plugin);
+                        }
+                        else
+                        {
+                            // Do nothing.
                         }
                     }
                 }

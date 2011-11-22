@@ -44,6 +44,8 @@
 
         internal IEnumerable<MineCell> SetSize(Size newSize)
         {
+            List<MineCell> newCells = new List<MineCell>();
+
             if (this.size != newSize)
             {
                 this.size = newSize;
@@ -61,13 +63,15 @@
                         this.InsertItem(index++, newCell);
                         if (newCell.CachingState == CachingState.InUse)
                         {
-                            yield return newCell;
+                            newCells.Add(newCell);
                         }
                     }
                 }
 
                 OnPropertyChanged(new PropertyChangedEventArgs("Size"));
             }
+
+            return newCells;
         }
 
         internal void MarkAllAsNoraml()

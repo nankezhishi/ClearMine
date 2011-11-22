@@ -14,6 +14,8 @@
     using ClearMine.Framework.Interactivity;
     using ClearMine.GameDefinition;
     using ClearMine.GameDefinition.Utilities;
+    using ClearMine.Common.Messaging;
+    using ClearMine.GameDefinition.Messages;
 
     /// <summary>
     /// 
@@ -75,7 +77,7 @@
             {
                 if (cell != null && (vm.Game.GameState == GameState.Initialized || vm.Game.GameState == GameState.Started))
                 {
-                    ThreadPool.QueueUserWorkItem(o => HandleExpandedCells(vm.Game.TryExpandAt(cell)));
+                    ThreadPool.QueueUserWorkItem(o => vm.Game.TryExpandAt(cell));
                 }
                 expanding = true;
             }
@@ -109,7 +111,7 @@
                 expanding = false;
                 if (cell != null && (vm.Game.GameState == GameState.Initialized || vm.Game.GameState == GameState.Started))
                 {
-                    ThreadPool.QueueUserWorkItem(o => HandleExpandedCells(vm.Game.TryDigAt(cell)));
+                    ThreadPool.QueueUserWorkItem(o => vm.Game.TryDigAt(cell));
                 }
             }
             else if (e.ChangedButton == MouseButton.Right &&
@@ -208,23 +210,6 @@
             {
                 vm.StartNewGame();
                 vm.RefreshUI();
-            }
-        }
-
-        private static void HandleExpandedCells(IEnumerable<MineCell> cells)
-        {
-            int emptyCellExpanded = cells.Count(c => c.MinesNearby == 0);
-            if (emptyCellExpanded == 0)
-            {
-                // Do nothing.
-            }
-            else if (emptyCellExpanded > 1)
-            {
-                Player.Play(Settings.Default.SoundTileMultiple);
-            }
-            else
-            {
-                Player.Play(Settings.Default.SoundTileSingle);
             }
         }
 

@@ -2,8 +2,11 @@
 {
     using System;
     using System.ComponentModel;
+
     using ClearMine.Common.ComponentModel;
+    using ClearMine.Common.Messaging;
     using ClearMine.Common.Utilities;
+    using ClearMine.GameDefinition.Messages;
 
     public class MineCell : BindableObject, ICachable<MineCell>
     {
@@ -25,8 +28,6 @@
 
         [field: NonSerialized]
         public event EventHandler CacheStateChanged;
-        [field: NonSerialized]
-        public event EventHandler<CellStateChangedEventArgs> StateChanged;
 
         [Bindable(true)]
         public bool HasMine
@@ -134,11 +135,7 @@
                 {
                     var oldState = state;
                     SetProperty(ref state, value, "State");
-                    var temp = StateChanged;
-                    if (temp != null)
-                    {
-                        temp(this, new CellStateChangedEventArgs(this, oldState));
-                    }
+                    MessageManager.SendMessage<CellStatusMessage>(this, oldState);
                 }
             }
         }

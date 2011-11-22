@@ -125,12 +125,10 @@
                 if (value)
                 {
                     panel.MouseMove -= new MouseEventHandler(OnMouseMove);
-                    game.CellStateChanged += new EventHandler<CellStateChangedEventArgs>(OnCellStateChanged);
                 }
                 else
                 {
                     panel.MouseMove += new MouseEventHandler(OnMouseMove);
-                    game.CellStateChanged -= new EventHandler<CellStateChangedEventArgs>(OnCellStateChanged);
                 }
 
                 isEnabled = value;

@@ -37,6 +37,8 @@
             return message;
         }
 
+        // TODO: Maybe a post message method if any place need.
+
         private void EnumerateAliveProcessors(Action<Action<T>> action)
         {
             foreach (var reference in processors)

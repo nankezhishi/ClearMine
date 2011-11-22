@@ -123,8 +123,6 @@
     <Compile Include="Messages\ExceptionMessage.cs" />
     <Compile Include="Messages\ExceptionMessageProcessor.cs" />
     <Compile Include="Dialogs\OptionDialog.cs" />
-    <Compile Include="Messages\GameLoadMessage.cs" />
-    <Compile Include="Messages\GameStatusMessage.cs" />
     <Compile Include="Messages\HelpRequestedMessage.cs" />
     <Compile Include="Messages\HelpRequestedMessageProcessor.cs" />
     <Compile Include="Messages\ShowDialogMessage.cs" />

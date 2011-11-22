@@ -103,13 +103,14 @@
     <Compile Include="HeroHistory.cs" />
     <Compile Include="Messaging\SwitchLanguageMessage.cs" />
     <Compile Include="Messaging\SwitchThemeMessage.cs" />
+    <Compile Include="Modularity\IPlugin.cs" />
     <Compile Include="Utilities\IVisualShoot.cs" />
     <Compile Include="Utilities\ResourceHelper.cs" />
     <Compile Include="Messaging\MessageAggregator.cs" />
     <Compile Include="Messaging\MessageBase.cs" />
     <Compile Include="Messaging\MessageManager.cs" />
     <Compile Include="Modularity\IModule.cs" />
-    <Compile Include="Modularity\ModuleManager.cs" />
+    <Compile Include="Modularity\ModularityManager.cs" />
     <Compile Include="Utilities\Player.cs" />
     <Compile Include="Utilities\RedirectorTraceListener.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

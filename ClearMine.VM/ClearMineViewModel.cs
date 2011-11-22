@@ -19,6 +19,7 @@
     using ClearMine.GameDefinition;
     using ClearMine.GameDefinition.Utilities;
     using ClearMine.VM.Commands;
+    using ClearMine.GameDefinition.Messages;
 
     public sealed class ClearMineViewModel : ViewModelBase
     {
@@ -33,6 +34,8 @@
         {
             Settings.Default.PropertyChanged += OnSettingsChanged;
             MessageManager.SubscribeMessage<GameLoadMessage>(OnGameLoaded);
+            MessageManager.SubscribeMessage<CellStatusMessage>(OnCellStatusChanged);
+            MessageManager.SubscribeMessage<GameStatusMessage>(OnGameStatusChanged);
             OnGameLoaded(new GameLoadMessage(Infrastructure.Container.GetExportedValue<IClearMine>()));
         }
 
@@ -253,15 +256,17 @@
             }
         }
 
-        private void OnCellStateChanged(object sender, CellStateChangedEventArgs e)
+        private void OnCellStatusChanged(CellStatusMessage message)
         {
-            if (Settings.Default.PlayAnimation && e.Cell.State == CellState.Shown)
+            if (Settings.Default.PlayAnimation &&
+                message.Cell.State == CellState.Shown &&
+                Game.GameState == GameState.Started)
             {
                 Thread.Sleep(1);
             }
         }
 
-        private void OnGameStateChanged(object sender, EventArgs e)
+        private void OnGameStatusChanged(GameStatusMessage message)
         {
             TriggerPropertyChanged("IsPaused");
             TriggerPropertyChanged("RemainedMines");
@@ -270,7 +275,6 @@
             if (game.GameState == GameState.Failed)
             {
                 IsMousePressed = false;
-                Player.Play(Settings.Default.SoundLose);
                 Application.Current.Dispatcher.BeginInvoke(new Action(() =>
                 {
                     game.UpdateStatistics();
@@ -280,16 +284,11 @@
             else if (game.GameState == GameState.Success)
             {
                 IsMousePressed = false;
-                Player.Play(Settings.Default.SoundWin);
                 Application.Current.Dispatcher.BeginInvoke(new Action(() =>
                 {
                     game.UpdateStatistics();
                     ShowWonWindow();
                 }), DispatcherPriority.Input);
-            }
-            else if (game.GameState == GameState.Initialized)
-            {
-                Player.Play(Settings.Default.SoundStart);
             }
         }
 
@@ -324,14 +323,11 @@
                 if (game == null)
                 {
                     game = message.NewGame;
-
-                    game.StateChanged += OnGameStateChanged;
                     game.TimeChanged += (sender, e) =>
                     {
                         TriggerPropertyChanged("Time");
                         TriggerPropertyChanged("DigitalTime");
                     };
-                    game.CellStateChanged += OnCellStateChanged;
                 }
                 else
                 {

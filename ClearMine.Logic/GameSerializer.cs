@@ -9,8 +9,8 @@
     using ClearMine.Common.Messaging;
     using ClearMine.Common.Properties;
     using ClearMine.Common.Utilities;
-    using ClearMine.Framework.Messages;
     using ClearMine.GameDefinition;
+    using ClearMine.GameDefinition.Messages;
     using Microsoft.Win32;
 
     /// <summary>

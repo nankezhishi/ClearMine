@@ -46,6 +46,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UI", "UI", "{1430C746-C7AD-
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClearMine.GameDefinition", "ClearMine.GameDefinition\ClearMine.GameDefinition.csproj", "{04D44DD3-3819-4496-8A4C-03298742EA5D}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Plugins", "Plugins", "{E16AF3D0-3EEB-4957-B04B-0484164E6E7D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClearMine.Plugin.AudioPlayer", "ClearMine.Plugin.AudioPlayer\ClearMine.Plugin.AudioPlayer.csproj", "{16DB700F-87C3-4679-BE1E-45A0F479FABE}"
+EndProject
 Global
 	GlobalSection(TestCaseManagementSettings) = postSolution
 		CategoryFile = ClearMine.vsmdi
@@ -173,6 +177,16 @@ Global
 		{04D44DD3-3819-4496-8A4C-03298742EA5D}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{04D44DD3-3819-4496-8A4C-03298742EA5D}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{04D44DD3-3819-4496-8A4C-03298742EA5D}.Release|x86.ActiveCfg = Release|Any CPU
+		{16DB700F-87C3-4679-BE1E-45A0F479FABE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{16DB700F-87C3-4679-BE1E-45A0F479FABE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{16DB700F-87C3-4679-BE1E-45A0F479FABE}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{16DB700F-87C3-4679-BE1E-45A0F479FABE}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{16DB700F-87C3-4679-BE1E-45A0F479FABE}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{16DB700F-87C3-4679-BE1E-45A0F479FABE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{16DB700F-87C3-4679-BE1E-45A0F479FABE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{16DB700F-87C3-4679-BE1E-45A0F479FABE}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{16DB700F-87C3-4679-BE1E-45A0F479FABE}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{16DB700F-87C3-4679-BE1E-45A0F479FABE}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -189,5 +203,6 @@ Global
 		{1FD89229-5F29-4093-9B7F-6F8E09BADF7C} = {741AE855-69CA-4CF7-80DF-E80AEE547281}
 		{71C67E90-41FD-457E-B155-1EBE7396024A} = {741AE855-69CA-4CF7-80DF-E80AEE547281}
 		{CC32D652-BD21-4DAE-B075-B74569959801} = {5BB83E8E-CBBE-4D62-932D-14EDE2050B99}
+		{16DB700F-87C3-4679-BE1E-45A0F479FABE} = {E16AF3D0-3EEB-4957-B04B-0484164E6E7D}
 	EndGlobalSection
 EndGlobal
