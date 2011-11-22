@@ -5,13 +5,13 @@
     /// <summary>
     /// 
     /// </summary>
-    public class GameStatusMessage : MessageBase
+    public class GameStateMessage : MessageBase
     {
         /// <summary>
         /// 
         /// </summary>
         /// <param name="game"></param>
-        public GameStatusMessage(IClearMine game)
+        public GameStateMessage(IClearMine game)
         {
             Source = game;
         }

@@ -1,9 +1,7 @@
 ﻿namespace ClearMine.VM.Behaviors
 {
     using System;
-    using System.Collections.Generic;
     using System.ComponentModel;
-    using System.Linq;
     using System.Threading;
     using System.Windows;
     using System.Windows.Input;
@@ -14,8 +12,6 @@
     using ClearMine.Framework.Interactivity;
     using ClearMine.GameDefinition;
     using ClearMine.GameDefinition.Utilities;
-    using ClearMine.Common.Messaging;
-    using ClearMine.GameDefinition.Messages;
 
     /// <summary>
     /// 

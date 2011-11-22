@@ -17,9 +17,9 @@
     using ClearMine.Common.Utilities;
     using ClearMine.Framework.Messages;
     using ClearMine.GameDefinition;
+    using ClearMine.GameDefinition.Messages;
     using ClearMine.GameDefinition.Utilities;
     using ClearMine.VM.Commands;
-    using ClearMine.GameDefinition.Messages;
 
     public sealed class ClearMineViewModel : ViewModelBase
     {
@@ -34,8 +34,8 @@
         {
             Settings.Default.PropertyChanged += OnSettingsChanged;
             MessageManager.SubscribeMessage<GameLoadMessage>(OnGameLoaded);
-            MessageManager.SubscribeMessage<CellStatusMessage>(OnCellStatusChanged);
-            MessageManager.SubscribeMessage<GameStatusMessage>(OnGameStatusChanged);
+            MessageManager.SubscribeMessage<CellStateMessage>(OnCellStatusChanged);
+            MessageManager.SubscribeMessage<GameStateMessage>(OnGameStatusChanged);
             OnGameLoaded(new GameLoadMessage(Infrastructure.Container.GetExportedValue<IClearMine>()));
         }
 
@@ -256,7 +256,7 @@
             }
         }
 
-        private void OnCellStatusChanged(CellStatusMessage message)
+        private void OnCellStatusChanged(CellStateMessage message)
         {
             if (Settings.Default.PlayAnimation &&
                 message.Cell.State == CellState.Shown &&
@@ -266,7 +266,7 @@
             }
         }
 
-        private void OnGameStatusChanged(GameStatusMessage message)
+        private void OnGameStatusChanged(GameStateMessage message)
         {
             TriggerPropertyChanged("IsPaused");
             TriggerPropertyChanged("RemainedMines");

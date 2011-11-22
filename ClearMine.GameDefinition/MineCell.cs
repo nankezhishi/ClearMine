@@ -135,7 +135,7 @@
                 {
                     var oldState = state;
                     SetProperty(ref state, value, "State");
-                    MessageManager.SendMessage<CellStatusMessage>(this, oldState);
+                    MessageManager.SendMessage<CellStateMessage>(this, oldState);
                 }
             }
         }

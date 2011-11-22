@@ -35,7 +35,7 @@
             timer = new DispatcherTimer() { Interval = new TimeSpan(0, 0, 0, 0, 100) };
             timer.Tick += new EventHandler(OnTick);
             Settings.Default.PropertyChanged += new PropertyChangedEventHandler(OnSettingsChanged);
-            MessageManager.SubscribeMessage<CellStatusMessage>(OnCellStatusChanged);
+            MessageManager.SubscribeMessage<CellStateMessage>(OnCellStatusChanged);
         }
 
         [field: NonSerialized]
@@ -119,7 +119,7 @@
                         throw new NotImplementedException();
                     }
 
-                    MessageManager.SendMessage<GameStatusMessage>(this);
+                    MessageManager.SendMessage<GameStateMessage>(this);
                 }
             }
         }
@@ -366,7 +366,7 @@
             }
         }
 
-        private void OnCellStatusChanged(CellStatusMessage message)
+        private void OnCellStatusChanged(CellStateMessage message)
         {
             if (message.Cell.CachingState == CachingState.InUse &&
                 GameState == GameState.Started)

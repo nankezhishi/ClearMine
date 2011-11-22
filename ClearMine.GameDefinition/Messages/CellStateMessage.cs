@@ -5,13 +5,13 @@
     /// <summary>
     /// 
     /// </summary>
-    public class CellStatusMessage : MessageBase
+    public class CellStateMessage : MessageBase
     {
         /// <summary>
         /// 
         /// </summary>
         /// <param name="cell"></param>
-        public CellStatusMessage(MineCell cell, CellState oldState)
+        public CellStateMessage(MineCell cell, CellState oldState)
         {
             Cell = cell;
             OldState = oldState;

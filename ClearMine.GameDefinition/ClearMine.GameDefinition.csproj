@@ -56,9 +56,9 @@
     <Compile Include="IClearMine.cs" />
     <Compile Include="IGameSerializer.cs" />
     <Compile Include="IMinesGenerator.cs" />
-    <Compile Include="Messages\CellStatusMessage.cs" />
+    <Compile Include="Messages\CellStateMessage.cs" />
     <Compile Include="Messages\GameLoadMessage.cs" />
-    <Compile Include="Messages\GameStatusMessage.cs" />
+    <Compile Include="Messages\GameStateMessage.cs" />
     <Compile Include="Messages\UserOperationMessage.cs" />
     <Compile Include="MineCell.cs" />
     <Compile Include="PressState.cs" />

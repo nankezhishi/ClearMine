@@ -29,10 +29,10 @@
         public void Initialize()
         {
             MessageManager.SubscribeMessage<UserOperationMessage>(OnUserOperation);
-            MessageManager.SubscribeMessage<GameStatusMessage>(OnGameStateChanged);
+            MessageManager.SubscribeMessage<GameStateMessage>(OnGameStateChanged);
         }
 
-        private static void OnGameStateChanged(GameStatusMessage message)
+        private static void OnGameStateChanged(GameStateMessage message)
         {
             var game = message.Source as IClearMine;
             if (game != null)
