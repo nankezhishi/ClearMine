@@ -7,6 +7,8 @@
     /// </summary>
     public class PluginOption
     {
+        public string ID { get; set; }
+
         /// <summary>
         /// 
         /// </summary>

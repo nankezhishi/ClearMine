@@ -222,9 +222,9 @@
         #endregion
 
         #region Save Command
-        private static CommandBinding saveBinding = new CommandBinding(ApplicationCommands.Save, OnSaveExecuted, OnSaveCanExecuted);
+        private static CommandBinding saveSettingsBinding = new CommandBinding(ApplicationCommands.Save, OnSaveSettingsExecuted, OnSaveSettingsCanExecuted);
 
-        private static void OnSaveExecuted(object sender, ExecutedRoutedEventArgs e)
+        private static void OnSaveSettingsExecuted(object sender, ExecutedRoutedEventArgs e)
         {
             e.ExtractDataContext<OptionsViewModel>(vm =>
             {
@@ -238,7 +238,7 @@
             });
         }
 
-        private static void OnSaveCanExecuted(object sender, CanExecuteRoutedEventArgs e)
+        private static void OnSaveSettingsCanExecuted(object sender, CanExecuteRoutedEventArgs e)
         {
             e.CanExecute = String.IsNullOrWhiteSpace(e.ExtractDataContext<OptionsViewModel>().Error);
         }
@@ -298,7 +298,7 @@
 
         public static IEnumerable<CommandBinding> OptionCommandBindings
         {
-            get { return new[] { browseHistoryBinding, optionCloseBinding, saveBinding }; }
+            get { return new[] { browseHistoryBinding, optionCloseBinding, saveSettingsBinding }; }
         }
 
         public static IEnumerable<CommandBinding> MainCommandBindings

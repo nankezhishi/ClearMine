@@ -1,6 +1,7 @@
 ﻿namespace ClearMine.Plugin.AudioPlayer
 {
-    using System.Collections.Generic;
+    using System;
+    using System.IO;
     using System.Linq;
 
     using ClearMine.Common.Messaging;
@@ -15,6 +16,50 @@
     /// </summary>
     public class AudioPlayerPlugin : AbstractPlugin
     {
+        public AudioPlayerPlugin()
+        {
+            options.Add(new PluginOption()
+            {
+                ID = "Volumn",
+                Name = "Volumn",
+                Description = "Set the volumn of the sound",
+                ValueType = typeof(double),
+                Value = 0.5,
+                ValueValidator = value =>
+                {
+                    var v = (double)value;
+                    return v >= 0.0 && v <= 1.0;
+                },
+            });
+            options.Add(new PluginOption()
+            {
+                ID = "Won",
+                Name = "Won Music",
+                Description = "The music need to play when won.",
+                ValueType = typeof(string),
+                Value = null,
+                ValueValidator = value => File.Exists(Convert.ToString(value)),
+            });
+            options.Add(new PluginOption()
+            {
+                ID = "Lost",
+                Name = "Lost Music",
+                Description = "The music need to play when lost.",
+                ValueType = typeof(string),
+                Value = null,
+                ValueValidator = value => File.Exists(Convert.ToString(value)),
+            });
+            options.Add(new PluginOption()
+            {
+                ID = "New",
+                Name = "New Game Music",
+                Description = "The music need to play when start a new game.",
+                ValueType = typeof(string),
+                Value = null,
+                ValueValidator = value => File.Exists(Convert.ToString(value)),
+            });
+        }
+
         public override string Name
         {
             get { return "Music Player"; }
@@ -23,28 +68,6 @@
         public override string Description
         {
             get { return "Provide sound effect to some key game event."; }
-        }
-
-        public override IEnumerable<PluginOption> Options
-        {
-            get
-            {
-                return new[]
-                {
-                    new PluginOption()
-                    {
-                        Name = "Volumn",
-                        Description = "Set the volumn of the sound",
-                        ValueType = typeof(double),
-                        Value = 0.5,
-                        ValueValidator = value =>
-                        {
-                            var v = (double)value;
-                            return v >= 0.0 && v <= 1.0;
-                        },
-                    }
-                };
-            }
         }
 
         public override void Initialize()
@@ -60,15 +83,15 @@
             {
                 if (game.GameState == GameState.Failed)
                 {
-                    Player.Play(Settings.Default.SoundLose);
+                    Player.Play(this["Lost"].Value as string ?? Settings.Default.SoundLose);
                 }
                 else if (game.GameState == GameState.Success)
                 {
-                    Player.Play(Settings.Default.SoundWin);
+                    Player.Play(this["Won"].Value as string ?? Settings.Default.SoundWin);
                 }
                 else if (game.GameState == GameState.Initialized)
                 {
-                    Player.Play(Settings.Default.SoundStart);
+                    Player.Play(this["New"].Value as string ?? Settings.Default.SoundStart);
                 }
                 else
                 {

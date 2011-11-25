@@ -220,7 +220,6 @@
                 Settings.Default.Columns = 9;
                 Settings.Default.Mines = 10;
                 Settings.Default.Difficulty = Difficulty.Beginner;
-                Settings.Default.Save();
 
                 // Try again.
                 InitialPlayground();

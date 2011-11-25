@@ -10,6 +10,8 @@
     /// </summary>
     public abstract class AbstractPlugin : IPlugin
     {
+        protected IList<PluginOption> options = new List<PluginOption>();
+
         public abstract string Name { get; }
 
         public abstract string Description { get; }
@@ -34,14 +36,26 @@
         public bool IsEnabled
         {
             get { return (bool)(CurrentDataMap["IsEnabled"] ?? (CurrentDataMap["IsEnabled"] = false)); }
-            set
-            {
-                CurrentDataMap["IsEnabled"] = value;
-                Settings.Default.Save();
-            }
+            set { CurrentDataMap["IsEnabled"] = value; }
         }
 
-        public abstract IEnumerable<PluginOption> Options { get; }
+        public virtual IEnumerable<PluginOption> Options { get { return options; } }
+
+        public virtual PluginOption this[string id]
+        {
+            get
+            {
+                foreach (var option in options)
+                {
+                    if (String.CompareOrdinal(option.ID, id) == 0)
+                    {
+                        return option;
+                    }
+                }
+
+                return null;
+            }
+        }
 
         public abstract void Initialize();
     }
