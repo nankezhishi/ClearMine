@@ -49,7 +49,7 @@
         /// <param name="game"></param>
         /// <param name="cell"></param>
         /// <returns></returns>
-        public static bool MarkAt(this IClearMine game, MineCell cell)
+        public static bool AutoMarkAt(this IClearMine game, MineCell cell)
         {
             if (game == null)
                 throw new ArgumentNullException("game");

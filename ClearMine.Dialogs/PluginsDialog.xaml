@@ -1,0 +1,33 @@
+﻿<Window x:Class="ClearMine.UI.Dialogs.PluginsDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        WindowStartupLocation="CenterOwner"
+        Title="Plugins" Height="300" Width="300">
+    <DockPanel DataContext="{Binding Plugins}">
+        <ListView ItemsSource="{Binding}"
+                  IsSynchronizedWithCurrentItem="True">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Name"
+                                    DisplayMemberBinding="{Binding Name}" />
+                    <GridViewColumn Header="Enabled" >
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <CheckBox Content="{Binding IsEnabled}"
+                                          IsChecked="{Binding IsEnabled}" />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <DockPanel DataContext="{Binding /}"
+                   LastChildFill="False">
+            <DockPanel DockPanel.Dock="Top">
+                <Label Content="Description:" />
+                <TextBlock Text="{Binding Description}"
+                           TextWrapping="Wrap" />
+            </DockPanel>
+        </DockPanel>
+    </DockPanel>
+</Window>

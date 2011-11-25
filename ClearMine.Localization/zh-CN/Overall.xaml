@@ -40,6 +40,7 @@
     <s:String x:Key="ChineseMenuItemHeader">汉语(_N)</s:String>
     <s:String x:Key="CustomLanguageMenuItemHeader">自定义(_C)...</s:String>
     <s:String x:Key="OptionsMenuItemHeader">选项(_O)</s:String>
+    <s:String x:Key="PluginsMenuItemHeader">插件(_P)</s:String>
     <s:String x:Key="HelpMenuItemHeader">帮助(_H)</s:String>
     <s:String x:Key="ViewHelpMenuItemHeader">查看帮助(_V)</s:String>
     <s:String x:Key="SendFeedbakMenuItemHeader">发送反馈(_F)...</s:String>

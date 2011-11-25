@@ -40,6 +40,7 @@
     <s:String x:Key="ChineseMenuItemHeader">Chi_nese</s:String>
     <s:String x:Key="CustomLanguageMenuItemHeader">_Custom...</s:String>
     <s:String x:Key="OptionsMenuItemHeader">_Options</s:String>
+    <s:String x:Key="PluginsMenuItemHeader">_Plugins</s:String>
     <s:String x:Key="HelpMenuItemHeader">_Help</s:String>
     <s:String x:Key="ViewHelpMenuItemHeader">_View Help</s:String>
     <s:String x:Key="SendFeedbakMenuItemHeader">Send _Feedback...</s:String>

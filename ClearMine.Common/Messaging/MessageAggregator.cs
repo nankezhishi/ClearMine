@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Diagnostics;
     using System.Linq;
 
     internal class MessageAggregator<T> where T : MessageBase
@@ -43,7 +44,14 @@
         {
             foreach (var reference in processors)
             {
-                action(reference);
+                try
+                {
+                    action(reference);
+                }
+                catch (Exception e)
+                {
+                    Trace.TraceError(e.ToString());
+                }
             }
         }
     }

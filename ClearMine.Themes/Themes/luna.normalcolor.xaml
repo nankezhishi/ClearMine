@@ -675,6 +675,8 @@
                     <Separator />
                     <MenuItem Header="{DynamicResource OptionsMenuItemHeader}"
                               Command="{x:Static m:GameCommandBindings.Option}" />
+                    <MenuItem Header="{DynamicResource PluginsMenuItemHeader}"
+                              Command="{x:Static m:GameCommandBindings.Plugins}" />
                 </MenuItem>
                 <MenuItem Header="{DynamicResource HelpMenuItemHeader}">
                     <MenuItem Header="{DynamicResource ViewHelpMenuItemHeader}"

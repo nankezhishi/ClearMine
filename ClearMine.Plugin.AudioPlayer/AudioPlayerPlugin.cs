@@ -1,5 +1,6 @@
 ﻿namespace ClearMine.Plugin.AudioPlayer
 {
+    using System.Collections.Generic;
     using System.Linq;
 
     using ClearMine.Common.Messaging;
@@ -12,30 +13,50 @@
     /// <summary>
     /// 
     /// </summary>
-    public class AudioPlayerPlugin : IPlugin
+    public class AudioPlayerPlugin : AbstractPlugin
     {
-        public string Name
+        public override string Name
         {
             get { return "Music Player"; }
         }
 
-        public string Description
+        public override string Description
         {
             get { return "Provide sound effect to some key game event."; }
         }
 
-        public bool IsEnabled { get; set; }
-
-        public void Initialize()
+        public override IEnumerable<PluginOption> Options
         {
-            MessageManager.SubscribeMessage<UserOperationMessage>(OnUserOperation);
-            MessageManager.SubscribeMessage<GameStateMessage>(OnGameStateChanged);
+            get
+            {
+                return new[]
+                {
+                    new PluginOption()
+                    {
+                        Name = "Volumn",
+                        Description = "Set the volumn of the sound",
+                        ValueType = typeof(double),
+                        Value = 0.5,
+                        ValueValidator = value =>
+                        {
+                            var v = (double)value;
+                            return v >= 0.0 && v <= 1.0;
+                        },
+                    }
+                };
+            }
         }
 
-        private static void OnGameStateChanged(GameStateMessage message)
+        public override void Initialize()
+        {
+            MessageManager.SubscribeMessage<GameStateMessage>(OnGameStateChanged);
+            MessageManager.SubscribeMessage<UserOperationMessage>(OnUserOperation);
+        }
+
+        private void OnGameStateChanged(GameStateMessage message)
         {
             var game = message.Source as IClearMine;
-            if (game != null)
+            if (IsEnabled && game != null)
             {
                 if (game.GameState == GameState.Failed)
                 {
@@ -56,10 +77,10 @@
             }
         }
 
-        private static void OnUserOperation(UserOperationMessage message)
+        private void OnUserOperation(UserOperationMessage message)
         {
-            if (message.UserOperation == GameOperation.Expand ||
-                message.UserOperation == GameOperation.Dig)
+            if (IsEnabled && (message.UserOperation == GameOperation.Expand ||
+                message.UserOperation == GameOperation.Dig))
             {
                 int emptyCellExpanded = message.EffectedCells.Count(c => c.MinesNearby == 0);
                 if (emptyCellExpanded == 0)

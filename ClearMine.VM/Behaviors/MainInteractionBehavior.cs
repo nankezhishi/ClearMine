@@ -119,7 +119,7 @@
                 }
                 else
                 {
-                    if (vm.Game.MarkAt(cell))
+                    if (vm.Game.AutoMarkAt(cell))
                     {
                         vm.TriggerPropertyChanged("RemainedMines");
                         vm.TriggerPropertyChanged("Flags");

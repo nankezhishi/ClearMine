@@ -97,6 +97,19 @@ namespace ClearMine.Common.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("\r\n        <map xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"h" +
+            "ttp://www.w3.org/2001/XMLSchema\">\r\n        </map>\r\n      ")]
+        public global::ClearMine.Common.Utilities.DataMap DataMap {
+            get {
+                return ((global::ClearMine.Common.Utilities.DataMap)(this["DataMap"]));
+            }
+            set {
+                this["DataMap"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("True")]
         public bool PlaySound {
             get {

@@ -4,12 +4,14 @@
     using System.Collections;
     using System.Collections.Generic;
     using System.IO;
+    using System.Linq;
     using System.Windows;
     using System.Windows.Input;
     using System.Windows.Threading;
 
     using ClearMine.Common;
     using ClearMine.Common.Messaging;
+    using ClearMine.Common.Modularity;
     using ClearMine.Common.Properties;
     using ClearMine.Common.Utilities;
     using ClearMine.Framework.Behaviors;
@@ -57,6 +59,26 @@
             }
         }
         #endregion
+        #region Plugins Command
+        private static ICommand plugins = new RoutedUICommand("Plugins", "Plugins",
+            typeof(ClearMineViewModel), new InputGestureCollection() { new KeyGesture(Key.G, ModifierKeys.Control) });
+        private static CommandBinding pluginsBinding = new CommandBinding(Plugins, OnPluginsExecuted, OnPluginsCanExecuted);
+        public static ICommand Plugins
+        {
+            get { return plugins; }
+        }
+
+        private static void OnPluginsExecuted(object sender, ExecutedRoutedEventArgs e)
+        {
+            MessageManager.SendMessage<ShowDialogMessage>(e.OriginalSource,
+                Type.GetType("ClearMine.UI.Dialogs.PluginsDialog, ClearMine.Dialogs", true), new PluginsViewModel());
+        }
+
+        private static void OnPluginsCanExecuted(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = ModularityManager.LoadedPlugins.Count() > 0;
+        }
+        #endregion
         #region SaveAsCommand
         private static CommandBinding saveAsBinding = new CommandBinding(ApplicationCommands.SaveAs, OnSaveAsExecuted, OnSaveAsCanExecute);
 
@@ -101,7 +123,6 @@
             e.ExtractDataContext<ClearMineViewModel>().Game.Restart();
         }
         #endregion
-
         #region Show Statistics Command
         private static CommandBinding statisticsBinding = new CommandBinding(GameCommands.ShowStatistics, OnStatisticsExecuted);
 
@@ -114,7 +135,6 @@
                 });
         }
         #endregion
-
         #region Close Command
         private static CommandBinding closeBinding = new CommandBinding(ApplicationCommands.Close, OnCloseExecuted);
 
@@ -123,7 +143,6 @@
             Application.Current.MainWindow.Close();
         }
         #endregion
-
         #region About Command
         private static CommandBinding aboutBinding = new CommandBinding(GameCommands.About, OnAboutExecuted);
 
@@ -295,6 +314,7 @@
                     newGameBinding,
                     openBinding,
                     optionBinding,
+                    pluginsBinding,
                     refreshBinding,
                     saveAsBinding,
                     showLogBinding,

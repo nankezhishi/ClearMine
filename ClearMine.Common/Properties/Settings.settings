@@ -29,6 +29,12 @@
                     &lt;/heroList&gt;
                 </Value>
     </Setting>
+    <Setting Name="DataMap" Type="ClearMine.Common.Utilities.DataMap" Scope="User">
+      <Value Profile="(Default)">
+        &lt;map xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+        &lt;/map&gt;
+      </Value>
+    </Setting>
     <Setting Name="PlaySound" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>

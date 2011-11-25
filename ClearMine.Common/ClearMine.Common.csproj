@@ -103,7 +103,10 @@
     <Compile Include="HeroHistory.cs" />
     <Compile Include="Messaging\SwitchLanguageMessage.cs" />
     <Compile Include="Messaging\SwitchThemeMessage.cs" />
+    <Compile Include="Modularity\AbstractPlugin.cs" />
     <Compile Include="Modularity\IPlugin.cs" />
+    <Compile Include="Modularity\PluginOption.cs" />
+    <Compile Include="Utilities\DataMap.cs" />
     <Compile Include="Utilities\IVisualShoot.cs" />
     <Compile Include="Utilities\ResourceHelper.cs" />
     <Compile Include="Messaging\MessageAggregator.cs" />

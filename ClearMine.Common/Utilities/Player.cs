@@ -14,7 +14,8 @@
         /// 
         /// </summary>
         /// <param name="location"></param>
-        public static void Play(string location)
+        /// <param name="volume"></param>
+        public static void Play(string location, double volume = 0.5)
         {
             if (Settings.Default.PlaySound)
             {
@@ -22,6 +23,7 @@
                 ThreadPool.QueueUserWorkItem(args =>
                 {
                     var player = new MediaPlayer();
+                    player.Volume = volume;
                     player.Open(new Uri(location, UriKind.RelativeOrAbsolute));
                     player.Play();
                 });

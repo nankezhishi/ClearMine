@@ -1,11 +1,11 @@
-﻿using System;
-using System.Windows;
-using System.Windows.Threading;
-
-using ClearMine.Common.Utilities;
-
-namespace ClearMine.UI.Dialogs
+﻿namespace ClearMine.UI.Dialogs
 {
+    using System;
+    using System.Windows;
+    using System.Windows.Threading;
+
+    using ClearMine.Common.Utilities;
+
     /// <summary>
     /// Interaction logic for OutputWindow.xaml
     /// </summary>

@@ -1,35 +1,35 @@
 ﻿namespace ClearMine.Common.Modularity
 {
-    using System.Collections.Generic;
+    using System;
 
     /// <summary>
-    /// A plugin refer to a function or feature makes the game runs better. No required to run.
+    /// 
     /// </summary>
-    public interface IPlugin
+    public class PluginOption
     {
         /// <summary>
         /// 
         /// </summary>
-        string Name { get; }
+        public string Name { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        string Description { get; }
+        public string Description { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        bool IsEnabled { get; set; }
+        public object Value { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        IEnumerable<PluginOption> Options { get; }
+        public Type ValueType { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        void Initialize();
+        public Predicate<object> ValueValidator { get; set; }
     }
 }

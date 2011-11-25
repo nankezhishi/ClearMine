@@ -18,6 +18,22 @@
         /// <summary>
         /// 
         /// </summary>
+        public static IEnumerable<IPlugin> LoadedPlugins
+        {
+            get { return loadedPlugins; }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static IEnumerable<IModule> LoadedModules
+        {
+            get { return loadedModules; }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static void LoadModules()
         {
             var dlls = Directory.EnumerateFiles(".", "*.dll", SearchOption.AllDirectories).Concat(Directory.EnumerateFiles(".", "*.exe", SearchOption.AllDirectories));
