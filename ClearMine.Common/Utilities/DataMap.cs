@@ -4,11 +4,13 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Xml.Serialization;
+    using ClearMine.Common.Modularity;
 
     /// <summary>
     /// 
     /// </summary>
     [Serializable]
+    [XmlInclude(typeof(List<PluginOption>))]
     public class DataMapItem
     {
         /// <summary>

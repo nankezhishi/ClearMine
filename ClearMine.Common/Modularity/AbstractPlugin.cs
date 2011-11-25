@@ -10,7 +10,22 @@
     /// </summary>
     public abstract class AbstractPlugin : IPlugin
     {
-        protected IList<PluginOption> options = new List<PluginOption>();
+        protected IList<PluginOption> options = null;
+
+        public AbstractPlugin()
+        {
+            if (CurrentDataMap["Options"] == null)
+            {
+                options = new List<PluginOption>();
+                InitializeOptions();
+                CurrentDataMap["Options"] = options;
+                Settings.Default.Save();
+            }
+            else
+            {
+                options = CurrentDataMap["Options"] as IList<PluginOption>;
+            }
+        }
 
         public abstract string Name { get; }
 
@@ -58,5 +73,7 @@
         }
 
         public abstract void Initialize();
+
+        protected abstract void InitializeOptions();
     }
 }

@@ -45,14 +45,14 @@
                     foreach (var type in assembly.GetTypes())
                     {
                         if (type.GetInterface(typeof(IModule).FullName) != null
-                            && loadedModules.All(m => m.GetType() != type))
+                            && loadedModules.All(m => m.GetType() != type) && !type.IsAbstract)
                         {
                             var module = Activator.CreateInstance(type) as IModule;
                             module.InitializeModule();
                             loadedModules.Add(module);
                         }
                         else if (type.GetInterface(typeof(IPlugin).FullName) != null
-                            && loadedPlugins.All(m => m.GetType() != type))
+                            && loadedPlugins.All(m => m.GetType() != type) && !type.IsAbstract)
                         {
                             var plugin = Activator.CreateInstance(type) as IPlugin;
                             plugin.Initialize();

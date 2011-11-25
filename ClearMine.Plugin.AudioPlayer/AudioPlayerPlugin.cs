@@ -1,6 +1,7 @@
 ﻿namespace ClearMine.Plugin.AudioPlayer
 {
     using System;
+    using System.Diagnostics;
     using System.IO;
     using System.Linq;
 
@@ -16,50 +17,6 @@
     /// </summary>
     public class AudioPlayerPlugin : AbstractPlugin
     {
-        public AudioPlayerPlugin()
-        {
-            options.Add(new PluginOption()
-            {
-                ID = "Volumn",
-                Name = "Volumn",
-                Description = "Set the volumn of the sound",
-                ValueType = typeof(double),
-                Value = 0.5,
-                ValueValidator = value =>
-                {
-                    var v = (double)value;
-                    return v >= 0.0 && v <= 1.0;
-                },
-            });
-            options.Add(new PluginOption()
-            {
-                ID = "Won",
-                Name = "Won Music",
-                Description = "The music need to play when won.",
-                ValueType = typeof(string),
-                Value = null,
-                ValueValidator = value => File.Exists(Convert.ToString(value)),
-            });
-            options.Add(new PluginOption()
-            {
-                ID = "Lost",
-                Name = "Lost Music",
-                Description = "The music need to play when lost.",
-                ValueType = typeof(string),
-                Value = null,
-                ValueValidator = value => File.Exists(Convert.ToString(value)),
-            });
-            options.Add(new PluginOption()
-            {
-                ID = "New",
-                Name = "New Game Music",
-                Description = "The music need to play when start a new game.",
-                ValueType = typeof(string),
-                Value = null,
-                ValueValidator = value => File.Exists(Convert.ToString(value)),
-            });
-        }
-
         public override string Name
         {
             get { return "Music Player"; }
@@ -119,6 +76,52 @@
                     Player.Play(Settings.Default.SoundTileSingle);
                 }
             }
+        }
+
+        protected override void InitializeOptions()
+        {
+            options.Add(new PluginOption()
+            {
+                ID = "Volumn",
+                Name = "Volumn",
+                Description = "Set the volumn of the sound",
+                ValueType = typeof(double).FullName,
+                Value = 0.5,
+                ValueValidator = value =>
+                {
+                    var v = (double)value;
+                    return v >= 0.0 && v <= 1.0;
+                },
+            });
+            options.Add(new PluginOption()
+            {
+                ID = "Won",
+                Name = "Won Music",
+                Description = "The music need to play when won.",
+                ValueType = typeof(string).FullName,
+                Value = null,
+                ValueValidator = value => File.Exists(Convert.ToString(value)),
+            });
+            options.Add(new PluginOption()
+            {
+                ID = "Lost",
+                Name = "Lost Music",
+                Description = "The music need to play when lost.",
+                ValueType = typeof(string).FullName,
+                Value = null,
+                ValueValidator = value => File.Exists(Convert.ToString(value)),
+            });
+            options.Add(new PluginOption()
+            {
+                ID = "New",
+                Name = "New Game Music",
+                Description = "The music need to play when start a new game.",
+                ValueType = typeof(string).FullName,
+                Value = null,
+                ValueValidator = value => File.Exists(Convert.ToString(value)),
+            });
+
+            Trace.WriteLine(String.Format("Ininitialize Options of {0}", GetType().FullName));
         }
     }
 }
