@@ -1,7 +1,6 @@
 ﻿namespace ClearMine.Common.Utilities
 {
     using System;
-    using System.Threading;
     using System.Windows;
 
     using ClearMine.Common.Messaging;
@@ -10,7 +9,7 @@
     /// <summary>
     /// 
     /// </summary>
-    public class LanguageSwitcher : ResourceSwitcher
+    public class ThemeSwitcher : ResourceSwitcher
     {
         /// <summary>
         /// 
@@ -18,19 +17,17 @@
         /// <param name="stringFormat"></param>
         /// <param name="validTypes"></param>
         /// <param name="supportCustom"></param>
-        public LanguageSwitcher(string stringFormat, Type[] validTypes, bool supportCustom)
+        public ThemeSwitcher(string stringFormat, Type[] validTypes, bool supportCustom)
             : base(stringFormat, validTypes, supportCustom)
         {
-            
-            MessageManager.SubscribeMessage<SwitchLanguageMessage>(OnSwitchLanguage);
+            MessageManager.SubscribeMessage<SwitchThemeMessage>(OnSwitchTheme);
         }
 
-        private void OnSwitchLanguage(SwitchLanguageMessage message)
+        private void OnSwitchTheme(SwitchThemeMessage message)
         {
-            var path = String.Empty;
             message.HandlingResult = false;
-
-            if (SwitchLanguageMessage.CustomLanguageKey.Equals(message.CultureName, StringComparison.Ordinal))
+            var themeString = message.ThemeName;
+            if (SwitchThemeMessage.CustomThemeKey.Equals(message.ThemeName))
             {
                 if (supportCustom)
                 {
@@ -39,11 +36,11 @@
                         DefaultExt = ".xaml",
                         CheckFileExists = true,
                         Multiselect = false,
-                        Filter = ResourceHelper.FindText("LanguageFileFilter"),
+                        Filter = ResourceHelper.FindText("ThemeFileFilter"),
                     };
                     if (openFileDialog.ShowDialog() == true)
                     {
-                        path = openFileDialog.FileName;
+                        themeString = openFileDialog.FileName;
                     }
                     else
                     {
@@ -53,20 +50,20 @@
                 }
                 else
                 {
-                    path = resourceStringFormat.InvariantFormat(Thread.CurrentThread.CurrentUICulture.Name);
+                    themeString = resourceStringFormat.InvariantFormat("luna.normalcolor");
                 }
             }
             else
             {
-                path = resourceStringFormat.InvariantFormat(message.CultureName);
+                themeString = resourceStringFormat.InvariantFormat(message.ThemeName);
             }
 
             try
             {
-                var languageDictionary = path.MakeResDic();
-                if (Resources[resourceIndex].VerifyResources(languageDictionary, validResourceTypes))
+                var themeDictionary = themeString.MakeResDic();
+                if (Resources[resourceIndex].VerifyResources(themeDictionary, validResourceTypes))
                 {
-                    Resources[resourceIndex] = languageDictionary;
+                    Resources[resourceIndex] = themeDictionary;
                 }
                 else
                 {
@@ -83,8 +80,8 @@
 
         protected override void OnApplicationStartup()
         {
-            var cultureName = Thread.CurrentThread.CurrentUICulture.Name;
-            Resources.Add(resourceStringFormat.MakeResDic(cultureName));
+            Resources.Add("/ClearMine.Themes;component/Themes/Generic.xaml".MakeResDic());
+            Resources.Add("/ClearMine.Themes;component/Themes/luna.normalcolor.xaml".MakeResDic());
         }
     }
 }

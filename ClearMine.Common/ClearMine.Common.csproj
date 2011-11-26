@@ -125,6 +125,8 @@
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="Utilities\ResourceSwitcher.cs" />
+    <Compile Include="Utilities\ThemeSwitcher.cs" />
     <Compile Include="Utilities\WebTools.cs" />
     <Compile Include="Utilities\GenericExtension.cs" />
     <Compile Include="Utilities\Infrastructure.cs" />
