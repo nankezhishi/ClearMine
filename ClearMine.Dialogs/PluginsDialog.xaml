@@ -2,6 +2,8 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         WindowStartupLocation="CenterOwner"
+        ShowInTaskbar="False"
+        Background="{StaticResource DialogBackground}"
         Title="Plugins" Height="300" Width="350">
     <Window.Resources>
         <Style x:Key="ItemContainerStyle"

@@ -130,6 +130,24 @@
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <param name="result"></param>
+        public static void CloseParentWindow(this DependencyObject obj, bool? result)
+        {
+            if (obj == null)
+                throw new ArgumentNullException("obj");
+
+            var window = Window.GetWindow(obj);
+            if (window != null)
+            {
+                window.DialogResult = result;
+                window.Close();
+            }
+        }
+
+        /// <summary>
         /// This method is rather heavy. it will takes 5K ticks, about 2ms on a 2.5G CPU.
         /// </summary>
         [SuppressMessage("Microsoft.Design", "CA1011:ConsiderPassingBaseTypesAsParameters")]

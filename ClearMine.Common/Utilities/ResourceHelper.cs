@@ -1,6 +1,7 @@
 ﻿namespace ClearMine.Common.Utilities
 {
     using System;
+    using System.Diagnostics;
     using System.Linq;
     using System.Windows;
 
@@ -8,7 +9,17 @@
     {
         public static string FindText(object key)
         {
-            return Application.Current.FindResource(key) as string;
+            try
+            {
+                return Application.Current.FindResource(key) as string;
+            }
+            catch (ResourceReferenceKeyNotFoundException e)
+            {
+                Trace.TraceError(e.ToString());
+                Trace.TraceError(String.Format("Cannot find resouce by key: {0}", key));
+
+                return null;
+            }
         }
 
         public static string FindText(object key, params object[] args)

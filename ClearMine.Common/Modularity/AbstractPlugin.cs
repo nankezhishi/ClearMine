@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+
     using ClearMine.Common.Properties;
     using ClearMine.Common.Utilities;
 

@@ -24,7 +24,10 @@
 
         private void OnApplicationExit(object sender, ExitEventArgs e)
         {
-            Settings.Default.Save();
+            if (propertyChanged)
+            {
+                Settings.Default.Save();
+            }
         }
 
         private void OnSettingsPropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -33,7 +36,5 @@
 
             propertyChanged = true;
         }
-
-
     }
 }

@@ -13,7 +13,7 @@
     using ClearMine.Common.Utilities;
     using ClearMine.VM.Commands;
 
-    public sealed class OptionsViewModel : ViewModelBase, IDataErrorInfo
+    public sealed class OptionsViewModel : ViewModelBase, IDataErrorInfo, ITransaction
     {
         private string error;
 
@@ -155,18 +155,6 @@
             set { Settings.Default.AccurateTime = value; }
         }
 
-        [SuppressMessage("Microsoft.Performance", "CA1822:MarkMembersAsStatic")]
-        public void Save()
-        {
-            Settings.Default.Save();
-        }
-
-        [SuppressMessage("Microsoft.Performance", "CA1822:MarkMembersAsStatic")]
-        public void Cancel()
-        {
-            Settings.Default.Reload();
-        }
-
         public string Error
         {
             get { return error; }
@@ -233,6 +221,16 @@
         public override IEnumerable<CommandBinding> CommandBindings
         {
             get { return GameCommandBindings.OptionCommandBindings; }
+        }
+
+        public void Commit()
+        {
+            Settings.Default.Save();
+        }
+
+        public void Rollback()
+        {
+            Settings.Default.Reload();
         }
 
         private void OnSettingsChanged(object sender, PropertyChangedEventArgs e)

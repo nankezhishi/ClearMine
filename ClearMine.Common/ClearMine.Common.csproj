@@ -98,6 +98,7 @@
     <Compile Include="ComponentModel\CachedObservableCollection.cs" />
     <Compile Include="ComponentModel\CachingState.cs" />
     <Compile Include="ComponentModel\ICachable.cs" />
+    <Compile Include="ComponentModel\ITransaction.cs" />
     <Compile Include="ComponentModel\IUpdatable.cs" />
     <Compile Include="ComponentModel\ViewModelBase.cs" />
     <Compile Include="Difficulty.cs" />
@@ -109,6 +110,7 @@
     <Compile Include="Modularity\PluginOption.cs" />
     <Compile Include="Utilities\DataMap.cs" />
     <Compile Include="Utilities\IVisualShoot.cs" />
+    <Compile Include="Utilities\LanguageSwitcher.cs" />
     <Compile Include="Utilities\ResourceHelper.cs" />
     <Compile Include="Messaging\MessageAggregator.cs" />
     <Compile Include="Messaging\MessageBase.cs" />

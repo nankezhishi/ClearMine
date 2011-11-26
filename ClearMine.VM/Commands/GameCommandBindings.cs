@@ -3,6 +3,7 @@
     using System;
     using System.Collections;
     using System.Collections.Generic;
+    using System.ComponentModel;
     using System.IO;
     using System.Linq;
     using System.Windows;
@@ -10,6 +11,7 @@
     using System.Windows.Threading;
 
     using ClearMine.Common;
+    using ClearMine.Common.ComponentModel;
     using ClearMine.Common.Messaging;
     using ClearMine.Common.Modularity;
     using ClearMine.Common.Properties;
@@ -208,15 +210,10 @@
 
         private static void OnOptionCloseExecuted(object sender, ExecutedRoutedEventArgs e)
         {
-            e.ExtractDataContext<OptionsViewModel>(vm =>
+            e.ExtractDataContext<ITransaction>(vm =>
             {
-                vm.Cancel();
-                var window = Window.GetWindow(sender as DependencyObject);
-                if (window != null)
-                {
-                    window.DialogResult = false;
-                    window.Close();
-                }
+                vm.Rollback();
+                (sender as DependencyObject).CloseParentWindow(false);
             });
         }
         #endregion
@@ -226,21 +223,16 @@
 
         private static void OnSaveSettingsExecuted(object sender, ExecutedRoutedEventArgs e)
         {
-            e.ExtractDataContext<OptionsViewModel>(vm =>
+            e.ExtractDataContext<ITransaction>(vm =>
             {
-                vm.Save();
-                var window = Window.GetWindow(sender as DependencyObject);
-                if (window != null)
-                {
-                    window.DialogResult = true;
-                    window.Close();
-                }
+                vm.Commit();
+                (sender as DependencyObject).CloseParentWindow(true);
             });
         }
 
         private static void OnSaveSettingsCanExecuted(object sender, CanExecuteRoutedEventArgs e)
         {
-            e.CanExecute = String.IsNullOrWhiteSpace(e.ExtractDataContext<OptionsViewModel>().Error);
+            e.CanExecute = String.IsNullOrWhiteSpace(e.ExtractDataContext<IDataErrorInfo>().Error);
         }
         #endregion
 
