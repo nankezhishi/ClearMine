@@ -2,4 +2,13 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:s="clr-namespace:System;assembly=mscorlib">
     <s:String x:Key="AP_Name">Music Player</s:String>
+    <s:String x:Key="AP_Description">Provide sound effect to some key game event.</s:String>
+    <s:String x:Key="AP_VolumnName">Volumn</s:String>
+    <s:String x:Key="AP_VolumnDescription">Set the volumn of the sound</s:String>
+    <s:String x:Key="AP_WonMusic">Won Music</s:String>
+    <s:String x:Key="AP_WonMusicDescription">The music need to play when won.</s:String>
+    <s:String x:Key="AP_LostMusic">Lost Music</s:String>
+    <s:String x:Key="AP_LostMusicDescription">The music need to play when lost.</s:String>
+    <s:String x:Key="AP_NewGameMusic">New Game Music</s:String>
+    <s:String x:Key="AP_NewGameMusicDescription">The music need to play when start a new game.</s:String>
 </ResourceDictionary>

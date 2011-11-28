@@ -16,7 +16,12 @@
             catch (ResourceReferenceKeyNotFoundException e)
             {
                 Trace.TraceError(e.ToString());
-                Trace.TraceError(String.Format("Cannot find resouce by key: {0}", key));
+
+                // Prevent the same error while reporting the error.
+                if (!"CannotFoundResourceKey".Equals(key))
+                {
+                    Trace.TraceError(FindText("CannotFoundResourceKey", key));
+                }
 
                 return null;
             }

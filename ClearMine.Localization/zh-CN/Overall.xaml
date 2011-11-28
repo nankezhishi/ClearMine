@@ -126,6 +126,14 @@
     <s:String x:Key="HistoryNotExistMessage">游戏历史文件夹不存在。</s:String>
     <s:String x:Key="ShowAccurateTime">显示更精确的游戏时间(_U)</s:String>
 
+    <!-- Plugins Dialog -->
+    <s:String x:Key="PluginDialogTitle">插件</s:String>
+    <s:String x:Key="PluginNameColumnTitle">名称</s:String>
+    <s:String x:Key="PluginIsEnabledColumnTitle">启用</s:String>
+    <s:String x:Key="PluginPropertiesPanelLabel">所选插件的参数：</s:String>
+    <s:String x:Key="PluginPropertyNameColumnTitle">属性</s:String>
+    <s:String x:Key="PluginPropertyValueColumnTitle">值</s:String>
+
     <!-- Exception Dialog -->
     <s:String x:Key="ExceptionBoxTitle">扫雷 - 异常</s:String>
     <s:String x:Key="IgnoreExceptionButtonLabel">忽略(_I)</s:String>
@@ -166,4 +174,5 @@
     <s:String x:Key="CompareSingleNumberFailed">比较SingleNumber：{0}和{1}失败</s:String>
     <s:String x:Key="AutoCheckIncompatibleMessage">AutoCheckMenuItemsBehavior 无法与设置IsCheckable为True的菜单项兼容。</s:String>
     <s:String x:Key="AutoCheckCannotStoreSelection">AutoCheckMenuItemsBehavior 无法找到DataContext以保存当前的菜单选择项。</s:String>
+    <s:String x:Key="CannotFoundResourceKey">无法根据关键字{0}找到资源</s:String>
 </ResourceDictionary>

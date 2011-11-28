@@ -3,8 +3,8 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         WindowStartupLocation="CenterOwner"
         ShowInTaskbar="False"
-        Background="{StaticResource DialogBackground}"
-        Title="Plugins" Height="300" Width="350">
+        Background="{DynamicResource DialogBackground}"
+        Title="{DynamicResource PluginDialogTitle}" Height="300" Width="400">
     <Window.Resources>
         <Style x:Key="ItemContainerStyle"
                TargetType="{x:Type ListViewItem}"
@@ -19,9 +19,9 @@
                   ItemContainerStyle="{StaticResource ItemContainerStyle}">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="Name"
+                    <GridViewColumn Header="{DynamicResource PluginNameColumnTitle}"
                                     DisplayMemberBinding="{Binding Name}" />
-                    <GridViewColumn Header="Enabled" >
+                    <GridViewColumn Header="{DynamicResource PluginIsEnabledColumnTitle}" >
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <CheckBox IsChecked="{Binding IsEnabled}" />
@@ -34,14 +34,14 @@
         <DockPanel DataContext="{Binding /}">
             <Label DockPanel.Dock="Top"
                    Margin="0,0,0,5"
-                   Content="Options of Selected Plugin:" />
+                   Content="{DynamicResource PluginPropertiesPanelLabel}" />
             <ListView ItemsSource="{Binding Options}"
                       ItemContainerStyle="{StaticResource ItemContainerStyle}">
                 <ListView.View>
                     <GridView>
-                        <GridViewColumn Header="Name"
+                        <GridViewColumn Header="{DynamicResource PluginPropertyNameColumnTitle}"
                                         DisplayMemberBinding="{Binding Name}" />
-                        <GridViewColumn Header="Value"
+                        <GridViewColumn Header="{DynamicResource PluginPropertyValueColumnTitle}"
                                         DisplayMemberBinding="{Binding Value}" />
                     </GridView>
                 </ListView.View>

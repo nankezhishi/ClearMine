@@ -2,10 +2,8 @@
 {
     using System;
     using System.Threading;
-    using System.Windows;
 
     using ClearMine.Common.Messaging;
-    using Microsoft.Win32;
 
     /// <summary>
     /// 
@@ -27,25 +25,17 @@
 
         private void OnSwitchLanguage(SwitchLanguageMessage message)
         {
-            var path = String.Empty;
-            message.HandlingResult = false;
-
+            if (message.HandlingResult == null)
+            {
+                message.HandlingResult = false;
+            }
+            var resourceString = String.Empty;
             if (SwitchLanguageMessage.CustomLanguageKey.Equals(message.CultureName, StringComparison.Ordinal))
             {
                 if (supportCustom)
                 {
-                    var openFileDialog = new OpenFileDialog()
-                    {
-                        DefaultExt = ".xaml",
-                        CheckFileExists = true,
-                        Multiselect = false,
-                        Filter = ResourceHelper.FindText("LanguageFileFilter"),
-                    };
-                    if (openFileDialog.ShowDialog() == true)
-                    {
-                        path = openFileDialog.FileName;
-                    }
-                    else
+                    resourceString = ShowUpOpenResourceDialog("LanguageFileFilter");
+                    if (resourceString == null)
                     {
                         message.HandlingResult = true;
                         return;
@@ -53,31 +43,17 @@
                 }
                 else
                 {
-                    path = resourceStringFormat.InvariantFormat(Thread.CurrentThread.CurrentUICulture.Name);
+                    resourceString = null;
                 }
             }
             else
             {
-                path = resourceStringFormat.InvariantFormat(message.CultureName);
+                resourceString = resourceStringFormat.InvariantFormat(message.CultureName);
             }
 
-            try
+            if (SwitchResource(resourceString))
             {
-                var languageDictionary = path.MakeResDic();
-                if (Resources[resourceIndex].VerifyResources(languageDictionary, validResourceTypes))
-                {
-                    Resources[resourceIndex] = languageDictionary;
-                }
-                else
-                {
-                    message.HandlingResult = true;
-                }
-            }
-            catch (Exception ex)
-            {
-                var msg = ResourceHelper.FindText("ResourceParseError", ex.Message);
                 message.HandlingResult = true;
-                MessageBox.Show(msg, ResourceHelper.FindText("ApplicationTitle"), MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 

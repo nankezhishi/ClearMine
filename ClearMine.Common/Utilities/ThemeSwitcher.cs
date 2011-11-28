@@ -1,16 +1,20 @@
 ﻿namespace ClearMine.Common.Utilities
 {
     using System;
-    using System.Windows;
+    using System.Collections.Generic;
 
     using ClearMine.Common.Messaging;
-    using Microsoft.Win32;
 
     /// <summary>
     /// 
     /// </summary>
     public class ThemeSwitcher : ResourceSwitcher
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        public IEnumerable<string> DefaultThemes { get; set; }
+
         /// <summary>
         /// 
         /// </summary>
@@ -25,24 +29,17 @@
 
         private void OnSwitchTheme(SwitchThemeMessage message)
         {
-            message.HandlingResult = false;
-            var themeString = message.ThemeName;
+            if (message.HandlingResult == null)
+            {
+                message.HandlingResult = false;
+            }
+            var resourceString = message.ThemeName;
             if (SwitchThemeMessage.CustomThemeKey.Equals(message.ThemeName))
             {
                 if (supportCustom)
                 {
-                    var openFileDialog = new OpenFileDialog()
-                    {
-                        DefaultExt = ".xaml",
-                        CheckFileExists = true,
-                        Multiselect = false,
-                        Filter = ResourceHelper.FindText("ThemeFileFilter"),
-                    };
-                    if (openFileDialog.ShowDialog() == true)
-                    {
-                        themeString = openFileDialog.FileName;
-                    }
-                    else
+                    resourceString = ShowUpOpenResourceDialog("ThemeFileFilter");
+                    if (resourceString == null)
                     {
                         message.HandlingResult = true;
                         return;
@@ -50,38 +47,26 @@
                 }
                 else
                 {
-                    themeString = resourceStringFormat.InvariantFormat("luna.normalcolor");
+                    resourceString = resourceStringFormat.InvariantFormat("luna.normalcolor");
                 }
             }
             else
             {
-                themeString = resourceStringFormat.InvariantFormat(message.ThemeName);
+                resourceString = resourceStringFormat.InvariantFormat(message.ThemeName);
             }
 
-            try
+            if (SwitchResource(resourceString))
             {
-                var themeDictionary = themeString.MakeResDic();
-                if (Resources[resourceIndex].VerifyResources(themeDictionary, validResourceTypes))
-                {
-                    Resources[resourceIndex] = themeDictionary;
-                }
-                else
-                {
-                    message.HandlingResult = true;
-                }
-            }
-            catch (Exception ex)
-            {
-                var msg = ResourceHelper.FindText("ResourceParseError", ex.Message);
                 message.HandlingResult = true;
-                MessageBox.Show(msg, ResourceHelper.FindText("ApplicationTitle"), MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
         protected override void OnApplicationStartup()
         {
-            Resources.Add("/ClearMine.Themes;component/Themes/Generic.xaml".MakeResDic());
-            Resources.Add("/ClearMine.Themes;component/Themes/luna.normalcolor.xaml".MakeResDic());
+            foreach (var resource in DefaultThemes)
+            {
+                Resources.Add(resource.MakeResDic());
+            }
         }
     }
 }

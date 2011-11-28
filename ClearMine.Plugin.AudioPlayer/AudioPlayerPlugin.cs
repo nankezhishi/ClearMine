@@ -26,7 +26,7 @@
 
         public override string Description
         {
-            get { return "Provide sound effect to some key game event."; }
+            get { return ResourceHelper.FindText("AP_Description"); }
         }
 
         public override void Initialize()
@@ -41,8 +41,8 @@
             options.Add(new PluginOption()
             {
                 ID = "Volumn",
-                Name = "Volumn",
-                Description = "Set the volumn of the sound",
+                NameKey = "AP_VolumnName",
+                DescriptionKey = "AP_VolumnDescription",
                 ValueType = typeof(double).FullName,
                 Value = 0.5,
                 ValueValidator = value =>
@@ -54,8 +54,8 @@
             options.Add(new PluginOption()
             {
                 ID = "Won",
-                Name = "Won Music",
-                Description = "The music need to play when won.",
+                NameKey = "AP_WonMusic",
+                DescriptionKey = "AP_WonMusicDescription",
                 ValueType = typeof(string).FullName,
                 Value = null,
                 ValueValidator = value => File.Exists(Convert.ToString(value)),
@@ -63,8 +63,8 @@
             options.Add(new PluginOption()
             {
                 ID = "Lost",
-                Name = "Lost Music",
-                Description = "The music need to play when lost.",
+                NameKey = "AP_LostMusic",
+                DescriptionKey = "AP_LostMusicDescription",
                 ValueType = typeof(string).FullName,
                 Value = null,
                 ValueValidator = value => File.Exists(Convert.ToString(value)),
@@ -72,8 +72,8 @@
             options.Add(new PluginOption()
             {
                 ID = "New",
-                Name = "New Game Music",
-                Description = "The music need to play when start a new game.",
+                NameKey = "AP_NewGameMusic",
+                DescriptionKey = "AP_NewGameMusicDescription",
                 ValueType = typeof(string).FullName,
                 Value = null,
                 ValueValidator = value => File.Exists(Convert.ToString(value)),

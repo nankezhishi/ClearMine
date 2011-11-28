@@ -1,7 +1,10 @@
 ﻿namespace ClearMine.Common.Modularity
 {
     using System;
+    using System.ComponentModel;
     using System.Xml.Serialization;
+
+    using ClearMine.Common.Utilities;
 
     /// <summary>
     /// 
@@ -19,14 +22,31 @@
         /// <summary>
         /// 
         /// </summary>
+        [XmlIgnore]
+        [ReadOnly(true)]
+        public string Name
+        {
+            get { return ResourceHelper.FindText(NameKey); }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
         [XmlAttribute("name")]
-        public string Name { get; set; }
+        public string NameKey { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [XmlIgnore]
+        [ReadOnly(true)]
+        public string Description { get { return ResourceHelper.FindText(DescriptionKey); } }
 
         /// <summary>
         /// 
         /// </summary>
         [XmlAttribute("description")]
-        public string Description { get; set; }
+        public string DescriptionKey { get; set; }
 
         /// <summary>
         /// 
