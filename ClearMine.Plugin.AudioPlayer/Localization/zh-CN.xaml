@@ -11,4 +11,8 @@
     <s:String x:Key="AP_LostMusicDescription">游戏失手时播放的音乐</s:String>
     <s:String x:Key="AP_NewGameMusic">开场音乐</s:String>
     <s:String x:Key="AP_NewGameMusicDescription">游戏开始时播放的音乐</s:String>
+    <s:String x:Key="AP_ExpandMultipleMusic">多格展开音乐</s:String>
+    <s:String x:Key="AP_ExpandMultipleDescription">展开多个格时播放的音乐</s:String>
+    <s:String x:Key="AP_ExpandSingleMusic">单格展开音乐</s:String>
+    <s:String x:Key="AP_ExpandSingleDescription">展开一个格时播放的音乐</s:String>
 </ResourceDictionary>

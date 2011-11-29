@@ -19,14 +19,14 @@
     {
         private LanguageSwitcher switcher;
 
-        public override string Name
+        public override string NameKey
         {
-            get { return ResourceHelper.FindText("AP_Name"); }
+            get { return "AP_Name"; }
         }
 
-        public override string Description
+        public override string DescriptionKey
         {
-            get { return ResourceHelper.FindText("AP_Description"); }
+            get { return "AP_Description"; }
         }
 
         public override void Initialize()
@@ -51,14 +51,15 @@
                     return v >= 0.0 && v <= 1.0;
                 },
             });
+            var fileExistsValidator = new Predicate<object>(value => File.Exists(Convert.ToString(value)));
             pluginOptions.Add(new PluginOption()
             {
                 ID = "Won",
                 NameKey = "AP_WonMusic",
                 DescriptionKey = "AP_WonMusicDescription",
                 ValueType = typeof(string).FullName,
-                Value = null,
-                ValueValidator = value => File.Exists(Convert.ToString(value)),
+                Value = ".\\Sound\\Win.wma",
+                ValueValidator = fileExistsValidator,
             });
             pluginOptions.Add(new PluginOption()
             {
@@ -66,8 +67,8 @@
                 NameKey = "AP_LostMusic",
                 DescriptionKey = "AP_LostMusicDescription",
                 ValueType = typeof(string).FullName,
-                Value = null,
-                ValueValidator = value => File.Exists(Convert.ToString(value)),
+                Value = ".\\Sound\\Lose.wma",
+                ValueValidator = fileExistsValidator,
             });
             pluginOptions.Add(new PluginOption()
             {
@@ -75,8 +76,26 @@
                 NameKey = "AP_NewGameMusic",
                 DescriptionKey = "AP_NewGameMusicDescription",
                 ValueType = typeof(string).FullName,
-                Value = null,
-                ValueValidator = value => File.Exists(Convert.ToString(value)),
+                Value = ".\\Sound\\GameStart.wma",
+                ValueValidator = fileExistsValidator,
+            });
+            pluginOptions.Add(new PluginOption()
+            {
+                ID = "Multiple",
+                NameKey = "AP_ExpandMultipleMusic",
+                DescriptionKey = "AP_ExpandMultipleDescription",
+                ValueType = typeof(string).FullName,
+                Value = ".\\Sound\\TileMultiple.wma",
+                ValueValidator = fileExistsValidator,
+            });
+            pluginOptions.Add(new PluginOption()
+            {
+                ID = "Single",
+                NameKey = "AP_ExpandSingleMusic",
+                DescriptionKey = "AP_ExpandSingleDescription",
+                ValueType = typeof(string).FullName,
+                Value = ".\\Sound\\TileSingle.wma",
+                ValueValidator = fileExistsValidator,
             });
 
             Trace.WriteLine(String.Format("Ininitialize Options of {0}", GetType().FullName));
@@ -89,15 +108,15 @@
             {
                 if (game.GameState == GameState.Failed)
                 {
-                    Player.Play(this["Lost"].Value as string ?? Settings.Default.SoundLose);
+                    Player.Play(this["Lost"].Value as string);
                 }
                 else if (game.GameState == GameState.Success)
                 {
-                    Player.Play(this["Won"].Value as string ?? Settings.Default.SoundWin);
+                    Player.Play(this["Won"].Value as string);
                 }
                 else if (game.GameState == GameState.Initialized)
                 {
-                    Player.Play(this["New"].Value as string ?? Settings.Default.SoundStart);
+                    Player.Play(this["New"].Value as string);
                 }
                 else
                 {
@@ -118,11 +137,11 @@
                 }
                 else if (emptyCellExpanded > 1)
                 {
-                    Player.Play(Settings.Default.SoundTileMultiple);
+                    Player.Play(this["Multiple"].Value as string);
                 }
                 else
                 {
-                    Player.Play(Settings.Default.SoundTileSingle);
+                    Player.Play(this["Single"].Value as string);
                 }
             }
         }

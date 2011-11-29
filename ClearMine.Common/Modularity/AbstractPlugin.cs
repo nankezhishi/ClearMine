@@ -13,9 +13,13 @@
     {
         protected IList<PluginOption> pluginOptions = null;
 
-        public abstract string Name { get; }
+        public string Name { get { return ResourceHelper.FindText(NameKey); } }
 
-        public abstract string Description { get; }
+        public abstract string NameKey { get; }
+
+        public string Description { get { return ResourceHelper.FindText(DescriptionKey); } }
+
+        public abstract string DescriptionKey { get; }
 
         public virtual DataMap CurrentDataMap
         {

@@ -14,6 +14,11 @@
 
         public void InitializeModule()
         {
+            Application.Current.DispatcherUnhandledException += (sender, e) =>
+            {
+                e.Handled = (bool)MessageManager.SendMessage<ExceptionMessage>(e.Exception);
+            };
+
             MessageManager.SubscribeMessage<ExceptionMessage>(new ExceptionMessageProcessor().HandleMessage);
             MessageManager.SubscribeMessage<HelpRequestedMessage>(new HelpRequestedMessageProcessor().HandleMessage);
 
