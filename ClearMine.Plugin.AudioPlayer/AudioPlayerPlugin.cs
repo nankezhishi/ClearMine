@@ -38,7 +38,7 @@
 
         protected override void InitializeOptions()
         {
-            options.Add(new PluginOption()
+            pluginOptions.Add(new PluginOption()
             {
                 ID = "Volumn",
                 NameKey = "AP_VolumnName",
@@ -51,7 +51,7 @@
                     return v >= 0.0 && v <= 1.0;
                 },
             });
-            options.Add(new PluginOption()
+            pluginOptions.Add(new PluginOption()
             {
                 ID = "Won",
                 NameKey = "AP_WonMusic",
@@ -60,7 +60,7 @@
                 Value = null,
                 ValueValidator = value => File.Exists(Convert.ToString(value)),
             });
-            options.Add(new PluginOption()
+            pluginOptions.Add(new PluginOption()
             {
                 ID = "Lost",
                 NameKey = "AP_LostMusic",
@@ -69,7 +69,7 @@
                 Value = null,
                 ValueValidator = value => File.Exists(Convert.ToString(value)),
             });
-            options.Add(new PluginOption()
+            pluginOptions.Add(new PluginOption()
             {
                 ID = "New",
                 NameKey = "AP_NewGameMusic",

@@ -40,7 +40,7 @@
         {
             var member = instance.GetType().GetProperty(memberName);
             if (member == null)
-                throw new ArgumentException(String.Format("无法在类型{0}中找到属性{1}", instance.GetType().FullName, memberName));
+                throw new ArgumentException(ResourceHelper.FindText("CannotFoundProperty", instance.GetType().FullName, memberName));
             else
                 return (T)member.GetValue(instance, null);
         }
@@ -54,7 +54,7 @@
         {
             var member = instance.GetType().GetProperty(memberName);
             if (member == null)
-                throw new ArgumentException(String.Format("无法在类型{0}中找到属性{1}", instance.GetType().FullName, memberName));
+                throw new ArgumentException(ResourceHelper.FindText("CannotFoundProperty", instance.GetType().FullName, memberName));
             else
                 member.SetValue(instance, value, null);
         }
@@ -173,6 +173,9 @@
         /// <returns>The formated string</returns>
         public static string InvariantFormat(this string format, params object[] args)
         {
+            if (format == null)
+                return null;
+
             return String.Format(CultureInfo.InvariantCulture, format, args);
         }
 

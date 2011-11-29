@@ -175,4 +175,5 @@
     <s:String x:Key="AutoCheckIncompatibleMessage">AutoCheckMenuItemsBehavior may not be able to work with a checkable menu item correctly.</s:String>
     <s:String x:Key="AutoCheckCannotStoreSelection">AutoCheckMenuItemsBehavior cannot find a datacontext to store the current selection.</s:String>
     <s:String x:Key="CannotFoundResourceKey">Cannot find resouce by key: {0}</s:String>
+    <s:String x:Key="CannotFoundProperty">Cannot find property {1} in class {0}</s:String>
 </ResourceDictionary>

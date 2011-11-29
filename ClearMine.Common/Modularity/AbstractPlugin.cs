@@ -11,22 +11,7 @@
     /// </summary>
     public abstract class AbstractPlugin : IPlugin
     {
-        protected IList<PluginOption> options = null;
-
-        public AbstractPlugin()
-        {
-            if (CurrentDataMap["Options"] == null)
-            {
-                options = new List<PluginOption>();
-                InitializeOptions();
-                CurrentDataMap["Options"] = options;
-                Settings.Default.Save();
-            }
-            else
-            {
-                options = CurrentDataMap["Options"] as IList<PluginOption>;
-            }
-        }
+        protected IList<PluginOption> pluginOptions = null;
 
         public abstract string Name { get; }
 
@@ -55,13 +40,34 @@
             set { CurrentDataMap["IsEnabled"] = value; }
         }
 
-        public virtual IEnumerable<PluginOption> Options { get { return options; } }
+        public virtual IEnumerable<PluginOption> Options
+        {
+            get
+            {
+                if (pluginOptions == null)
+                {
+                    if (CurrentDataMap["Options"] == null)
+                    {
+                        pluginOptions = new List<PluginOption>();
+                        InitializeOptions();
+                        CurrentDataMap["Options"] = pluginOptions;
+                        Settings.Default.Save();
+                    }
+                    else
+                    {
+                        pluginOptions = CurrentDataMap["Options"] as IList<PluginOption>;
+                    }
+                }
+
+                return pluginOptions;
+            }
+        }
 
         public virtual PluginOption this[string id]
         {
             get
             {
-                foreach (var option in options)
+                foreach (var option in pluginOptions)
                 {
                     if (String.CompareOrdinal(option.ID, id) == 0)
                     {
