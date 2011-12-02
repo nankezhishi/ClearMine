@@ -38,13 +38,18 @@
                    Margin="0,0,0,5"
                    Content="{DynamicResource PluginPropertiesPanelLabel}" />
             <DataGrid ItemsSource="{Binding Options}"
-                      AutoGenerateColumns="False">
+                      AutoGenerateColumns="False"
+                      CanUserAddRows="False"
+                      CanUserDeleteRows="False"
+                      CanUserResizeRows="False"
+                      RowHeaderWidth="0">
                 <DataGrid.Columns>
                     <DataGridTextColumn Binding="{Binding Name}" IsReadOnly="True"
                                         Header="{DynamicResource PluginPropertyNameColumnTitle}">
                         <DataGridTextColumn.ElementStyle>
                             <Style TargetType="{x:Type TextBlock}">
                                 <Setter Property="VerticalAlignment" Value="Center" />
+                                <Setter Property="Padding" Value="5,0,5,0"/>
                             </Style>
                         </DataGridTextColumn.ElementStyle>
                     </DataGridTextColumn>
