@@ -4,6 +4,7 @@
     using System.Collections.Generic;
 
     using ClearMine.Common.Messaging;
+    using ClearMine.Common.Properties;
 
     /// <summary>
     /// 
@@ -47,7 +48,7 @@
                 }
                 else
                 {
-                    resourceString = resourceStringFormat.InvariantFormat("luna.normalcolor");
+                    resourceString = resourceStringFormat.InvariantFormat(Settings.Default.CurrentTheme);
                 }
             }
             else

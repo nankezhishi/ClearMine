@@ -6,6 +6,7 @@
     using System.Windows;
     using System.Windows.Controls;
 
+    using ClearMine.Common.Properties;
     using ClearMine.Common.Utilities;
     using ClearMine.Framework.Interactivity;
 
@@ -94,11 +95,11 @@
             }
 
             menuToCheck.IsChecked = true;
-            if (AttachedObject.DataContext != null)
+            try
             {
-                AttachedObject.DataContext.SetValue(CurrentValueStoragePropertyName, menuToCheck.CommandParameter);
+                Settings.Default[CurrentValueStoragePropertyName] = menuToCheck.CommandParameter;
             }
-            else
+            catch
             {
                 Trace.TraceWarning(ResourceHelper.FindText("AutoCheckCannotStoreSelection"));
             }
@@ -106,16 +107,13 @@
 
         private void SelectItemFromViewModel()
         {
-            if (AttachedObject.DataContext != null)
+            var currentValue = Settings.Default[CurrentValueStoragePropertyName] as string;
+            foreach (var item in AttachedObject.Items)
             {
-                var currentValue = AttachedObject.DataContext.GetValue<string>(CurrentValueStoragePropertyName);
-                foreach (var item in AttachedObject.Items)
+                var menuItem = item as MenuItem;
+                if (menuItem != null)
                 {
-                    var menuItem = item as MenuItem;
-                    if (menuItem != null)
-                    {
-                        menuItem.IsChecked = String.CompareOrdinal(menuItem.CommandParameter as string, currentValue) == 0;
-                    }
+                    menuItem.IsChecked = String.CompareOrdinal(menuItem.CommandParameter as string, currentValue) == 0;
                 }
             }
         }

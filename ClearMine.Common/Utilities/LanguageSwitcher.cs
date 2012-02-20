@@ -1,9 +1,9 @@
 ﻿namespace ClearMine.Common.Utilities
 {
     using System;
-    using System.Threading;
 
     using ClearMine.Common.Messaging;
+    using ClearMine.Common.Properties;
 
     /// <summary>
     /// 
@@ -59,7 +59,7 @@
 
         protected override void OnApplicationStartup()
         {
-            var cultureName = Thread.CurrentThread.CurrentUICulture.Name;
+            var cultureName = Settings.Default.CurrentLanguage;
             Resources.Add(resourceStringFormat.MakeResDic(cultureName));
         }
     }

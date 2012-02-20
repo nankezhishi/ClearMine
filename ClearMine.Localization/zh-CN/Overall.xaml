@@ -176,4 +176,5 @@
     <s:String x:Key="AutoCheckCannotStoreSelection">AutoCheckMenuItemsBehavior 无法找到DataContext以保存当前的菜单选择项。</s:String>
     <s:String x:Key="CannotFoundResourceKey">无法根据关键字{0}找到资源</s:String>
     <s:String x:Key="CannotFoundProperty">无法在类型{0}中找到属性{1}</s:String>
+    <s:String x:Key="MediaFilePlayedInfo">播放媒体文件: {0}</s:String>
 </ResourceDictionary>

@@ -27,8 +27,6 @@
         private bool pandingInitialize = true;
         private bool isMousePressed = false;
         private double itemSize;
-        private string currentTheme;
-        private string currentLanguage;
 
         public ClearMineViewModel()
         {
@@ -132,36 +130,6 @@
         internal IClearMine Game
         {
             get { return game; }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public string CurrentTheme
-        {
-            get
-            {
-                if (currentTheme == null)
-                    currentTheme = "luna.normalcolor";
-
-                return currentTheme;
-            }
-            set { SetProperty(ref currentTheme, value, "CurrentTheme"); }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public string CurrentLanguage
-        {
-            get
-            {
-                if (currentLanguage == null)
-                    currentLanguage = Thread.CurrentThread.CurrentUICulture.Name;
-
-                return currentLanguage;
-            }
-            set { SetProperty(ref currentLanguage, value, "CurrentLanguage"); }
         }
 
         public void StartNewGame()

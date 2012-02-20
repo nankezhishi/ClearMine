@@ -1,10 +1,12 @@
 ﻿namespace ClearMine.Themes
 {
+    using System;
     using System.Windows;
     using System.Windows.Media;
     using System.Windows.Media.Effects;
 
     using ClearMine.Common.Modularity;
+    using ClearMine.Common.Properties;
     using ClearMine.Common.Utilities;
 
     /// <summary>
@@ -22,7 +24,7 @@
             themeSwitcher.DefaultThemes = new[]
             {
                 "/ClearMine.Themes;component/Themes/Generic.xaml",
-                "/ClearMine.Themes;component/Themes/luna.normalcolor.xaml"
+                String.Format("/ClearMine.Themes;component/Themes/{0}.xaml", Settings.Default.CurrentTheme)
             };
         }
     }
