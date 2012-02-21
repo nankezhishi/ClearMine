@@ -3,8 +3,9 @@
     using System;
     using System.Collections.Generic;
     using System.ComponentModel;
-    using System.Diagnostics.CodeAnalysis;
+    using System.Dynamic;
     using System.IO;
+    using System.Linq;
     using System.Windows.Input;
 
     using ClearMine.Common;
@@ -13,9 +14,18 @@
     using ClearMine.Common.Utilities;
     using ClearMine.VM.Commands;
 
-    public sealed class OptionsViewModel : ViewModelBase, IDataErrorInfo, ITransaction
+    /// <summary>
+    /// 
+    /// </summary>
+    public sealed class OptionsViewModel : DynamicObject, IDataErrorInfo, ITransaction, IViewModel, INotifyPropertyChanged
     {
         private string error;
+        private static readonly IEnumerable<string> settingsMembers;
+
+        static OptionsViewModel()
+        {
+            settingsMembers = typeof(Settings).GetProperties().Select(p => p.Name);
+        }
 
         public OptionsViewModel()
         {
@@ -33,21 +43,21 @@
 
                     if (value.Value == Common.Difficulty.Beginner)
                     {
-                        Rows = 9;
-                        Columns = 9;
-                        Mines = 10;
+                        Settings.Default.Rows = 9;
+                        Settings.Default.Columns = 9;
+                        Settings.Default.Mines = 10;
                     }
                     else if (value.Value == Common.Difficulty.Intermediate)
                     {
-                        Rows = 16;
-                        Columns = 16;
-                        Mines = 40;
+                        Settings.Default.Rows = 16;
+                        Settings.Default.Columns = 16;
+                        Settings.Default.Mines = 40;
                     }
                     else if (value.Value == Common.Difficulty.Advanced)
                     {
-                        Rows = 16;
-                        Columns = 30;
-                        Mines = 99;
+                        Settings.Default.Rows = 16;
+                        Settings.Default.Columns = 30;
+                        Settings.Default.Mines = 99;
                     }
                     else
                     {
@@ -57,102 +67,33 @@
             }
         }
 
-        [SuppressMessage("Microsoft.Performance", "CA1822:MarkMembersAsStatic")]
-        public int Rows
+        public override bool TryGetMember(GetMemberBinder binder, out object result)
         {
-            get { return Settings.Default.Rows; }
-            set { Settings.Default.Rows = value; }
+            if (settingsMembers.Contains(binder.Name))
+            {
+                result = Settings.Default[binder.Name];
+
+                return true;
+            }
+
+            return base.TryGetMember(binder, out result);
         }
 
-        [SuppressMessage("Microsoft.Performance", "CA1822:MarkMembersAsStatic")]
-        public int Columns
+        public override bool TrySetMember(SetMemberBinder binder, object value)
         {
-            get { return Settings.Default.Columns; }
-            set { Settings.Default.Columns = value; }
+            if (settingsMembers.Contains(binder.Name))
+            {
+                Settings.Default[binder.Name] = value;
+
+                return true;
+            }
+
+            return base.TrySetMember(binder, value);
         }
 
-        [SuppressMessage("Microsoft.Performance", "CA1822:MarkMembersAsStatic")]
-        public int Mines
+        public override IEnumerable<string> GetDynamicMemberNames()
         {
-            get { return Settings.Default.Mines; }
-            set { Settings.Default.Mines = value; }
-        }
-
-        [SuppressMessage("Microsoft.Performance", "CA1822:MarkMembersAsStatic")]
-        public bool PlaySound
-        {
-            get { return Settings.Default.PlaySound; }
-            set { Settings.Default.PlaySound = value; }
-        }
-
-        [SuppressMessage("Microsoft.Performance", "CA1822:MarkMembersAsStatic")]
-        public bool PlayAnimation
-        {
-            get { return Settings.Default.PlayAnimation; }
-            set { Settings.Default.PlayAnimation = value; }
-        }
-
-        [SuppressMessage("Microsoft.Performance", "CA1822:MarkMembersAsStatic")]
-        public bool WavingFlag
-        {
-            get { return Settings.Default.WavingFlag; }
-            set { Settings.Default.WavingFlag = value; }
-        }
-
-        [SuppressMessage("Microsoft.Performance", "CA1822:MarkMembersAsStatic")]
-        public bool ShowQuestionMark
-        {
-            get { return Settings.Default.ShowQuestionMark; }
-            set { Settings.Default.ShowQuestionMark = value; }
-        }
-
-        [SuppressMessage("Microsoft.Performance", "CA1822:MarkMembersAsStatic")]
-        public bool ShowTooManyFlagsWarning
-        {
-            get { return Settings.Default.ShowTooManyFlagsWarning; }
-            set { Settings.Default.ShowTooManyFlagsWarning = value; }
-        }
-
-        [SuppressMessage("Microsoft.Performance", "CA1822:MarkMembersAsStatic")]
-        public bool SaveOnExit
-        {
-            get { return Settings.Default.SaveOnExit; }
-            set { Settings.Default.SaveOnExit = value; }
-        }
-
-        [SuppressMessage("Microsoft.Performance", "CA1822:MarkMembersAsStatic")]
-        public bool AutoContinueSaved
-        {
-            get { return Settings.Default.AutoContinueSaved; }
-            set { Settings.Default.AutoContinueSaved = value; }
-        }
-
-        [SuppressMessage("Microsoft.Performance", "CA1822:MarkMembersAsStatic")]
-        public bool AlwaysNewGame
-        {
-            get { return Settings.Default.AlwaysNewGame; }
-            set { Settings.Default.AlwaysNewGame = value; }
-        }
-
-        [SuppressMessage("Microsoft.Performance", "CA1822:MarkMembersAsStatic")]
-        public bool SaveGame
-        {
-            get { return Settings.Default.SaveGame; }
-            set { Settings.Default.SaveGame = value; }
-        }
-
-        [SuppressMessage("Microsoft.Performance", "CA1822:MarkMembersAsStatic")]
-        public string GameHistoryFolder
-        {
-            get { return Settings.Default.GameHistoryFolder; }
-            set { Settings.Default.GameHistoryFolder = value; }
-        }
-
-        [SuppressMessage("Microsoft.Performance", "CA1822:MarkMembersAsStatic")]
-        public bool AccurateTime
-        {
-            get { return Settings.Default.AccurateTime; }
-            set { Settings.Default.AccurateTime = value; }
+            return settingsMembers;
         }
 
         public string Error
@@ -167,47 +108,23 @@
             {
                 if ("Rows".Equals(propertyName, StringComparison.Ordinal))
                 {
-                    if (Rows < 9 || Rows > 24)
-                    {
-                        Error = ResourceHelper.FindText("InvalidHeightMessage");
-                    }
-                    else
-                    {
-                        Error = null;
-                    }
+                    Error = (Settings.Default.Rows < 9 || Settings.Default.Rows > 24) ?
+                        ResourceHelper.FindText("InvalidHeightMessage") : null;
                 }
                 else if ("Columns".Equals(propertyName, StringComparison.Ordinal))
                 {
-                    if (Columns < 9 || Columns > 30)
-                    {
-                        Error = ResourceHelper.FindText("InvalidWidthMessage");
-                    }
-                    else
-                    {
-                        Error = null;
-                    }
+                    Error = (Settings.Default.Columns < 9 || Settings.Default.Columns > 30) ?
+                        ResourceHelper.FindText("InvalidWidthMessage") : null;
                 }
                 else if ("Mines".Equals(propertyName, StringComparison.Ordinal))
                 {
-                    if (Mines < 10 || Mines > Rows * Columns)
-                    {
-                        Error = ResourceHelper.FindText("InvalidMinesMessage");
-                    }
-                    else
-                    {
-                        Error = null;
-                    }
+                    Error = (Settings.Default.Mines < 10 || Settings.Default.Mines > Settings.Default.Rows * Settings.Default.Columns) ?
+                        ResourceHelper.FindText("InvalidMinesMessage") : null;
                 }
                 else if ("GameHistoryFolder".Equals(propertyName, StringComparison.Ordinal))
                 {
-                    if (Directory.Exists(GameHistoryFolder))
-                    {
-                        Error = null;
-                    }
-                    else
-                    {
-                        Error = ResourceHelper.FindText("HistoryNotExistMessage");
-                    }
+                    Error = Directory.Exists(Settings.Default.GameHistoryFolder) ?
+                        null : ResourceHelper.FindText("HistoryNotExistMessage");
                 }
                 else
                 {
@@ -218,7 +135,7 @@
             }
         }
 
-        public override IEnumerable<CommandBinding> CommandBindings
+        public IEnumerable<CommandBinding> CommandBindings
         {
             get { return GameCommandBindings.OptionCommandBindings; }
         }
@@ -236,6 +153,40 @@
         private void OnSettingsChanged(object sender, PropertyChangedEventArgs e)
         {
             TriggerPropertyChanged(e.PropertyName);
+        }
+
+        public void OnLoaded(object sender) { /* Nothing */ }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="property"></param>
+        /// <param name="newValue"></param>
+        /// <param name="propertyName"></param>
+        /// <returns></returns>
+        public bool SetProperty<T>(ref T property, T newValue, string propertyName)
+        {
+            if (!Object.Equals(property, newValue))
+            {
+                property = newValue;
+                TriggerPropertyChanged(propertyName);
+
+                return true;
+            }
+
+            return false;
+        }
+
+        private void TriggerPropertyChanged(string propertyName)
+        {
+            var temp = PropertyChanged;
+            if (temp != null)
+            {
+                temp(this, new PropertyChangedEventArgs(propertyName));
+            }
         }
     }
 }

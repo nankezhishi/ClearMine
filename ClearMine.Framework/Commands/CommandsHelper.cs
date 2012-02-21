@@ -4,9 +4,13 @@
     using System.Diagnostics;
     using System.Linq;
     using System.Windows;
+
     using ClearMine.Common.ComponentModel;
     using ClearMine.Common.Utilities;
 
+    /// <summary>
+    /// 
+    /// </summary>
     public static class CommandsHelper
     {
         public static bool GetLoadBindingsFromVM(DependencyObject obj)
@@ -62,7 +66,7 @@
 
         private static void LoadBindings(FrameworkElement host)
         {
-            var vm = host.DataContext as ViewModelBase;
+            var vm = host.DataContext as IViewModel;
             if (vm != null)
             {
                 host.CommandBindings.AddRange(vm.CommandBindings.ToList());

@@ -1,6 +1,7 @@
 ﻿namespace ClearMine.Common.Utilities
 {
     using System;
+    using System.Diagnostics;
     using System.Threading;
     using System.Windows.Media;
     using ClearMine.Common.Properties;
@@ -26,6 +27,8 @@
                     player.Volume = volume;
                     player.Open(new Uri(location, UriKind.RelativeOrAbsolute));
                     player.Play();
+
+                    Trace.TraceInformation(ResourceHelper.FindText("MediaFilePlayedInfo", location));
                 });
             }
         }
