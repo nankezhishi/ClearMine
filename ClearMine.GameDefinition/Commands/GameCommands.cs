@@ -1,4 +1,4 @@
-﻿namespace ClearMine.Framework.Commands
+﻿namespace ClearMine.GameDefinition.Commands
 {
     using System.Windows.Input;
 
@@ -47,6 +47,20 @@
         public static ICommand SwitchTheme
         {
             get { return switchTheme; }
+        }
+
+        private static ICommand plugins = new RoutedUICommand("Plugins", "Plugins", typeof(GameCommands), new InputGestureCollection() { new KeyGesture(Key.G, ModifierKeys.Control) });
+
+        public static ICommand Plugins
+        {
+            get { return plugins; }
+        }
+
+        private static ICommand option = new RoutedUICommand("Option", "Option", typeof(GameCommands), new InputGestureCollection() { new KeyGesture(Key.P, ModifierKeys.Control) });
+
+        public static ICommand Option
+        {
+            get { return option; }
         }
     }
 }

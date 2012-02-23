@@ -17,10 +17,10 @@
     using ClearMine.Common.Properties;
     using ClearMine.Common.Utilities;
     using ClearMine.Framework.Behaviors;
-    using ClearMine.Framework.Commands;
     using ClearMine.Framework.Interactivity;
     using ClearMine.Framework.Messages;
     using ClearMine.GameDefinition;
+    using ClearMine.GameDefinition.Commands;
     using Microsoft.Win32;
     using DialogResult = System.Windows.Forms.DialogResult;
     using FolderBrowserDialog = System.Windows.Forms.FolderBrowserDialog;
@@ -28,13 +28,7 @@
     public static class GameCommandBindings
     {
         #region Option Command
-        private static ICommand option = new RoutedUICommand("Option", "Option",
-            typeof(ClearMineViewModel), new InputGestureCollection() { new KeyGesture(Key.P, ModifierKeys.Control) });
-        private static CommandBinding optionBinding = new CommandBinding(Option, OnOptionExecuted);
-        public static ICommand Option
-        {
-            get { return option; }
-        }
+        private static CommandBinding optionBinding = new CommandBinding(GameCommands.Option, OnOptionExecuted);
 
         private static void OnOptionExecuted(object sender, ExecutedRoutedEventArgs e)
         {
@@ -62,13 +56,7 @@
         }
         #endregion
         #region Plugins Command
-        private static ICommand plugins = new RoutedUICommand("Plugins", "Plugins",
-            typeof(ClearMineViewModel), new InputGestureCollection() { new KeyGesture(Key.G, ModifierKeys.Control) });
-        private static CommandBinding pluginsBinding = new CommandBinding(Plugins, OnPluginsExecuted, OnPluginsCanExecuted);
-        public static ICommand Plugins
-        {
-            get { return plugins; }
-        }
+        private static CommandBinding pluginsBinding = new CommandBinding(GameCommands.Plugins, OnPluginsExecuted, OnPluginsCanExecuted);
 
         private static void OnPluginsExecuted(object sender, ExecutedRoutedEventArgs e)
         {
@@ -154,12 +142,14 @@
         }
         #endregion
 
+        #region ViewHelp Binding
         private static CommandBinding viewHelpBinding = new CommandBinding(ApplicationCommands.Help, OnHelpExecuted);
 
         private static void OnHelpExecuted(object sender, ExecutedRoutedEventArgs e)
         {
             MessageManager.SendMessage<HelpRequestedMessage>();
-        }
+        } 
+        #endregion
 
         #region Feeback Command
         private static CommandBinding feedbackBinding = new CommandBinding(GameCommands.Feedback, OnFeedbackExecuted);

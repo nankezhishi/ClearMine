@@ -4,9 +4,9 @@
                     xmlns:m="clr-namespace:ClearMine.VM.Commands;assembly=ClearMine.VM"
                     xmlns:s="clr-namespace:ClearMine.Common.Messaging;assembly=ClearMine.Common"
                     xmlns:c="clr-namespace:ClearMine.Framework.Controls;assembly=ClearMine.Framework"
-                    xmlns:h="clr-namespace:ClearMine.Framework.Commands;assembly=ClearMine.Framework"
                     xmlns:b="clr-namespace:ClearMine.Framework.Behaviors;assembly=ClearMine.Framework"
-                    xmlns:logic="clr-namespace:ClearMine.GameDefinition;assembly=ClearMine.GameDefinition">
+                    xmlns:logic="clr-namespace:ClearMine.GameDefinition;assembly=ClearMine.GameDefinition"
+                    xmlns:h="clr-namespace:ClearMine.GameDefinition.Commands;assembly=ClearMine.GameDefinition">
     <Rect x:Key="NumberViewbox">-0.2,-0.2 1.5,1.5</Rect>
     <Rect x:Key="MarkViewbox">-0.1,-0.1 1.2,1.2</Rect>
     <Rect x:Key="FaceViewbox">-0.1,-0.1 1.2,1.2</Rect>
@@ -439,7 +439,7 @@
     </Style>
 
     <DataTemplate x:Key="{x:Type vm:ClearMineViewModel}" DataType="{x:Type vm:ClearMineViewModel}">
-        <Grid h:CommandsHelper.LoadBindingsFromVM="True"
+        <Grid c:CommandsHelper.LoadBindingsFromVM="True"
               Background="#FFF2F1F0" x:Name="root">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
@@ -481,10 +481,10 @@
                                 <AutoCheckMenuItemsBehavior CurrentValueStoragePropertyName="CurrentTheme" />
                             </BehaviorCollection>
                         </Interaction.Behaviors>
-                        <MenuItem Header="_Windows Classic"
+                        <MenuItem Header="{DynamicResource ClassicThemeMenuHeader}"
                                   Command="{x:Static h:GameCommands.SwitchTheme}"
                                   CommandParameter="luna.normalcolor" />
-                        <MenuItem Header="Linu_x"
+                        <MenuItem Header="{DynamicResource LinuxThemeMenuHeader}"
                                   Command="{x:Static h:GameCommands.SwitchTheme}"
                                   CommandParameter="linux.ubuntu" />
                         <Separator />
@@ -511,9 +511,9 @@
                     </MenuItem>
                     <Separator />
                     <MenuItem Header="{DynamicResource OptionsMenuItemHeader}"
-                              Command="{x:Static m:GameCommandBindings.Option}" />
+                              Command="{x:Static h:GameCommands.Option}" />
                     <MenuItem Header="{DynamicResource PluginsMenuItemHeader}"
-                              Command="{x:Static m:GameCommandBindings.Plugins}" />
+                              Command="{x:Static h:GameCommands.Plugins}" />
                 </MenuItem>
                 <MenuItem Header="{DynamicResource HelpMenuItemHeader}">
                     <MenuItem Header="{DynamicResource ViewHelpMenuItemHeader}"

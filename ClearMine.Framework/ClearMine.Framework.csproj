@@ -98,10 +98,8 @@
     <Compile Include="Behaviors\AnimateEffectBehavior.cs" />
     <Compile Include="Behaviors\AutoCheckMenuItemsBehavior.cs" />
     <Compile Include="Behaviors\SortableListViewBehavior.cs" />
-    <Compile Include="Commands\CommandsHelper.cs" />
-    <Compile Include="Commands\GameCommands.cs" />
-    <Compile Include="Commands\OptionsCommands.cs" />
-    <Compile Include="Commands\StatisticsCommands.cs" />
+    <Compile Include="Controls\BindableDynamicResource.cs" />
+    <Compile Include="Controls\CommandsHelper.cs" />
     <Compile Include="Controls\AutoTransformPanel.cs" />
     <Compile Include="Controls\ElectronicNumber.cs" />
     <Compile Include="Controls\ListSortDecorator.cs" />

@@ -4,9 +4,10 @@
                     xmlns:m="clr-namespace:ClearMine.VM.Commands;assembly=ClearMine.VM"
                     xmlns:s="clr-namespace:ClearMine.Common.Messaging;assembly=ClearMine.Common"
                     xmlns:c="clr-namespace:ClearMine.Framework.Controls;assembly=ClearMine.Framework"
-                    xmlns:h="clr-namespace:ClearMine.Framework.Commands;assembly=ClearMine.Framework"
                     xmlns:b="clr-namespace:ClearMine.Framework.Behaviors;assembly=ClearMine.Framework"
-                    xmlns:logic="clr-namespace:ClearMine.GameDefinition;assembly=ClearMine.GameDefinition">
+                    xmlns:logic="clr-namespace:ClearMine.GameDefinition;assembly=ClearMine.GameDefinition"
+                    xmlns:h="clr-namespace:ClearMine.GameDefinition.Commands;assembly=ClearMine.GameDefinition"
+                    xmlns:u="clr-namespace:ClearMine.GameDefinition.Utilities;assembly=ClearMine.GameDefinition">
     <Rect x:Key="NumberViewbox">-0.2,-0.2 1.5,1.5</Rect>
     <Rect x:Key="MarkViewbox">-0.25,-0.2 1.45,1.5</Rect>
     <Rect x:Key="FaceViewbox">-0.2,-0.2 1.4,1.4</Rect>
@@ -604,7 +605,7 @@
     </Style>
 
     <DataTemplate x:Key="{x:Type vm:ClearMineViewModel}" DataType="{x:Type vm:ClearMineViewModel}">
-        <Grid h:CommandsHelper.LoadBindingsFromVM="True">
+        <Grid c:CommandsHelper.LoadBindingsFromVM="True">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="0.2*" />
@@ -613,6 +614,7 @@
                 <RowDefinition Height="0.2*" />
                 <RowDefinition Height="7*" />
                 <RowDefinition Height="0.2*" />
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="5" />
@@ -644,10 +646,10 @@
                                 <AutoCheckMenuItemsBehavior CurrentValueStoragePropertyName="CurrentTheme" />
                             </BehaviorCollection>
                         </Interaction.Behaviors>
-                        <MenuItem Header="_Windows Classic"
+                        <MenuItem Header="{DynamicResource ClassicThemeMenuHeader}"
                                   Command="{x:Static h:GameCommands.SwitchTheme}"
                                   CommandParameter="luna.normalcolor" />
-                        <MenuItem Header="Linu_x"
+                        <MenuItem Header="{DynamicResource LinuxThemeMenuHeader}"
                                   Command="{x:Static h:GameCommands.SwitchTheme}"
                                   CommandParameter="linux.ubuntu" />
                         <Separator />
@@ -674,9 +676,9 @@
                     </MenuItem>
                     <Separator />
                     <MenuItem Header="{DynamicResource OptionsMenuItemHeader}"
-                              Command="{x:Static m:GameCommandBindings.Option}" />
+                              Command="{x:Static h:GameCommands.Option}" />
                     <MenuItem Header="{DynamicResource PluginsMenuItemHeader}"
-                              Command="{x:Static m:GameCommandBindings.Plugins}" />
+                              Command="{x:Static h:GameCommands.Plugins}" />
                 </MenuItem>
                 <MenuItem Header="{DynamicResource HelpMenuItemHeader}">
                     <MenuItem Header="{DynamicResource ViewHelpMenuItemHeader}"
@@ -738,6 +740,9 @@
                     </ItemsControl>
                 </Border>
             </Decorator>
+            <Menu Grid.Row="6" Grid.ColumnSpan="3"
+                  ItemContainerStyle="{DynamicResource GeneratedMenuStyle}"
+                  ItemsSource="{Binding Source={x:Static u:Game.MenuDefinition}}" />
         </Grid>
         <DataTemplate.Resources>
             <!--While, this animation is slow on my machine.-->

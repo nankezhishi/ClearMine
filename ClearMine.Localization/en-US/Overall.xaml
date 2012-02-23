@@ -34,6 +34,8 @@
     <s:String x:Key="ExitMenuHeader">E_xit</s:String>
     <s:String x:Key="ToolsMenuHeader">_Tools</s:String>
     <s:String x:Key="ThemeMenuHeader">_Appearance</s:String>
+    <s:String x:Key="ClassicThemeMenuHeader">_Windows Classic</s:String>
+    <s:String x:Key="LinuxThemeMenuHeader">Linu_x</s:String>
     <s:String x:Key="CustomThemeMenuHeader">_Custom...</s:String>
     <s:String x:Key="LanguageMenuHeader">Lan_guage</s:String>
     <s:String x:Key="EnglishMenuItemHeader">_English</s:String>

@@ -45,6 +45,9 @@
   <ItemGroup>
     <Compile Include="CellState.cs" />
     <Compile Include="CellStateChangedEventArgs.cs" />
+    <Compile Include="Commands\GameCommands.cs" />
+    <Compile Include="Commands\OptionsCommands.cs" />
+    <Compile Include="Commands\StatisticsCommands.cs" />
     <Compile Include="ExpandFailedException.cs" />
     <Compile Include="GameOperation.cs" />
     <Compile Include="GameState.cs" />
@@ -58,6 +61,7 @@
     <Compile Include="MineCell.cs" />
     <Compile Include="PressState.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utilities\Game.cs" />
     <Compile Include="Utilities\GameExtension.cs" />
   </ItemGroup>
   <ItemGroup>

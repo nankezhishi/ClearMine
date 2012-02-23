@@ -1,4 +1,4 @@
-﻿namespace ClearMine.Framework.Commands
+﻿namespace ClearMine.GameDefinition.Commands
 {
     using System.Windows.Input;
 

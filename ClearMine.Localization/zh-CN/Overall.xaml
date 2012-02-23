@@ -35,6 +35,8 @@
     <s:String x:Key="ToolsMenuHeader">工具(_T)</s:String>
     <s:String x:Key="ThemeMenuHeader">外观(_A)</s:String>
     <s:String x:Key="CustomThemeMenuHeader">自定义(_C)...</s:String>
+    <s:String x:Key="ClassicThemeMenuHeader">_Windows经典</s:String>
+    <s:String x:Key="LinuxThemeMenuHeader">Linu_x</s:String>
     <s:String x:Key="LanguageMenuHeader">界面语言(_G)</s:String>
     <s:String x:Key="EnglishMenuItemHeader">英语(_E)</s:String>
     <s:String x:Key="ChineseMenuItemHeader">汉语(_N)</s:String>

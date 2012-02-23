@@ -7,7 +7,7 @@
     using System.Windows.Input;
 
     using ClearMine.Common;
-    using ClearMine.Common.ComponentModel;
+    using ClearMine.Common.ComponentModel.UI;
     using ClearMine.Common.Properties;
 
     public class GameWonDetailsViewModel : ViewModelBase

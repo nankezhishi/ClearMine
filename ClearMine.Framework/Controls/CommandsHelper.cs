@@ -1,11 +1,11 @@
-﻿namespace ClearMine.Framework.Commands
+﻿namespace ClearMine.Framework.Controls
 {
     using System;
     using System.Diagnostics;
     using System.Linq;
     using System.Windows;
 
-    using ClearMine.Common.ComponentModel;
+    using ClearMine.Common.ComponentModel.UI;
     using ClearMine.Common.Utilities;
 
     /// <summary>

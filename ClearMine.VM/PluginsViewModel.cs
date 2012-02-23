@@ -4,6 +4,7 @@
     using System.Windows.Input;
 
     using ClearMine.Common.ComponentModel;
+    using ClearMine.Common.ComponentModel.UI;
     using ClearMine.Common.Modularity;
     using ClearMine.Common.Properties;
     using ClearMine.VM.Commands;

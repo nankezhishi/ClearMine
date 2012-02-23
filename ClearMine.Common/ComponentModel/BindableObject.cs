@@ -7,11 +7,25 @@
 
     using ClearMine.Common.Utilities;
 
+    /// <summary>
+    /// 
+    /// </summary>
     public class BindableObject : INotifyPropertyChanged
     {
+        /// <summary>
+        /// 
+        /// </summary>
         [field: NonSerialized]
         public event PropertyChangedEventHandler PropertyChanged;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="property"></param>
+        /// <param name="newValue"></param>
+        /// <param name="propertyName"></param>
+        /// <returns></returns>
         [SuppressMessage("Microsoft.Design", "CA1045",
             Justification = "Use ref to change the value of a field in a sub class easily.")]
         public bool SetProperty<T>(ref T property, T newValue, string propertyName)
@@ -50,6 +64,10 @@
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="propertyName"></param>
         public void TriggerPropertyChanged(string propertyName)
         {
             var temp = PropertyChanged;

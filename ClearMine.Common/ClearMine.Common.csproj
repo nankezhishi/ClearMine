@@ -99,8 +99,9 @@
     <Compile Include="ComponentModel\ICachable.cs" />
     <Compile Include="ComponentModel\ITransaction.cs" />
     <Compile Include="ComponentModel\IUpdatable.cs" />
-    <Compile Include="ComponentModel\IViewModel.cs" />
-    <Compile Include="ComponentModel\ViewModelBase.cs" />
+    <Compile Include="ComponentModel\UI\IViewModel.cs" />
+    <Compile Include="ComponentModel\UI\MenuData.cs" />
+    <Compile Include="ComponentModel\UI\ViewModelBase.cs" />
     <Compile Include="Difficulty.cs" />
     <Compile Include="HeroHistory.cs" />
     <Compile Include="Messaging\SwitchLanguageMessage.cs" />

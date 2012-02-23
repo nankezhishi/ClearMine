@@ -11,7 +11,7 @@
     using System.Windows.Threading;
 
     using ClearMine.Common;
-    using ClearMine.Common.ComponentModel;
+    using ClearMine.Common.ComponentModel.UI;
     using ClearMine.Common.Messaging;
     using ClearMine.Common.Properties;
     using ClearMine.Common.Utilities;
