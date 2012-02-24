@@ -1,6 +1,7 @@
 ﻿namespace ClearMine.Themes
 {
     using System;
+    using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Windows;
     using System.Windows.Media;
@@ -19,18 +20,25 @@
     /// </summary>
     public class ThemeModule : IModule
     {
+        private static readonly string themeResourcePattern = "/ClearMine.Themes;component/Themes/{0}.xaml";
+
         private ThemeSwitcher themeSwitcher;
 
         public void InitializeModule()
         {
-            themeSwitcher = new ThemeSwitcher("/ClearMine.Themes;component/Themes/{0}.xaml",
+            themeSwitcher = new ThemeSwitcher(themeResourcePattern,
                 new[] { typeof(Rect), typeof(Brush), typeof(Style), typeof(DataTemplate), typeof(ShaderEffect) }, true);
 
-            themeSwitcher.DefaultThemes = new[]
+            var defaultThemes = new List<string>() { "/ClearMine.Themes;component/Themes/Generic.xaml" };
+            if (SwitchThemeMessage.CustomThemeKey.Equals(Settings.Default.CurrentTheme, StringComparison.Ordinal))
             {
-                "/ClearMine.Themes;component/Themes/Generic.xaml",
-                String.Format("/ClearMine.Themes;component/Themes/{0}.xaml", Settings.Default.CurrentTheme)
-            };
+                defaultThemes.Add(Settings.Default.CustomThemeFile);
+            }
+            else
+            {
+                defaultThemes.Add(String.Format(themeResourcePattern, Settings.Default.CurrentTheme));
+            }
+            themeSwitcher.DefaultThemes = defaultThemes;
 
             Game.MenuDefinition[1].SubMenus.Insert(0,
                 new MenuItemData("ThemeMenuHeader")

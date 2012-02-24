@@ -28,7 +28,7 @@
             {
                 var map = Settings.Default.DataMap[Name];
                 if (map != null && !(map is DataMap))
-                    throw new InvalidProgramException("插件的参数值应该为DataMap类型");
+                    throw new InvalidProgramException(ResourceHelper.FindText("PluginOptionsTypeInvalid"));
 
                 if (map == null)
                 {
@@ -83,7 +83,7 @@
                     }
                 }
 
-                Trace.TraceError(String.Format("插件{0}没有初始化配置项{1}", Name, id));
+                Trace.TraceError(ResourceHelper.FindText("InvalidPluginOptionId", Name, id));
 
                 return null;
             }

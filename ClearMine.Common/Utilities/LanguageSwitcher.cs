@@ -40,6 +40,10 @@
                         message.HandlingResult = true;
                         return;
                     }
+                    else
+                    {
+                        Settings.Default.CustomLanguageFile = resourceString;
+                    }
                 }
                 else
                 {
@@ -68,6 +72,20 @@
             {
                 cultureName = Thread.CurrentThread.CurrentUICulture.Name;
                 Settings.Default.CurrentLanguage = cultureName;
+            }
+            // A general language switch not know about how to initialize custom lanugage files.
+            else if (SwitchLanguageMessage.CustomLanguageKey.Equals(cultureName, StringComparison.Ordinal))
+            {
+                // If the switch knows how, then let it go.
+                if (supportCustom)
+                {
+                    return;
+                }
+                // use default.
+                else
+                {
+                    cultureName = Thread.CurrentThread.CurrentUICulture.Name;
+                }
             }
 
             Resources.Add(resourceStringFormat.MakeResDic(cultureName));

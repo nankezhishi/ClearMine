@@ -92,5 +92,11 @@
     <Setting Name="CurrentTheme" Type="System.String" Scope="User">
       <Value Profile="(Default)">luna.normalcolor</Value>
     </Setting>
+    <Setting Name="CustomLanguageFile" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="CustomThemeFile" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
   </Settings>
 </SettingsFile>

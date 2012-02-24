@@ -317,5 +317,29 @@ namespace ClearMine.Common.Properties {
                 this["CurrentTheme"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string CustomLanguageFile {
+            get {
+                return ((string)(this["CustomLanguageFile"]));
+            }
+            set {
+                this["CustomLanguageFile"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string CustomThemeFile {
+            get {
+                return ((string)(this["CustomThemeFile"]));
+            }
+            set {
+                this["CustomThemeFile"] = value;
+            }
+        }
     }
 }

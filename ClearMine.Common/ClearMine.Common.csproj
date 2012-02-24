@@ -103,6 +103,7 @@
     <Compile Include="ComponentModel\UI\MenuItemData.cs" />
     <Compile Include="ComponentModel\UI\ViewModelBase.cs" />
     <Compile Include="Difficulty.cs" />
+    <Compile Include="GenericEventArgs.cs" />
     <Compile Include="HeroHistory.cs" />
     <Compile Include="Messaging\ListeningPriority.cs" />
     <Compile Include="Messaging\SwitchLanguageMessage.cs" />

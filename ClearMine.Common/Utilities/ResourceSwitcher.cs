@@ -16,10 +16,12 @@
         protected Type[] validResourceTypes;
         protected bool supportCustom;
 
-        protected Collection<ResourceDictionary> Resources
+        public Collection<ResourceDictionary> Resources
         {
             get { return Application.Current.Resources.MergedDictionaries; }
         }
+
+        public event EventHandler<GenericEventArgs<Collection<ResourceDictionary>>> Initailized;
 
         public ResourceSwitcher(string stringFormat, Type[] validTypes, bool supportCustom)
         {
@@ -92,6 +94,11 @@
             try
             {
                 OnApplicationStartup();
+                var temp = Initailized;
+                if (temp != null)
+                {
+                    temp(this, new GenericEventArgs<Collection<ResourceDictionary>>(Resources));
+                }
             }
             catch (Exception ex)
             {

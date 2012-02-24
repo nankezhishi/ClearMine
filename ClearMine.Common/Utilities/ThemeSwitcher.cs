@@ -35,7 +35,7 @@
                 message.HandlingResult = false;
             }
             var resourceString = message.ThemeName;
-            if (SwitchThemeMessage.CustomThemeKey.Equals(message.ThemeName))
+            if (SwitchThemeMessage.CustomThemeKey.Equals(message.ThemeName, StringComparison.Ordinal))
             {
                 if (supportCustom)
                 {
@@ -44,6 +44,10 @@
                     {
                         message.HandlingResult = true;
                         return;
+                    }
+                    else
+                    {
+                        Settings.Default.CustomThemeFile = resourceString;
                     }
                 }
                 else
@@ -68,9 +72,12 @@
 
         protected override void OnApplicationStartup()
         {
-            foreach (var resource in DefaultThemes)
+            if (DefaultThemes != null)
             {
-                Resources.Add(resource.MakeResDic());
+                foreach (var resource in DefaultThemes)
+                {
+                    Resources.Add(resource.MakeResDic());
+                }
             }
         }
     }

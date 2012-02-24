@@ -101,6 +101,7 @@
     <Compile Include="Controls\CommandsHelper.cs" />
     <Compile Include="Controls\AutoTransformPanel.cs" />
     <Compile Include="Controls\ElectronicNumber.cs" />
+    <Compile Include="Controls\LightUps.cs" />
     <Compile Include="Controls\ListSortDecorator.cs" />
     <Compile Include="Controls\MineCellControl.cs" />
     <Compile Include="Controls\MinesPanel.cs" />

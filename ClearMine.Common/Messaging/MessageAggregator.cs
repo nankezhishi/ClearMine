@@ -48,7 +48,7 @@
             foreach (var groupProcessors in processors.OrderBy(p => p.Key))
             {
                 // ToList to make a copy of processors in case of adding new processor
-                foreach (var reference in groupProcessors.Value)
+                foreach (var reference in groupProcessors.Value.ToList())
                 {
                     try
                     {

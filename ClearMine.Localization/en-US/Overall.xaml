@@ -179,4 +179,6 @@
     <s:String x:Key="CannotFoundResourceKey">Cannot find resouce by key: {0}</s:String>
     <s:String x:Key="CannotFoundProperty">Cannot find property {1} in class {0}</s:String>
     <s:String x:Key="MediaFilePlayedInfo">Played media file: {0}</s:String>
+    <s:String x:Key="PluginOptionsTypeInvalid">The type of the plugin options should be DataMap</s:String>
+    <s:String x:Key="InvalidPluginOptionId">The option {1} of plugin {0} is not initialized yet.</s:String>
 </ResourceDictionary>

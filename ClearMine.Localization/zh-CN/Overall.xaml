@@ -179,4 +179,6 @@
     <s:String x:Key="CannotFoundResourceKey">无法根据关键字{0}找到资源</s:String>
     <s:String x:Key="CannotFoundProperty">无法在类型{0}中找到属性{1}</s:String>
     <s:String x:Key="MediaFilePlayedInfo">播放媒体文件: {0}</s:String>
+    <s:String x:Key="PluginOptionsTypeInvalid">插件的参数值应该为DataMap类型</s:String>
+    <s:String x:Key="InvalidPluginOptionId">插件{0}没有初始化配置项{1}</s:String>
 </ResourceDictionary>
