@@ -176,10 +176,7 @@
 
         private static void OnSwitchLanguageExecuted(object sender, ExecutedRoutedEventArgs e)
         {
-            if ((bool)MessageManager.SendMessage<SwitchLanguageMessage>(e.Parameter, e.OriginalSource))
-            {
-                Interaction.FindBehavior<AutoCheckMenuItemsBehavior>(e.OriginalSource as DependencyObject, b => b.UndoMenuItemCheck());
-            }
+            MessageManager.SendMessage<SwitchLanguageMessage>(e.Parameter, e.OriginalSource);
         }
         #endregion
 
@@ -188,11 +185,8 @@
 
         private static void OnSwitchThemeExecuted(object sender, ExecutedRoutedEventArgs e)
         {
-            if ((bool)MessageManager.SendMessage<SwitchThemeMessage>(e.Parameter, e.OriginalSource))
-            {
-                Interaction.FindBehavior<AutoCheckMenuItemsBehavior>(e.OriginalSource as DependencyObject, b => b.UndoMenuItemCheck());
-            }
-        } 
+            MessageManager.SendMessage<SwitchThemeMessage>(e.Parameter, e.OriginalSource);
+        }
         #endregion
 
         #region Close Command

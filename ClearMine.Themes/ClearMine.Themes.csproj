@@ -52,6 +52,7 @@
       <SubType>Code</SubType>
     </Compile>
     <AppDesigner Include="Properties\" />
+    <Compile Include="ThemeMenuItemData.cs" />
     <Compile Include="ThemeModule.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -6,7 +6,8 @@
                     xmlns:c="clr-namespace:ClearMine.Framework.Controls;assembly=ClearMine.Framework"
                     xmlns:b="clr-namespace:ClearMine.Framework.Behaviors;assembly=ClearMine.Framework"
                     xmlns:logic="clr-namespace:ClearMine.GameDefinition;assembly=ClearMine.GameDefinition"
-                    xmlns:h="clr-namespace:ClearMine.GameDefinition.Commands;assembly=ClearMine.GameDefinition">
+                    xmlns:h="clr-namespace:ClearMine.GameDefinition.Commands;assembly=ClearMine.GameDefinition"
+                    xmlns:u="clr-namespace:ClearMine.GameDefinition.Utilities;assembly=ClearMine.GameDefinition">
     <Rect x:Key="NumberViewbox">-0.2,-0.2 1.5,1.5</Rect>
     <Rect x:Key="MarkViewbox">-0.1,-0.1 1.2,1.2</Rect>
     <Rect x:Key="FaceViewbox">-0.1,-0.1 1.2,1.2</Rect>
@@ -80,8 +81,8 @@
             <GeometryDrawing Geometry="M0,0 L15,15 M15,0 L 0,15">
                 <GeometryDrawing.Pen>
                     <Pen Brush="Black"
-					     EndLineCap="Round"
-					     StartLineCap="Round"
+                         EndLineCap="Round"
+                         StartLineCap="Round"
                          Thickness="1" />
                 </GeometryDrawing.Pen>
             </GeometryDrawing>
@@ -456,75 +457,9 @@
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="5" />
             </Grid.ColumnDefinitions>
-            <Menu Grid.ColumnSpan="3">
-                <MenuItem Header="{DynamicResource GameMenuHeader}">
-                    <MenuItem Header="{DynamicResource NewGameMenuHeader}"
-                              Command="New" />
-                    <MenuItem Header="{DynamicResource RestartGameMenuHeader}"
-                              Command="Refresh" />
-                    <Separator />
-                    <MenuItem Header="{DynamicResource OpenGameMenuHeader}"
-                              Command="Open" />
-                    <MenuItem Header="{DynamicResource SaveAsGameMenuHeader}"
-                              Command="SaveAs" />
-                    <Separator />
-                    <MenuItem Header="{DynamicResource HeroListMenuHeader}"
-                              Command="{x:Static h:GameCommands.ShowStatistics}" />
-                    <Separator />
-                    <MenuItem Header="{DynamicResource ExitMenuHeader}"
-                              Command="Close" />
-                </MenuItem>
-                <MenuItem Header="{DynamicResource ToolsMenuHeader}">
-                    <MenuItem Header="{DynamicResource ThemeMenuHeader}">
-                        <Interaction.Behaviors>
-                            <BehaviorCollection>
-                                <AutoCheckMenuItemsBehavior CurrentValueStoragePropertyName="CurrentTheme" />
-                            </BehaviorCollection>
-                        </Interaction.Behaviors>
-                        <MenuItem Header="{DynamicResource ClassicThemeMenuHeader}"
-                                  Command="{x:Static h:GameCommands.SwitchTheme}"
-                                  CommandParameter="luna.normalcolor" />
-                        <MenuItem Header="{DynamicResource LinuxThemeMenuHeader}"
-                                  Command="{x:Static h:GameCommands.SwitchTheme}"
-                                  CommandParameter="linux.ubuntu" />
-                        <Separator />
-                        <MenuItem Header="{DynamicResource CustomThemeMenuHeader}"
-                                  Command="{x:Static h:GameCommands.SwitchTheme}"
-                                  CommandParameter="{x:Static s:SwitchThemeMessage.CustomThemeKey}"/>
-                    </MenuItem>
-                    <MenuItem Header="{DynamicResource LanguageMenuHeader}">
-                        <Interaction.Behaviors>
-                            <BehaviorCollection>
-                                <AutoCheckMenuItemsBehavior CurrentValueStoragePropertyName="CurrentLanguage" />
-                            </BehaviorCollection>
-                        </Interaction.Behaviors>
-                        <MenuItem Header="{DynamicResource EnglishMenuItemHeader}"
-                                  Command="{x:Static h:GameCommands.SwitchLanguage}"
-                                  CommandParameter="en-US" />
-                        <MenuItem Header="{DynamicResource ChineseMenuItemHeader}"
-                                  Command="{x:Static h:GameCommands.SwitchLanguage}"
-                                  CommandParameter="zh-CN" />
-                        <Separator />
-                        <MenuItem Header="{DynamicResource CustomLanguageMenuItemHeader}"
-                                  Command="{x:Static h:GameCommands.SwitchLanguage}"
-                                  CommandParameter="{x:Static s:SwitchLanguageMessage.CustomLanguageKey}" />
-                    </MenuItem>
-                    <Separator />
-                    <MenuItem Header="{DynamicResource OptionsMenuItemHeader}"
-                              Command="{x:Static h:GameCommands.Option}" />
-                    <MenuItem Header="{DynamicResource PluginsMenuItemHeader}"
-                              Command="{x:Static h:GameCommands.Plugins}" />
-                </MenuItem>
-                <MenuItem Header="{DynamicResource HelpMenuItemHeader}">
-                    <MenuItem Header="{DynamicResource ViewHelpMenuItemHeader}"
-                              Command="Help" />
-                    <MenuItem Header="{DynamicResource SendFeedbakMenuItemHeader}"
-                              Command="{x:Static h:GameCommands.Feedback}" />
-                    <Separator />
-                    <MenuItem Header="{DynamicResource AboutMenuItemHeader}"
-                              Command="{x:Static h:GameCommands.About}" />
-                </MenuItem>
-            </Menu>
+            <Menu Grid.ColumnSpan="3"
+                  ItemContainerStyle="{DynamicResource GeneratedMenuStyle}"
+                  ItemsSource="{Binding Source={x:Static u:Game.MenuDefinition}}" />
             <Button Command="New"
                     Margin="18,0,18,0"
                     Grid.Row="2"

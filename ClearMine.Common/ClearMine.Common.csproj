@@ -100,10 +100,11 @@
     <Compile Include="ComponentModel\ITransaction.cs" />
     <Compile Include="ComponentModel\IUpdatable.cs" />
     <Compile Include="ComponentModel\UI\IViewModel.cs" />
-    <Compile Include="ComponentModel\UI\MenuData.cs" />
+    <Compile Include="ComponentModel\UI\MenuItemData.cs" />
     <Compile Include="ComponentModel\UI\ViewModelBase.cs" />
     <Compile Include="Difficulty.cs" />
     <Compile Include="HeroHistory.cs" />
+    <Compile Include="Messaging\ListeningPriority.cs" />
     <Compile Include="Messaging\SwitchLanguageMessage.cs" />
     <Compile Include="Messaging\SwitchThemeMessage.cs" />
     <Compile Include="Modularity\AbstractPlugin.cs" />

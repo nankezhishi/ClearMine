@@ -2,37 +2,12 @@
 {
     using System;
     using System.Windows;
-    using System.Windows.Media;
 
+    /// <summary>
+    /// 
+    /// </summary>
     public static class Interaction
     {
-        public static T FindBehavior<T>(this DependencyObject element, Action<T> action = null)
-            where T : Behavior
-        {
-            var current = element;
-            while (current != null)
-            {
-                var behaviors = GetBehaviors(current);
-                foreach (var behavior in behaviors)
-                {
-                    var typedBehavior = behavior as T;
-                    if (typedBehavior != null)
-                    {
-                        if (action != null)
-                        {
-                            action(typedBehavior);
-                        }
-
-                        return typedBehavior;
-                    }
-                }
-
-                current = VisualTreeHelper.GetParent(current) ?? ((dynamic)current).Parent ?? ((dynamic)current).TemplatedParent;
-            }
-
-            return null;
-        }
-
         public static BehaviorCollection GetBehaviors(DependencyObject obj)
         {
             if (obj == null)

@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Diagnostics;
 
     using ClearMine.Common.Properties;
     using ClearMine.Common.Utilities;
@@ -71,13 +72,18 @@
         {
             get
             {
-                foreach (var option in pluginOptions)
+                if (pluginOptions != null)
                 {
-                    if (String.CompareOrdinal(option.ID, id) == 0)
+                    foreach (var option in pluginOptions)
                     {
-                        return option;
+                        if (String.CompareOrdinal(option.ID, id) == 0)
+                        {
+                            return option;
+                        }
                     }
                 }
+
+                Trace.TraceError(String.Format("插件{0}没有初始化配置项{1}", Name, id));
 
                 return null;
             }

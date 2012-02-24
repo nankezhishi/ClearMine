@@ -96,7 +96,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Behaviors\AnimateEffectBehavior.cs" />
-    <Compile Include="Behaviors\AutoCheckMenuItemsBehavior.cs" />
     <Compile Include="Behaviors\SortableListViewBehavior.cs" />
     <Compile Include="Controls\BindableDynamicResource.cs" />
     <Compile Include="Controls\CommandsHelper.cs" />

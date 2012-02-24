@@ -20,7 +20,6 @@
         public LanguageSwitcher(string stringFormat, Type[] validTypes, bool supportCustom)
             : base(stringFormat, validTypes, supportCustom)
         {
-            
             MessageManager.SubscribeMessage<SwitchLanguageMessage>(OnSwitchLanguage);
         }
 
@@ -44,7 +43,7 @@
                 }
                 else
                 {
-                    resourceString = null;
+                    return;
                 }
             }
             else
@@ -56,13 +55,20 @@
             {
                 message.HandlingResult = true;
             }
+            else
+            {
+                Settings.Default.CurrentLanguage = message.CultureName;
+            }
         }
 
         protected override void OnApplicationStartup()
         {
             var cultureName = Settings.Default.CurrentLanguage;
             if (String.IsNullOrWhiteSpace(cultureName))
+            {
                 cultureName = Thread.CurrentThread.CurrentUICulture.Name;
+                Settings.Default.CurrentLanguage = cultureName;
+            }
 
             Resources.Add(resourceStringFormat.MakeResDic(cultureName));
         }

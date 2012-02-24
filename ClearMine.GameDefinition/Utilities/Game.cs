@@ -4,7 +4,6 @@
     using System.Windows.Input;
 
     using ClearMine.Common.ComponentModel.UI;
-    using ClearMine.Common.Messaging;
     using ClearMine.GameDefinition.Commands;
 
     /// <summary>
@@ -15,11 +14,11 @@
         /// <summary>
         /// 
         /// </summary>
-        public static ObservableCollection<object> MenuDefinition { get; private set; }
+        public static ObservableCollection<MenuItemData> MenuDefinition { get; private set; }
 
         static Game()
         {
-            MenuDefinition = new ObservableCollection<object>();
+            MenuDefinition = new ObservableCollection<MenuItemData>();
             Initialize();
         }
 
@@ -52,26 +51,6 @@
             {
                 SubMenus = new ObservableCollection<object>()
                 {
-                    new MenuItemData("ThemeMenuHeader")
-                    {
-                        SubMenus = new ObservableCollection<object>()
-                        {
-                            new MenuItemData("ClassicThemeMenuHeader", GameCommands.SwitchTheme) { CommandParameter = "luna.normalcolor" },
-                            new MenuItemData("LinuxThemeMenuHeader", GameCommands.SwitchTheme) { CommandParameter = "linux.ubuntu" },
-                            new MenuItemData(),
-                            new MenuItemData("CustomThemeMenuHeader", GameCommands.SwitchTheme) { CommandParameter = SwitchThemeMessage.CustomThemeKey },
-                        },
-                    },
-                    new MenuItemData("LanguageMenuHeader")
-                    {
-                        SubMenus = new ObservableCollection<object>()
-                        {
-                            new MenuItemData("EnglishMenuItemHeader", GameCommands.SwitchLanguage) { CommandParameter = "en-US" },
-                            new MenuItemData("ChineseMenuItemHeader", GameCommands.SwitchLanguage) { CommandParameter = "zh-CN" },
-                            new MenuItemData(),
-                            new MenuItemData("CustomLanguageMenuItemHeader", GameCommands.SwitchLanguage) { CommandParameter = SwitchLanguageMessage.CustomLanguageKey },
-                        }
-                    },
                     new MenuItemData(),
                     new MenuItemData("OptionsMenuItemHeader", GameCommands.Option),
                     new MenuItemData("PluginsMenuItemHeader", GameCommands.Plugins),

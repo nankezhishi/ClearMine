@@ -60,6 +60,10 @@
             {
                 message.HandlingResult = true;
             }
+            else
+            {
+                Settings.Default.CurrentTheme = message.ThemeName;
+            }
         }
 
         protected override void OnApplicationStartup()

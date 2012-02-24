@@ -7,23 +7,26 @@
 
     internal class MessageAggregator<T> where T : MessageBase
     {
-        private ICollection<Action<T>> processors = new List<Action<T>>();
+        private IDictionary<ListeningPriority, List<Action<T>>> processors = new Dictionary<ListeningPriority, List<Action<T>>>();
 
-        public void Subscribe(Action<T> processor)
+        public void Subscribe(Action<T> processor, ListeningPriority priority = ListeningPriority.Normal)
         {
-            if (!processors.Any(p => p == processor))
+            if (!processors.ContainsKey(priority))
+                processors.Add(priority, new List<Action<T>>());
+
+            if (!processors.Values.Any(p => p.Contains(processor)))
             {
-                processors.Add(processor);
+                processors[priority].Add(processor);
             }
         }
 
         public void Unsubscribe(Action<T> processor)
         {
-            EnumerateAliveProcessors(r =>
+            EnumerateAliveProcessors((r, g) =>
             {
                 if (r == processor)
                 {
-                    processors.Remove(r);
+                    g.Value.Remove(r);
                 }
             });
         }
@@ -32,7 +35,7 @@
         {
             if (message != null)
             {
-                EnumerateAliveProcessors(r => (r as Action<T>)(message));
+                EnumerateAliveProcessors((r, g) => (r as Action<T>)(message));
             }
 
             return message;
@@ -40,17 +43,21 @@
 
         // TODO: Maybe a post message method if any place need.
 
-        private void EnumerateAliveProcessors(Action<Action<T>> action)
+        private void EnumerateAliveProcessors(Action<Action<T>, KeyValuePair<ListeningPriority, List<Action<T>>>> action)
         {
-            foreach (var reference in processors)
+            foreach (var groupProcessors in processors.OrderBy(p => p.Key))
             {
-                try
+                // ToList to make a copy of processors in case of adding new processor
+                foreach (var reference in groupProcessors.Value)
                 {
-                    action(reference);
-                }
-                catch (Exception e)
-                {
-                    Trace.TraceError(e.ToString());
+                    try
+                    {
+                        action(reference, groupProcessors);
+                    }
+                    catch (Exception e)
+                    {
+                        Trace.TraceError(e.ToString());
+                    }
                 }
             }
         }

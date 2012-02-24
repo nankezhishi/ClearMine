@@ -614,82 +614,15 @@
                 <RowDefinition Height="0.2*" />
                 <RowDefinition Height="7*" />
                 <RowDefinition Height="0.2*" />
-                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="5" />
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="5" />
             </Grid.ColumnDefinitions>
-            <Menu Grid.ColumnSpan="3">
-                <MenuItem Header="{DynamicResource GameMenuHeader}">
-                    <MenuItem Header="{DynamicResource NewGameMenuHeader}"
-                              Command="New" />
-                    <MenuItem Header="{DynamicResource RestartGameMenuHeader}"
-                              Command="Refresh" />
-                    <Separator />
-                    <MenuItem Header="{DynamicResource OpenGameMenuHeader}"
-                              Command="Open" />
-                    <MenuItem Header="{DynamicResource SaveAsGameMenuHeader}"
-                              Command="SaveAs" />
-                    <Separator />
-                    <MenuItem Header="{DynamicResource HeroListMenuHeader}"
-                              Command="{x:Static h:GameCommands.ShowStatistics}" />
-                    <Separator />
-                    <MenuItem Header="{DynamicResource ExitMenuHeader}"
-                              Command="Close" />
-                </MenuItem>
-                <MenuItem Header="{DynamicResource ToolsMenuHeader}">
-                    <MenuItem Header="{DynamicResource ThemeMenuHeader}">
-                        <Interaction.Behaviors>
-                            <BehaviorCollection>
-                                <AutoCheckMenuItemsBehavior CurrentValueStoragePropertyName="CurrentTheme" />
-                            </BehaviorCollection>
-                        </Interaction.Behaviors>
-                        <MenuItem Header="{DynamicResource ClassicThemeMenuHeader}"
-                                  Command="{x:Static h:GameCommands.SwitchTheme}"
-                                  CommandParameter="luna.normalcolor" />
-                        <MenuItem Header="{DynamicResource LinuxThemeMenuHeader}"
-                                  Command="{x:Static h:GameCommands.SwitchTheme}"
-                                  CommandParameter="linux.ubuntu" />
-                        <Separator />
-                        <MenuItem Header="{DynamicResource CustomThemeMenuHeader}"
-                                  Command="{x:Static h:GameCommands.SwitchTheme}"
-                                  CommandParameter="{x:Static s:SwitchThemeMessage.CustomThemeKey}"/>
-                    </MenuItem>
-                    <MenuItem Header="{DynamicResource LanguageMenuHeader}">
-                        <Interaction.Behaviors>
-                            <BehaviorCollection>
-                                <AutoCheckMenuItemsBehavior CurrentValueStoragePropertyName="CurrentLanguage" />
-                            </BehaviorCollection>
-                        </Interaction.Behaviors>
-                        <MenuItem Header="{DynamicResource EnglishMenuItemHeader}"
-                                  Command="{x:Static h:GameCommands.SwitchLanguage}"
-                                  CommandParameter="en-US" />
-                        <MenuItem Header="{DynamicResource ChineseMenuItemHeader}"
-                                  Command="{x:Static h:GameCommands.SwitchLanguage}"
-                                  CommandParameter="zh-CN" />
-                        <Separator />
-                        <MenuItem Header="{DynamicResource CustomLanguageMenuItemHeader}"
-                                  Command="{x:Static h:GameCommands.SwitchLanguage}"
-                                  CommandParameter="{x:Static s:SwitchLanguageMessage.CustomLanguageKey}" />
-                    </MenuItem>
-                    <Separator />
-                    <MenuItem Header="{DynamicResource OptionsMenuItemHeader}"
-                              Command="{x:Static h:GameCommands.Option}" />
-                    <MenuItem Header="{DynamicResource PluginsMenuItemHeader}"
-                              Command="{x:Static h:GameCommands.Plugins}" />
-                </MenuItem>
-                <MenuItem Header="{DynamicResource HelpMenuItemHeader}">
-                    <MenuItem Header="{DynamicResource ViewHelpMenuItemHeader}"
-                              Command="Help" />
-                    <MenuItem Header="{DynamicResource SendFeedbakMenuItemHeader}"
-                              Command="{x:Static h:GameCommands.Feedback}" />
-                    <Separator />
-                    <MenuItem Header="{DynamicResource AboutMenuItemHeader}"
-                              Command="{x:Static h:GameCommands.About}" />
-                </MenuItem>
-            </Menu>
+            <Menu Grid.ColumnSpan="3"
+                  ItemContainerStyle="{DynamicResource GeneratedMenuStyle}"
+                  ItemsSource="{Binding Source={x:Static u:Game.MenuDefinition}}" />
             <DockPanel LastChildFill="False"
                        Grid.Row="2"
                        Grid.ColumnSpan="3"
@@ -740,9 +673,6 @@
                     </ItemsControl>
                 </Border>
             </Decorator>
-            <Menu Grid.Row="6" Grid.ColumnSpan="3"
-                  ItemContainerStyle="{DynamicResource GeneratedMenuStyle}"
-                  ItemsSource="{Binding Source={x:Static u:Game.MenuDefinition}}" />
         </Grid>
         <DataTemplate.Resources>
             <!--While, this animation is slow on my machine.-->

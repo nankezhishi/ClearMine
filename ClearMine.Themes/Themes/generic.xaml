@@ -7,17 +7,6 @@
     <SolidColorBrush x:Key="DialogBackground" Color="#F0F0F0" />
     <PlaygroundBorderThicknessConverter x:Key="PlaygroundBorderThicknessConverter" />
     <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
-    
-    <!--<DataTemplate DataType="{x:Type d:MenuItemData}">
-        <MenuItem Header="{Binding HeaderKey}"
-                  ItemsSource="{Binding SubMenus}"
-                  Command="{Binding Command}"
-                  CommandParameter="{Binding CommandParameter}" />
-    </DataTemplate>
-    
-    <DataTemplate DataType="{x:Type d:MenuSeperatorData}">
-        <Separator />
-    </DataTemplate>-->
 
     <DataTemplate DataType="{x:Type logic:MineCell}">
         <MineCellControl />
@@ -293,9 +282,11 @@
     </Style>
 
     <Style x:Key="GeneratedMenuStyle" TargetType="{x:Type MenuItem}">
-        <Setter Property="Header" Value="{BindableDynamicResource {Binding HeaderKey}}"/>
+        <Setter Property="DataContext" Value="{Binding}" />
+        <Setter Property="Header" Value="{Binding Header}"/>
         <Setter Property="Command" Value="{Binding Command}"/>
         <Setter Property="ItemsSource" Value="{Binding SubMenus}"/>
+        <Setter Property="IsChecked" Value="{Binding IsChecked}" />
         <Setter Property="CommandParameter" Value="{Binding CommandParameter}"/>
         <Style.Triggers>
             <DataTrigger Binding="{Binding IsSeperator}" Value="True">

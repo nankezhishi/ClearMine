@@ -3,6 +3,9 @@
     using System.Collections.Generic;
     using System.Windows.Input;
 
+    using ClearMine.Common.Messaging;
+    using ClearMine.Common.Utilities;
+
     /// <summary>
     /// 
     /// </summary>
@@ -26,9 +29,18 @@
         {
             Command = command;
             HeaderKey = headerkey;
+            MessageManager.SubscribeMessage<SwitchLanguageMessage>(OnSwitchLanguage);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public bool IsSeperator { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public virtual bool IsChecked { get; set; }
 
         /// <summary>
         /// 
@@ -38,16 +50,35 @@
         /// <summary>
         /// 
         /// </summary>
+        public virtual string Header
+        {
+            get
+            {
+                if (HeaderKey == null)
+                    return null;
+
+                return ResourceHelper.FindText(HeaderKey);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public ICommand Command { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public object CommandParameter { get; set; }
+        public virtual object CommandParameter { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public IEnumerable<object> SubMenus { get; set; }
+        public IList<object> SubMenus { get; set; }
+
+        private void OnSwitchLanguage(SwitchLanguageMessage message)
+        {
+            TriggerPropertyChanged("Header");
+        }
     }
 }

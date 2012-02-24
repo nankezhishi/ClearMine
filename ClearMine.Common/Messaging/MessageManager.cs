@@ -12,10 +12,10 @@
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="handler"></param>
-        public static void SubscribeMessage<T>(Action<T> handler)
+        public static void SubscribeMessage<T>(Action<T> handler, ListeningPriority priority = ListeningPriority.Normal)
             where T : MessageBase
         {
-            GetMessageAggregator<T>().Subscribe(handler);
+            GetMessageAggregator<T>().Subscribe(handler, priority);
         }
 
         /// <summary>

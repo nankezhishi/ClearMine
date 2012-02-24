@@ -46,6 +46,7 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="LanguageMenuItemData.cs" />
     <Compile Include="LocalizationModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
@@ -66,6 +67,10 @@
     <ProjectReference Include="..\ClearMine.Common\ClearMine.Common.csproj">
       <Project>{A2631FA1-E4A4-41AC-8E8E-5C8AEB63C83E}</Project>
       <Name>ClearMine.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ClearMine.GameDefinition\ClearMine.GameDefinition.csproj">
+      <Project>{04D44DD3-3819-4496-8A4C-03298742EA5D}</Project>
+      <Name>ClearMine.GameDefinition</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

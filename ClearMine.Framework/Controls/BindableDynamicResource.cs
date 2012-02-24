@@ -11,13 +11,13 @@
     /// </summary>
     [MarkupExtensionReturnType(typeof(object))]
     [TypeConverter(typeof(DynamicResourceExtensionConverter))]
-    public class BindableDynamicResource : DynamicResourceExtension
+    public class BindableDynamicResource : StaticResourceExtension
     {
         private static readonly DependencyProperty ValueHostProperty;
 
         static BindableDynamicResource()
         {
-            ValueHostProperty = DependencyProperty.RegisterAttached("ValueHost", typeof(Object), typeof(BindableDynamicResource), new UIPropertyMetadata(null));
+            ValueHostProperty = DependencyProperty.RegisterAttached("ValueHost", typeof(Object), typeof(DependencyObject), new UIPropertyMetadata(null));
         }
 
         [ConstructorArgument("binding")]
@@ -30,6 +30,16 @@
         public BindableDynamicResource(Binding binding)
         {
             Binding = binding;
+        }
+
+        public new object ResourceKey
+        {
+            get { return base.ResourceKey; }
+            set
+            {
+                if (value != null)
+                    base.ResourceKey = value;
+            }
         }
 
         public override object ProvideValue(IServiceProvider serviceProvider)
