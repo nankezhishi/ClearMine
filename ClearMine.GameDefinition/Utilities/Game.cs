@@ -4,7 +4,6 @@
     using System.Windows.Input;
 
     using ClearMine.Common.ComponentModel.UI;
-    using ClearMine.GameDefinition.Commands;
 
     /// <summary>
     /// 

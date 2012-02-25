@@ -16,11 +16,8 @@
     using ClearMine.Common.Modularity;
     using ClearMine.Common.Properties;
     using ClearMine.Common.Utilities;
-    using ClearMine.Framework.Behaviors;
-    using ClearMine.Framework.Interactivity;
     using ClearMine.Framework.Messages;
     using ClearMine.GameDefinition;
-    using ClearMine.GameDefinition.Commands;
     using Microsoft.Win32;
     using DialogResult = System.Windows.Forms.DialogResult;
     using FolderBrowserDialog = System.Windows.Forms.FolderBrowserDialog;
@@ -221,7 +218,7 @@
         #endregion
 
         #region BrowseHistory Command
-        private static CommandBinding browseHistoryBinding = new CommandBinding(OptionsCommands.BrowseHistory, OnBrowseHistoryExecuted, OnBrowseHistoryCanExecute);
+        private static CommandBinding browseHistoryBinding = new CommandBinding(GameCommands.BrowseHistory, OnBrowseHistoryExecuted, OnBrowseHistoryCanExecute);
 
         private static void OnBrowseHistoryExecuted(object sender, ExecutedRoutedEventArgs e)
         {
@@ -245,7 +242,7 @@
 
         #region Reset Command
 
-        private static CommandBinding resetBinding = new CommandBinding(StatisticsCommands.Reset, OnResetExecuted);
+        private static CommandBinding resetBinding = new CommandBinding(GameCommands.Reset, OnResetExecuted);
 
         private static void OnResetExecuted(object sender, ExecutedRoutedEventArgs e)
         {

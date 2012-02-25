@@ -3,7 +3,7 @@
                     xmlns:v="clr-namespace:ClearMine.VM;assembly=ClearMine.VM"
                     xmlns:b="clr-namespace:ClearMine.Framework.Behaviors;assembly=ClearMine.Framework"
                     xmlns:logic="clr-namespace:ClearMine.GameDefinition;assembly=ClearMine.GameDefinition"
-                    xmlns:m="clr-namespace:ClearMine.GameDefinition.Commands;assembly=ClearMine.GameDefinition">
+                    xmlns:m="clr-namespace:ClearMine.GameDefinition;assembly=ClearMine.GameDefinition">
     <SolidColorBrush x:Key="DialogBackground" Color="#F0F0F0" />
     <PlaygroundBorderThicknessConverter x:Key="PlaygroundBorderThicknessConverter" />
     <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />

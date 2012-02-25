@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:c="clr-namespace:ClearMine.Framework.Converters;assembly=ClearMine.Framework"
         xmlns:h="clr-namespace:ClearMine.Framework.Controls;assembly=ClearMine.Framework"
-        xmlns:m="clr-namespace:ClearMine.GameDefinition.Commands;assembly=ClearMine.GameDefinition"
+        xmlns:m="clr-namespace:ClearMine.GameDefinition;assembly=ClearMine.GameDefinition"
         xmlns:d="clr-namespace:ClearMine.UI.Dialogs"
         h:CommandsHelper.LoadBindingsFromVM="True"
         Background="{StaticResource DialogBackground}"
@@ -155,7 +155,7 @@
                         Margin="5,0,0,0"
                         Grid.Column="1"
                         Grid.Row="1"
-                        Command="{x:Static m:OptionsCommands.BrowseHistory}" />
+                        Command="{x:Static m:GameCommands.BrowseHistory}" />
             </Grid>
         </GroupBox>
         <StackPanel Orientation="Horizontal"

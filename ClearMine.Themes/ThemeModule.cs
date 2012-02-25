@@ -12,7 +12,7 @@
     using ClearMine.Common.Modularity;
     using ClearMine.Common.Properties;
     using ClearMine.Common.Utilities;
-    using ClearMine.GameDefinition.Commands;
+    using ClearMine.GameDefinition;
     using ClearMine.GameDefinition.Utilities;
 
     /// <summary>

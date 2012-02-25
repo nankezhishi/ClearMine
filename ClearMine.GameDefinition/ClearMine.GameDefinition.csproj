@@ -47,9 +47,7 @@
   <ItemGroup>
     <Compile Include="CellState.cs" />
     <Compile Include="CellStateChangedEventArgs.cs" />
-    <Compile Include="Commands\GameCommands.cs" />
-    <Compile Include="Commands\OptionsCommands.cs" />
-    <Compile Include="Commands\StatisticsCommands.cs" />
+    <Compile Include="GameCommands.cs" />
     <Compile Include="ExpandFailedException.cs" />
     <Compile Include="GameOperation.cs" />
     <Compile Include="GameState.cs" />
