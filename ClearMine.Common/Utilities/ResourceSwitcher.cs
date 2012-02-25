@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.ObjectModel;
+    using System.ComponentModel;
     using System.Diagnostics;
     using System.Windows;
     using Microsoft.Win32;
@@ -11,22 +12,40 @@
     /// </summary>
     public class ResourceSwitcher
     {
-        protected int resourceIndex;
-        protected string resourceStringFormat;
-        protected Type[] validResourceTypes;
-        protected bool supportCustom;
+        private int resourceIndex;
+        private Type[] validResourceTypes;
+        private bool supportCustom;
+        private string resourceFormat;
 
-        public Collection<ResourceDictionary> Resources
+        public static Collection<ResourceDictionary> Resources
         {
             get { return Application.Current.Resources.MergedDictionaries; }
         }
 
-        public event EventHandler<GenericEventArgs<Collection<ResourceDictionary>>> Initailized;
+        /// <summary>
+        /// 
+        /// </summary>
+        [ReadOnly(true)]
+        public string ResourceFormat
+        {
+            get { return resourceFormat; }
+        }
 
-        public ResourceSwitcher(string stringFormat, Type[] validTypes, bool supportCustom)
+        /// <summary>
+        /// 
+        /// </summary>
+        [ReadOnly(true)]
+        public bool SupportCustom
+        {
+            get { return supportCustom; }
+        }
+
+        public event EventHandler<GenericEventArgs<Collection<ResourceDictionary>>> Initialized;
+
+        public ResourceSwitcher(string resourceFormat, Type[] validTypes, bool supportCustom)
         {
             this.validResourceTypes = validTypes;
-            this.resourceStringFormat = stringFormat;
+            this.resourceFormat = resourceFormat;
             this.supportCustom = supportCustom;
             Application.Current.Startup += new StartupEventHandler(CurrentApplicationStartup);
         }
@@ -51,19 +70,26 @@
         }
 
         /// <summary>
-        /// 当resourceString为空时，表示不对当前资源做任何改变。所以函数是成功完成的，所以要返回false。表示没有问题。
+        /// 当resourcePath为空时，表示不对当前资源做任何改变。所以函数是成功完成的，所以要返回false。表示没有问题。
         /// </summary>
-        /// <param name="resourceString"></param>
+        /// <param name="resourcePath"></param>
         /// <returns></returns>
-        protected virtual bool SwitchResource(string resourceString)
+        protected virtual bool SwitchResource(string resourcePath)
         {
-            if (resourceString == null)
+            if (resourcePath == null)
                 return false;
 
             try
             {
-                var newDictionary = resourceString.MakeResDic();
-                if (Resources[resourceIndex].VerifyResources(newDictionary, validResourceTypes))
+                var newDictionary = resourcePath.MakeResource();
+                // The custom resource initialization failed would cause current Resource count incorrect.
+                if (Resources.Count <= resourceIndex)
+                {
+                    Trace.TraceError(String.Format("资源没有正确初始化成功"));
+
+                    return true;
+                }
+                else if (Resources[resourceIndex].VerifyResources(newDictionary, validResourceTypes))
                 {
                     Resources[resourceIndex] = newDictionary;
                 }
@@ -94,7 +120,7 @@
             try
             {
                 OnApplicationStartup();
-                var temp = Initailized;
+                var temp = Initialized;
                 if (temp != null)
                 {
                     temp(this, new GenericEventArgs<Collection<ResourceDictionary>>(Resources));

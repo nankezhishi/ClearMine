@@ -9,7 +9,7 @@
     /// <summary>
     /// 
     /// </summary>
-    public class Game
+    public static class Game
     {
         /// <summary>
         /// 

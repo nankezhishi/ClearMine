@@ -38,7 +38,7 @@
         /// <param name="key">The uri string of the resource.</param>
         /// <param name="args">The parameters to format the uri if any.</param>
         /// <returns>A new instance of ResourceDictionary</returns>
-        public static ResourceDictionary MakeResDic(this string key, params object[] args)
+        public static ResourceDictionary MakeResource(this string key, params object[] args)
         {
             return new ResourceDictionary()
             {
@@ -55,6 +55,9 @@
         /// <returns></returns>
         public static bool VerifyResources(this ResourceDictionary existing, ResourceDictionary newResource, params Type[] validTypes)
         {
+            if (existing == null)
+                throw new ArgumentNullException("existing");
+
             if (newResource == null)
                 return false;
 

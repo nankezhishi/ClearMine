@@ -21,12 +21,7 @@
     public sealed class OptionsViewModel : DynamicObject, IDataErrorInfo, ITransaction, IViewModel, INotifyPropertyChanged
     {
         private string error;
-        private static readonly IEnumerable<string> settingsMembers;
-
-        static OptionsViewModel()
-        {
-            settingsMembers = typeof(Settings).GetProperties().Select(p => p.Name);
-        }
+        private static readonly IEnumerable<string> settingsMembers = typeof(Settings).GetProperties().Select(p => p.Name);
 
         public OptionsViewModel()
         {
@@ -70,7 +65,7 @@
 
         public override bool TryGetMember(GetMemberBinder binder, out object result)
         {
-            if (settingsMembers.Contains(binder.Name))
+            if (binder != null && settingsMembers.Contains(binder.Name))
             {
                 result = Settings.Default[binder.Name];
 
@@ -82,7 +77,7 @@
 
         public override bool TrySetMember(SetMemberBinder binder, object value)
         {
-            if (settingsMembers.Contains(binder.Name))
+            if (binder != null && settingsMembers.Contains(binder.Name))
             {
                 Settings.Default[binder.Name] = value;
 

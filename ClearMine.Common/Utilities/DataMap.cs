@@ -5,6 +5,7 @@
     using System.Linq;
     using System.Xml.Serialization;
     using ClearMine.Common.Modularity;
+    using System.Collections.ObjectModel;
 
     /// <summary>
     /// 
@@ -39,7 +40,7 @@
         /// </summary>
         public DataMap()
         {
-            Items = new List<DataMapItem>();
+            Items = new Collection<DataMapItem>();
         }
 
         /// <summary>
@@ -47,7 +48,7 @@
         /// </summary>
         [XmlArray("items")]
         [XmlArrayItem("item")]
-        public List<DataMapItem> Items { get; set; }
+        public Collection<DataMapItem> Items { get; set; }
 
         /// <summary>
         /// 

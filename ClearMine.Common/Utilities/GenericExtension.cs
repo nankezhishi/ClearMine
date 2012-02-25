@@ -38,6 +38,9 @@
         /// <returns></returns>
         public static T GetValue<T>(this object instance, string memberName)
         {
+            if (instance == null)
+                throw new ArgumentNullException("instance");
+
             var member = instance.GetType().GetProperty(memberName);
             if (member == null)
                 throw new ArgumentException(ResourceHelper.FindText("CannotFoundProperty", instance.GetType().FullName, memberName));
@@ -52,6 +55,9 @@
         /// <param name="memberName"></param>
         public static void SetValue(this object instance, string memberName, object value)
         {
+            if (instance == null)
+                throw new ArgumentNullException("instance");
+
             var member = instance.GetType().GetProperty(memberName);
             if (member == null)
                 throw new ArgumentException(ResourceHelper.FindText("CannotFoundProperty", instance.GetType().FullName, memberName));
@@ -108,6 +114,9 @@
 
         public static T ExtractDataContext<T>(this RoutedEventArgs args, Action<T> action = null)
         {
+            if (args == null)
+                return default(T);
+
             var source = args.OriginalSource as DependencyObject;
             if (source != null)
             {
@@ -187,11 +196,14 @@
         /// <returns></returns>
         public static bool IsAssignableToAny(this Type type, params Type[] types)
         {
-            foreach (var t in types)
+            if (types != null && type != null)
             {
-                if (t.IsAssignableFrom(type))
+                foreach (var t in types)
                 {
-                    return true;
+                    if (t.IsAssignableFrom(type))
+                    {
+                        return true;
+                    }
                 }
             }
 

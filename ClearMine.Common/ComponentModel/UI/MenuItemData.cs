@@ -14,28 +14,28 @@
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="isSeperator"></param>
-        public MenuItemData(bool isSeperator = true)
+        /// <param name="isSeparator"></param>
+        public MenuItemData(bool isSeparator = true)
         {
-            IsSeperator = isSeperator;
+            IsSeparator = isSeparator;
         }
 
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="headerkey"></param>
+        /// <param name="headerKey"></param>
         /// <param name="command"></param>
-        public MenuItemData(string headerkey, ICommand command = null)
+        public MenuItemData(string headerKey, ICommand command = null)
         {
             Command = command;
-            HeaderKey = headerkey;
+            HeaderKey = headerKey;
             MessageManager.SubscribeMessage<SwitchLanguageMessage>(OnSwitchLanguage);
         }
 
         /// <summary>
         /// 
         /// </summary>
-        public bool IsSeperator { get; set; }
+        public bool IsSeparator { get; set; }
 
         /// <summary>
         /// 

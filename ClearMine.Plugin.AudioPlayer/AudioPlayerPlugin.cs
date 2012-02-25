@@ -40,7 +40,7 @@
         {
             pluginOptions.Add(new PluginOption()
             {
-                ID = "Volumn",
+                Id = "Volumn",
                 NameKey = "AP_VolumnName",
                 DescriptionKey = "AP_VolumnDescription",
                 ValueType = typeof(double).FullName,
@@ -54,7 +54,7 @@
             var fileExistsValidator = new Predicate<object>(value => File.Exists(Convert.ToString(value)));
             pluginOptions.Add(new PluginOption()
             {
-                ID = "Won",
+                Id = "Won",
                 NameKey = "AP_WonMusic",
                 DescriptionKey = "AP_WonMusicDescription",
                 ValueType = typeof(string).FullName,
@@ -63,7 +63,7 @@
             });
             pluginOptions.Add(new PluginOption()
             {
-                ID = "Lost",
+                Id = "Lost",
                 NameKey = "AP_LostMusic",
                 DescriptionKey = "AP_LostMusicDescription",
                 ValueType = typeof(string).FullName,
@@ -72,7 +72,7 @@
             });
             pluginOptions.Add(new PluginOption()
             {
-                ID = "New",
+                Id = "New",
                 NameKey = "AP_NewGameMusic",
                 DescriptionKey = "AP_NewGameMusicDescription",
                 ValueType = typeof(string).FullName,
@@ -81,7 +81,7 @@
             });
             pluginOptions.Add(new PluginOption()
             {
-                ID = "Multiple",
+                Id = "Multiple",
                 NameKey = "AP_ExpandMultipleMusic",
                 DescriptionKey = "AP_ExpandMultipleDescription",
                 ValueType = typeof(string).FullName,
@@ -90,7 +90,7 @@
             });
             pluginOptions.Add(new PluginOption()
             {
-                ID = "Single",
+                Id = "Single",
                 NameKey = "AP_ExpandSingleMusic",
                 DescriptionKey = "AP_ExpandSingleDescription",
                 ValueType = typeof(string).FullName,

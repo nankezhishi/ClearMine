@@ -14,11 +14,11 @@
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="stringFormat"></param>
+        /// <param name="resourceFormat"></param>
         /// <param name="validTypes"></param>
         /// <param name="supportCustom"></param>
-        public LanguageSwitcher(string stringFormat, Type[] validTypes, bool supportCustom)
-            : base(stringFormat, validTypes, supportCustom)
+        public LanguageSwitcher(string resourceFormat, Type[] validTypes, bool supportCustom)
+            : base(resourceFormat, validTypes, supportCustom)
         {
             MessageManager.SubscribeMessage<SwitchLanguageMessage>(OnSwitchLanguage);
         }
@@ -32,7 +32,7 @@
             var resourceString = String.Empty;
             if (SwitchLanguageMessage.CustomLanguageKey.Equals(message.CultureName, StringComparison.Ordinal))
             {
-                if (supportCustom)
+                if (SupportCustom)
                 {
                     resourceString = ShowUpOpenResourceDialog("LanguageFileFilter");
                     if (resourceString == null)
@@ -52,7 +52,7 @@
             }
             else
             {
-                resourceString = resourceStringFormat.InvariantFormat(message.CultureName);
+                resourceString = ResourceFormat.InvariantFormat(message.CultureName);
             }
 
             if (SwitchResource(resourceString))
@@ -77,7 +77,7 @@
             else if (SwitchLanguageMessage.CustomLanguageKey.Equals(cultureName, StringComparison.Ordinal))
             {
                 // If the switch knows how, then let it go.
-                if (supportCustom)
+                if (SupportCustom)
                 {
                     return;
                 }
@@ -88,7 +88,7 @@
                 }
             }
 
-            Resources.Add(resourceStringFormat.MakeResDic(cultureName));
+            Resources.Add(ResourceFormat.MakeResource(cultureName));
         }
     }
 }

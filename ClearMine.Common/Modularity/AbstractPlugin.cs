@@ -27,12 +27,14 @@
             get
             {
                 var map = Settings.Default.DataMap[Name];
-                if (map != null && !(map is DataMap))
-                    throw new InvalidProgramException(ResourceHelper.FindText("PluginOptionsTypeInvalid"));
 
                 if (map == null)
                 {
                     map = Settings.Default.DataMap[Name] = new DataMap();
+                }
+                else
+                {
+                    Trace.Assert(map is DataMap, ResourceHelper.FindText("PluginOptionsTypeInvalid"));
                 }
 
                 return map as DataMap;
@@ -76,7 +78,7 @@
                 {
                     foreach (var option in pluginOptions)
                     {
-                        if (String.CompareOrdinal(option.ID, id) == 0)
+                        if (String.CompareOrdinal(option.Id, id) == 0)
                         {
                             return option;
                         }

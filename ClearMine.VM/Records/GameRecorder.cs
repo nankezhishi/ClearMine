@@ -25,7 +25,7 @@
 
         void SaveTo(string path);
 
-        string GetSupportedFileExtension();
+        string SupportedFileExtension { get; }
     }
 
     [XmlInclude(typeof(MouseMoveRecord))]
@@ -49,6 +49,9 @@
 
         public override void Play(IClearMine game, FrameworkElement panel)
         {
+            if (panel == null)
+                throw new ArgumentNullException("panel");
+
             var absolutePosition = panel.PointToScreen(Position);
 
             if (!NativeMethods.MoveMouseTo((int)absolutePosition.X, (int)absolutePosition.Y))
@@ -156,9 +159,9 @@
             IsEnabled = shouldStart;
         }
 
-        public string GetSupportedFileExtension()
+        public string SupportedFileExtension
         {
-            return ".cmr";
+            get { return ".cmr"; }
         }
 
         public void Dispose()

@@ -19,11 +19,11 @@
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="stringFormat"></param>
+        /// <param name="resourceFormat"></param>
         /// <param name="validTypes"></param>
         /// <param name="supportCustom"></param>
-        public ThemeSwitcher(string stringFormat, Type[] validTypes, bool supportCustom)
-            : base(stringFormat, validTypes, supportCustom)
+        public ThemeSwitcher(string resourceFormat, Type[] validTypes, bool supportCustom)
+            : base(resourceFormat, validTypes, supportCustom)
         {
             MessageManager.SubscribeMessage<SwitchThemeMessage>(OnSwitchTheme);
         }
@@ -37,7 +37,7 @@
             var resourceString = message.ThemeName;
             if (SwitchThemeMessage.CustomThemeKey.Equals(message.ThemeName, StringComparison.Ordinal))
             {
-                if (supportCustom)
+                if (SupportCustom)
                 {
                     resourceString = ShowUpOpenResourceDialog("ThemeFileFilter");
                     if (resourceString == null)
@@ -52,12 +52,12 @@
                 }
                 else
                 {
-                    resourceString = resourceStringFormat.InvariantFormat(Settings.Default.CurrentTheme);
+                    resourceString = ResourceFormat.InvariantFormat(Settings.Default.CurrentTheme);
                 }
             }
             else
             {
-                resourceString = resourceStringFormat.InvariantFormat(message.ThemeName);
+                resourceString = ResourceFormat.InvariantFormat(message.ThemeName);
             }
 
             if (SwitchResource(resourceString))
@@ -76,7 +76,7 @@
             {
                 foreach (var resource in DefaultThemes)
                 {
-                    Resources.Add(resource.MakeResDic());
+                    Resources.Add(resource.MakeResource());
                 }
             }
         }

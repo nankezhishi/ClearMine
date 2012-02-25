@@ -289,7 +289,7 @@
         <Setter Property="IsChecked" Value="{Binding IsChecked}" />
         <Setter Property="CommandParameter" Value="{Binding CommandParameter}"/>
         <Style.Triggers>
-            <DataTrigger Binding="{Binding IsSeperator}" Value="True">
+            <DataTrigger Binding="{Binding IsSeparator}" Value="True">
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="{x:Type MenuItem}">

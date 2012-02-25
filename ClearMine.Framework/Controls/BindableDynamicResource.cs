@@ -13,12 +13,7 @@
     [TypeConverter(typeof(DynamicResourceExtensionConverter))]
     public class BindableDynamicResource : StaticResourceExtension
     {
-        private static readonly DependencyProperty ValueHostProperty;
-
-        static BindableDynamicResource()
-        {
-            ValueHostProperty = DependencyProperty.RegisterAttached("ValueHost", typeof(Object), typeof(DependencyObject), new UIPropertyMetadata(null));
-        }
+        private static readonly DependencyProperty ValueHostProperty = DependencyProperty.RegisterAttached("ValueHost", typeof(Object), typeof(DependencyObject), new UIPropertyMetadata(null));
 
         [ConstructorArgument("binding")]
         public Binding Binding { get; set; }
@@ -28,6 +23,7 @@
         }
 
         public BindableDynamicResource(Binding binding)
+            : this()
         {
             Binding = binding;
         }
