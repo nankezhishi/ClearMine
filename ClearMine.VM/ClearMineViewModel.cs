@@ -34,7 +34,8 @@
             MessageManager.SubscribeMessage<GameLoadMessage>(OnGameLoaded);
             MessageManager.SubscribeMessage<CellStateMessage>(OnCellStatusChanged);
             MessageManager.SubscribeMessage<GameStateMessage>(OnGameStatusChanged);
-            OnGameLoaded(new GameLoadMessage(Infrastructure.Container.GetExportedValue<IClearMine>()));
+            if (!Infrastructure.IsInDesignMode)
+                OnGameLoaded(new GameLoadMessage(Infrastructure.Container.GetExportedValue<IClearMine>()));
         }
 
         [ReadOnly(true)]

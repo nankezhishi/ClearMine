@@ -6,7 +6,6 @@
                     xmlns:c="clr-namespace:ClearMine.Framework.Controls;assembly=ClearMine.Framework"
                     xmlns:b="clr-namespace:ClearMine.Framework.Behaviors;assembly=ClearMine.Framework"
                     xmlns:logic="clr-namespace:ClearMine.GameDefinition;assembly=ClearMine.GameDefinition"
-                    xmlns:h="clr-namespace:ClearMine.GameDefinition.Commands;assembly=ClearMine.GameDefinition"
                     xmlns:u="clr-namespace:ClearMine.GameDefinition.Utilities;assembly=ClearMine.GameDefinition">
     <Rect x:Key="NumberViewbox">-0.2,-0.2 1.5,1.5</Rect>
     <Rect x:Key="MarkViewbox">-0.1,-0.1 1.2,1.2</Rect>

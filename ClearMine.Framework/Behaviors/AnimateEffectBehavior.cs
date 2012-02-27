@@ -66,6 +66,9 @@
 
         private static void OnWavingPropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
         {
+            if (Infrastructure.IsInDesignMode)
+                return;
+
             FrameworkElement control = sender as FrameworkElement;
             if (control != null)
             {

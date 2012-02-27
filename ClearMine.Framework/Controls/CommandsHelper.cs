@@ -35,6 +35,9 @@
 
         private static void OnLoadBindingsFromVMChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
+            if (Infrastructure.IsInDesignMode)
+                return;
+
             var host = sender as Window ?? Window.GetWindow(sender as DependencyObject);
             if (host == null)
             {

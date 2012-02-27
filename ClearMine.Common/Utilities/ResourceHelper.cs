@@ -5,8 +5,16 @@
     using System.Linq;
     using System.Windows;
 
+    /// <summary>
+    /// 
+    /// </summary>
     public static class ResourceHelper
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
         public static string FindText(object key)
         {
             try
@@ -16,6 +24,8 @@
             catch (ResourceReferenceKeyNotFoundException e)
             {
                 Trace.TraceError(e.ToString());
+                if (Infrastructure.IsInDesignMode)
+                    return "Not Find";
 
                 // Prevent the same error while reporting the error.
                 if (!"CannotFoundResourceKey".Equals(key))
@@ -27,6 +37,12 @@
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="args"></param>
+        /// <returns></returns>
         public static string FindText(object key, params object[] args)
         {
             return FindText(key).InvariantFormat(args);

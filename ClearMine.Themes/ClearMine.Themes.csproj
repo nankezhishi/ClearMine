@@ -16,7 +16,7 @@
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
     <Utf8Output>true</Utf8Output>
-    <ExpressionBlendVersion>4.0.20525.0</ExpressionBlendVersion>
+    <ExpressionBlendVersion>4.0.20901.0</ExpressionBlendVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -92,6 +92,11 @@
     <ProjectReference Include="..\ClearMine.GameDefinition\ClearMine.GameDefinition.csproj">
       <Project>{04D44DD3-3819-4496-8A4C-03298742EA5D}</Project>
       <Name>ClearMine.GameDefinition</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ClearMine.Localization\ClearMine.Localization.csproj" Condition="'$(DesignTime)'=='true' OR ('$(SolutionPath)'!='' AND Exists('$(SolutionPath)') AND '$(BuildingInsideVisualStudio)'!='true' AND '$(BuildingInsideExpressionBlend)'!='true')">
+      <Project>{71C67E90-41FD-457E-B155-1EBE7396024A}</Project>
+      <Name>ClearMine.Localization</Name>
+      <ContainsDesignTimeResources>true</ContainsDesignTimeResources>
     </ProjectReference>
     <ProjectReference Include="..\ClearMine.VM\ClearMine.VM.csproj">
       <Project>{3D129E1B-FED1-4C73-99B7-8E497CCA19A0}</Project>

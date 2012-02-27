@@ -2,5 +2,7 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="/ClearMine.Themes;component/Themes/generic.xaml"/>
+        <ResourceDictionary Source="/ClearMine.Framework;component/Themes/Generic.xaml"/>
+        <ResourceDictionary Source="/ClearMine.Localization;component/en-US/Overall.xaml"/>
     </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>

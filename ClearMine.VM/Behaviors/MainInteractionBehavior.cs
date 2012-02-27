@@ -31,18 +31,21 @@
 
         protected override void OnAttached()
         {
-            AutoDetach = true;
-            vm = AttachedObject.DataContext as ClearMineViewModel;
-            AttachedObject.Loaded += new RoutedEventHandler(OnAttatchedObjectLoaded);
-            AttachedObject.MouseUp += new MouseButtonEventHandler(OnMineGroudMouseUp);
-            AttachedObject.MouseDown += new MouseButtonEventHandler(OnMineGroudMouseDown);
-            AttachedObject.MouseLeave += new MouseEventHandler(OnMineGroudMouseLeave);
-            AttachedObject.MouseEnter += new MouseEventHandler(OnMineGroudMouseEnter);
-            attachedWindow = Window.GetWindow(AttachedObject);
-            if (attachedWindow != null)
+            if (!Infrastructure.IsInDesignMode)
             {
-                attachedWindow.Closing += new CancelEventHandler(OnMainWindowClosing);
-                attachedWindow.StateChanged += new EventHandler(OnMainWindowStateChanged);
+                AutoDetach = true;
+                vm = AttachedObject.DataContext as ClearMineViewModel;
+                AttachedObject.Loaded += new RoutedEventHandler(OnAttatchedObjectLoaded);
+                AttachedObject.MouseUp += new MouseButtonEventHandler(OnMineGroudMouseUp);
+                AttachedObject.MouseDown += new MouseButtonEventHandler(OnMineGroudMouseDown);
+                AttachedObject.MouseLeave += new MouseEventHandler(OnMineGroudMouseLeave);
+                AttachedObject.MouseEnter += new MouseEventHandler(OnMineGroudMouseEnter);
+                attachedWindow = Window.GetWindow(AttachedObject);
+                if (attachedWindow != null)
+                {
+                    attachedWindow.Closing += new CancelEventHandler(OnMainWindowClosing);
+                    attachedWindow.StateChanged += new EventHandler(OnMainWindowStateChanged);
+                }
             }
         }
 

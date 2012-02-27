@@ -10,15 +10,24 @@
     /// </summary>
     public static class Game
     {
+        private static ObservableCollection<MenuItemData> menuDefinition = null;
+
         /// <summary>
         /// 
         /// </summary>
-        public static ObservableCollection<MenuItemData> MenuDefinition { get; private set; }
-
-        static Game()
+        public static ObservableCollection<MenuItemData> MenuDefinition
         {
-            MenuDefinition = new ObservableCollection<MenuItemData>();
-            Initialize();
+            get
+            {
+                if (menuDefinition == null)
+                {
+                    menuDefinition = new ObservableCollection<MenuItemData>();
+                    Initialize();
+                }
+
+                return menuDefinition;
+            }
+            private set { menuDefinition = value; }
         }
 
         /// <summary>
@@ -31,7 +40,7 @@
 
         private static void InitializeMenu()
         {
-            MenuDefinition.Add(new MenuItemData("GameMenuHeader")
+            menuDefinition.Add(new MenuItemData("GameMenuHeader")
             {
                 SubMenus = new ObservableCollection<object>()
                 {
@@ -46,7 +55,7 @@
                     new MenuItemData("ExitMenuHeader", ApplicationCommands.Close),
                 },
             });
-            MenuDefinition.Add(new MenuItemData("ToolsMenuHeader")
+            menuDefinition.Add(new MenuItemData("ToolsMenuHeader")
             {
                 SubMenus = new ObservableCollection<object>()
                 {
@@ -55,7 +64,7 @@
                     new MenuItemData("PluginsMenuItemHeader", GameCommands.Plugins),
                 },
             });
-            MenuDefinition.Add(new MenuItemData("HelpMenuItemHeader")
+            menuDefinition.Add(new MenuItemData("HelpMenuItemHeader")
             {
                 SubMenus = new ObservableCollection<object>()
                 {
