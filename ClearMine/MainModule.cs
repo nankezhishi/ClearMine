@@ -26,8 +26,6 @@
 
             new Window()
             {
-                Width = 480,
-                Height = 480,
                 DataContext = new ClearMineViewModel(),
                 WindowStartupLocation = WindowStartupLocation.CenterScreen
             }.Show();

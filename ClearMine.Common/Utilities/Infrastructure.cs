@@ -15,11 +15,11 @@
     public static class Infrastructure
     {
         private static bool? isInDesignMode;
-        private static CompositionContainer container = new CompositionContainer(new AggregateCatalog(new DirectoryCatalog(@".")));
+        // "." is different from Path.GetFullPath(".") in design time.
+        private static CompositionContainer container = new CompositionContainer(new AggregateCatalog(new DirectoryCatalog(Path.GetFullPath("."))));
 
         /// <summary>
-        /// Gets a value indicating whether the control is in design mode (running in Blend
-        /// or Visual Studio).
+        /// Gets a value indicating whether the control is in design mode (running in Blend or Visual Studio).
         /// </summary>
         public static bool IsInDesignMode
         {
@@ -27,12 +27,8 @@
             {
                 if (!isInDesignMode.HasValue)
                 {
-#if SILVERLIGHT
-                    _isInDesignMode = DesignerProperties.IsInDesignTool;
-#else
                     var prop = DesignerProperties.IsInDesignModeProperty;
                     isInDesignMode = (bool)DependencyPropertyDescriptor.FromProperty(prop, typeof(FrameworkElement)).Metadata.DefaultValue;
-#endif
                 }
 
                 return isInDesignMode.Value;

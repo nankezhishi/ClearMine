@@ -30,12 +30,12 @@
 
         public ClearMineViewModel()
         {
+            UpdateWindowSizeAccordingToDifficulty();
             Settings.Default.PropertyChanged += OnSettingsChanged;
             MessageManager.SubscribeMessage<GameLoadMessage>(OnGameLoaded);
             MessageManager.SubscribeMessage<CellStateMessage>(OnCellStatusChanged);
             MessageManager.SubscribeMessage<GameStateMessage>(OnGameStatusChanged);
-            if (!Infrastructure.IsInDesignMode)
-                OnGameLoaded(new GameLoadMessage(Infrastructure.Container.GetExportedValue<IClearMine>()));
+            OnGameLoaded(new GameLoadMessage(Infrastructure.Container.GetExportedValue<IClearMine>()));
         }
 
         [ReadOnly(true)]
@@ -55,6 +55,8 @@
         {
             get { return (int)game.Size.Height; }
         }
+
+        public double Width { get; set; }
 
         public double ItemSize
         {
@@ -218,10 +220,36 @@
             {
                 TriggerPropertyChanged("TimeAccuracy");
             }
+            else if ("Difficulty".Equals(e.PropertyName, StringComparison.Ordinal))
+            {
+                UpdateWindowSizeAccordingToDifficulty();
+            }
             else
             {
                 // Ignore it.
             }
+        }
+
+        private void UpdateWindowSizeAccordingToDifficulty()
+        {
+            if (Settings.Default.Difficulty == Difficulty.Beginner)
+            {
+                Width = 450;
+            }
+            else if (Settings.Default.Difficulty == Difficulty.Intermediate)
+            {
+                Width = 480;
+            }
+            else if (Settings.Default.Difficulty == Difficulty.Advanced)
+            {
+                Width = 800;
+            }
+            else
+            {
+                Width = 50 * Settings.Default.Columns;
+            }
+
+            TriggerPropertyChanged("Width");
         }
 
         private void OnCellStatusChanged(CellStateMessage message)

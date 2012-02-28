@@ -4,6 +4,7 @@
     using System.ComponentModel;
     using System.Threading;
     using System.Windows;
+    using System.Windows.Data;
     using System.Windows.Input;
 
     using ClearMine.Common.Properties;
@@ -45,6 +46,7 @@
                 {
                     attachedWindow.Closing += new CancelEventHandler(OnMainWindowClosing);
                     attachedWindow.StateChanged += new EventHandler(OnMainWindowStateChanged);
+                    attachedWindow.SizeChanged += new SizeChangedEventHandler(OnMainWindowSizeChanged);
                 }
             }
         }
@@ -60,6 +62,7 @@
             {
                 attachedWindow.Closing -= new CancelEventHandler(OnMainWindowClosing);
                 attachedWindow.StateChanged -= new EventHandler(OnMainWindowStateChanged);
+                attachedWindow.SizeChanged -= new SizeChangedEventHandler(OnMainWindowSizeChanged);
             }
         }
 
@@ -209,6 +212,16 @@
             {
                 vm.StartNewGame();
                 vm.RefreshUI();
+            }
+        }
+
+        private void OnMainWindowSizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            vm.Width = e.NewSize.Width;
+            var window = sender as Window;
+            if (window != null)
+            {
+                window.SetBinding(Window.WidthProperty, new Binding("Width") { Mode = BindingMode.TwoWay });
             }
         }
 
