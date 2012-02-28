@@ -242,11 +242,13 @@
             }
             else if (Settings.Default.Difficulty == Difficulty.Advanced)
             {
-                Width = 800;
+                Width = 900;
             }
             else
             {
-                Width = 50 * Settings.Default.Columns;
+                Width = 30 * Settings.Default.Columns;
+                if (Width < 450)
+                    Width = 450;
             }
 
             TriggerPropertyChanged("Width");
