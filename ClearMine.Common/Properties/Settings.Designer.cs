@@ -26,9 +26,9 @@ namespace ClearMine.Common.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("Beginner")]
-        public global::ClearMine.Common.Difficulty Difficulty {
+        public global::ClearMine.Common.Model.Difficulty Difficulty {
             get {
-                return ((global::ClearMine.Common.Difficulty)(this["Difficulty"]));
+                return ((global::ClearMine.Common.Model.Difficulty)(this["Difficulty"]));
             }
             set {
                 this["Difficulty"] = value;
@@ -86,9 +86,9 @@ namespace ClearMine.Common.Properties {
                         </heroOnLevel>
                     </heroList>
                 ")]
-        public global::ClearMine.Common.HeroHistoryList HeroList {
+        public global::ClearMine.Common.Model.HeroHistoryList HeroList {
             get {
-                return ((global::ClearMine.Common.HeroHistoryList)(this["HeroList"]));
+                return ((global::ClearMine.Common.Model.HeroHistoryList)(this["HeroList"]));
             }
             set {
                 this["HeroList"] = value;

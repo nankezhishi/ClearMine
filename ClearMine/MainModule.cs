@@ -2,10 +2,7 @@
 {
     using System.Windows;
 
-    using ClearMine.Common.Modularity;
-    using ClearMine.VM;
-
-    internal class MainModule : IModule
+    internal class MainModule : ClearMine.Common.Modularity.IModule
     {
         /// <summary>
         /// 
@@ -21,7 +18,7 @@
 
             new Window()
             {
-                DataContext = new ClearMineViewModel(),
+                DataContext = new ClearMine.VM.ClearMineViewModel(),
                 WindowStartupLocation = WindowStartupLocation.CenterScreen
             }.Show();
         }

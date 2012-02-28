@@ -1,31 +1,9 @@
 ﻿namespace ClearMine.Common.Utilities
 {
     using System;
-    using System.Collections.Generic;
+    using System.Collections.ObjectModel;
     using System.Linq;
     using System.Xml.Serialization;
-    using ClearMine.Common.Modularity;
-    using System.Collections.ObjectModel;
-
-    /// <summary>
-    /// 
-    /// </summary>
-    [Serializable]
-    [XmlInclude(typeof(List<PluginOption>))]
-    public class DataMapItem
-    {
-        /// <summary>
-        /// 
-        /// </summary>
-        [XmlAttribute("key")]
-        public string Key { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        [XmlElement("value")]
-        public object Value { get; set; }
-    }
 
     /// <summary>
     /// .NET doesn't support serializing a dictionary.

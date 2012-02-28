@@ -2,7 +2,7 @@
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="ClearMine.Common.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
-    <Setting Name="Difficulty" Type="ClearMine.Common.Difficulty" Scope="User">
+    <Setting Name="Difficulty" Type="ClearMine.Common.Model.Difficulty" Scope="User">
       <Value Profile="(Default)">Beginner</Value>
     </Setting>
     <Setting Name="Rows" Type="System.Int32" Scope="User">
@@ -14,7 +14,7 @@
     <Setting Name="Mines" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">10</Value>
     </Setting>
-    <Setting Name="HeroList" Type="ClearMine.Common.HeroHistoryList" Scope="User">
+    <Setting Name="HeroList" Type="ClearMine.Common.Model.HeroHistoryList" Scope="User">
       <Value Profile="(Default)">
                     &lt;heroList xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
                         &lt;heroOnLevel level="beginner" played="0" won="0" longestWinning="0" longestLosing="0" current="0" average="0"&gt;

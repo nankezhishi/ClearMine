@@ -10,9 +10,9 @@
     using System.Windows.Input;
     using System.Windows.Threading;
 
-    using ClearMine.Common;
     using ClearMine.Common.ComponentModel;
     using ClearMine.Common.Messaging;
+    using ClearMine.Common.Model;
     using ClearMine.Common.Modularity;
     using ClearMine.Common.Properties;
     using ClearMine.Common.Utilities;

@@ -4,8 +4,12 @@
     using System.Diagnostics.CodeAnalysis;
     using System.Globalization;
     using System.Windows.Data;
-    using ClearMine.Common;
 
+    using ClearMine.Common.Model;
+
+    /// <summary>
+    /// 
+    /// </summary>
     [SuppressMessage("Microsoft.Performance", "CA1812", Justification = "Used in Xaml.")]
     [ValueConversion(typeof(Difficulty?), typeof(bool))]
     public class DifficultyToBooleanConverter : IValueConverter

@@ -99,6 +99,7 @@
   <ItemGroup>
     <Compile Include="Behaviors\AnimateEffectBehavior.cs" />
     <Compile Include="Behaviors\SortableListViewBehavior.cs" />
+    <Compile Include="Behaviors\SortInfo.cs" />
     <Compile Include="Controls\BindableDynamicResource.cs" />
     <Compile Include="Controls\CommandsHelper.cs" />
     <Compile Include="Controls\AutoTransformPanel.cs" />

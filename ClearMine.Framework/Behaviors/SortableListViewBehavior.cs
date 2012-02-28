@@ -11,13 +11,9 @@
     using ClearMine.Common.Utilities;
     using ClearMine.Framework.Controls;
 
-    public class SortInfo
-    {
-        public GridViewColumnHeader LastSortColumn { get; set; }
-
-        public VisualAdorner CurrentAdorner { get; set; }
-    }
-
+    /// <summary>
+    /// 
+    /// </summary>
     public static class SortableListViewBehavior
     {
         /// <summary>

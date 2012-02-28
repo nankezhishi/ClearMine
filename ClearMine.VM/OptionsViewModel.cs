@@ -8,9 +8,9 @@
     using System.Linq;
     using System.Windows.Input;
 
-    using ClearMine.Common;
     using ClearMine.Common.ComponentModel;
     using ClearMine.Common.ComponentModel.UI;
+    using ClearMine.Common.Model;
     using ClearMine.Common.Properties;
     using ClearMine.Common.Utilities;
     using ClearMine.VM.Commands;
@@ -37,19 +37,19 @@
                 {
                     Settings.Default.Difficulty = value.Value;
 
-                    if (value.Value == Common.Difficulty.Beginner)
+                    if (value.Value == Common.Model.Difficulty.Beginner)
                     {
                         Settings.Default.Rows = 9;
                         Settings.Default.Columns = 9;
                         Settings.Default.Mines = 10;
                     }
-                    else if (value.Value == Common.Difficulty.Intermediate)
+                    else if (value.Value == Common.Model.Difficulty.Intermediate)
                     {
                         Settings.Default.Rows = 16;
                         Settings.Default.Columns = 16;
                         Settings.Default.Mines = 40;
                     }
-                    else if (value.Value == Common.Difficulty.Advanced)
+                    else if (value.Value == Common.Model.Difficulty.Advanced)
                     {
                         Settings.Default.Rows = 16;
                         Settings.Default.Columns = 30;
