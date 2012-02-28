@@ -47,6 +47,8 @@
     <s:String x:Key="ViewHelpMenuItemHeader">查看帮助(_V)</s:String>
     <s:String x:Key="SendFeedbakMenuItemHeader">发送反馈(_F)...</s:String>
     <s:String x:Key="AboutMenuItemHeader">关于扫雷(_A)</s:String>
+    <s:String x:Key="FlagsLabel">旗标：</s:String>
+    <s:String x:Key="TimesLabel">时间：</s:String>
     <s:String x:Key="AskingSaveGameMessage">要保存游戏吗?</s:String>
     <s:String x:Key="AskingSaveGameTitle">扫雷 - 保存</s:String>
     <s:String x:Key="ClearMineFeedbackTitle">扫雷玩家反馈</s:String>

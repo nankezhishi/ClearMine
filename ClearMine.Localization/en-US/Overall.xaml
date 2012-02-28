@@ -47,6 +47,8 @@
     <s:String x:Key="ViewHelpMenuItemHeader">_View Help</s:String>
     <s:String x:Key="SendFeedbakMenuItemHeader">Send _Feedback...</s:String>
     <s:String x:Key="AboutMenuItemHeader">_About</s:String>
+    <s:String x:Key="FlagsLabel">Flags: </s:String>
+    <s:String x:Key="TimesLabel">Time: </s:String>
     <s:String x:Key="AskingSaveGameMessage">Do you want to save the game?</s:String>
     <s:String x:Key="AskingSaveGameTitle">Clear Mine - Save</s:String>
     <s:String x:Key="ClearMineFeedbackTitle">Clear Mine Player Feedback</s:String>

@@ -1,10 +1,8 @@
 ﻿namespace ClearMine
 {
-    using System.Threading;
     using System.Windows;
 
     using ClearMine.Common.Modularity;
-    using ClearMine.Common.Properties;
     using ClearMine.VM;
 
     internal class MainModule : IModule
@@ -14,9 +12,6 @@
         /// </summary>
         public void InitializeModule()
         {
-            if (Settings.Default.CurrentLanguage == null)
-                Settings.Default.CurrentLanguage = Thread.CurrentThread.CurrentUICulture.Name;
-
             Application.Current.Startup += OnApplicationStartup;
         }
 

@@ -508,7 +508,7 @@
                        Width="{Binding ActualWidth, ElementName=cellsPanel}"
                        HorizontalAlignment="Center"
                        UseLayoutRounding="True">
-                <Label Content="Flags: "
+                <Label Content="{DynamicResource FlagsLabel}"
                        Margin="25,0,5,0" />
                 <TextBlock>
                     <TextBlock.Text>
@@ -521,7 +521,7 @@
                 <TextBlock Text="{Binding DigitalTime, StringFormat=hh\\:mm\\:ss}"
                            Margin="5,0,25,0"
                            DockPanel.Dock="Right" />
-                <Label Content="Time:"
+                <Label Content="{DynamicResource TimesLabel}"
                        DockPanel.Dock="Right" />
             </DockPanel>
         </Grid>
