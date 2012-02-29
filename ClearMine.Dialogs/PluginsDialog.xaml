@@ -1,4 +1,4 @@
-﻿<Window x:Class="ClearMine.UI.Dialogs.PluginsDialog"
+﻿<Window x:Class="ClearMine.Dialogs.PluginsDialog"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         ShowInTaskbar="False"

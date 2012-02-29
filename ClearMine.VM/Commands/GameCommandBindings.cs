@@ -39,8 +39,7 @@
                 Application.Current.Dispatcher.BeginInvoke(new Action(viewModel.Game.PauseGame), DispatcherPriority.Background);
             }
 
-            var result = MessageManager.SendMessage<ShowDialogMessage>(e.OriginalSource,
-                Type.GetType("ClearMine.UI.Dialogs.OptionsDialog, ClearMine.Dialogs", true), new OptionsViewModel());
+            var result = MessageManager.SendMessage<ShowDialogMessage>(e.OriginalSource, PopupDialog.Options, new OptionsViewModel());
 
             if ((bool)result)
             {
@@ -57,8 +56,7 @@
 
         private static void OnPluginsExecuted(object sender, ExecutedRoutedEventArgs e)
         {
-            MessageManager.SendMessage<ShowDialogMessage>(e.OriginalSource,
-                Type.GetType("ClearMine.UI.Dialogs.PluginsDialog, ClearMine.Dialogs", true), new PluginsViewModel());
+            MessageManager.SendMessage<ShowDialogMessage>(e.OriginalSource, PopupDialog.Plugins, new PluginsViewModel());
         }
 
         private static void OnPluginsCanExecuted(object sender, CanExecuteRoutedEventArgs e)
@@ -115,8 +113,7 @@
 
         private static void OnStatisticsExecuted(object sender, ExecutedRoutedEventArgs e)
         {
-            MessageManager.SendMessage<ShowDialogMessage>(e.OriginalSource,
-                Type.GetType("ClearMine.UI.Dialogs.StatisticsWindow, ClearMine.Dialogs"),
+            MessageManager.SendMessage<ShowDialogMessage>(e.OriginalSource, PopupDialog.Statistics,
                 new StatisticsViewModel() {
                     SelectedLevel = Settings.Default.Difficulty != Difficulty.Custom ? Settings.Default.Difficulty : Difficulty.Beginner
                 });
@@ -135,7 +132,7 @@
 
         private static void OnAboutExecuted(object sender, ExecutedRoutedEventArgs e)
         {
-            MessageManager.SendMessage<ShowDialogMessage>(e.OriginalSource, Type.GetType("ClearMine.UI.Dialogs.AboutDialog, ClearMine.Dialogs"));
+            MessageManager.SendMessage<ShowDialogMessage>(e.OriginalSource, PopupDialog.About);
         }
         #endregion
 
@@ -163,8 +160,7 @@
 
         private static void OnShowLogExecuted(object sender, ExecutedRoutedEventArgs e)
         {
-            MessageManager.SendMessage<ShowDialogMessage>(e.OriginalSource,
-                Type.GetType("ClearMine.UI.Dialogs.OutputWindow, ClearMine.Dialogs"), false);
+            MessageManager.SendMessage<ShowDialogMessage>(e.OriginalSource, PopupDialog.Output, false);
         }
         #endregion
 

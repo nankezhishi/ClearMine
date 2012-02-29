@@ -1,4 +1,4 @@
-﻿namespace ClearMine.UI.Dialogs
+﻿namespace ClearMine.Dialogs
 {
     /// <summary>
     /// Interaction logic for OptionsDialog.xaml

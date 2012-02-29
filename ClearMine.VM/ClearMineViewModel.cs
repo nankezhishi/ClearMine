@@ -139,8 +139,7 @@
         {
             if (game.GameState == GameState.Started || game.GameState == GameState.Paused)
             {
-                if (Settings.Default.AlwaysNewGame ||
-                    ShowDialog("ClearMine.UI.Dialogs.ConfirmNewGameWindow, ClearMine.Dialogs"))
+                if (Settings.Default.AlwaysNewGame || ShowDialog(PopupDialog.ConfirmNewGame))
                 {
                     if (pandingInitialize)
                     {
@@ -292,14 +291,14 @@
 
         private bool ShowLostWindow()
         {
-            return ShowDialog("ClearMine.UI.Dialogs.GameLostWindow, ClearMine.Dialogs") ?
+            return ShowDialog(PopupDialog.GameLost) ?
                    ThreadPool.QueueUserWorkItem(a => game.StartNew()) :
                    ThreadPool.QueueUserWorkItem(a => game.Restart());
         }
 
         private void ShowWonWindow()
         {
-            if (ShowDialog("ClearMine.UI.Dialogs.GameWonWindow, ClearMine.Dialogs", new GameWonViewModel(game.UsedTime, DateTime.Now)))
+            if (ShowDialog(PopupDialog.GameWon, new GameWonViewModel(game.UsedTime, DateTime.Now)))
             {
                 Application.Current.Shutdown();
             }
@@ -309,9 +308,9 @@
             }
         }
 
-        private static bool ShowDialog(string type, object data = null)
+        private static bool ShowDialog(PopupDialog type, object data = null)
         {
-            return (bool)MessageManager.SendMessage<ShowDialogMessage>(Type.GetType(type), data);
+            return (bool)MessageManager.SendMessage<ShowDialogMessage>(type, data);
         }
 
         private void OnGameLoaded(GameLoadMessage message)

@@ -1,4 +1,4 @@
-﻿<Window x:Class="ClearMine.UI.Dialogs.StatisticsWindow" x:ClassModifier="internal" x:Name="root"
+﻿<Window x:Class="ClearMine.Dialogs.StatisticsWindow" x:ClassModifier="internal" x:Name="root"
         xmlns:b="clr-namespace:ClearMine.Framework.Behaviors;assembly=ClearMine.Framework"
         xmlns:h="clr-namespace:ClearMine.Framework.Controls;assembly=ClearMine.Framework"
         xmlns:c="clr-namespace:ClearMine.GameDefinition;assembly=ClearMine.GameDefinition"

@@ -1,4 +1,4 @@
-﻿namespace ClearMine.UI.Dialogs
+﻿namespace ClearMine.Dialogs
 {
     using System;
     using System.Windows;
