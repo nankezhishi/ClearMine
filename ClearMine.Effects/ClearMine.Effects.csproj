@@ -52,7 +52,6 @@
       <SubType>Code</SubType>
     </Compile>
     <AppDesigner Include="Properties\" />
-    <Effect Include="ShaderSource\Wave.fx" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ClearMine.Common\ClearMine.Common.csproj">
@@ -61,10 +60,13 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Effect Include="ShaderSource\Mono.fx" />
+    <None Include="ReadMe.txt" />
+    <None Include="ShaderSource\Mono.ps.prebuild" />
+    <None Include="ShaderSource\Wave.ps.prebuild" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="ReadMe.txt" />
+    <Effect Include="ShaderSource\Mono.fx" />
+    <Effect Include="ShaderSource\Wave.fx" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EffectCompile" Condition="'@(Effect)' != '' ">
