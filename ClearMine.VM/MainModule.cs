@@ -1,4 +1,4 @@
-﻿namespace ClearMine
+﻿namespace ClearMine.VM
 {
     using System.Windows;
 
@@ -18,7 +18,7 @@
 
             new Window()
             {
-                DataContext = new ClearMine.VM.ClearMineViewModel(),
+                DataContext = new ClearMineViewModel(),
                 WindowStartupLocation = WindowStartupLocation.CenterScreen
             }.Show();
         }
