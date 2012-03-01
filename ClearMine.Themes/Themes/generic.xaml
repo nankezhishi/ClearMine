@@ -1,6 +1,8 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:System="clr-namespace:System;assembly=mscorlib"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:v="clr-namespace:ClearMine.VM;assembly=ClearMine.VM"
+                    xmlns:e="clr-namespace:ClearMine.Framework.Controls;assembly=ClearMine.Framework"
                     xmlns:b="clr-namespace:ClearMine.Framework.Behaviors;assembly=ClearMine.Framework"
                     xmlns:logic="clr-namespace:ClearMine.GameDefinition;assembly=ClearMine.GameDefinition"
                     xmlns:m="clr-namespace:ClearMine.GameDefinition;assembly=ClearMine.GameDefinition">
@@ -522,6 +524,42 @@
         <Setter Property="ItemContainerStyle"
                 Value="{StaticResource {x:Static GridView.GridViewItemContainerStyleKey}}" />
     </Style>
+
+    <System:Double x:Key="ResizeThumbSize">4</System:Double>
+
+    <Style x:Key="WindowResizeThumbStyle" TargetType="{x:Type Thumb}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate>
+                    <Border Background="Transparent"/>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="e:ThumbExt.ResizeTarget" Value="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"/>
+    </Style>
+
+    <Style x:Key="ResizableWindowBorderStyle" TargetType="{x:Type ContentControl}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ContentControl}">
+                    <Grid>
+                        <ContentPresenter Content="{TemplateBinding Content}"/>
+                        <Grid Margin="1">
+                            <Thumb Style="{StaticResource WindowResizeThumbStyle}" e:ThumbExt.ResizeMode="VerticalUp" HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="{StaticResource ResizeThumbSize}" Cursor="SizeNS"/>
+                            <Thumb Style="{StaticResource WindowResizeThumbStyle}" e:ThumbExt.ResizeMode="VerticalDown" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Height="{StaticResource ResizeThumbSize}" Cursor="SizeNS"/>
+                            <Thumb Style="{StaticResource WindowResizeThumbStyle}" e:ThumbExt.ResizeMode="HorizontalLeft" HorizontalAlignment="Left" VerticalAlignment="Stretch" Width="{StaticResource ResizeThumbSize}" Cursor="SizeWE"/>
+                            <Thumb Style="{StaticResource WindowResizeThumbStyle}" e:ThumbExt.ResizeMode="HorizontalRight" HorizontalAlignment="Right" VerticalAlignment="Stretch" Width="{StaticResource ResizeThumbSize}" Cursor="SizeWE"/>
+                            <Thumb Style="{StaticResource WindowResizeThumbStyle}" e:ThumbExt.ResizeMode="RightUp" HorizontalAlignment="Right" VerticalAlignment="Top" Width="{StaticResource ResizeThumbSize}" Height="{StaticResource ResizeThumbSize}" Cursor="SizeNESW"/>
+                            <Thumb Style="{StaticResource WindowResizeThumbStyle}" e:ThumbExt.ResizeMode="LeftDown" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="{StaticResource ResizeThumbSize}" Height="{StaticResource ResizeThumbSize}" Cursor="SizeNESW"/>
+                            <Thumb Style="{StaticResource WindowResizeThumbStyle}" e:ThumbExt.ResizeMode="LeftUp" HorizontalAlignment="Left" VerticalAlignment="Top" Width="{StaticResource ResizeThumbSize}" Height="{StaticResource ResizeThumbSize}" Cursor="SizeNWSE"/>
+                            <Thumb Style="{StaticResource WindowResizeThumbStyle}" e:ThumbExt.ResizeMode="RightDown" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="{StaticResource ResizeThumbSize}" Height="{StaticResource ResizeThumbSize}" Cursor="SizeNWSE"/>
+                        </Grid>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
 
     <Style TargetType="{x:Type Window}">
         <Setter Property="Background" Value="Silver" />

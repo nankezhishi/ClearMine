@@ -22,6 +22,9 @@
                 throw new ArgumentException(ResourceHelper.FindText("RequiresTwoValues"), "values");
             }
 
+            if (DependencyProperty.UnsetValue == values[0] || DependencyProperty.UnsetValue == values[1])
+                return DependencyProperty.UnsetValue;
+
             try
             {
                 double width = (double)values[0];

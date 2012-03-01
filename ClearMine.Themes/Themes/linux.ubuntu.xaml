@@ -12,31 +12,31 @@
     <Rect x:Key="FaceViewbox">-0.1,-0.1 1.2,1.2</Rect>
 
     <ImageBrush x:Key="PreparedFaceBrush"
-                Stretch="Uniform"
+                Stretch="None"
                 ImageSource="/ClearMine.Themes;component/Images/face-smile.png"
                 Viewbox="{StaticResource FaceViewbox}">
     </ImageBrush>
 
     <ImageBrush x:Key="NormalFaceBrush"
-                Stretch="Uniform"
+                Stretch="None"
                 ImageSource="/ClearMine.Themes;component/Images/face-cool.png"
                 Viewbox="{StaticResource FaceViewbox}">
     </ImageBrush>
 
     <ImageBrush x:Key="TryFaceBrush"
-                Stretch="Uniform"
+                Stretch="None"
                 ImageSource="/ClearMine.Themes;component/Images/face-worried.png"
                 Viewbox="{StaticResource FaceViewbox}">
     </ImageBrush>
 
     <ImageBrush x:Key="WinFaceBrush"
-                Stretch="Uniform"
+                Stretch="None"
                 ImageSource="/ClearMine.Themes;component/Images/face-win.png"
                 Viewbox="{StaticResource FaceViewbox}">
     </ImageBrush>
 
     <ImageBrush x:Key="LosingFaceBrush"
-                Stretch="Uniform"
+                Stretch="None"
                 ImageSource="/ClearMine.Themes;component/Images/face-sad.png"
                 Viewbox="{StaticResource FaceViewbox}">
     </ImageBrush>
@@ -160,7 +160,7 @@
         <Setter Property="Width"
                 Value="{Binding ActualHeight, RelativeSource={RelativeSource Self}}" />
         <Setter Property="FocusVisualStyle"
-                Value="{StaticResource EmptyFocusVisual}" />
+                Value="{DynamicResource EmptyFocusVisual}" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Button}">
@@ -438,9 +438,106 @@
         </Style.Triggers>
     </Style>
 
+    <SolidColorBrush x:Key="WindowBackgroundBrush" Color="#FFF2F1F0" />
+
+    <Style x:Key="MainWindowStyle"
+           TargetType="{x:Type Window}" BasedOn="{StaticResource {x:Type Window}}">
+        <Style.Resources>
+            <Style x:Key="WindowButtonStyle" TargetType="{x:Type Button}">
+                <Setter Property="BorderThickness" Value="1" />
+                <Setter Property="BorderBrush" Value="#FF383734"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <Grid>
+                                <Ellipse Width="15" Height="15"
+                                         Fill="{TemplateBinding Background}"
+                                         Stroke="{TemplateBinding BorderBrush}"
+                                         StrokeThickness="{TemplateBinding BorderThickness}" />
+                                <ContentPresenter VerticalAlignment="Center"
+                                                  HorizontalAlignment="Center" />
+                            </Grid>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+        </Style.Resources>
+        <Setter Property="WindowStyle" Value="None"/>
+        <Setter Property="ResizeMode" Value="NoResize"/>
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="Background" Value="{DynamicResource WindowBackgroundBrush}"/>
+        <Setter Property="BorderBrush">
+            <Setter.Value>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                    <GradientStop Color="#FF3C3B37" Offset="0" />
+                    <GradientStop Color="#FF3C3B37" Offset="0.2" />
+                    <GradientStop Color="#FFADA9A5" Offset="0.3" />
+                    <GradientStop Color="#FFADA9A5" Offset="1" />
+                </LinearGradientBrush>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Window}">
+                    <ContentControl Style="{StaticResource ResizableWindowBorderStyle}">
+                        <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="5,5,0,0">
+                            <DockPanel>
+                                <Border BorderThickness="0,1,0,0" CornerRadius="3,3,0,0"
+                                        BorderBrush="#FF626059" Height="28" DockPanel.Dock="Top">
+                                    <Border.Background>
+                                        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                            <GradientStop Color="#FF474642" Offset="0" />
+                                            <GradientStop Color="#FF474642" Offset="0.33" />
+                                            <GradientStop Color="#FF3C3B37" Offset="0.5" />
+                                            <GradientStop Color="#FF3C3B37" Offset="1" />
+                                        </LinearGradientBrush>
+                                    </Border.Background>
+                                    <Interaction.Behaviors>
+                                        <BehaviorCollection>
+                                            <DragMoveBehavior />
+                                        </BehaviorCollection>
+                                    </Interaction.Behaviors>
+                                    <DockPanel>
+                                        <Border Height="19"
+                                                Margin="10,0,0,0"
+                                                BorderThickness="1"
+                                                BorderBrush="#FF3A3935"
+                                                Background="#FF3C3B37"
+                                                CornerRadius="9">
+                                            <DockPanel>
+                                                <Button Style="{StaticResource WindowButtonStyle}" Command="Close">
+                                                    <Path Stretch="None" Data="M0,0 L5,5 M0,5 L5,0" Stroke="#FF402013" StrokeThickness="1" />
+                                                </Button>
+                                                <Button Style="{StaticResource WindowButtonStyle}">
+                                                    <Path Stretch="None" Data="M0.5,0.5 L6.5,0.5" Stroke="#FF3A3935" StrokeThickness="1" />
+                                                </Button>
+                                                <Button Style="{StaticResource WindowButtonStyle}">
+                                                    <Path Stretch="None" Data="M0.5,0.5 L0.5,6.5 L6.5,6.5 L6.5,0.5 Z" Stroke="#FF3A3935" StrokeThickness="1" />
+                                                </Button>
+                                            </DockPanel>
+                                        </Border>
+                                        <Label Content="{TemplateBinding Title}"
+                                               Margin="4,0,0,0" VerticalAlignment="Center"
+                                               Foreground="#FFDFDBD2" HorizontalAlignment="Left" />
+                                    </DockPanel>
+                                </Border>
+                                <AdornerDecorator>
+                                    <ContentPresenter/>
+                                </AdornerDecorator>
+                            </DockPanel>
+                        </Border>
+                    </ContentControl>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
     <DataTemplate x:Key="{x:Type vm:ClearMineViewModel}" DataType="{x:Type vm:ClearMineViewModel}">
-        <Grid c:CommandsHelper.LoadBindingsFromVM="True"
-              Background="#FFF2F1F0" x:Name="root">
+        <Grid x:Name="root" c:CommandsHelper.LoadBindingsFromVM="True"
+              Background="{DynamicResource {DynamicResource WindowBackgroundBrush}}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="5" />
@@ -466,8 +563,8 @@
                     HorizontalAlignment="Center"
                     UseLayoutRounding="True"
                     Style="{DynamicResource NewGameButtonStyle}">
-                <Border x:Name="newGameIcon"
-                            Background="{DynamicResource NormalFaceBrush}" />
+                <Border x:Name="newGameIcon" Width="32" Height="32" Margin="5"
+                        Background="{DynamicResource NormalFaceBrush}" />
             </Button>
             <Separator HorizontalAlignment="Stretch"
                        Height="1"

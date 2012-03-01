@@ -38,14 +38,14 @@
             if (Infrastructure.IsInDesignMode)
                 return;
 
-            var host = sender as Window ?? Window.GetWindow(sender as DependencyObject);
-            if (host == null)
-            {
-                throw new InvalidOperationException(ResourceHelper.FindText("LoadBindingsFromVMReqireWindow"));
-            }
-
             if ((bool)e.NewValue)
             {
+                var host = sender as Window ?? Window.GetWindow(sender as DependencyObject);
+                if (host == null)
+                {
+                    throw new InvalidOperationException(ResourceHelper.FindText("LoadBindingsFromVMReqireWindow"));
+                }
+
                 if (host.IsLoaded)
                 {
                     LoadBindings(host);

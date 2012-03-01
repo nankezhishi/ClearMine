@@ -112,6 +112,96 @@
             return FindAncestor(parent, condition);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="element"></param>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        public static void MovePosition(this FrameworkElement element, double x, double y)
+        {
+            if (element == null)
+                throw new ArgumentNullException("element", "element can not be null.");
+
+            if (element is Window)
+                (element as Window).MoveWindow(x, y);
+            else
+                element.MoveByMargin(x, y);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="window"></param>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        public static void MoveWindow(this Window window, double x, double y)
+        {
+            window.Left += x;
+            window.Top += y;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="element"></param>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        public static void MoveByMargin(this FrameworkElement element, double x, double y)
+        {
+            if (element == null)
+                throw new ArgumentNullException("element", "element can not be null.");
+
+            Thickness oldMargin = element.Margin;
+            element.Margin = new Thickness(oldMargin.Left + x, oldMargin.Top + y, oldMargin.Right - x, oldMargin.Bottom - y);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="element"></param>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        public static void MoveByRenderTransform(this UIElement element, double x, double y)
+        {
+            if (element == null)
+                throw new ArgumentNullException("element", "element can not be null.");
+
+            if (element.RenderTransform.GetType() == typeof(MatrixTransform))
+            {
+                element.RenderTransform = new TranslateTransform() { X = x, Y = y };
+            }
+            else
+            {
+                TranslateTransform orangnalTransform = element.RenderTransform as TranslateTransform;
+                orangnalTransform.X += x;
+                orangnalTransform.Y += y;
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="element"></param>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        public static void MoveByLayoutTransform(this FrameworkElement element, double x, double y)
+        {
+            if (element == null)
+                throw new ArgumentNullException("element", "element can not be null.");
+
+            if (element.LayoutTransform.GetType() == typeof(MatrixTransform))
+            {
+                element.LayoutTransform = new TranslateTransform() { X = x, Y = y };
+            }
+            else
+            {
+                TranslateTransform orangnalTransform = element.LayoutTransform as TranslateTransform;
+                orangnalTransform.X += x;
+                orangnalTransform.Y += y;
+            }
+        }
+
         public static T ExtractDataContext<T>(this RoutedEventArgs args, Action<T> action = null)
         {
             if (args == null)

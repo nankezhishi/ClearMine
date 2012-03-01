@@ -12,6 +12,7 @@
     <Rect x:Key="FaceViewbox">-0.2,-0.2 1.4,1.4</Rect>
 
     <SolidColorBrush x:Key="PreparedFaceBrush" Color="Transparent" />
+    <SolidColorBrush x:Key="WindowBackgroundBrush" Color="#FFF2F1F0" />
 
     <DrawingBrush x:Key="NormalFaceBrush"
                   Stretch="Uniform"
@@ -722,4 +723,10 @@
             </DataTrigger>
         </DataTemplate.Triggers>
     </DataTemplate>
+
+    <Style x:Key="MainWindowStyle"
+           TargetType="{x:Type Window}" BasedOn="{StaticResource {x:Type Window}}">
+        <Setter Property="WindowStyle" Value="SingleBorderWindow" />
+        <Setter Property="ResizeMode" Value="CanResize" />
+    </Style>
 </ResourceDictionary>

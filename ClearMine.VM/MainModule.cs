@@ -16,11 +16,13 @@
         {
             Application.Current.Startup -= OnApplicationStartup;
 
-            new Window()
+            var window = new Window()
             {
                 DataContext = new ClearMineViewModel(),
                 WindowStartupLocation = WindowStartupLocation.CenterScreen
-            }.Show();
+            };
+            window.SetResourceReference(Window.StyleProperty, "MainWindowStyle");
+            window.Show();
         }
     }
 }
