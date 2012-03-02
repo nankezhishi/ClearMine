@@ -3,6 +3,7 @@
                     xmlns:vm="clr-namespace:ClearMine.VM;assembly=ClearMine.VM"
                     xmlns:m="clr-namespace:ClearMine.VM.Commands;assembly=ClearMine.VM"
                     xmlns:s="clr-namespace:ClearMine.Common.Messaging;assembly=ClearMine.Common"
+                    xmlns:d="clr-namespace:ClearMine.Framework;assembly=ClearMine.Framework"
                     xmlns:c="clr-namespace:ClearMine.Framework.Controls;assembly=ClearMine.Framework"
                     xmlns:b="clr-namespace:ClearMine.Framework.Behaviors;assembly=ClearMine.Framework"
                     xmlns:logic="clr-namespace:ClearMine.GameDefinition;assembly=ClearMine.GameDefinition"
@@ -90,71 +91,33 @@
 
     <SolidColorBrush x:Key="PlaygroundBorderBrush" Color="Transparent" />
 
-    <DrawingBrush x:Key="NewGameButtonBackground">
-        <DrawingBrush.Drawing>
-            <GeometryDrawing>
-                <GeometryDrawing.Geometry>
-                    <RectangleGeometry Rect="1,1 34,34" RadiusX="3" RadiusY="3" />
-                </GeometryDrawing.Geometry>
-                <GeometryDrawing.Pen>
-                    <Pen Brush="#FFF0F0F0" Thickness="1" />
-                </GeometryDrawing.Pen>
-                <GeometryDrawing.Brush>
-                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-                        <GradientStop Color="#FFE0E0E0" Offset="0" />
-                        <GradientStop Color="#FFCACACA" Offset="1" />
-                    </LinearGradientBrush>
-                </GeometryDrawing.Brush>
-            </GeometryDrawing>
-        </DrawingBrush.Drawing>
-    </DrawingBrush>
+    <LinearGradientBrush x:Key="NewGameButtonBackground" StartPoint="0,0" EndPoint="0,1">
+        <GradientStop Color="#FFEFEFEF" Offset="0" />
+        <GradientStop Color="#FFD4D4D4" Offset="1" />
+    </LinearGradientBrush>
 
-    <DrawingBrush x:Key="NewGameButtonFocusedBackground">
-        <DrawingBrush.Drawing>
-            <DrawingGroup>
-                <GeometryDrawing>
-                    <GeometryDrawing.Geometry>
-                        <RectangleGeometry Rect="0,0 36,36" RadiusX="4" RadiusY="4" />
-                    </GeometryDrawing.Geometry>
-                    <GeometryDrawing.Pen>
-                        <Pen Brush="#FFE18059" Thickness="1" />
-                    </GeometryDrawing.Pen>
-                </GeometryDrawing>
-                <GeometryDrawing>
-                    <GeometryDrawing.Geometry>
-                        <RectangleGeometry Rect="1,1 34,34" RadiusX="3" RadiusY="3" />
-                    </GeometryDrawing.Geometry>
-                    <GeometryDrawing.Pen>
-                        <Pen Brush="#FFF0F0F0" Thickness="1" />
-                    </GeometryDrawing.Pen>
-                    <GeometryDrawing.Brush>
-                        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-                            <GradientStop Color="#FFE0E0E0" Offset="0" />
-                            <GradientStop Color="#FFCACACA" Offset="1" />
-                        </LinearGradientBrush>
-                    </GeometryDrawing.Brush>
-                </GeometryDrawing>
-            </DrawingGroup>
-        </DrawingBrush.Drawing>
-    </DrawingBrush>
+    <LinearGradientBrush x:Key="NewGameButtonMouseOverBackground" StartPoint="0,0" EndPoint="0,1">
+        <GradientStop Color="#FFFBFBFB" Offset="0" />
+        <GradientStop Color="#FFDEDEDE" Offset="1" />
+    </LinearGradientBrush>
 
-    <DrawingBrush x:Key="NewGameButtonPressedBackground">
-        <DrawingBrush.Drawing>
-            <GeometryDrawing Geometry="M24,0 L0,0 0,24">
-                <GeometryDrawing.Pen>
-                    <Pen Thickness="1"
-                             Brush="Gray" />
-                </GeometryDrawing.Pen>
-            </GeometryDrawing>
-        </DrawingBrush.Drawing>
-    </DrawingBrush>
+    <LinearGradientBrush x:Key="NewGameButtonPressedBackground" StartPoint="0,0" EndPoint="0,1">
+        <GradientStop Color="#FFCFCFCF" Offset="0" />
+        <GradientStop Color="#FFD9D9D9" Offset="1" />
+    </LinearGradientBrush>
 
     <Style x:Key="NewGameButtonStyle"
            TargetType="{x:Type Button}">
         <Setter Property="BorderThickness"
                 Value="1" />
-        <Setter Property="BorderBrush"
-                Value="Transparent" />
+        <Setter Property="BorderBrush">
+            <Setter.Value>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                    <GradientStop Color="#FFB8B8B8" Offset="0" />
+                    <GradientStop Color="#FF929292" Offset="0" />
+                </LinearGradientBrush>
+            </Setter.Value>
+        </Setter>
         <Setter Property="Background"
                 Value="{StaticResource NewGameButtonBackground}" />
         <Setter Property="Width"
@@ -164,15 +127,49 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Button}">
-                    <Border BorderThickness="{TemplateBinding BorderThickness}"
+                    <Grid>
+                        <Border BorderThickness="{TemplateBinding BorderThickness}"
                             BorderBrush="{TemplateBinding BorderBrush}"
-                            Background="{TemplateBinding Background}">
-                        <ContentPresenter />
-                    </Border>
+                            Background="{TemplateBinding Background}"
+                            CornerRadius="3" Name="outBorder">
+                        </Border>
+                        <Border BorderThickness="1" CornerRadius="2" Margin="{TemplateBinding BorderThickness}">
+                            <Border.BorderBrush>
+                                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                    <GradientStop Color="#FFFCFCFC" Offset="0" />
+                                    <GradientStop Color="#FFDDDDDD" Offset="0" />
+                                </LinearGradientBrush>
+                            </Border.BorderBrush>
+                            <ContentPresenter Name="icon" />
+                        </Border>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsFocused"
+                                 Value="True">
+                            <Setter Property="Effect" TargetName="outBorder">
+                                <Setter.Value>
+                                    <BlurEffect Radius="2" />
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                        <Trigger Property="IsPressed"
+                                 Value="True">
+                            <Setter Property="RenderTransform" TargetName="icon">
+                                <Setter.Value>
+                                    <TranslateTransform X="1" Y="1" />
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
         <Style.Triggers>
+            <Trigger Property="IsMouseOver"
+                     Value="True">
+                <Setter Property="Background"
+                        Value="{StaticResource NewGameButtonMouseOverBackground}"/>
+            </Trigger>
             <Trigger Property="IsPressed"
                      Value="True">
                 <Setter Property="Background"
@@ -180,8 +177,14 @@
             </Trigger>
             <Trigger Property="IsFocused"
                      Value="True">
-                <Setter Property="Background"
-                        Value="{StaticResource NewGameButtonFocusedBackground}" />
+                <Setter Property="BorderBrush">
+                    <Setter.Value>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                            <GradientStop Color="#FFDF8A68" Offset="0" />
+                            <GradientStop Color="#FFD47F5D" Offset="0" />
+                        </LinearGradientBrush>
+                    </Setter.Value>
+                </Setter>
             </Trigger>
         </Style.Triggers>
     </Style>
@@ -450,22 +453,113 @@
                     <Setter.Value>
                         <ControlTemplate TargetType="{x:Type Button}">
                             <Grid>
-                                <Ellipse Width="15" Height="15"
+                                <Ellipse Width="17" Height="17"
                                          Fill="{TemplateBinding Background}"
                                          Stroke="{TemplateBinding BorderBrush}"
                                          StrokeThickness="{TemplateBinding BorderThickness}" />
-                                <ContentPresenter VerticalAlignment="Center"
-                                                  HorizontalAlignment="Center" />
+                                <Path Stroke="{TemplateBinding Foreground}"
+                                      Stretch="None" StrokeThickness="1"
+                                      Data="{TemplateBinding DataContext}"
+                                      VerticalAlignment="Center" HorizontalAlignment="Center" />
                             </Grid>
                         </ControlTemplate>
                     </Setter.Value>
                 </Setter>
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding Path=IsActive, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}" Value="False">
+                        <DataTrigger.Setters>
+                            <Setter Property="Background" Value="#FF5C5B55" />
+                        </DataTrigger.Setters>
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+            <Style x:Key="SizeButtonStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource WindowButtonStyle}">
+                <Setter Property="Foreground" Value="#FF3A3935" />
+                <Setter Property="Background">
+                    <Setter.Value>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                            <GradientStop Color="#FF8C8B85" Offset="0" />
+                            <GradientStop Color="#FF5A5A55" Offset="1" />
+                        </LinearGradientBrush>
+                    </Setter.Value>
+                </Setter>
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Trigger.Setters>
+                            <Setter Property="Background">
+                                <Setter.Value>
+                                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                        <GradientStop Color="#FFCCCCCC" Offset="0" />
+                                        <GradientStop Color="#FF959595" Offset="1" />
+                                    </LinearGradientBrush>
+                                </Setter.Value>
+                            </Setter>
+                            <Setter Property="Foreground" Value="#FF62625F" />
+                        </Trigger.Setters>
+                    </Trigger>
+                    <Trigger Property="IsPressed" Value="True">
+                        <Trigger.Setters>
+                            <Setter Property="Background" Value="#FF75746D" />
+                            <Setter Property="Foreground" Value="#FF3A3935"/>
+                        </Trigger.Setters>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+            <Style x:Key="MinButtonStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource SizeButtonStyle}">
+                <Setter Property="DataContext">
+                    <Setter.Value>
+                        <StreamGeometry>M0,0.5 L7,0.5</StreamGeometry>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            <Style x:Key="RestoreButtonStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource SizeButtonStyle}">
+                <Setter Property="DataContext">
+                    <Setter.Value>
+                        <StreamGeometry>M0.5,0.5 L0.5,6.5 L6.5,6.5 L6.5,0.5 Z</StreamGeometry>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            <Style x:Key="CloseButtonStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource WindowButtonStyle}">
+                <Setter Property="Foreground" Value="#FF402013" />
+                <Setter Property="DataContext">
+                    <Setter.Value>
+                        <StreamGeometry>M0,0 L5,5 M0,5 L5,0</StreamGeometry>
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="Background">
+                    <Setter.Value>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                            <GradientStop Color="#FFF79674" Offset="0" />
+                            <GradientStop Color="#FFDF5106" Offset="1" />
+                        </LinearGradientBrush>
+                    </Setter.Value>
+                </Setter>
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Trigger.Setters>
+                            <Setter Property="Background">
+                                <Setter.Value>
+                                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                        <GradientStop Color="#FFFEAF95" Offset="0" />
+                                        <GradientStop Color="#FFE45306" Offset="1" />
+                                    </LinearGradientBrush>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger.Setters>
+                    </Trigger>
+                    <Trigger Property="IsPressed" Value="True">
+                        <Trigger.Setters>
+                            <Setter Property="Background" Value="#FFEE703B" />
+                        </Trigger.Setters>
+                    </Trigger>
+                </Style.Triggers>
             </Style>
         </Style.Resources>
         <Setter Property="WindowStyle" Value="None"/>
         <Setter Property="ResizeMode" Value="NoResize"/>
         <Setter Property="BorderThickness" Value="1" />
         <Setter Property="Background" Value="{DynamicResource WindowBackgroundBrush}"/>
+        <Setter Property="Foreground" Value="#FFDFDBD2"/>
         <Setter Property="BorderBrush">
             <Setter.Value>
                 <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
@@ -508,20 +602,15 @@
                                                 Background="#FF3C3B37"
                                                 CornerRadius="9">
                                             <DockPanel>
-                                                <Button Style="{StaticResource WindowButtonStyle}" Command="Close">
-                                                    <Path Stretch="None" Data="M0,0 L5,5 M0,5 L5,0" Stroke="#FF402013" StrokeThickness="1" />
-                                                </Button>
-                                                <Button Style="{StaticResource WindowButtonStyle}">
-                                                    <Path Stretch="None" Data="M0.5,0.5 L6.5,0.5" Stroke="#FF3A3935" StrokeThickness="1" />
-                                                </Button>
-                                                <Button Style="{StaticResource WindowButtonStyle}">
-                                                    <Path Stretch="None" Data="M0.5,0.5 L0.5,6.5 L6.5,6.5 L6.5,0.5 Z" Stroke="#FF3A3935" StrokeThickness="1" />
-                                                </Button>
+                                                <Button Style="{StaticResource CloseButtonStyle}" Command="Close" />
+                                                <Button Style="{StaticResource MinButtonStyle}" Command="{x:Static d:UICommands.Minimize}" />
+                                                <Button Style="{StaticResource RestoreButtonStyle}" Command="{x:Static d:UICommands.Maximize}" />
                                             </DockPanel>
                                         </Border>
                                         <Label Content="{TemplateBinding Title}"
-                                               Margin="4,0,0,0" VerticalAlignment="Center"
-                                               Foreground="#FFDFDBD2" HorizontalAlignment="Left" />
+                                               Margin="7,0,0,0" VerticalAlignment="Center"
+                                               FontWeight="Bold"
+                                               Foreground="{TemplateBinding Foreground}" HorizontalAlignment="Left" />
                                     </DockPanel>
                                 </Border>
                                 <AdornerDecorator>
@@ -533,11 +622,16 @@
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsActive" Value="False">
+                <Setter Property="Foreground" Value="#FF807D78"/>
+            </Trigger>
+        </Style.Triggers>
     </Style>
 
     <DataTemplate x:Key="{x:Type vm:ClearMineViewModel}" DataType="{x:Type vm:ClearMineViewModel}">
         <Grid x:Name="root" c:CommandsHelper.LoadBindingsFromVM="True"
-              Background="{DynamicResource {DynamicResource WindowBackgroundBrush}}">
+              Background="{DynamicResource WindowBackgroundBrush}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="5" />
@@ -545,8 +639,9 @@
                                MinHeight="36" />
                 <RowDefinition Height="5" />
                 <RowDefinition Height="7*" />
+                <RowDefinition Height="5" />
                 <RowDefinition Height="Auto" />
-                <RowDefinition Height="0.2*" />
+                <RowDefinition Height="10" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="5" />
@@ -557,13 +652,13 @@
                   ItemContainerStyle="{DynamicResource GeneratedMenuStyle}"
                   ItemsSource="{Binding Source={x:Static u:Game.MenuDefinition}}" />
             <Button Command="New"
-                    Margin="18,0,18,0"
+                    Margin="18,0,18,4"
                     Grid.Row="2"
                     Grid.ColumnSpan="3"
                     HorizontalAlignment="Center"
                     UseLayoutRounding="True"
                     Style="{DynamicResource NewGameButtonStyle}">
-                <Border x:Name="newGameIcon" Width="32" Height="32" Margin="5"
+                <Border x:Name="newGameIcon" Width="32" Height="32" Margin="4"
                         Background="{DynamicResource NormalFaceBrush}" />
             </Button>
             <Separator HorizontalAlignment="Stretch"
@@ -571,7 +666,12 @@
                        Grid.Row="3"
                        VerticalAlignment="Center"
                        Grid.ColumnSpan="3"
-                       Background="#FFDDDBD9" />
+                       Background="#FFD3D0CD">
+                <Separator.Effect>
+                    <!--I set the color exactly like ubuntu, but it is not as obvious as ubuntu's. Why?-->
+                    <DropShadowEffect Color="#FFFAF9F9" Direction="270" BlurRadius="0" ShadowDepth="1" />
+                </Separator.Effect>
+            </Separator>
             <Decorator x:Name="playground"
                        Grid.Row="4"
                        Grid.Column="1">
@@ -598,16 +698,26 @@
                     </ItemsControl>
                 </Border>
             </Decorator>
-            <DockPanel LastChildFill="False"
+            <Separator HorizontalAlignment="Stretch"
+                       Height="1"
                        Grid.Row="5"
+                       VerticalAlignment="Center"
+                       Grid.ColumnSpan="3"
+                       Background="#FFD3D0CD" >
+                <Separator.Effect>
+                    <DropShadowEffect Color="#FFFAF9F9" Direction="270" BlurRadius="0" ShadowDepth="1" />
+                </Separator.Effect>
+            </Separator>
+            <DockPanel LastChildFill="False"
+                       Grid.Row="6"
                        Grid.Column="1"
                        Margin="0,5,0,0"
                        Width="{Binding ActualWidth, ElementName=cellsPanel}"
                        HorizontalAlignment="Center"
                        UseLayoutRounding="True">
                 <Label Content="{DynamicResource FlagsLabel}"
-                       Margin="25,0,5,0" />
-                <TextBlock>
+                       Margin="25,0,5,0" Foreground="#FF4C4C4C" />
+                <TextBlock Foreground="#FF4C4C4C">
                     <TextBlock.Text>
                         <MultiBinding StringFormat="{}{0}/{1}">
                             <Binding Path="Flags"/>
@@ -616,10 +726,10 @@
                     </TextBlock.Text>
                 </TextBlock>
                 <TextBlock Text="{Binding DigitalTime, StringFormat=hh\\:mm\\:ss}"
-                           Margin="5,0,25,0"
+                           Margin="5,0,25,0" Foreground="#FF4C4C4C"
                            DockPanel.Dock="Right" />
                 <Label Content="{DynamicResource TimesLabel}"
-                       DockPanel.Dock="Right" />
+                       DockPanel.Dock="Right" Foreground="#FF4C4C4C" />
             </DockPanel>
         </Grid>
         <DataTemplate.Resources>

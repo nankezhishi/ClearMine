@@ -137,6 +137,7 @@
       <SubType>Code</SubType>
     </Compile>
     <AppDesigner Include="Properties\" />
+    <Compile Include="UICommands.cs" />
     <Compile Include="Visual\VisualShooter.cs" />
   </ItemGroup>
   <ItemGroup>

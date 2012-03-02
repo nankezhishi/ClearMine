@@ -16,6 +16,7 @@
     using ClearMine.Common.Modularity;
     using ClearMine.Common.Properties;
     using ClearMine.Common.Utilities;
+    using ClearMine.Framework;
     using ClearMine.Framework.Messages;
     using ClearMine.GameDefinition;
     using Microsoft.Win32;
@@ -135,7 +136,6 @@
             MessageManager.SendMessage<ShowDialogMessage>(e.OriginalSource, PopupDialog.About);
         }
         #endregion
-
         #region ViewHelp Binding
         private static CommandBinding viewHelpBinding = new CommandBinding(ApplicationCommands.Help, OnHelpExecuted);
 
@@ -144,7 +144,6 @@
             MessageManager.SendMessage<HelpRequestedMessage>();
         } 
         #endregion
-
         #region Feeback Command
         private static CommandBinding feedbackBinding = new CommandBinding(GameCommands.Feedback, OnFeedbackExecuted);
 
@@ -154,7 +153,6 @@
                 ResourceHelper.FindText("ClearMineFeedbackTitle"), Settings.Default.FeedBackEmail);
         }
         #endregion
-
         #region ShowLogCommand
         private static CommandBinding showLogBinding = new CommandBinding(GameCommands.ShowLog, OnShowLogExecuted);
 
@@ -163,7 +161,6 @@
             MessageManager.SendMessage<ShowDialogMessage>(e.OriginalSource, PopupDialog.Output, false);
         }
         #endregion
-
         #region Switch Language Command
         private static CommandBinding switchLanguageBinding = new CommandBinding(GameCommands.SwitchLanguage, OnSwitchLanguageExecuted);
 
@@ -172,7 +169,6 @@
             MessageManager.SendMessage<SwitchLanguageMessage>(e.Parameter, e.OriginalSource);
         }
         #endregion
-
         #region Switch Theme Command
         private static CommandBinding switchThemeBinding = new CommandBinding(GameCommands.SwitchTheme, OnSwitchThemeExecuted);
 
@@ -181,7 +177,6 @@
             MessageManager.SendMessage<SwitchThemeMessage>(e.Parameter, e.OriginalSource);
         }
         #endregion
-
         #region Close Command
         private static CommandBinding optionCloseBinding = new CommandBinding(ApplicationCommands.Close, OnOptionCloseExecuted);
 
@@ -194,7 +189,25 @@
             });
         }
         #endregion
+        #region Maximize Command
+        private static CommandBinding maximizeBinding = new CommandBinding(UICommands.Maximize, OnMaximizeExecuted);
 
+        private static void OnMaximizeExecuted(object sender, ExecutedRoutedEventArgs e)
+        {
+            if (Application.Current.MainWindow.WindowState == WindowState.Maximized)
+                Application.Current.MainWindow.WindowState = WindowState.Normal;
+            else if (Application.Current.MainWindow.WindowState == WindowState.Normal)
+                Application.Current.MainWindow.WindowState = WindowState.Maximized;
+        }
+        #endregion
+        #region Minimize Command
+        private static CommandBinding minimizeBinding = new CommandBinding(UICommands.Minimize, OnMinimizeExecuted);
+
+        private static void OnMinimizeExecuted(object sender, ExecutedRoutedEventArgs e)
+        {
+            Application.Current.MainWindow.WindowState = WindowState.Minimized;
+        }
+        #endregion
         #region Save Command
         private static CommandBinding saveSettingsBinding = new CommandBinding(ApplicationCommands.Save, OnSaveSettingsExecuted, OnSaveSettingsCanExecuted);
 
@@ -212,7 +225,6 @@
             e.CanExecute = String.IsNullOrWhiteSpace(e.ExtractDataContext<IDataErrorInfo>().Error);
         }
         #endregion
-
         #region BrowseHistory Command
         private static CommandBinding browseHistoryBinding = new CommandBinding(GameCommands.BrowseHistory, OnBrowseHistoryExecuted, OnBrowseHistoryCanExecute);
 
@@ -235,7 +247,6 @@
             e.CanExecute = Settings.Default.SaveGame;
         }
         #endregion
-
         #region Reset Command
 
         private static CommandBinding resetBinding = new CommandBinding(GameCommands.Reset, OnResetExecuted);
@@ -280,6 +291,8 @@
                     aboutBinding,
                     closeBinding,
                     feedbackBinding,
+                    maximizeBinding,
+                    minimizeBinding,
                     newGameBinding,
                     openBinding,
                     optionBinding,
