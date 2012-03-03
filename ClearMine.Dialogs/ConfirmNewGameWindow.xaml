@@ -5,8 +5,7 @@
               c:WindowExt.ResizeMode="NoResize"
               WindowStartupLocation="CenterOwner"
               Message="{DynamicResource ConfirmNewGameMessage}"
-              Title="{DynamicResource ConfirmNewGameDialogTitle}"
-              Style="{DynamicResource MainWindowStyle}">
+              Title="{DynamicResource ConfirmNewGameDialogTitle}">
     <OptionDialog.Options>
         <x:Array Type="{x:Type Button}">
             <Button IsDefault="True"

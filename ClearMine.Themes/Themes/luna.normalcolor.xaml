@@ -728,5 +728,6 @@
            TargetType="{x:Type Window}" BasedOn="{StaticResource {x:Type Window}}">
         <Setter Property="WindowStyle" Value="SingleBorderWindow" />
         <Setter Property="ResizeMode" Value="CanResize" />
+        <Setter Property="Background" Value="Silver" />
     </Style>
 </ResourceDictionary>

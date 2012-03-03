@@ -560,9 +560,7 @@
         </Setter>
     </Style>
 
-
     <Style TargetType="{x:Type Window}">
-        <Setter Property="Background" Value="Silver" />
         <Setter Property="UseLayoutRounding" Value="True" />
         <Setter Property="TextOptions.TextFormattingMode" Value="Display" />
         <Setter Property="Content" Value="{Binding}" />

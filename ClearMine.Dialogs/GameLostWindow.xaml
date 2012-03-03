@@ -3,8 +3,7 @@
               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
               WindowStartupLocation="CenterOwner"
               Message="{DynamicResource GameLostMessage}"
-              Title="{DynamicResource GameLostDialogTitle}"
-              Style="{DynamicResource MainWindowStyle}">
+              Title="{DynamicResource GameLostDialogTitle}">
     <OptionDialog.Options>
         <x:Array Type="{x:Type Button}">
             <Button Margin="0,0,7,0"
