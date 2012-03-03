@@ -23,7 +23,6 @@
         {
             Application.Current.Startup -= OnApplicationStartup;
 
-            InitializeMenu();
             var window = new Window()
             {
                 DataContext = new ClearMineViewModel(),
@@ -32,6 +31,9 @@
             window.SetResourceReference(Window.StyleProperty, "MainWindowStyle");
             window.SetResourceReference(Window.ContentTemplateProperty, typeof(ClearMineViewModel));
             window.Show();
+
+            // Put data initialization after dialog shows up to speed up the dialog showing.
+            InitializeMenu();
         }
 
         private static void InitializeMenu()
@@ -70,6 +72,8 @@
                     new MenuItemData("AboutMenuItemHeader", GameCommands.About)
                 },
             });
+
+            // Notify the main menu has been generated and give other modules a chance to modify the menus.
             MessageManager.SendMessage<UIComponentLoadedMessage>("MainMenu");
         }
     }
