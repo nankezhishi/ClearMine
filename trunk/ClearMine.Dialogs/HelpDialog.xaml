@@ -1,0 +1,44 @@
+﻿<Window x:Class="ClearMine.Dialogs.HelpDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        TextOptions.TextFormattingMode="Display"
+        Title="扫雷帮助">
+    <Window.Resources>
+        <Style TargetType="{x:Type Run}">
+            <Setter Property="FontSize" Value="13"/>
+        </Style>
+        <Style x:Key="Title" TargetType="{x:Type Run}">
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="Foreground"  Value="Blue"/>
+        </Style>
+    </Window.Resources>
+    <FlowDocumentScrollViewer>
+        <FlowDocument>
+            <Paragraph>
+                <Run Text="扫雷：玩法" Style="{StaticResource Title}"/>
+            </Paragraph>
+            <Paragraph>
+                <Run Text="扫雷是一种具有迷惑性的对记忆和推理能力的简单测试，它是长久以来最受欢迎的 Windows 游戏之一。游戏目标：找出空方块并避免触雷。" />
+            </Paragraph>
+            <Paragraph>
+                <Run Text="听起来很容易，不是吗？" />
+            </Paragraph>
+            <Paragraph>
+                <Run Text="扫雷：规则和基本要求"/>
+            </Paragraph>
+            <Paragraph>
+                <Run Text="游戏目标"/>
+            </Paragraph>
+            <Paragraph>
+                <Run Text="找出空方块，同时避免触雷。清除扫雷区的速度越快，得分就越高。" />
+            </Paragraph>
+            <Paragraph>
+                <Run Text="扫雷区"/>
+            </Paragraph>
+            <Paragraph>
+                <Run Text="扫雷有三个标准扫雷区可供选择，各扫雷区的扫雷难度依次递增。"/>
+                <Run Text=""/>
+            </Paragraph>
+        </FlowDocument>
+    </FlowDocumentScrollViewer>
+</Window>

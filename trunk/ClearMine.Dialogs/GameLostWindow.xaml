@@ -1,0 +1,17 @@
+﻿<OptionDialog x:Class="ClearMine.Dialogs.GameLostWindow" x:ClassModifier="internal"
+              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+              WindowStartupLocation="CenterOwner"
+              Message="{DynamicResource GameLostMessage}"
+              Title="{DynamicResource GameLostDialogTitle}">
+    <OptionDialog.Options>
+        <x:Array Type="{x:Type Button}">
+            <Button Margin="0,0,7,0"
+                    Content="{DynamicResource TryAgainLabel}"
+                    Click="OnTryAgainClick" />
+            <Button IsDefault="True"
+                    Content="{DynamicResource StartNewGameLabel}"
+                    Click="OnNewGameButtonClick" />
+        </x:Array>
+    </OptionDialog.Options>
+</OptionDialog>

@@ -1,0 +1,186 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:s="clr-namespace:System;assembly=mscorlib">
+    <!--Common Texts-->
+    <s:String x:Key="OKButtonLabel">OK</s:String>
+    <s:String x:Key="CancelButtonLabel">Cancel</s:String>
+    <s:String x:Key="ResetButtonLabel">_Reset</s:String>
+    <s:String x:Key="CopyCommandLabel">Copy</s:String>
+    <s:String x:Key="ClearCommandLabel">Clear</s:String>
+    <s:String x:Key="GameName">Clear Mine</s:String>
+    <s:String x:Key="GameVersion">Version 1.0</s:String>
+    <s:String x:Key="GameCopyRight">Hugo Gu © All Rights Reserved 2011</s:String>
+    <s:String x:Key="SavedGameFilter">ClearMine Saved Game File (*{0})|*{0}</s:String>
+    <s:String x:Key="ThemeFileFilter">Theme Resource File (*.xaml; *.xml)|*.xaml;*.xml</s:String>
+    <s:String x:Key="LanguageFileFilter">Language Resource File (*.xaml; *.xml)|*.xaml;*.xml</s:String>
+    <s:String x:Key="InvalidLanguageResourceType">A Language Resource File should only contains string resources.</s:String>
+    <s:String x:Key="MissingLanguageResourceKey">A resource named ‘{0}’ is missing in the Language Resource File.</s:String>
+    <s:String x:Key="ResourceParseError"
+              xml:space="preserve">Failed to parse the resource file, error message is: &#13;&#10; {0}</s:String>
+
+    <!-- Difficulties -->
+    <s:String x:Key="Beginner">Beginner</s:String>
+    <s:String x:Key="Intermediate">Intermediate</s:String>
+    <s:String x:Key="Advanced">Advanced</s:String>
+    
+    <!-- Main Window -->
+    <s:String x:Key="ApplicationTitle">Clear Mine</s:String>
+    <s:String x:Key="GameMenuHeader">_Game</s:String>
+    <s:String x:Key="NewGameMenuHeader">_New Game</s:String>
+    <s:String x:Key="RestartGameMenuHeader">_Restart Game</s:String>
+    <s:String x:Key="OpenGameMenuHeader">_Open Game...</s:String>
+    <s:String x:Key="SaveAsGameMenuHeader">Save Game _As...</s:String>
+    <s:String x:Key="HeroListMenuHeader">_Statistics</s:String>
+    <s:String x:Key="ExitMenuHeader">E_xit</s:String>
+    <s:String x:Key="ToolsMenuHeader">_Tools</s:String>
+    <s:String x:Key="ThemeMenuHeader">_Appearance</s:String>
+    <s:String x:Key="ClassicThemeMenuHeader">_Windows Classic</s:String>
+    <s:String x:Key="LinuxThemeMenuHeader">Linu_x</s:String>
+    <s:String x:Key="CustomThemeMenuHeader">_Custom...</s:String>
+    <s:String x:Key="LanguageMenuHeader">Lan_guage</s:String>
+    <s:String x:Key="EnglishMenuItemHeader">_English</s:String>
+    <s:String x:Key="ChineseMenuItemHeader">Chi_nese</s:String>
+    <s:String x:Key="CustomLanguageMenuItemHeader">_Custom...</s:String>
+    <s:String x:Key="OptionsMenuItemHeader">_Options</s:String>
+    <s:String x:Key="PluginsMenuItemHeader">_Plugins</s:String>
+    <s:String x:Key="HelpMenuItemHeader">_Help</s:String>
+    <s:String x:Key="ViewHelpMenuItemHeader">_View Help</s:String>
+    <s:String x:Key="SendFeedbakMenuItemHeader">Send _Feedback...</s:String>
+    <s:String x:Key="AboutMenuItemHeader">_About</s:String>
+    <s:String x:Key="FlagsLabel">Flags: </s:String>
+    <s:String x:Key="TimesLabel">Time: </s:String>
+    <s:String x:Key="AskingSaveGameMessage">Do you want to save the game?</s:String>
+    <s:String x:Key="AskingSaveGameTitle">Clear Mine - Save</s:String>
+    <s:String x:Key="ClearMineFeedbackTitle">Clear Mine Player Feedback</s:String>
+    <s:String x:Key="ClearMineFeedbackContent">The Clear mine game development team uses your feedback to improve the game. We do not use your email address for any other purpose and we dispose of your email address after the issue you report is resolved. While we are working to resolve the issue you report, we may send email to you to get further details or clarification on the feedback you send to us. After the issue you report has been addressed, we may send email to you to let you know that your feedback has been addressed.</s:String>
+    <s:String x:Key="CorruptedSavedGameMessage">The saved game has been modified to an incorrect state. Please try to fix it and open again.</s:String>
+    <s:String x:Key="CorruptedSavedGameTitle">Clear Mine - Corrupted game file</s:String>
+
+    <!-- About Dialog -->
+    <s:String x:Key="AboutDialogTitle">About ClearMine</s:String>
+    <s:String x:Key="DonateLinkText">Donate</s:String>
+    <ImageSource x:Key="DonateImage">https://www.paypal.com/en_US/i/btn/btn_donate_LG.gif</ImageSource>
+    
+    <!-- Output Dialog -->
+    <s:String x:Key="OutputDialogTitle">Clear Mine - Log</s:String>
+    
+    <!-- Game Won Dialog-->
+    <s:String x:Key="GameWonDialogTitle">Clear Mine - Won</s:String>
+    <s:String x:Key="ExitGameLabel">E_xit</s:String>
+    <s:String x:Key="StartNewGameLabel">Start _new game</s:String>
+    <s:String x:Key="GameWonMessage">Congratulations, you won the game!</s:String>
+    <s:String x:Key="MoreDetailsMessage">Show more details</s:String>
+    <s:String x:Key="GameWonBestTime">Best Time:</s:String>
+    <s:String x:Key="GameWonBestTimeSecond"> seconds</s:String>
+    <s:String x:Key="GameWonGamePlayed">Game Played:</s:String>
+    <s:String x:Key="GameWonShowAllHistory">Show me all history</s:String>
+
+    <!-- Game Lost Dialog -->
+    <s:String x:Key="GameLostDialogTitle">Clear Mine - Lost</s:String>
+    <s:String x:Key="GameLostMessage">Sorry, you lost this game. Better luck next time!</s:String>
+    <s:String x:Key="TryAgainLabel">_Try it again</s:String>
+    
+    <!-- Confirm New Game Dialog -->
+    <s:String x:Key="ConfirmNewGameDialogTitle">Clear Mine - New Game</s:String>
+    <s:String x:Key="ConfirmNewGameMessage">Do you want to start a new game or finish current game first?</s:String>
+    <s:String x:Key="ContinueGameLabel">_Continue this game</s:String>
+
+    <!-- Statistics Dialog -->
+    <s:String x:Key="StatisticsDialogTitle">Clear Mine - Statistics</s:String>
+    <s:String x:Key="GamePlayedLabel">Game played:</s:String>
+    <s:String x:Key="GameWonLabel">Game won:</s:String>
+    <s:String x:Key="GameWonRateLabel">Winning percentage:</s:String>
+    <s:String x:Key="WinningStreakLabel">Longest winning streak:</s:String>
+    <s:String x:Key="LosingStreakLabel">Longest losing streak:</s:String>
+    <s:String x:Key="CurrentStreakLabel">Current streak:</s:String>
+    <s:String x:Key="AverageScoreLabel">Average score:</s:String>
+    <s:String x:Key="PlayedHistoryLabel">_Play history of selected level:</s:String>
+    <s:String x:Key="PlayedHistoryScoreColumnLabel">Score</s:String>
+    <s:String x:Key="PlayedHistoryDateColumnLabel">Date</s:String>
+    <s:String x:Key="ResetHistoryMessage">Do you want to reset all your statistics to zero?</s:String>
+    <s:String x:Key="ResetHistoryTitle">ClearMine - Reset Statistics</s:String>
+
+    <!-- Options Dialog -->
+    <s:String x:Key="OptionsDialogTitle">Clear Mine - Options</s:String>
+    <s:String x:Key="DifficultySettingsGroupLabel">Diffculty settings</s:String>
+    <s:String x:Key="BeginnerLevelLabel">_Beginner</s:String>
+    <s:String x:Key="IntermediateLevelLabel">_Intermediate</s:String>
+    <s:String x:Key="AdvancedLevelLabel">_Advanced</s:String>
+    <s:String x:Key="CustomDifficultyLabel">_Custom:</s:String>
+    <s:String x:Key="CustomHeightLabel">_Height (9-24):</s:String>
+    <s:String x:Key="CustomWidthLabel">_Width (9-30):</s:String>
+    <s:String x:Key="CustomMinesLabel">_Mines (10-668):</s:String>
+    <s:String x:Key="GameEffectGroupLabel">Effect settings</s:String>
+    <s:String x:Key="PlaySoundLabel">Play _Sound</s:String>
+    <s:String x:Key="PlayAnimationLabel">Play A_nimation</s:String>
+    <s:String x:Key="WavingFlagEffect">Wave _Flag</s:String>
+    <s:String x:Key="GameControlGroupLabel">Control settings</s:String>
+    <s:String x:Key="ShowQuestionMarkLabel">Show _question(?) mark</s:String>
+    <s:String x:Key="ShowTooManyFlagsWarning">Show too many fla_gs warning</s:String>
+    <s:String x:Key="AlwaysNewGameLabel">Always _disgards current game when new game</s:String>
+    <s:String x:Key="AlwaysSaveGameLabel">Always save game on e_xit</s:String>
+    <s:String x:Key="AlwaysContinueGameLabel">Alwa_ys continue saved game</s:String>
+    <s:String x:Key="GameHistoryGroupLabel">History settings</s:String>
+    <s:String x:Key="SaveGameHistoryLabel">Save game _history:</s:String>
+    <s:String x:Key="BrowseGameHistoryLabel">B_rowse...</s:String>
+    <s:String x:Key="BrowseGameFolderMessage">Please select a folder to place your game playing record.</s:String>
+    <s:String x:Key="InvalidHeightMessage">Height should less than 24 and greater than 9.</s:String>
+    <s:String x:Key="InvalidWidthMessage">Width should less than 30 and greater than 9.</s:String>
+    <s:String x:Key="InvalidMinesMessage">Mines amount should less than the size of the area and greater than 10.</s:String>
+    <s:String x:Key="HistoryNotExistMessage">The game history folder doesn't exists.</s:String>
+    <s:String x:Key="ShowAccurateTime">Show acc_urate gaming time</s:String>
+    
+    <!-- Plugins Dialog -->
+    <s:String x:Key="PluginDialogTitle">Plugins</s:String>
+    <s:String x:Key="PluginNameColumnTitle">Name</s:String>
+    <s:String x:Key="PluginIsEnabledColumnTitle">Enabled</s:String>
+    <s:String x:Key="PluginPropertiesPanelLabel">Options of selected plugin:</s:String>
+    <s:String x:Key="PluginPropertyNameColumnTitle">Property Name</s:String>
+    <s:String x:Key="PluginPropertyValueColumnTitle">Property Value</s:String>
+    
+    <!-- Exception Dialog -->
+    <s:String x:Key="ExceptionBoxTitle">Clear Mine - Exception</s:String>
+    <s:String x:Key="IgnoreExceptionButtonLabel">_Ignore it</s:String>
+    <s:String x:Key="IgnoreExceptionButtonToolTip">Clear Mine may not be able to run properly if you ignore it and continue playing.</s:String>
+    <s:String x:Key="ShutdownButtonLabel">E_xit game</s:String>
+    <s:String x:Key="ExceptionBoxExpanderLabel">Show more details</s:String>
+    <s:String x:Key="SendExceptionReportLabel">_Send exception report</s:String>
+    <s:String x:Key="ExceptionReportTitle">Clear Mine Exception Report</s:String>
+    
+    <!-- Trace Log and Exception Messages -->
+    <s:String x:Key="TraceReplaceBehaviorCollectionTarget">Replacing attatched target of BehaviorCollection.</s:String>
+    <s:String x:Key="TraceReplaceBehaviorTarget">Replacing attatched target of {0}</s:String>
+    <s:String x:Key="DetatchingUnattachedBehavior">The behavior has not been attatched yet.</s:String>
+    <s:String x:Key="NewWavingAnimationCreated">A new waving animation created.</s:String>
+    <s:String x:Key="NewMonoEffectCreated">A new mono effect has been created.</s:String>
+    <s:String x:Key="NewWavingEffectCreated">A wave effect has been created.</s:String>
+    <s:String x:Key="NewNumberPresenterCreated">A new NumberPresenter created.</s:String>
+    <s:String x:Key="TraceMinesPanelArranged">MinesPanel Arranged. {0}</s:String>
+    <s:String x:Key="ScreenShotSavedTo">Screen shoot saved to {0}</s:String>
+    <s:String x:Key="CannotFindHelpFile">Cannot find the help document file: {0}</s:String>
+    <s:String x:Key="InvalidHelpFileType">Cannot open help document {0}, because it is not a CHM file.</s:String>
+    <s:String x:Key="MinesGridOverflow">No slot available for more mine cells. Please change the size of the mines grid first.</s:String>
+    <s:String x:Key="InvalidUpdateGameType">The new value should be of {0} type.</s:String>
+    <s:String x:Key="InvalidTargetCellState">Cannot set cell state to {0}.</s:String>
+    <s:String x:Key="FocusChangedMessage">Focus moved to {0}.</s:String>
+    <s:String x:Key="SavedGamePathNotFound">The path to saved game cannot be found.</s:String>
+    <s:String x:Key="InvalidClearMineGameType">The given type {0} is not an implmentation of IClearMine interface.</s:String>
+    <s:String x:Key="InvalidExpressType">Expression of type {0} is not supported by the GetMemberName method.</s:String>
+    <s:String x:Key="UseWindowToGetWindow">Use Window.GetWindow method to find the ancestor window of a control.</s:String>
+    <s:String x:Key="TargetAlreadyExists">The target file {0} already exists.</s:String>
+    <s:String x:Key="LoadBindingsFromVMReqireWindow">LoadBindingsFromVM property requires a window to apply on.</s:String>
+    <s:String x:Key="CannotFindVM">Cannot find a VM from {0}</s:String>
+    <s:String x:Key="InvalidHeaderSortHost">HeaderSort Property can only be set on a ListView</s:String>
+    <s:String x:Key="MinLengthMustPositive">The MinLength must bigger than 0.</s:String>
+    <s:String x:Key="RequiresTwoValues">values must contains at least two element.</s:String>
+    <s:String x:Key="ExpressionMustBeMember">parameter expression can only be member access expression.</s:String>
+    <s:String x:Key="PerformanceIssueMoving">Item moving in cached collection. This is harmful to performance.</s:String>
+    <s:String x:Key="CompareSingleNumberFailed">Compare SingleNumber: {0} and {1} failed.</s:String>
+    <s:String x:Key="AutoCheckIncompatibleMessage">AutoCheckMenuItemsBehavior may not be able to work with a checkable menu item correctly.</s:String>
+    <s:String x:Key="AutoCheckCannotStoreSelection">AutoCheckMenuItemsBehavior cannot find a datacontext to store the current selection.</s:String>
+    <s:String x:Key="CannotFoundResourceKey">Cannot find resouce by key: {0}</s:String>
+    <s:String x:Key="CannotFoundProperty">Cannot find property {1} in class {0}</s:String>
+    <s:String x:Key="MediaFilePlayedInfo">Played media file: {0}</s:String>
+    <s:String x:Key="PluginOptionsTypeInvalid">The type of the plugin options should be DataMap</s:String>
+    <s:String x:Key="InvalidPluginOptionId">The option {1} of plugin {0} is not initialized yet.</s:String>
+</ResourceDictionary>
