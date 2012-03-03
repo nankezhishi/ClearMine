@@ -61,7 +61,6 @@
     <Compile Include="MineCell.cs" />
     <Compile Include="PressState.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Utilities\Game.cs" />
     <Compile Include="Utilities\GameExtension.cs" />
   </ItemGroup>
   <ItemGroup>

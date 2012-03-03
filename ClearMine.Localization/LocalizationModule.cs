@@ -14,7 +14,6 @@
     using ClearMine.Common.Properties;
     using ClearMine.Common.Utilities;
     using ClearMine.GameDefinition;
-    using ClearMine.GameDefinition.Utilities;
 
     /// <summary>
     /// 
@@ -29,8 +28,14 @@
                 Settings.Default.CurrentLanguage = Thread.CurrentThread.CurrentUICulture.Name;
             switcher = new LanguageSwitcher("/ClearMine.Localization;component/{0}/Overall.xaml", new[] { typeof(string), typeof(ImageSource) }, true);
             switcher.Initialized += new EventHandler<GenericEventArgs<Collection<ResourceDictionary>>>(OnLanguageSwitcherInitailized);
-            Game.MenuDefinition[1].SubMenus.Insert(0, 
-                new MenuItemData("LanguageMenuHeader")
+            MessageManager.SubscribeMessage<UIComponentLoadedMessage>(OnUIComponentLoaded);
+        }
+
+        private void OnUIComponentLoaded(UIComponentLoadedMessage msg)
+        {
+            if (msg.ComponentName.Equals("MainMenu", StringComparison.Ordinal))
+            {
+                Infrastructure.MenuDefinition[1].SubMenus.Insert(0, new MenuItemData("LanguageMenuHeader")
                 {
                     SubMenus = new ObservableCollection<object>()
                     {
@@ -40,6 +45,7 @@
                         new LanguageMenuItemData("CustomLanguageMenuItemHeader", GameCommands.SwitchLanguage) { CommandParameter = SwitchLanguageMessage.CustomLanguageKey },
                     }
                 });
+            }
         }
 
         private void OnLanguageSwitcherInitailized(object sender, GenericEventArgs<Collection<ResourceDictionary>> e)

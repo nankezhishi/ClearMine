@@ -104,6 +104,7 @@
     <Compile Include="ComponentModel\UI\IViewModel.cs" />
     <Compile Include="ComponentModel\UI\MenuItemData.cs" />
     <Compile Include="ComponentModel\UI\ViewModelBase.cs" />
+    <Compile Include="Messaging\UIComponentLoadedMessage.cs" />
     <Compile Include="Model\Difficulty.cs" />
     <Compile Include="GenericEventArgs.cs" />
     <Compile Include="Model\HeroHistory.cs" />

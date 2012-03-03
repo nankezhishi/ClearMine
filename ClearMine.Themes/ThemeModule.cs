@@ -39,9 +39,14 @@
                 defaultThemes.Add(String.Format(themeResourcePattern, Settings.Default.CurrentTheme));
             }
             themeSwitcher.DefaultThemes = defaultThemes;
+            MessageManager.SubscribeMessage<UIComponentLoadedMessage>(OnUIComponentLoaded);
+        }
 
-            Game.MenuDefinition[1].SubMenus.Insert(0,
-                new MenuItemData("ThemeMenuHeader")
+        private void OnUIComponentLoaded(UIComponentLoadedMessage msg)
+        {
+            if (msg.ComponentName.Equals("MainMenu", StringComparison.Ordinal))
+            {
+                Infrastructure.MenuDefinition[1].SubMenus.Insert(0, new MenuItemData("ThemeMenuHeader")
                 {
                     SubMenus = new ObservableCollection<object>()
                     {
@@ -51,6 +56,7 @@
                         new ThemeMenuItemData("CustomThemeMenuHeader", GameCommands.SwitchTheme) { CommandParameter = SwitchThemeMessage.CustomThemeKey },
                     },
                 });
+            }
         }
     }
 }

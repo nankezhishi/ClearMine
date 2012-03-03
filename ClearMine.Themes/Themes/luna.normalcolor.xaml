@@ -2,11 +2,11 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:vm="clr-namespace:ClearMine.VM;assembly=ClearMine.VM"
                     xmlns:m="clr-namespace:ClearMine.VM.Commands;assembly=ClearMine.VM"
+                    xmlns:u="clr-namespace:ClearMine.Common.Utilities;assembly=ClearMine.Common"
                     xmlns:s="clr-namespace:ClearMine.Common.Messaging;assembly=ClearMine.Common"
                     xmlns:c="clr-namespace:ClearMine.Framework.Controls;assembly=ClearMine.Framework"
                     xmlns:b="clr-namespace:ClearMine.Framework.Behaviors;assembly=ClearMine.Framework"
-                    xmlns:logic="clr-namespace:ClearMine.GameDefinition;assembly=ClearMine.GameDefinition"
-                    xmlns:u="clr-namespace:ClearMine.GameDefinition.Utilities;assembly=ClearMine.GameDefinition">
+                    xmlns:logic="clr-namespace:ClearMine.GameDefinition;assembly=ClearMine.GameDefinition">
     <Rect x:Key="NumberViewbox">-0.2,-0.2 1.5,1.5</Rect>
     <Rect x:Key="MarkViewbox">-0.25,-0.2 1.45,1.5</Rect>
     <Rect x:Key="FaceViewbox">-0.2,-0.2 1.4,1.4</Rect>
@@ -622,7 +622,7 @@
             </Grid.ColumnDefinitions>
             <Menu Grid.ColumnSpan="3"
                   ItemContainerStyle="{DynamicResource GeneratedMenuStyle}"
-                  ItemsSource="{Binding Source={x:Static u:Game.MenuDefinition}}" />
+                  ItemsSource="{Binding Source={x:Static u:Infrastructure.MenuDefinition}}" />
             <DockPanel LastChildFill="False"
                        Grid.Row="2"
                        Grid.ColumnSpan="3"

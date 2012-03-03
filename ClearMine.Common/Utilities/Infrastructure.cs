@@ -1,11 +1,14 @@
 ﻿namespace ClearMine.Common.Utilities
 {
+    using System.Collections.ObjectModel;
     using System.ComponentModel;
     using System.ComponentModel.Composition.Hosting;
     using System.Diagnostics.CodeAnalysis;
     using System.IO;
     using System.Reflection;
     using System.Windows;
+
+    using ClearMine.Common.ComponentModel.UI;
 
     /// <summary>
     /// 
@@ -14,6 +17,7 @@
         Justification = "Can you tell me a way to initialize container inline?")]
     public static class Infrastructure
     {
+        private static ObservableCollection<MenuItemData> menuDefinition = new ObservableCollection<MenuItemData>();
         private static bool? isInDesignMode;
         // "." is different from Path.GetFullPath(".") in design time.
         private static CompositionContainer container = new CompositionContainer(new AggregateCatalog(new DirectoryCatalog(Path.GetFullPath("."))));
@@ -33,6 +37,15 @@
 
                 return isInDesignMode.Value;
             }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static ObservableCollection<MenuItemData> MenuDefinition
+        {
+            get { return menuDefinition; }
+            private set { menuDefinition = value; }
         }
 
         /// <summary>
