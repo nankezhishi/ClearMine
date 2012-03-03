@@ -101,7 +101,7 @@
             e.ExtractDataContext<ClearMineViewModel>().StartNewGame();
         }
         #endregion
-        #region Refresh Binding
+        #region Refresh Command
         private static CommandBinding refreshBinding = new CommandBinding(NavigationCommands.Refresh, OnRefreshExecuted);
 
         private static void OnRefreshExecuted(object sender, ExecutedRoutedEventArgs e)
@@ -118,14 +118,6 @@
                 new StatisticsViewModel() {
                     SelectedLevel = Settings.Default.Difficulty != Difficulty.Custom ? Settings.Default.Difficulty : Difficulty.Beginner
                 });
-        }
-        #endregion
-        #region Close Command
-        private static CommandBinding closeBinding = new CommandBinding(ApplicationCommands.Close, OnCloseExecuted);
-
-        private static void OnCloseExecuted(object sender, ExecutedRoutedEventArgs e)
-        {
-            Application.Current.MainWindow.Close();
         }
         #endregion
         #region About Command
@@ -177,35 +169,17 @@
             MessageManager.SendMessage<SwitchThemeMessage>(e.Parameter, e.OriginalSource);
         }
         #endregion
-        #region Close Command
+        #region Option Close Command
         private static CommandBinding optionCloseBinding = new CommandBinding(ApplicationCommands.Close, OnOptionCloseExecuted);
 
         private static void OnOptionCloseExecuted(object sender, ExecutedRoutedEventArgs e)
         {
             e.ExtractDataContext<ITransaction>(vm =>
             {
-                vm.Rollback();
+                if (vm != null)
+                    vm.Rollback();
                 (sender as DependencyObject).CloseParentWindow(false);
             });
-        }
-        #endregion
-        #region Maximize Command
-        private static CommandBinding maximizeBinding = new CommandBinding(UICommands.Maximize, OnMaximizeExecuted);
-
-        private static void OnMaximizeExecuted(object sender, ExecutedRoutedEventArgs e)
-        {
-            if (Application.Current.MainWindow.WindowState == WindowState.Maximized)
-                Application.Current.MainWindow.WindowState = WindowState.Normal;
-            else if (Application.Current.MainWindow.WindowState == WindowState.Normal)
-                Application.Current.MainWindow.WindowState = WindowState.Maximized;
-        }
-        #endregion
-        #region Minimize Command
-        private static CommandBinding minimizeBinding = new CommandBinding(UICommands.Minimize, OnMinimizeExecuted);
-
-        private static void OnMinimizeExecuted(object sender, ExecutedRoutedEventArgs e)
-        {
-            Application.Current.MainWindow.WindowState = WindowState.Minimized;
         }
         #endregion
         #region Save Command
@@ -268,17 +242,25 @@
 
         public static IEnumerable<CommandBinding> GameWonCommandBindings
         {
-            get { return new[] { statisticsBinding }; }
+            get { return new[] { UICommandBindings.CloseBinding, statisticsBinding }; }
         }
 
         public static IEnumerable<CommandBinding> StatisticsCommandBindings
         {
-            get { return new[] { resetBinding }; }
+            get { return new[] { UICommandBindings.CloseBinding, resetBinding }; }
         }
 
         public static IEnumerable<CommandBinding> OptionCommandBindings
         {
-            get { return new[] { browseHistoryBinding, optionCloseBinding, saveSettingsBinding }; }
+            get
+            {
+                return new[]
+                {
+                    browseHistoryBinding,
+                    optionCloseBinding,
+                    saveSettingsBinding
+                };
+            }
         }
 
         public static IEnumerable<CommandBinding> MainCommandBindings
@@ -288,11 +270,11 @@
                 // Arrange in alphabetical order.
                 return new[]
                 {
+                    UICommandBindings.CloseBinding,
+                    UICommandBindings.MaximizeBinding,
+                    UICommandBindings.MinimizeBinding,
                     aboutBinding,
-                    closeBinding,
                     feedbackBinding,
-                    maximizeBinding,
-                    minimizeBinding,
                     newGameBinding,
                     openBinding,
                     optionBinding,

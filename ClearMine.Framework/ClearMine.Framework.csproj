@@ -114,6 +114,7 @@
     <Compile Include="Controls\SingleNumber.cs" />
     <Compile Include="Controls\ThumbExt.cs" />
     <Compile Include="Controls\VisualAdorner.cs" />
+    <Compile Include="Controls\WindowExt.cs" />
     <Compile Include="Converters\CacheStateToVisibilityConverter.cs" />
     <Compile Include="Converters\DifficultyToBooleanConverter.cs" />
     <Compile Include="Converters\LightUpsToBooleanConverter.cs" />
@@ -137,6 +138,7 @@
       <SubType>Code</SubType>
     </Compile>
     <AppDesigner Include="Properties\" />
+    <Compile Include="UICommandBindings.cs" />
     <Compile Include="UICommands.cs" />
     <Compile Include="Visual\VisualShooter.cs" />
   </ItemGroup>

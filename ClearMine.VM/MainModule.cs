@@ -22,6 +22,7 @@
                 WindowStartupLocation = WindowStartupLocation.CenterScreen
             };
             window.SetResourceReference(Window.StyleProperty, "MainWindowStyle");
+            window.SetResourceReference(Window.ContentTemplateProperty, typeof(ClearMineViewModel));
             window.Show();
         }
     }

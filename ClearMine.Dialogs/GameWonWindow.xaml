@@ -7,7 +7,8 @@
               Message="{Binding Message, Mode=OneWay}"
               Content="{Binding Details, Mode=OneWay}"
               ExpanderMessage="{DynamicResource MoreDetailsMessage}"
-              Title="{DynamicResource GameWonDialogTitle}">
+              Title="{DynamicResource GameWonDialogTitle}"
+              Style="{DynamicResource MainWindowStyle}">
     <OptionDialog.Options>
         <x:Array Type="{x:Type Button}">
             <Button Margin="0,0,7,0"

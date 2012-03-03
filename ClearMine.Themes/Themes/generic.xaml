@@ -569,7 +569,5 @@
         <Setter Property="Width" Value="{Binding Width, Mode=TwoWay}" />
         <Setter Property="ResizeMode" Value="CanResize" />
         <Setter Property="Title" Value="{DynamicResource ApplicationTitle}" />
-        <!-- ContentTemplate is applied in a static way by default. -->
-        <Setter Property="ContentTemplate" Value="{DynamicResource {x:Type v:ClearMineViewModel}}" />
     </Style>
 </ResourceDictionary>

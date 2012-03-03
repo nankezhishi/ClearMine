@@ -559,7 +559,6 @@
         <Setter Property="ResizeMode" Value="NoResize"/>
         <Setter Property="BorderThickness" Value="1" />
         <Setter Property="Background" Value="{DynamicResource WindowBackgroundBrush}"/>
-        <Setter Property="Foreground" Value="#FFDFDBD2"/>
         <Setter Property="BorderBrush">
             <Setter.Value>
                 <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
@@ -603,14 +602,14 @@
                                                 CornerRadius="9">
                                             <DockPanel>
                                                 <Button Style="{StaticResource CloseButtonStyle}" Command="Close" />
-                                                <Button Style="{StaticResource MinButtonStyle}" Command="{x:Static d:UICommands.Minimize}" />
-                                                <Button Style="{StaticResource RestoreButtonStyle}" Command="{x:Static d:UICommands.Maximize}" />
+                                                <Button Name="minButton" Style="{StaticResource MinButtonStyle}" Command="{x:Static d:UICommands.Minimize}" />
+                                                <Button Name="maxButton" Style="{StaticResource RestoreButtonStyle}" Command="{x:Static d:UICommands.Maximize}" />
                                             </DockPanel>
                                         </Border>
                                         <Label Content="{TemplateBinding Title}"
                                                Margin="7,0,0,0" VerticalAlignment="Center"
-                                               FontWeight="Bold"
-                                               Foreground="{TemplateBinding Foreground}" HorizontalAlignment="Left" />
+                                               FontWeight="Bold" Name="title"
+                                               Foreground="#FFDFDBD2" HorizontalAlignment="Left" />
                                     </DockPanel>
                                 </Border>
                                 <AdornerDecorator>
@@ -619,14 +618,22 @@
                             </DockPanel>
                         </Border>
                     </ContentControl>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsActive" Value="False">
+                            <Setter TargetName="title" Property="Foreground" Value="#FF807D78"/>
+                        </Trigger>
+                        <Trigger Property="c:WindowExt.ResizeMode" Value="NoResize">
+                            <Setter TargetName="minButton" Property="Visibility" Value="Collapsed" />
+                            <Setter TargetName="maxButton" Property="Visibility" Value="Collapsed" />
+                        </Trigger>
+                        <Trigger Property="WindowStyle" Value="ToolWindow">
+                            <Setter TargetName="minButton" Property="Visibility" Value="Collapsed" />
+                            <Setter TargetName="maxButton" Property="Visibility" Value="Collapsed" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
-        <Style.Triggers>
-            <Trigger Property="IsActive" Value="False">
-                <Setter Property="Foreground" Value="#FF807D78"/>
-            </Trigger>
-        </Style.Triggers>
     </Style>
 
     <DataTemplate x:Key="{x:Type vm:ClearMineViewModel}" DataType="{x:Type vm:ClearMineViewModel}">
