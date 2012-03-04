@@ -14,4 +14,5 @@ OR, if you just cannot figure out how to make it build. Follow the steps below.
     1. Exclude Mono.fx and Wave.fx
     2. Rename Mono.ps.prebuild to Mono.ps and the same for Wave.ps.prebuild
     3. Change the Build Action of Mono.ps and Wave.ps to "Resource"
-    3. You should be able to build it now.
+    4. Remove the build task reference in the ClearMine.Effect.csproj file
+    5. You should be able to build it now.
