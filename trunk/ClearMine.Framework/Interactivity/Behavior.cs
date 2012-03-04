@@ -59,11 +59,11 @@
                 {
                     if (value)
                     {
-                        AttachedObject.Unloaded += new RoutedEventHandler(OnAttachedObjectUnloaded);
+                        AttachedObject.Unloaded += OnAttachedObjectUnloaded;
                     }
                     else
                     {
-                        AttachedObject.Unloaded -= new RoutedEventHandler(OnAttachedObjectUnloaded);
+                        AttachedObject.Unloaded -= OnAttachedObjectUnloaded;
                     }
                 }
             }

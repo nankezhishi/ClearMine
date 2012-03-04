@@ -20,7 +20,7 @@
         [SuppressMessage("Microsoft.Performance", "CA1810:InitializeReferenceTypeStaticFieldsInline")]
         static AnimateEffectBehavior()
         {
-            Settings.Default.PropertyChanged += new PropertyChangedEventHandler(OnSettingsChanged);
+            Settings.Default.PropertyChanged += OnSettingsChanged;
         }
 
         private static void OnSettingsChanged(object sender, PropertyChangedEventArgs e)

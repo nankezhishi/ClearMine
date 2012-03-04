@@ -66,7 +66,7 @@
             if (!(element is Thumb))
                 throw new InvalidOperationException("The ResizeMode Property should only used on Thumb.");
 
-            (element as Thumb).DragDelta += new DragDeltaEventHandler(OnResizeThumbDragDelta);
+            (element as Thumb).DragDelta += OnResizeThumbDragDelta;
         }
 
         private static void OnResizeThumbDragDelta(object sender, DragDeltaEventArgs e)

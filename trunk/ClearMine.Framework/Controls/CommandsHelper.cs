@@ -52,7 +52,7 @@
                 }
                 else
                 {
-                    host.Loaded += new RoutedEventHandler(OnLoaded);
+                    host.Loaded += OnLoaded;
                 }
             }
         }
@@ -62,7 +62,7 @@
             var frameElement = sender as FrameworkElement;
             if (frameElement != null)
             {
-                frameElement.Loaded -= new RoutedEventHandler(OnLoaded);
+                frameElement.Loaded -= OnLoaded;
                 LoadBindings(frameElement);
             }
         }

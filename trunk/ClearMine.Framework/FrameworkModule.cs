@@ -23,8 +23,8 @@
             MessageManager.SubscribeMessage<HelpRequestedMessage>(new HelpRequestedMessageProcessor().HandleMessage);
 
             // Auto save settings if any setting changes when application exit.
-            Settings.Default.PropertyChanged += new PropertyChangedEventHandler(OnSettingsPropertyChanged);
-            Application.Current.Exit += new ExitEventHandler(OnApplicationExit);
+            Settings.Default.PropertyChanged += OnSettingsPropertyChanged;
+            Application.Current.Exit += OnApplicationExit;
         }
 
         private void OnApplicationExit(object sender, ExitEventArgs e)
@@ -37,7 +37,7 @@
 
         private void OnSettingsPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            Settings.Default.PropertyChanged -= new PropertyChangedEventHandler(OnSettingsPropertyChanged);
+            Settings.Default.PropertyChanged -= OnSettingsPropertyChanged;
 
             propertyChanged = true;
         }

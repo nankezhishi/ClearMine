@@ -47,7 +47,7 @@
             this.validResourceTypes = validTypes;
             this.resourceFormat = resourceFormat;
             this.supportCustom = supportCustom;
-            Application.Current.Startup += new StartupEventHandler(CurrentApplicationStartup);
+            Application.Current.Startup += CurrentApplicationStartup;
         }
 
         protected virtual string ShowUpOpenResourceDialog(string filterKey)
@@ -115,7 +115,7 @@
 
         private void CurrentApplicationStartup(object sender, StartupEventArgs e)
         {
-            Application.Current.Startup -= new StartupEventHandler(CurrentApplicationStartup);
+            Application.Current.Startup -= CurrentApplicationStartup;
 
             try
             {

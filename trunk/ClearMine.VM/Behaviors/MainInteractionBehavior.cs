@@ -36,33 +36,33 @@
             {
                 AutoDetach = true;
                 vm = AttachedObject.DataContext as ClearMineViewModel;
-                AttachedObject.Loaded += new RoutedEventHandler(OnAttatchedObjectLoaded);
-                AttachedObject.MouseUp += new MouseButtonEventHandler(OnMineGroudMouseUp);
-                AttachedObject.MouseDown += new MouseButtonEventHandler(OnMineGroudMouseDown);
-                AttachedObject.MouseLeave += new MouseEventHandler(OnMineGroudMouseLeave);
-                AttachedObject.MouseEnter += new MouseEventHandler(OnMineGroudMouseEnter);
+                AttachedObject.Loaded += OnAttatchedObjectLoaded;
+                AttachedObject.MouseUp += OnMineGroudMouseUp;
+                AttachedObject.MouseDown += OnMineGroudMouseDown;
+                AttachedObject.MouseLeave += OnMineGroudMouseLeave;
+                AttachedObject.MouseEnter += OnMineGroudMouseEnter;
                 attachedWindow = Window.GetWindow(AttachedObject);
                 if (attachedWindow != null)
                 {
-                    attachedWindow.Closing += new CancelEventHandler(OnMainWindowClosing);
-                    attachedWindow.StateChanged += new EventHandler(OnMainWindowStateChanged);
-                    attachedWindow.SizeChanged += new SizeChangedEventHandler(OnMainWindowSizeChanged);
+                    attachedWindow.Closing += OnMainWindowClosing;
+                    attachedWindow.StateChanged += OnMainWindowStateChanged;
+                    attachedWindow.SizeChanged += OnMainWindowSizeChanged;
                 }
             }
         }
 
         protected override void OnDetaching()
         {
-            AttachedObject.Loaded -= new RoutedEventHandler(OnAttatchedObjectLoaded);
-            AttachedObject.MouseUp -= new MouseButtonEventHandler(OnMineGroudMouseUp);
-            AttachedObject.MouseDown -= new MouseButtonEventHandler(OnMineGroudMouseDown);
-            AttachedObject.MouseLeave -= new MouseEventHandler(OnMineGroudMouseLeave);
-            AttachedObject.MouseEnter -= new MouseEventHandler(OnMineGroudMouseEnter);
+            AttachedObject.Loaded -= OnAttatchedObjectLoaded;
+            AttachedObject.MouseUp -= OnMineGroudMouseUp;
+            AttachedObject.MouseDown -= OnMineGroudMouseDown;
+            AttachedObject.MouseLeave -= OnMineGroudMouseLeave;
+            AttachedObject.MouseEnter -= OnMineGroudMouseEnter;
             if (attachedWindow != null)
             {
-                attachedWindow.Closing -= new CancelEventHandler(OnMainWindowClosing);
-                attachedWindow.StateChanged -= new EventHandler(OnMainWindowStateChanged);
-                attachedWindow.SizeChanged -= new SizeChangedEventHandler(OnMainWindowSizeChanged);
+                attachedWindow.Closing -= OnMainWindowClosing;
+                attachedWindow.StateChanged -= OnMainWindowStateChanged;
+                attachedWindow.SizeChanged -= OnMainWindowSizeChanged;
             }
         }
 

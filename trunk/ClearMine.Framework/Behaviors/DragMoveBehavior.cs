@@ -13,12 +13,12 @@
     {
         protected override void OnAttached()
         {
-            AttachedObject.MouseDown += new MouseButtonEventHandler(OnUIElementMouseDown);
+            AttachedObject.MouseDown += OnUIElementMouseDown;
         }
 
         protected override void OnDetaching()
         {
-            AttachedObject.MouseDown -= new MouseButtonEventHandler(OnUIElementMouseDown);
+            AttachedObject.MouseDown -= OnUIElementMouseDown;
         }
 
         private static void OnUIElementMouseDown(object sender, MouseButtonEventArgs e)

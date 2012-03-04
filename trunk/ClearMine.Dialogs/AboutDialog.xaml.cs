@@ -8,6 +8,9 @@
     /// </summary>
     internal partial class AboutDialog
     {
+        /// <summary>
+        /// 
+        /// </summary>
         public AboutDialog()
         {
             InitializeComponent();
@@ -15,7 +18,7 @@
 
         private void OnDonateButtonClick(object sender, RoutedEventArgs e)
         {
-            WebTools.Donate(10M, "guqiangqiang@gmail.com");
+            WebTools.Donate("fadefy@gmail.com", 10M);
         }
     }
 }

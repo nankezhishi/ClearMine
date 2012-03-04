@@ -33,8 +33,8 @@
         public ClearMineGame()
         {
             timer = new DispatcherTimer() { Interval = new TimeSpan(0, 0, 0, 0, 100) };
-            timer.Tick += new EventHandler(OnTick);
-            Settings.Default.PropertyChanged += new PropertyChangedEventHandler(OnSettingsChanged);
+            timer.Tick += OnTick;
+            Settings.Default.PropertyChanged += OnSettingsChanged;
             MessageManager.SubscribeMessage<CellStateMessage>(OnCellStatusChanged);
         }
 

@@ -27,7 +27,7 @@
             if (Settings.Default.CurrentLanguage == null)
                 Settings.Default.CurrentLanguage = Thread.CurrentThread.CurrentUICulture.Name;
             switcher = new LanguageSwitcher("/ClearMine.Localization;component/{0}/Overall.xaml", new[] { typeof(string), typeof(ImageSource) }, true);
-            switcher.Initialized += new EventHandler<GenericEventArgs<Collection<ResourceDictionary>>>(OnLanguageSwitcherInitailized);
+            switcher.Initialized += OnLanguageSwitcherInitailized;
             MessageManager.SubscribeMessage<UIComponentLoadedMessage>(OnUIComponentLoaded);
         }
 

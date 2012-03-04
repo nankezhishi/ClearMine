@@ -127,11 +127,11 @@
 
                 if (value)
                 {
-                    panel.MouseMove -= new MouseEventHandler(OnMouseMove);
+                    panel.MouseMove -= OnMouseMove;
                 }
                 else
                 {
-                    panel.MouseMove += new MouseEventHandler(OnMouseMove);
+                    panel.MouseMove += OnMouseMove;
                 }
 
                 isEnabled = value;
