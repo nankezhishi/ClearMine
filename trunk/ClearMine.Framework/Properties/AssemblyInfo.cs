@@ -7,10 +7,10 @@ using System.Windows.Markup;
 [assembly: AssemblyTitle("ClearMine.Framework")]
 [assembly: AssemblyDescription("WPF Extention Library")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Poleaf")]
+[assembly: AssemblyCompany("Fadefy")]
 [assembly: AssemblyProduct("ClearMine.Framework")]
-[assembly: AssemblyCopyright("Copyright Hugo Gu © 2011")]
-[assembly: AssemblyTrademark("Poleaf")]
+[assembly: AssemblyCopyright("Copyright © 2012 Fadefy")]
+[assembly: AssemblyTrademark("Fadefy")]
 [assembly: AssemblyCulture("")]
 
 [assembly: ComVisible(false)]

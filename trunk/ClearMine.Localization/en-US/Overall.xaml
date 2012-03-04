@@ -9,7 +9,7 @@
     <s:String x:Key="ClearCommandLabel">Clear</s:String>
     <s:String x:Key="GameName">Clear Mine</s:String>
     <s:String x:Key="GameVersion">Version 1.0</s:String>
-    <s:String x:Key="GameCopyRight">Hugo Gu © All Rights Reserved 2011</s:String>
+    <s:String x:Key="GameCopyRight">Fadefy © All Rights Reserved 2012</s:String>
     <s:String x:Key="SavedGameFilter">ClearMine Saved Game File (*{0})|*{0}</s:String>
     <s:String x:Key="ThemeFileFilter">Theme Resource File (*.xaml; *.xml)|*.xaml;*.xml</s:String>
     <s:String x:Key="LanguageFileFilter">Language Resource File (*.xaml; *.xml)|*.xaml;*.xml</s:String>

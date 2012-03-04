@@ -9,7 +9,7 @@
     <s:String x:Key="ClearCommandLabel">清空</s:String>
     <s:String x:Key="GameName">扫雷</s:String>
     <s:String x:Key="GameVersion">版本 1.0</s:String>
-    <s:String x:Key="GameCopyRight">谷强强 © 版权所有 2011</s:String>
+    <s:String x:Key="GameCopyRight">Fadefy © 版权所有 2012</s:String>
     <s:String x:Key="SavedGameFilter">扫雷存档 (*{0})|*{0}</s:String>
     <s:String x:Key="ThemeFileFilter">样式资源文件 (*.xaml; *.xml)|*.xaml;*.xml</s:String>
     <s:String x:Key="LanguageFileFilter">本地化资源文件 (*.xaml; *.xml)|*.xaml;*.xml</s:String>
