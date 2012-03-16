@@ -1,0 +1,24 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ShaderBuildTask", "ShaderBuildTask\ShaderBuildTask.vcxproj", "{46A434B2-F8F5-48B4-9FD8-3203BAB4BFE4}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "ShaderBuildTaskSetup", "ShaderBuildTaskSetup\ShaderBuildTaskSetup.vdproj", "{A9A37B0E-C8CA-4E77-A153-476026B2B862}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{46A434B2-F8F5-48B4-9FD8-3203BAB4BFE4}.Debug|Win32.ActiveCfg = Debug|Win32
+		{46A434B2-F8F5-48B4-9FD8-3203BAB4BFE4}.Debug|Win32.Build.0 = Debug|Win32
+		{46A434B2-F8F5-48B4-9FD8-3203BAB4BFE4}.Release|Win32.ActiveCfg = Release|Win32
+		{46A434B2-F8F5-48B4-9FD8-3203BAB4BFE4}.Release|Win32.Build.0 = Release|Win32
+		{A9A37B0E-C8CA-4E77-A153-476026B2B862}.Debug|Win32.ActiveCfg = Debug
+		{A9A37B0E-C8CA-4E77-A153-476026B2B862}.Release|Win32.ActiveCfg = Release
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

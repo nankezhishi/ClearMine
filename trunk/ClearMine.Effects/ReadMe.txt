@@ -16,3 +16,6 @@ OR, if you just cannot figure out how to make it build. Follow the steps below.
     3. Change the Build Action of Mono.ps and Wave.ps to "Resource"
     4. Remove the build task reference in the ClearMine.Effect.csproj file
     5. You should be able to build it now.
+
+2012-3-16 Update:
+The ShaderBuildTask's source code already included.
